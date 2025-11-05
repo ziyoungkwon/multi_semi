@@ -1,4 +1,6 @@
-/src/main/resources/applications.yml
+/src/main/resources/application.yml
+/src/main/resources/application.properties
+env.txt
 
 
 HELP.md
