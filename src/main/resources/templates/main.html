@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="setContent(content)">
+    <head>
+        <meta charset="UTF-8">
+        <title>Main</title>
+        <link rel="stylesheet" th:href="@{/css/styles.css}">
+
+    </head>
+    <body>
+    <div class="header">
+        <th:block th:replace="~{common/header :: header}" />
+    </div>
+    <div class="container">
+        쇼핑몰 !!
+    </div>
+    <div class="footer">
+        <th:block th:replace="~{common/footer :: footer}" />
+    </div>
+    </body>
+</th:block>
+</html>

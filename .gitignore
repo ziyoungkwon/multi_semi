@@ -1,3 +1,6 @@
+/src/main/resources/applications.yml
+
+
 HELP.md
 .gradle
 build/
@@ -25,6 +28,8 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+
+
 
 ### NetBeans ###
 /nbproject/private/

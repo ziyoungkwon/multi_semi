@@ -25,11 +25,31 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.5'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.5'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.13'
+    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+
+    //시큐리티 추가
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    testImplementation 'org.springframework.security:spring-security-test'
+
+    // JWT 관련 라이브러리
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'  // JWT API
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'  // JWT 구현체
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'  // JWT에 Jackson을 사용하여 JSON 처리
+
+    // oauth
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 }
 
 tasks.named('test') {
