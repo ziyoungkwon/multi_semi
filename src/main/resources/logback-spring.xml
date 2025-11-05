@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<!--    https://logback.qos.ch/manual/appenders.html  -->
+    <!--로그 파일 저장 위치 %highlight: 로그 레벨별로 색상을 지정 예를 들어, ERROR는 빨간색, WARN은 노란색, INFO는 녹색으로 표시
+    %logger{36}: 클래스 이름을 최대 36자까지 잘라서 표시
+    %cyan: 청록색 -->
+    <property name="LOGS_PATH" value="logs"/>
+
+    <!-- 콘솔 출력 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{35}) - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--로그 파일에 기록될 로그 포맷을 설정 -->
+
+    <appender name="DAILY_ROLLING_FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_PATH}/logback.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+        <!--롤링 정책을 정의 TimeBasedRollingPolicy를 사용하면 시간에 따라 새로운 로그 파일이 생성 -->
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS_PATH}/app.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxFileSize>5MB</maxFileSize>
+            <maxHistory>30</maxHistory><!-- 유지 기간을 30일로 제한 -->
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+    </appender>
+
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="DAILY_ROLLING_FILE_APPENDER" />
+    </root>
+
+
+
+</configuration>
