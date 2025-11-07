@@ -6,12 +6,7 @@
 
     <select id="findByMemberId" resultType="MemberDto">
         SELECT
-            no AS memberCode,
-            id AS memberId,
-            name AS memberName,
-            pw AS memberPassword,
-            member_role AS memberRole,
-            member_email AS memberEmail
+            no AS memberCode, id AS memberId, name AS memberName, pw AS memberPassword, member_role AS memberRole, member_email AS memberEmail
         FROM member
         WHERE id = #{memberId}
 
@@ -20,23 +15,11 @@
     <select id="findByEmail" resultType="MemberDto">
 
         SELECT
-
-            no AS memberCode,
-
-            id AS memberId,
-
-            name AS memberName,
-
-            pw AS memberPassword,
-
-            member_role AS memberRole,
-
-            member_email AS memberEmail
+            no AS memberCode, id AS memberId, name AS memberName, pw AS memberPassword, member_role AS memberRole, member_email AS memberEmail
 
         FROM member
 
         WHERE member_email = #{email}
-
 
 
     </select>

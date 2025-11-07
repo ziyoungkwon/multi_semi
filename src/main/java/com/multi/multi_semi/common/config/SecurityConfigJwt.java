@@ -66,6 +66,8 @@ public class SecurityConfigJwt {
                 .authorizeHttpRequests(auth -> auth
                         // (기존 permitAll 경로들...)
                         .requestMatchers("/refresh/test").permitAll()
+                        .requestMatchers("/favorites/**").permitAll()
+                        .requestMatchers("/place/**").permitAll()
                         .requestMatchers("/", "/error", "/auth/**", "/login/oauth2/**", "/oauth2/**", "/oauth-redirect").permitAll()
                         .requestMatchers("/api/v1/products/**", "/api/v1/product/**", "/products/**", "/product/**").permitAll()
                         .requestMatchers("/api/v1/reviews/**", "/css/**", "/productimgs/**", "/favicon.ico").permitAll()
