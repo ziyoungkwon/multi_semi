@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multi.multi_semi.favorite.dao.FavoriteMapper">
+
+
+    <!-- 언더바가 들어가는 쿼리문에 한하여 매핑을 해줘야함 -->
+    <!--property : 자바에서 필드 변수 이름,  column : DB 의 해당 컬럼명-->
+    <!--DB에서의 기본키 -->
+    <!-- 1-1. resultMap의 하위 엘리먼트 -->
+    <!--
+        <id> : primary key 컬럼을 매핑하기 위한 태그이다. (성능 향상)
+        <result> : pk가 아닌 일반 컬럼에 매핑하기 위한 태그이다.
+        <constructor> : 인스턴스화 되는 클래스의 생성자에 결과를 삽입하기 위해 사용한다.
+        <association> : 연관관계로 1:1 포함관계인 경우 사용한다.
+        <collection> : 연관관계로 1:다 포함관계인 경우 사용한다.
+
+
+        dto 에 기본생성자, setter 가 생성이 되어있어야한다.
+    -->
+    <select id="selectList" resultType="FavoriteAllDto">
+        select *
+        from likes
+    </select>
+
+    <select id="selectFavoriteListWithPaging" resultType="FavoriteAllDTO">
+        select
+        seq,
+        user_id,
+        no,
+        created_at,
+        updated_at
+        from likes
+        order by seq
+        LIMIT #{startRow}, #{limit}
+    </select>
+
+    <select id="countFavorite" resultType="int">
+        select count(*) from likes
+    </select>
+
+    <insert id="insertFavorite" parameterType="FavoriteReqDto">
+        insert into likes
+        (user_id,
+        no)
+        VALUES
+        (
+        #{ userId }
+        , #{ no }
+        )
+    </insert>
+
+    <update id="deleteFavorite">
+        delete from likes
+        where seq = #{ favoriteId }
+    </update>
+
+</mapper>

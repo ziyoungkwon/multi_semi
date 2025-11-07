@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+</head>
+<body>
+
+<th:block th:replace="~{common/header :: header}" />
+
+<div th:if="${param.error}" style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 15px;">
+    <p>로그인에 실패했습니다.</p>
+    <p>Google 인증에 실패했거나, 다른 로그인 방식을 시도해 주세요.</p>
+</div>
+
+<form id="login-form">
+    email : <input type="text" name="memberEmail" placeholder="이메일을 입력하세요" /><br>
+    비밀번호 : <input type="password" name="memberPassword" placeholder="비밀번호를 입력하세요"/>
+    <button type="submit">로그인</button>
+</form>
+
+<hr>
+
+<a href="/oauth2/authorization/google" id="google-login-link" style="color: blue; font-weight: bold;">
+    Google로 로그인
+</a>
+
+
+
+
+<script>
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        const urlSearchParams = new URLSearchParams(formData);
+
+        try {
+            const response = await fetch('/auth/login', {
+                method: 'POST',
+                body: urlSearchParams,
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                // credentials: 'include'는 header.html의 전역 스크립트가 처리
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                // AT만 localStorage에 저장 (RT는 쿠키)
+                localStorage.setItem('accessToken', result.data.accessToken);
+                alert(result.message || '로그인 성공!');
+
+                // 리디렉션 로직 (동일)
+                const redirectUrl = localStorage.getItem('redirectUrl');
+                if (redirectUrl) {
+                    localStorage.removeItem('redirectUrl');
+                    window.location.href = redirectUrl;
+                } else {
+                    window.location.href = '/';
+                }
+            } else {
+                alert(result.message || '로그인에 실패했습니다.');
+            }
+        } catch (error) {
+            console.error('로그인 요청 중 오류 발생:', error);
+            alert('로그인 중 오류가 발생했습니다.');
+        }
+    });
+</script>
+
+<script>
+    const googleLoginLink = document.getElementById('google-login-link');
+    if (googleLoginLink) {
+        googleLoginLink.addEventListener('click', (e) => {
+            // 1. Google로 바로 이동하는 것을 잠시 막습니다.
+            e.preventDefault();
+
+            // 2. "내가 원래 가려던 곳" (로그인 페이지 직전 페이지)을
+            //    localStorage에서 읽어옵니다.
+            //    (만약 login 페이지만 바로 띄운 거라면,
+            //    header.html의 스크립트 3이 이미 현재 URL을 저장했을 것입니다.
+            //    하지만 혹시 모르니, login 페이지 URL이라도 저장합니다.)
+            const currentUrl = window.location.pathname + window.location.search;
+            const redirectUrl = localStorage.getItem('redirectUrl');
+
+            if (!redirectUrl && window.location.pathname !== '/auth/login') {
+                // header.html의 스크립트 3이 미처 저장하지 못한 경우,
+                // 지금 페이지(login)의 URL이라도 저장합니다.
+                localStorage.setItem('redirectUrl', currentUrl);
+            }
+
+            // 3. 이제 Google 로그인 페이지로 이동합니다.
+            window.location.href = googleLoginLink.href;
+        });
+    }
+</script>
+
+</body>
+</html>

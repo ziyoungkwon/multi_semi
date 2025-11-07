@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multi.multi_semi.member.dao.MemberMapper">
+
+    <select id="findByMemberId" resultType="MemberDto">
+        SELECT
+            no AS memberCode, id AS memberId, name AS memberName, pw AS memberPassword, member_role AS memberRole, member_email AS memberEmail
+        FROM member
+        WHERE id = #{memberId}
+
+    </select>
+
+    <select id="findByEmail" resultType="MemberDto">
+
+        SELECT
+            no AS memberCode, id AS memberId, name AS memberName, pw AS memberPassword, member_role AS memberRole, member_email AS memberEmail
+
+        FROM member
+
+        WHERE member_email = #{email}
+
+
+    </select>
+
+
+
+    <insert id="insertMember" parameterType="MemberReqDto">
+        INSERT INTO member
+        (
+            id,
+            name,
+            pw,
+            member_email,
+            member_role
+        )
+        VALUES
+            (
+                #{memberId},
+                #{memberName},
+                #{memberPassword},
+                #{memberEmail},
+                #{memberRole}
+            )
+    </insert>
+
+    <insert id="insertOAuthMember" parameterType="MemberDto">
+        INSERT INTO member
+        (
+            id,
+            name,
+            pw,
+            member_email,
+            member_role
+        )
+        VALUES
+            (
+                #{memberId},
+                #{memberName},
+                #{memberPassword},
+                #{memberEmail},
+                #{memberRole}
+            )
+    </insert>
+</mapper>
+

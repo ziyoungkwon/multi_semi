@@ -1,0 +1,167 @@
+/* 기본 스타일 */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* 컨테이너 */
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 헤더 스타일 */
+.header {
+    background-color: #007bff;>
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.header nav {
+    display: flex;
+    align-items: center;
+}
+
+.header nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.header nav a:hover {
+    color: #cce4ff;
+    text-decoration: underline;
+}
+
+/* 푸터 스타일 */
+/* 푸터 */
+.footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: relative; /* 고정 위치 문제 해결 */
+    bottom: 0;
+    width: 100%;
+    margin-top: 20px;
+    box-sizing: border-box;
+}
+
+.footer a {
+    color: #cce4ff;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* 제목 스타일 */
+h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #007bff;
+}
+
+/* 입력 폼 스타일 */
+form div {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input[type="file"] {
+    border: none;
+}
+
+/* 버튼 스타일 */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* 이미지 스타일 */
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+/* 링크 스타일 */
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* 정렬 */
+.text-center {
+    text-align: center;
+}
+
+/* 추가 마진 클래스 */
+.mt-20 {
+    margin-top: 20px;
+}
