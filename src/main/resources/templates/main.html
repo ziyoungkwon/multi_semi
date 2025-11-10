@@ -1,24 +1,106 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <link rel="stylesheet" th:href="@{/css/headerStyle.css}">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
 
-<th:block th:fragment="setContent(content)">
-    <head>
-        <meta charset="UTF-8">
-        <title>Main</title>
-        <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script type="text/javascript"
+            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=351cf74523b79c29cc49c868a9f55b3b&autoload=false"></script>
 
-    </head>
-    <body>
-    <div class="header">
-        <th:block th:replace="~{common/header :: header}" />
-    </div>
-    <div class="container">
-        쇼핑몰 !!
-        <button onclick="location.href='/favorites'">즐겨찾기</button>
-    </div>
-    <div class="footer">
-        <th:block th:replace="~{common/footer :: footer}" />
-    </div>
-    </body>
-</th:block>
+    <style>
+        /* 지도 영역을 확실히 보이도록 높이를 800px로 조정 */
+        #map {
+            width: 100%;
+            height: 600px;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+<!-- 헤더 영역: header.html 의 header fragment 삽입 -->
+<div class="header" th:replace="~{common/header :: header}"></div>
+
+<div id="map">
+</div>
+
+<!-- 푸터도 fragment 라면 이렇게 -->
+<div class="footer" th:replace="~{common/footer :: footer}"></div>
+<script>
+    // 전역 변수로 선언 (DOM ready 전에 선언하여 접근 가능하도록 함)
+    var map;
+    var positions = []; // JSON에서 로드한 위치 데이터 저장 배열
+    var markers = [];   // 지도에 표시된 마커 객체 저장 배열
+    let foldFlag = false;
+    let markerFlag = false;
+
+    // 마커를 지도에 표시하는 함수
+    function displayMarkers(data) {
+        setMarkers(null);
+        markers = [];
+        positions = [];
+
+        for (var i = 0; i < data.length; i++) {
+            var latlng = new kakao.maps.LatLng(data[i].lat, data[i].lng);
+
+            // positions 배열에 저장 시에도 새 구조 반영
+            positions.push({latlng: latlng, title: data[i].title});
+
+            // 마커를 생성하고 지도에 표시합니다
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: latlng,
+                title: data[i].title
+            });
+
+            markers.push(marker);
+        }
+    }
+
+    // 마커의 가시성을 제어하는 함수
+    function setMarkers(map) {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
+        }
+    }
+
+    // =========================================================================
+    // ⭐ 핵심 수정 사항: DOM과 API 로드가 완료된 후 지도 초기화 및 JSON 로드 시작
+    // =========================================================================
+    function initMap() {
+        // 1. 지도 객체 생성 (변동 없음)
+        var mapContainer = document.getElementById('map'),
+            mapOption = {
+                center: new kakao.maps.LatLng(37.473, 126.71), // 초기 중심을 인천 개항장 근처로 조정
+                level: 8 // 인천~전국을 볼 수 있도록 레벨 조정
+            };
+        map = new kakao.maps.Map(mapContainer, mapOption);
+
+        // 2. 외부 JSON 파일 로드 (경로 재수정: /no_descr.json)
+        $.getJSON('/json/no_descr.json', function (data) {
+            displayMarkers(data);
+
+            // 데이터가 인천 중심으로 치우쳐 있으므로 중심 좌표를 인천 중심으로 변경
+            map.setCenter(new kakao.maps.LatLng(37.47, 126.71));
+            map.relayout();
+
+        }).fail(function (jqxhr, textStatus, error) {
+            console.error("JSON 파일 로드 실패:", textStatus, error);
+        });
+    }
+
+    $(function () {
+        // 기존 autoload 방식이 문제되었을 가능성이 있으므로, initMap() 호출을 load 콜백으로 변경합니다.
+        // 현재 <head>에 autoload=false가 없으므로 kakao.maps.load(initMap)을 사용하면 오류가 발생합니다.
+
+        // 🚨 임시 조치: autoload=true 방식이므로, DOM ready에 initMap 코드를 직접 호출하는 방식으로 복구합니다.
+        // (만약 <head>에 autoload=false를 추가했다면 kakao.maps.load(initMap);이 올바릅니다.)
+
+        // 지도를 그리는 핵심 로직인 initMap()을 DOM이 준비되면 바로 실행합니다.
+        kakao.maps.load(initMap);
+    });
+</script>
+</body>
 </html>
