@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/place")
+@RequestMapping("/api/v1")
 public class PlaceController {
 
     private final PlaceService placeService;
@@ -23,7 +23,7 @@ public class PlaceController {
         this.placeService = placeService;
     }
 
-    @GetMapping("/{placeId}")
+    @GetMapping("/places/{placeId}")
     public ResponseEntity<ResponseDto> findPlaceId(@PathVariable("placeId") int placeId){
         Optional<PlaceDto> place = placeService.findByPlaceId(placeId);
 
