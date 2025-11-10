@@ -21,7 +21,7 @@
     -->
     <select id="selectList" resultType="FavoriteAllDto">
         select *
-        from likes
+        from fav
     </select>
 
     <select id="selectFavoriteListWithPaging" resultType="FavoriteAllDTO">
@@ -31,7 +31,7 @@
         no,
         created_at,
         updated_at
-        from likes
+        from fav
         order by seq
         LIMIT #{startRow}, #{limit}
     </select>

@@ -6,8 +6,8 @@
 
     <select id="findByMemberId" resultType="MemberDto">
         SELECT
-            no AS memberCode, id AS memberId, name AS memberName, pw AS memberPassword, member_role AS memberRole, member_email AS memberEmail
-        FROM member
+            no AS memberCode, id AS memberId, name AS memberName, pwd AS memberPassword, role AS memberRole, email AS memberEmail
+        FROM mem
         WHERE id = #{memberId}
 
     </select>
@@ -15,11 +15,11 @@
     <select id="findByEmail" resultType="MemberDto">
 
         SELECT
-            no AS memberCode, id AS memberId, name AS memberName, pw AS memberPassword, member_role AS memberRole, member_email AS memberEmail
+            no AS memberCode, id AS memberId, name AS memberName, pwd AS memberPassword, role AS memberRole, email AS memberEmail
 
-        FROM member
+        FROM mem
 
-        WHERE member_email = #{email}
+        WHERE email = #{email}
 
 
     </select>
@@ -27,13 +27,13 @@
 
 
     <insert id="insertMember" parameterType="MemberReqDto">
-        INSERT INTO member
+        INSERT INTO mem
         (
             id,
             name,
-            pw,
-            member_email,
-            member_role
+            pwd,
+            email,
+            role
         )
         VALUES
             (
@@ -46,13 +46,13 @@
     </insert>
 
     <insert id="insertOAuthMember" parameterType="MemberDto">
-        INSERT INTO member
+        INSERT INTO mem
         (
             id,
             name,
-            pw,
-            member_email,
-            member_role
+            pwd,
+            email,
+            role
         )
         VALUES
             (
