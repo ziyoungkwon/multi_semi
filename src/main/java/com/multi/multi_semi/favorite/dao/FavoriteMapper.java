@@ -4,6 +4,7 @@ package com.multi.multi_semi.favorite.dao;
 import com.multi.multi_semi.common.paging.SelectCriteria;
 import com.multi.multi_semi.favorite.dto.FavoriteAllDto;
 import com.multi.multi_semi.favorite.dto.FavoriteReqDto;
+import com.multi.multi_semi.favorite.dto.FavoriteResDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public interface FavoriteMapper {
 
     int countFavorite();
 
-    List<FavoriteAllDto> selectFavoriteListWithPaging(SelectCriteria selectCriteria);
+    List<FavoriteResDto> selectFavoriteListWithPaging(SelectCriteria selectCriteria);
 
     int insertFavorite(FavoriteReqDto favoriteDto);
 

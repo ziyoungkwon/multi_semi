@@ -4,6 +4,7 @@ import com.multi.multi_semi.common.paging.SelectCriteria;
 import com.multi.multi_semi.favorite.dao.FavoriteMapper;
 import com.multi.multi_semi.favorite.dto.FavoriteAllDto;
 import com.multi.multi_semi.favorite.dto.FavoriteReqDto;
+import com.multi.multi_semi.favorite.dto.FavoriteResDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class FavoriteService {
 
     public Object selectFavoriteListWithPaging(SelectCriteria selectCriteria) {
 
-        List<FavoriteAllDto> list = favoriteMapper.selectFavoriteListWithPaging(selectCriteria);
+        List<FavoriteResDto> list = favoriteMapper.selectFavoriteListWithPaging(selectCriteria);
         return list;
     }
 

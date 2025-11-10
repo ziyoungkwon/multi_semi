@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>상품 수정</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+
+</head>
+<body>
+<div class="header">
+    <th:block th:replace="~{common/header :: header}"/>
+</div>
+<div class="container">
+
+</div>
+<div class="footer">
+    <th:block th:replace="~{common/footer :: footer}"/>
+</div>
+
+<script>
+    // 수정 화면 초기 데이터 로드
+    async function loadFavoriteDelete() {
+        const favoriteSeq = [[${favoriteSeq}]];
+       // const accessToken = localStorage.getItem('accessToken');
+        try {
+            const response = await fetch(`http://localhost:8090/api/v1/favorites/${favoriteSeq}`, {
+                method: 'DELETE',
+              //  headers: {
+              //      'Authorization': `Bearer ${accessToken}`,
+              //  },
+            });
+
+            if (response.ok) {
+                alert('즐겨찾기가 삭제되었습니다.');
+                location.href = '/favorites/list';
+            } else {
+                alert('즐겨찾기 삭제가 실패했습니다.');
+            }
+        } catch (error) {
+            console.error('Error deleting Favorites:', error);
+            alert('즐겨찾기 삭제 중 오류가 발생했습니다.');
+        }
+    };
+
+    // 페이지 로드 시 초기 데이터 로드
+    document.addEventListener('DOMContentLoaded', loadFavoriteDelete);
+</script>
+</body>
+</html>
