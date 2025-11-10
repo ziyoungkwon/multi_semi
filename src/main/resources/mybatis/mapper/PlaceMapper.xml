@@ -6,16 +6,19 @@
 
     <select id="findByPlaceId" resultType="PlaceDto">
         SELECT
-            no,
-            district,
-            title,
-            description,
-            address,
-            phone,
-            created_at as createAt,
-            updated_at as updateAt
-        FROM travels
-        WHERE no = #{placeId}
+            a.no,
+            b.name as district,
+            a.title as title,
+            a.descr as description,
+            a.addr as address,
+            a.phone as phone,
+            a.lat,
+            a.lng,
+            a.first_img as imageUrl
+
+        from place a, area_code b
+        where a.dist = b.code
+          and a.no = #{placeId}
 
     </select>
 

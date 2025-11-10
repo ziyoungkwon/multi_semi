@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>상품 상세</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        .tab-buttons { display: flex; gap: 8px; margin-bottom: 10px; }
+        .tab-buttons button {
+            padding: 8px 16px;
+            border: none;
+            background: #e0e0e0;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+        .tab-buttons button.active {
+            background: #1976d2;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 16px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        #details {
+            width: 100%;
+            height: 350px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="header">
+    <th:block th:replace="~{common/header :: header}"/>
+</div>
+
+<div class="container">
+    <h2 id="placeTitle"></h2>
+    <img id="placeImage" alt="관광지 이미지" style="width: 300px; height: auto;">
+    <p id="placeDescription"></p>
+    <p id="placeAddress"></p>
+
+    <div class="tab-buttons">
+        <button class="tab-btn active" data-target="review">관련리뷰</button>
+        <button class="tab-btn" data-target="details">주변지도</button>
+        <button class="tab-btn" data-target="links">날씨정보</button>
+    </div>
+
+    <!-- ✅ 탭 콘텐츠 영역 -->
+    <div id="review" class="tab-content active">
+        <h3>관광지리뷰</h3>
+    </div>
+
+    <div id="details" class="tab-content">
+        <!-- Kakao Map 표시 -->
+    </div>
+
+    <div id="links" class="tab-content">
+        <h3>날씨 정보</h3>
+    </div>
+
+    <a href="/main" style="display: inline-block; margin-top: 20px;">홈으로 돌아가기</a>
+</div>
+
+<div class="footer">
+    <th:block th:replace="~{common/footer :: footer}"/>
+</div>
+
+<!-- ✅ 지도 SDK -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db0e01b397787c97dae0c9b59e1cca31"></script>
+
+<script>
+    const placeNo = [[${placeNo}]]; // Thymeleaf 바인딩
+
+    let map, marker;
+
+    async function loadProductDetail() {
+        try {
+            const response = await fetch(`http://localhost:8090/api/v1/places/${placeNo}`);
+            const result = await response.json();
+
+            if (result.status === 200 && result.data) {
+                const place = result.data;
+                document.getElementById('placeTitle').textContent = place.title;
+                document.getElementById('placeImage').src = place.imageUrl || '/path/to/default-image.jpg';
+                document.getElementById('placeDescription').textContent = place.description;
+                document.getElementById('placeAddress').textContent = place.address;
+
+                // ✅ 지도 생성
+                initMap(place.lat, place.lng);
+                initweather(place.lat, place.lng)
+            } else {
+                alert('관광지 상세 정보를 불러오는 데 실패했습니다.');
+            }
+        } catch (error) {
+            console.error('Error loading place detail:', error);
+            alert('관광지 정보를 불러오는 중 오류가 발생했습니다.');
+        }
+    }
+
+    // ✅ 지도 초기화 함수
+    function initMap(lat, lng) {
+        const mapContainer = document.getElementById('details');
+        const mapOption = {
+            center: new kakao.maps.LatLng(lat, lng),
+            level: 3
+        };
+        map = new kakao.maps.Map(mapContainer, mapOption);
+        marker = new kakao.maps.Marker({ position: mapOption.center });
+        marker.setMap(map);
+    }
+
+    function initweather(lat, lng) {
+
+        const resultDiv = document.getElementById('links');
+        resultDiv.innerHTML = "<p>날씨 정보를 불러오는 중...</p>";
+
+        $.ajax({
+            url: `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&lang=kr&appid=a1960ea44c537a51418257f763c42f66`,
+
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                $(`#links`).html(
+                    `<h3>${data.name} 날씨</h3>
+                    날씨 : ${data.weather[0].description}<br>
+                    풍속 : ${data.wind.speed} m/s<br>
+                    최고 기온 : ${data.main.temp_max}°C<br>
+                    최저 기온 : ${data.main.temp_min}°C<br>
+                    체감 온도 : ${data.main.feels_like}°C<br>
+                    구름 : ${data.clouds.all}%`
+                )
+            },
+            error: function (xhr, status, error) {
+                console.error("Weather API Error:", error);
+                $('#links').html("날씨 정보를 불러오지 못했습니다.");
+            }
+        })
+
+
+
+    }
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        loadProductDetail();
+
+        const buttons = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+
+                btn.classList.add('active');
+                const targetId = btn.dataset.target;
+                const targetContent = document.getElementById(targetId);
+                targetContent.classList.add('active');
+
+                // ✅ "주변지도" 탭 클릭 시 지도 다시 그리기
+                if (targetId === 'details' && map) {
+                    setTimeout(() => {
+                        map.relayout();
+                        map.setCenter(marker.getPosition());
+                    }, 200);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

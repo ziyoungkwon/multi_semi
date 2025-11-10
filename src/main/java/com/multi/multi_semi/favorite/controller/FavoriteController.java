@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/favorites")
+@RequestMapping("/api/v1")
 @Slf4j
 public class FavoriteController {
 
@@ -30,8 +30,8 @@ public class FavoriteController {
 //        return ResponseEntity.ok(list);
 //    }
 
-    @GetMapping
-    public ResponseEntity<ResponseDto> selectReviewListWithPagingForAdmin(@RequestParam(name = "offset", defaultValue = "1") String offset) {
+    @GetMapping("/favorites")
+    public ResponseEntity<ResponseDto> selectReviewListWithPaging(@RequestParam(name = "offset", defaultValue = "1") String offset) {
 
         SelectCriteria selectCriteria = getSelectCriteria(Integer.parseInt(offset), favoriteService.getFavoriteCount());
 
@@ -47,15 +47,15 @@ public class FavoriteController {
         return Pagenation.getSelectCriteria(offset, totalCount, limit, buttonAmount);
     }
 
-    @PostMapping("/favorite")
-    public ResponseEntity<ResponseDto> insertFavorie(@ModelAttribute FavoriteReqDto favoriteDto) {
+    @PostMapping("/favorites/favorite")
+    public ResponseEntity<ResponseDto> insertFavorite(@ModelAttribute FavoriteReqDto favoriteDto) {
         log.info("[FavoriteController] Insert favoriteDto: {}", favoriteDto);
         return ResponseEntity.ok().body(new ResponseDto(HttpStatus.CREATED, "favorite 등록 성공", favoriteService.insertFavorite(favoriteDto)));
     }
 
-    @DeleteMapping("/{favoriteId}")
-    public ResponseEntity<ResponseDto> deleteFavorie(@PathVariable("favoriteId") int favoriteId) {
-        return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "favorite 삭제 성공", favoriteService.deleteFavorite(favoriteId)));
+    @DeleteMapping("/favorites/{favoriteSeq}")
+    public ResponseEntity<ResponseDto> deleteFavorite(@PathVariable("favoriteSeq") int favoriteSeq) {
+        return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "favorite 삭제 성공", favoriteService.deleteFavorite(favoriteSeq)));
     }
 
 }
