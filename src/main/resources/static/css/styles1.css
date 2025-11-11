@@ -10,6 +10,30 @@ body {
     font-size: 16px;
 }
 
+/* [수정] '요청 실패' 링크 스타일 */
+#test-refresh-accessToken {
+    display: block; /* <a> 태그를 블록 요소로 변경 */
+    text-align: center; /* 가운데 정렬 */
+    padding: 10px 0; /* 위아래 여백 추가 */
+    background-color: #fffbe6; /* 배경색 추가 */
+    color: #d9534f; /* 붉은색 */
+    font-weight: bold;
+    font-size: 15px;
+    transition: background-color 0.1s ease, color 0.1s ease; /* 부드러운 효과 */
+}
+
+/* [추가] '요청 실패' 링크 - 마우스 오버 */
+#test-refresh-accessToken:hover {
+    background-color: #fff3c4;
+    text-decoration: underline;
+}
+
+/* [추가] '요청 실패' 링크 - 클릭 시 */
+#test-refresh-accessToken:active {
+    background-color: #fceb9d; /* 더 진한 노란색 */
+    color: #b92c28; /* 더 진한 붉은색 */
+}
+
 * {
     box-sizing: border-box;
 }
@@ -29,33 +53,46 @@ button {
 }
 
 /* --- 2. 헤더 상단 (노란색) --- */
+/* [수정] 헤더 레이아웃 */
 .vt-header-top {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* 로고, 검색창, 인증 영역을 분산 */
+    /* justify-content: space-between; <-- [삭제] */
     background-color: #FEE500;
     padding: 12px 24px;
     height: 68px;
+    position: relative; /* ★[추가] 자식 요소 absolute 포지셔닝의 기준 */
 }
 
-/* 2-1. 로고 */
+/* [수정] 2-1. 로고 (wrapper 추가) */
+.logo {
+    position: absolute; /* ★[추가] 절대 위치로 고정 */
+    left: 24px; /* 왼쪽 여백 */
+    top: 50%; /* 수직 중앙 정렬을 위한 설정 */
+    transform: translateY(-50%); /* 수직 중앙 정렬 */
+}
+
 .logo h1 {
     margin: 0;
     font-size: 24px;
     color: #333;
-    font-weight: 800; /* 좀 더 굵게 */
+    font-weight: 800;
 }
 
-/* 2-2. 검색창 */
+/* [수정] 2-2. 검색창 */
 .search-wrapper {
     display: flex;
     align-items: center;
-    flex-grow: 1; /* 남은 공간 차지 */
-    max-width: 600px;
-    margin: 0 24px;
+    /* flex-grow: 1; <-- [삭제] */
+
+    /* margin: 0 24px; <-- [삭제] */
+    margin: 0 auto; /* ★[추가] 헤더의 중앙에 위치 */
     background-color: #fff;
     border-radius: 8px;
     border: 1px solid #ddd;
+
+    max-width: 600px; /* [수정] 600px에서 700px로 늘림 */
+    width: 100%;    /* [추가] 래퍼가 부모 너비 내에서 최대 너비를 가지도록 설정 */
 }
 
 .search-wrapper .search-input {
@@ -64,8 +101,8 @@ button {
     outline: none;
     padding: 12px;
     font-size: 16px;
-    position: relative; /* z-index 적용을 위해 */
-    z-index: 1;         /* 드롭다운보다 뒤에 있도록 */
+    position: relative;
+    z-index: 1;
 }
 
 .search-wrapper .search-icon-btn {
@@ -75,10 +112,14 @@ button {
     z-index: 1;
 }
 
-/* 2-3. 인증 영역 (로그인/이메일) */
+/* [수정] 2-3. 인증 영역 (로그인/이메일) */
 .header-auth-area {
     display: flex;
     align-items: center;
+    position: absolute; /* ★[추가] 절대 위치로 고정 */
+    right: 24px; /* 오른쪽 여백 */
+    top: 50%; /* 수직 중앙 정렬을 위한 설정 */
+    transform: translateY(-50%); /* 수직 중앙 정렬 */
 }
 
 #user-email-display {
@@ -109,6 +150,11 @@ button {
     color: #555; /* 기본 '전체' 글씨 색 */
     font-size: 15px;
     white-space: nowrap;
+
+    /* --- [추가] --- */
+    min-width: 90px;      /* 버튼의 최소 너비를 고정 (가장 긴 "관광지명"에 맞춤) */
+    text-align: center; /* "전체" 같이 짧은 텍스트가 와도 중앙에 보이도록 */
+    /* ------------- */
 }
 
 /* 3-2. 드롭다운 목록 */
@@ -130,26 +176,22 @@ button {
 }
 
 /* 3-3. 드롭다운 항목 */
-/* [수정] a 태그에서 .category-item 클래스 선택자로 변경 */
 .category-item {
     display: block;
-    width: 100%; /* button 태그는 width 100% 필요 */
-    padding: 10px 15px; /* 여백을 늘려 클릭하기 편하게 */
+    width: 100%;
+    padding: 10px 15px;
     font-size: 15px;
     color: #333;
-    text-align: left; /* button 태그는 text-align: left 필요 */
+    text-align: left;
     transition: background-color 0.1s ease;
-
-    /* [추가] button 태그 기본 스타일 리셋 */
     background: none;
     border: none;
     cursor: pointer;
-    font-family: inherit; /* 폰트 상속 */
+    font-family: inherit;
 }
 
-/* [수정] a:hover에서 .category-item:hover로 변경 */
 .category-item:hover {
-    background-color: #f8f8f8; /* 마우스 올렸을 때 배경색 */
+    background-color: #f8f8f8;
 }
 
 

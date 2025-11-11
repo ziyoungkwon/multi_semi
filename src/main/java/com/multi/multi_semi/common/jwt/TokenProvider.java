@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
 public class TokenProvider {
 
     public static final String AUTHORITIES_KEY = "auth";  // 클레임에서 권한정보담을키
-    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 10;     //1분
-    private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000L * 60 * 60; //1000L * 60 * 60 * 24 * 1;  // 1일
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 1;     //60분
+    private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000L * 60 * 60 * 24; //1000L * 60 * 60 * 24 * 1;  // 1일
 
     private final ByteSecretKeyProvider byteSecretKeyProvider;  // JwtProvider 의존성 추가
     private final Key SKEY; // 디코딩된 문자열 비밀키

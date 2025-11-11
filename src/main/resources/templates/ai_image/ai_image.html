@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>이미지 합성 생성기 (비동기)</title>
+  <link rel="stylesheet" th:href="@{/css/styles1.css}">
+  <style>
+    /* --- 1. 기본 레이아웃 --- */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #F9F9F9;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 30px;
+      background-color: #FFFFFF;
+      border: 1px solid #EBEBEB;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    h2, h3 {
+      color: #3C1E1E;
+    }
+
+    /* --- 2. 폼 스타일 --- */
+    #generate-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    label {
+      font-size: 1.1em;
+      font-weight: 600;
+      color: #3C1E1E;
+    }
+
+    /* 텍스트 입력창 */
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #DCDCDC;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    /* 프롬프트 에러 텍스트 스타일 */
+    .error-text {
+      color: #D90000;
+      font-size: 0.9em;
+      margin-top: 5px;
+    }
+
+    /* 파일 선택 버튼 스타일 */
+    input[type="file"]::file-selector-button {
+      background-color: #FEE500;
+      color: #3C1E1E;
+      font-weight: 600;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    input[type="file"]::file-selector-button:hover {
+      background-color: #FDD800;
+    }
+
+    /* --- 3. 메인 생성 버튼 --- */
+    #generate-btn {
+      background-color: #FEE500;
+      color: #3C1E1E;
+      font-size: 18px;
+      font-weight: 700;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin-top: 10px;
+    }
+
+    #generate-btn:hover {
+      background-color: #FDD800;
+    }
+
+    #generate-btn:disabled {
+      background-color: #F0F0F0;
+      color: #AAAAAA;
+      cursor: not-allowed;
+    }
+
+    /* --- 4. 로딩 스피너 --- */
+    .loading-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      padding: 20px;
+      background-color: #FFFDEF;
+      border: 1px solid #FEE500;
+      border-radius: 8px;
+    }
+
+    .spinner {
+      border: 5px solid #F3F3F3;
+      border-top: 5px solid #3C1E1E;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* --- 5. 결과 및 에러 영역 --- */
+    #result-area {
+      margin-top: 20px;
+    }
+
+    #result-image-container {
+      text-align: center;
+    }
+
+    #result-image {
+      max-width: 600px;
+      width: 100%;
+      border: 1px solid #EBEBEB;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    #error-message {
+      padding: 15px;
+      background-color: #FFF5F5;
+      border: 1px solid #FFCDCD;
+      border-radius: 8px;
+    }
+    #error-message h3 {
+      color: #D90000;
+      margin-top: 0;
+    }
+    #error-text {
+      color: #D90000;
+      background-color: #FFFFFF;
+      padding: 10px;
+      border-radius: 4px;
+      white-space: pre-wrap;
+    }
+
+    /* 이미지 업로드 래퍼 (Flexbox) */
+    .image-upload-wrapper {
+      display: flex;
+      gap: 24px;
+    }
+
+    /* 이미지 컬럼 (각 50% 너비) */
+    .image-column {
+      flex: 1;
+    }
+
+    /* 미리보기 이미지 스타일 */
+    .image-preview {
+      display: none;
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      margin-top: 15px;
+      border-radius: 8px;
+      border: 1px solid #EBEBEB;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    /* 이미지 래퍼 (포지셔닝 기준) */
+    .image-wrapper-relative {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+    }
+
+    /* 다운로드 버튼 스타일 */
+    #download-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    #download-btn:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    /* SVG 아이콘 스타일 */
+    #download-btn svg {
+      width: 100%;
+      height: 100%;
+      fill: currentColor;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <th:block th:replace="~{common/header :: header}" />
+</div>
+
+<div class="container">
+
+  <h2>이미지 2개 + 프롬프트 기반 합성</h2>
+
+  <form id="generate-form">
+
+    <div class="image-upload-wrapper">
+      <div class="image-column">
+        <label for="image1">이미지 1 (배경):</label><br>
+        <input type="file" name="image1" id="image1" accept="image/png" required>
+        <img id="image1-preview" class="image-preview" src="" alt="이미지 1 미리보기 (배경)">
+      </div>
+      <div class="image-column">
+        <label for="image2">이미지 2 (인물/개체):</label><br>
+        <input type="file" name="image2" id="image2" accept="image/png" required>
+        <img id="image2-preview" class="image-preview" src="" alt="이미지 2 미리보기 (인물/개체)">
+      </div>
+    </div>
+
+    <div>
+      <label for="prompt">프롬프트:</label><br>
+      <input type="text" name="prompt" id="prompt" placeholder="예: 두 번째 인물을 첫 번째 배경에 자연스럽게 합성해줘" style="width:100%">
+
+      <small id="prompt-error" class="error-text" style="display: none;">프롬프트는 최소 10글자를 넘겨야합니다.</small>
+    </div>
+
+    <div id="result-area">
+      <div id="loading" class="loading-box" style="display:none;">
+        <div class="spinner"></div>
+        <h3>이미지 생성 중입니다... (최대 1분 정도 소요될 수 있습니다)</h3>
+      </div>
+
+      <div id="result-image-container" style="display:none;">
+        <h3>결과 이미지:</h3>
+
+        <div class="image-wrapper-relative">
+          <img id="result-image" src="" alt="생성된 합성 이미지">
+
+          <button type="button" id="download-btn" title="PNG로 다운로드">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+
+      <div id="error-message" style="display:none;">
+        <h3>에러 발생:</h3>
+        <pre id="error-text"></pre>
+      </div>
+    </div>
+
+    <button type="button" id="generate-btn" disabled>이미지 생성</button>
+  </form>
+
+</div> <script>
+  // 1. 필요한 HTML 요소들을 변수에 할당
+  const generateBtn = document.getElementById('generate-btn');
+  const generateForm = document.getElementById('generate-form');
+
+  // UI 피드백 요소
+  const loadingDiv = document.getElementById('loading');
+  const resultDiv = document.getElementById('result-image-container');
+  const resultImage = document.getElementById('result-image');
+  const errorDiv = document.getElementById('error-message');
+  const errorText = document.getElementById('error-text');
+
+  // 파일 입력 및 미리보기 요소
+  const image1Input = document.getElementById('image1');
+  const image2Input = document.getElementById('image2');
+  const image1Preview = document.getElementById('image1-preview');
+  const image2Preview = document.getElementById('image2-preview');
+
+  const promptInput = document.getElementById('prompt');
+  const promptError = document.getElementById('prompt-error');
+
+  // 파일 캐시 변수
+  let cachedImage1File = null;
+  let cachedImage2File = null;
+
+  const downloadBtn = document.getElementById('download-btn');
+  let pollingInterval;
+
+
+  // 다운로드 버튼 클릭 이벤트 (서버 프록시 방식)
+  downloadBtn.addEventListener('click', () => {
+    const imageUrl = resultImage.src;
+    if (!imageUrl) {
+      alert('다운로드할 이미지가 없습니다.');
+      return;
+    }
+    const proxyUrl = `/api/download-image?url=${encodeURIComponent(imageUrl)}`;
+    window.location.href = proxyUrl;
+  });
+
+
+  // 2. '이미지 생성' 버튼 클릭 이벤트 리스너
+  generateBtn.addEventListener('click', async () => {
+
+    if (!cachedImage1File || !cachedImage2File || promptInput.value.length < 10) {
+      alert('이미지 2개와 10글자 이상의 프롬프트가 필요합니다.');
+      return;
+    }
+
+    uiShowLoading();
+
+    const buildFormData = () => {
+      const formData = new FormData();
+      formData.append('image1', cachedImage1File);
+      formData.append('image2', cachedImage2File);
+      formData.append('prompt', promptInput.value);
+      return formData;
+    };
+
+
+    try {
+      // 3. (1단계) 서버에 "작업 요청"
+      const response = await fetch('/api/v1/generate-request', {
+        method: 'POST',
+        body: buildFormData()
+      });
+
+      if (!response.ok) {
+        throw new Error(`서버 요청 실패: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      const taskId = data.taskId;
+
+      pollingInterval = setInterval(() => {
+        checkStatus(taskId);
+      }, 3000);
+
+    } catch (err) {
+      // ★★★ [수정] ★★★
+      // "Failed to fetch"는 FormData + 401 조합으로 인한
+      // 자동 갱신 실패일 가능성이 매우 높습니다.
+      if (err.message === "Failed to fetch") {
+        uiShowError("요청 실패 (Failed to fetch).\n\n토큰이 만료되었을 수 있습니다.\n페이지 상단의 '엑세스 토큰 재발급 테스트' 버튼을 누른 후 다시 시도해 주세요.");
+      } else {
+        // 기타 일반 오류 (예: 서버 500)
+        uiShowError(err.message);
+      }
+    }
+  });
+
+  // 5. "폴링" (상태 체크) 함수
+  async function checkStatus(taskId) {
+    try {
+      // 5-1. 서버에 "상태 확인" 요청
+      const response = await fetch(`/api/v1/generate-status/${taskId}`);
+
+      if (!response.ok) {
+        throw new Error(`상태 조회 실패: ${response.statusText}`);
+      }
+
+      // 5-2. 상태 JSON 파싱
+      const statusData = await response.json();
+
+      // 5-3. 상태에 따라 분기 처리
+      if (statusData.status === 'SUCCESS') {
+        stopPolling();
+        uiShowSuccess(statusData.imageUrl);
+
+      } else if (statusData.status === 'FAILED') {
+        stopPolling();
+        uiShowError(statusData.error);
+
+      } else if (statusData.status === 'PENDING') {
+        console.log('Task is still pending...');
+      }
+
+    } catch (err) {
+      // (폴링 중에도 토큰 만료가 발생할 수 있으므로 동일하게 처리)
+      if (err.message === "Failed to fetch") {
+        stopPolling();
+        uiShowError("상태 확인 실패 (Failed to fetch).\n\n토큰이 만료되었을 수 있습니다.\n페이지 상단의 '요청 실패 시 여기를 클릭하세요!' 버튼을 누른 후 다시 시도해 주세요.");
+      } else {
+        stopPolling();
+        uiShowError(err.message);
+      }
+    }
+  }
+
+  // 6. 폴링 중단 함수
+  function stopPolling() {
+    if (pollingInterval) {
+      clearInterval(pollingInterval);
+      pollingInterval = null;
+    }
+  }
+
+  // 7. UI 상태 변경 헬퍼 함수들
+  function uiShowLoading() {
+    generateBtn.disabled = true;
+    generateBtn.innerText = '생성 중...';
+    loadingDiv.style.display = 'flex';
+    resultDiv.style.display = 'none';
+    errorDiv.style.display = 'none';
+  }
+  function uiShowSuccess(imageUrl) {
+    generateBtn.disabled = false;
+    generateBtn.innerText = '이미지 생성';
+    loadingDiv.style.display = 'none';
+    resultImage.src = imageUrl;
+    resultDiv.style.display = 'block';
+    errorDiv.style.display = 'none';
+  }
+
+  // ★★★ [수정] ★★★
+  function uiShowError(message) {
+    generateBtn.disabled = false;
+    generateBtn.innerText = '이미지 생성';
+    loadingDiv.style.display = 'none';
+    resultDiv.style.display = 'none';
+
+    // (이 함수는 이제 `Failed to fetch`가 포함된
+    //  친절한 안내 메시지를 직접 받습니다.)
+    errorText.innerText = message;
+
+    errorDiv.style.display = 'block';
+  }
+
+
+  // ===========================================
+  // 폼 유효성 검사 함수
+  // =-------------------------------------------
+  function validateForm() {
+    const hasImage1 = (cachedImage1File !== null);
+    const hasImage2 = (cachedImage2File !== null);
+    const promptText = promptInput.value;
+    const isPromptValid = (promptText.length >= 10);
+
+    // 1. 프롬프트 에러 메시지 표시 로직
+    if (promptText.length > 0 && !isPromptValid) {
+      promptError.style.display = 'block';
+    } else {
+      promptError.style.display = 'none';
+    }
+
+    // 2. 버튼 활성화 로직
+    if (hasImage1 && hasImage2 && isPromptValid) {
+      generateBtn.disabled = false;
+    } else {
+      generateBtn.disabled = true;
+    }
+  }
+
+
+  // ===========================================
+  // 이미지 미리보기 기능
+  // =-------------------------------------------
+
+  function updateImagePreview(event, previewElement) {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        previewElement.src = e.target.result;
+        previewElement.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    } else {
+      previewElement.src = "";
+      previewElement.style.display = 'none';
+    }
+    return file || null;
+  }
+
+  // 1번 이미지 input에 'change' 이벤트 리스너 연결
+  image1Input.addEventListener('change', (e) => {
+    cachedImage1File = updateImagePreview(e, image1Preview);
+    validateForm(); // 유효성 검사 실행
+  });
+
+  // 2번 이미지 input에 'change' 이벤트 리스너 연결
+  image2Input.addEventListener('change', (e) => {
+    cachedImage2File = updateImagePreview(e, image2Preview);
+    validateForm(); // 유효성 검사 실행
+  });
+
+  // 프롬프트 input에 'input' 이벤트 리스너 연결
+  promptInput.addEventListener('input', validateForm);
+
+</script>
+</body>
+</html>
