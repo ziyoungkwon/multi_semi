@@ -5,36 +5,48 @@
 <mapper namespace="com.multi.multi_semi.common.jwt.dao.RefreshTokenMapper">
 
 
-    <!-- Refresh Token 조회 -->
-    <select id="selectByUserId" resultType="RefreshToken" parameterType="String">
-        SELECT * FROM ref_token WHERE user_id = #{userId}
-    </select>
-
-    <!-- Refresh Token 업데이트 -->
-    <update id="updateRefreshToken" parameterType="RefreshToken">
-        UPDATE ref_token
-        SET token = #{refreshToken}, created_at = CURRENT_TIMESTAMP, expired_at = #{expiredAt}
-        WHERE email = #{userId}
-    </update>
-    <!-- Refresh Token 저장 -->
-    <insert id="insertRefreshToken" parameterType="RefreshToken">
-        INSERT INTO ref_token (email, token, created_at, expired_at)
-        VALUES (#{userId}, #{refreshToken}, CURRENT_TIMESTAMP, #{expiredAt})
-    </insert>
-
-    <!-- Refresh Token 삭제 -->
-    <delete id="deleteRefreshToken" parameterType="String">
-        DELETE FROM ref_token WHERE email = #{userId}
-    </delete>
     <!-- EMAIL로 멤버 찾기  -->
     <select id="findByEmail" resultType="RefreshToken">
         SELECT * FROM ref_token WHERE email = #{email}
     </select>
 
+    <!-- Refresh Token 저장 -->
+    <insert id="insertRefreshToken" parameterType="RefreshToken">
+        INSERT INTO ref_token (email, token, created_at, expired_at)
+        VALUES (#{email}, #{token}, CURRENT_TIMESTAMP, #{expiredAt})
+    </insert>
+
     <!-- Refresh Token 삭제 -->
     <delete id="deleteRefreshTokenByEmail" parameterType="String">
         DELETE FROM ref_token WHERE email = #{email}
     </delete>
+
+
+
+
+
+
+    <!-- Refresh Token 조회 -->
+    <select id="selectByUserId" resultType="RefreshToken" parameterType="String">
+
+        SELECT * FROM ref_token WHERE id = #{id}
+
+    </select>
+
+    <!-- Refresh Token 업데이트 -->
+    <update id="updateRefreshToken" parameterType="RefreshToken">
+        UPDATE ref_token
+
+        SET token = #{token}, created_at = CURRENT_TIMESTAMP, expired_at = #{expiredAt}
+        WHERE user_id = #{userId}
+    </update>
+
+
+    <!-- Refresh Token 삭제 -->
+    <delete id="deleteRefreshToken" parameterType="String">
+        DELETE FROM ref_token WHERE email = #{userId}
+    </delete>
+
 
     <!-- Refresh Token 업데이트 -->
     <update id="updateRefreshTokenByEmail" parameterType="RefreshToken">
@@ -42,10 +54,8 @@
         SET token = #{refreshToken}, create_at = CURRENT_TIMESTAMP, expired_at = #{expiredAt}
         WHERE email = #{email}
     </update>
-    <!-- Refresh Token 저장 -->
-    <insert id="insertRefreshTokenByEmail" parameterType="RefreshToken">
-        INSERT INTO ref_token (email, token, created_at, expired_at)
-        VALUES (#{email}, #{refreshToken}, CURRENT_TIMESTAMP, #{expiredAt})
-    </insert>
+
+
+
 </mapper>
 

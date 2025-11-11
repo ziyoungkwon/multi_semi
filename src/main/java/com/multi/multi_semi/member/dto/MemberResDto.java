@@ -10,9 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class MemberResDto {
-    private Long memberCode;
-    private String memberId;
-    private String memberName;
-    private String memberEmail;
-    private String memberRole;
+    private Long no;
+    private String id;
+    private String email;
+    private String pwd;
+    private String name;
+    private String addr;
+    private String phone;
+    private String intro;
+    private String role;
 }
