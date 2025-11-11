@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <style>
+        /* 기존 스타일 유지 */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f5f6f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .signup-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .required::after {
+            content: " *";
+            color: #e74c3c;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #FAE100;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        /* --- 에러 메시지 스타일 (서버/클라이언트 공용) --- */
+        .error-message {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none; /* 평소엔 숨김 */
+            padding: 10px;
+            border: 1px solid #f5c6cb;
+            background-color: #f8d7da;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        /* 버튼 그룹 스타일 */
+        .btn-group {
+            display: flex;
+            gap: 10px; /* 버튼 사이 간격 */
+            margin-top: 30px; /* 폼 그룹과의 간격 */
+        }
+
+        .submit-btn, .cancel-btn {
+            flex: 1; /* 너비를 동일하게 배분 */
+            padding: 14px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+            text-decoration: none; /* a 태그 밑줄 제거 */
+            box-sizing: border-box;
+            display: flex; /* 텍스트 중앙 정렬을 위해 */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .submit-btn {
+            background-color: #FAE100; /* 카카오톡 노란색 */
+            color: #3C1E1E;
+        }
+
+        .submit-btn:hover {
+            background-color: #F7D600;
+        }
+
+        .cancel-btn {
+            background-color: #e0e0e0; /* 회색 배경 */
+            color: #555;
+        }
+
+        .cancel-btn:hover {
+            background-color: #d0d0d0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="signup-container">
+    <h2>회원가입</h2>
+
+    <form th:action="@{/auth/signup}" method="post" id="signupForm">
+
+        <div class="form-group">
+            <label for="id" class="required">닉네임(ID)</label>
+            <input type="text" id="id" name="id" required placeholder="닉네임을 입력해주세요">
+        </div>
+
+        <div class="form-group">
+            <label for="email" class="required">이메일</label>
+            <input type="email" id="email" name="email" required placeholder="example@email.com">
+        </div>
+
+        <div class="form-group">
+            <label for="pwd" class="required">비밀번호</label>
+            <input type="password" id="pwd" name="pwd" required placeholder="비밀번호를 입력해주세요">
+        </div>
+
+        <div class="form-group">
+            <label for="pwdConfirm" class="required">비밀번호 확인</label>
+            <input type="password" id="pwdConfirm" required placeholder="비밀번호를 다시 입력해주세요">
+            <!-- 클라이언트 측 비밀번호 불일치 에러 메시지 -->
+            <div class="error-message" id="pwdError" style="background-color: #f8d7da; border-color: #f5c6cb;">비밀번호가 일치하지 않습니다.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="name" class="required">이름</label>
+            <input type="text" id="name" name="name" required placeholder="이름을 입력해주세요">
+        </div>
+
+        <div class="form-group">
+            <label for="phone">전화번호</label>
+            <input type="tel" id="phone" name="phone" placeholder="010-1234-5678">
+        </div>
+
+        <div class="form-group">
+            <label for="addr">주소</label>
+            <input type="text" id="addr" name="addr" placeholder="주소를 입력해주세요">
+        </div>
+
+        <div class="form-group">
+            <label for="intro">자기소개</label>
+            <textarea id="intro" name="intro" placeholder="간단한 자기소개를 입력해주세요"></textarea>
+        </div>
+
+        <!--
+      * 서버에서 오는 에러 메시지를 표시할 공간
+      * (참고: th:action, method="post"는 JS가 비활성화된 경우를 위한 예비로 남겨둘 수 있습니다)
+    -->
+        <div class="error-message" id="serverError"></div>
+
+        <div class="btn-group">
+            <button type="submit" class="submit-btn">가입하기</button>
+            <a th:href="@{/auth/login}" class="cancel-btn">취소</a>
+        </div>
+    </form>
+</div>
+
+<!--
+=====================================================
+* 여기가 핵심입니다: <script> 블록 전체를 수정 *
+=====================================================
+-->
+<script>
+    const form = document.getElementById('signupForm');
+    const pwd = document.getElementById('pwd');
+    const pwdConfirm = document.getElementById('pwdConfirm');
+
+    // 에러 메시지 영역
+    const pwdError = document.getElementById('pwdError');
+    const serverError = document.getElementById('serverError');
+
+    // 폼 제출 이벤트를 가로챕니다 (AJAX/Fetch 통신)
+    form.addEventListener('submit', async function (e) {
+
+        // 1. 기본 폼 제출 동작(페이지 새로고침)을 막습니다.
+        e.preventDefault();
+
+        // 2. 에러 메시지 초기화
+        pwdError.style.display = 'none';
+        serverError.style.display = 'none';
+
+        // 3. (클라이언트 측) 비밀번호 일치 검사
+        if (pwd.value !== pwdConfirm.value) {
+            pwdError.style.display = 'block';
+            pwdConfirm.focus();
+            return; // 서버로 전송하지 않고 종료
+        }
+
+        // 4. 폼 데이터를 가져옵니다.
+        // @ModelAttribute를 사용 중이므로 URLSearchParams를 사용합니다.
+        const formData = new FormData(form);
+        const urlSearchParams = new URLSearchParams(formData);
+
+        try {
+            // 5. 서버로 회원가입 요청 (fetch)
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: urlSearchParams, // @ModelAttribute는 이 형식으로 받습니다.
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+
+            // 6. 서버 응답 처리
+            if (response.ok) { // 성공 (HTTP 2xx)
+                // 6-1. 성공 시 (201 Created)
+                alert('회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.');
+                window.location.href = '/auth/login'; // 로그인 페이지로 이동
+            } else {
+                // 6-2. 실패 시 (HTTP 4xx, 5xx)
+                // GlobalExceptionHandler가 보낸 JSON 에러 메시지를 받습니다.
+                const errorData = await response.json();
+
+                // 서버 에러 메시지 영역에 메시지를 표시합니다.
+                serverError.textContent = errorData.message || '알 수 없는 오류가 발생했습니다.';
+                serverError.style.display = 'block';
+            }
+
+        } catch (error) {
+            // 7. 네트워크 오류 등
+            console.error('회원가입 요청 중 오류 발생:', error);
+            serverError.textContent = '서버 통신 중 오류가 발생했습니다.';
+            serverError.style.display = 'block';
+        }
+    });
+
+    // (참고) 실시간 비밀번호 검증 로직은 그대로 둬도 좋습니다.
+    function checkPasswordMatch() {
+        if (pwd.value !== '' && pwdConfirm.value !== '') {
+            if (pwd.value !== pwdConfirm.value) {
+                pwdError.style.display = 'block';
+            } else {
+                pwdError.style.display = 'none';
+            }
+        }
+    }
+
+    pwd.addEventListener('input', checkPasswordMatch);
+    pwdConfirm.addEventListener('input', checkPasswordMatch);
+
+</script>
+
+</body>
+</html>

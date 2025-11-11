@@ -54,7 +54,7 @@ public class TokenProvider {
         long now = new Date().getTime(); // 현재 시간
         if(code.equals("A")){
             tokenExpirationTime = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
-            claims.put(AUTHORITIES_KEY, String.join(",", roles)); // 엑세스 토큰ㅇ니니 역할 넣기
+            claims.put(AUTHORITIES_KEY, String.join(",", roles)); // 엑세스 토큰에 역할 넣기
         }
         else if(code.equals("R")){
             tokenExpirationTime = new Date(now + REFRESH_TOKEN_EXPIRE_TIME);
