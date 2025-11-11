@@ -1,9 +1,6 @@
 package com.multi.multi_semi.auth.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,10 +11,11 @@ import java.util.Collection;
 @AllArgsConstructor
 @Builder
 public class CustomUser implements UserDetails {
-    //private Long memberCode;
-    private String memberId;
+    private Long no;
+    private String id;
     private String email; // 이메일을 로그인 ID로 사용
-    private String memberPassword;
+    private String pwd;
+    private String uuid;
     private Collection<? extends GrantedAuthority> authorities;
 
     @Override
@@ -27,21 +25,16 @@ public class CustomUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return memberPassword;
+        return pwd;
     }
 
-//    @Override
-//    public String getUsername() {
-//        return memberId;
-//    }
     @Override
     public String getUsername() {
         return email;
-    }// return email; // 이메일을 반환하여 Spring Security에서 로그인 ID로 사용
+    } // 이메일을 반환하여 시큐리티에서 로그인 ID로 사용
 
     @Override
-    public boolean isAccountNonExpired() {
-        return true; }
+    public boolean isAccountNonExpired() {return true;}
 
     @Override
     public boolean isAccountNonLocked() {
