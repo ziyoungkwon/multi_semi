@@ -24,6 +24,7 @@
 
         <a th:href="@{/auth/login}" id="global-login-link">로그인</a>
         <a th:href="@{/favorites/list}">즐겨찾기 목록</a>
+        <a th:href="@{/reviews/list}">리뷰게시판</a>
         <button type="button" id="logout-btn" style="cursor: pointer;">로그아웃</button>
     </nav>
 
@@ -236,11 +237,19 @@
             const logoutButton = document.getElementById('logout-btn');
             const emailDisplay = document.getElementById('user-email-display'); // [신규]
 
+            const favoritesLink = document.querySelector('a[href="/favorites/list"]');
+            const reviewsLink = document.querySelector('a[href="/reviews/list"]');
+
+
+
             if (loginLink && logoutButton && emailDisplay) {
                 if (accessToken) {
                     // === 로그인한 상태 ===
                     loginLink.style.display = 'none';
                     logoutButton.style.display = 'inline-block';
+
+                    if (favoritesLink) favoritesLink.style.display = 'inline-block';
+                    if (reviewsLink) reviewsLink.style.display = 'inline-block';
 
                     // [ ★★★ 신규 ★★★ ]
                     // 1. AT를 디코딩해서 페이로드를 가져옵니다.
@@ -256,6 +265,9 @@
                     loginLink.style.display = 'inline-block';
                     logoutButton.style.display = 'none';
                     emailDisplay.style.display = 'none'; // [신규] 이메일 숨김
+
+                    if (favoritesLink) favoritesLink.style.display = 'none';
+                    if (reviewsLink) reviewsLink.style.display = 'none';
                 }
             }
 

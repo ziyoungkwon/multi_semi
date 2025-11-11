@@ -58,7 +58,7 @@ public class ReviewService {
         return result;
     }
 
-    public List<ReviewResDto> findReviewByMemberId(String memberId, SelectCriteria selectCriteria) {
+    public List<ReviewResDto> findReviewByMemberId(Long memberId, SelectCriteria selectCriteria) {
 
         List<ReviewResDto> reviewList = reviewMapper.findReviewByMemberId(memberId, selectCriteria);
 
