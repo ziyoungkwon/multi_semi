@@ -22,5 +22,6 @@ public class PlaceDto {
     private BigDecimal lat;
     private BigDecimal lng;
     private String imageUrl;
+    private double avgRate;
 }
 

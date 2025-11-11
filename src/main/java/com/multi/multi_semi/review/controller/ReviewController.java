@@ -73,7 +73,9 @@ public class ReviewController {
 
         SelectCriteria selectCriteria = getSelectCriteria(Integer.parseInt(offset), reviewService.selectReviewTotal());
 
-        ResponseDtoWithPaging responseDtoWithPaging = new ResponseDtoWithPaging(reviewService.findReviewByMemberId(customUser.getNo(), selectCriteria), selectCriteria);
+        System.out.println("customerUser.getEmail() : " + customUser.getEmail());
+
+        ResponseDtoWithPaging responseDtoWithPaging = new ResponseDtoWithPaging(reviewService.findReviewByMemberEmail(customUser.getEmail(), selectCriteria), selectCriteria);
 
         return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "내가 쓴 리뷰 리스트 조회 성공", responseDtoWithPaging));
     }

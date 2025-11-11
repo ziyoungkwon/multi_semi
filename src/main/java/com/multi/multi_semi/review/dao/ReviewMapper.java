@@ -22,7 +22,7 @@ public interface ReviewMapper {
 
     int deleteReview(@Param("no") int reviewNo);
 
-    List<ReviewResDto> findReviewByMemberId(@Param("memberNo") Long memberId, @Param("selectCriteria")SelectCriteria selectCriteria);
+    List<ReviewResDto> findReviewByMemberEmail(@Param("memberEmail") String memberEmail, @Param("selectCriteria")SelectCriteria selectCriteria);
 
     List<ReviewResDto> findReviewByPlaceId(@Param("placeNo") int placeId);
 

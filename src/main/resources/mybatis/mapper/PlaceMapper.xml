@@ -22,6 +22,87 @@
 
     </select>
 
+    <select id="findAllPlaces" resultType="PlaceDto">
+        SELECT
+            a.no,
+            b.name as district,
+            a.title as title,
+            a.descr as description,
+            a.addr as address,
+            a.phone as phone,
+            a.lat,
+            a.lng,
+            a.first_img as imageUrl
+        from place a
+            join area_code b on a.dist = b.code
+        order by a.no
+            LIMIT #{startRow}, #{limit}
+    </select>
+
+    <select id="selectPlaceTotal" resultType="int">
+        SELECT
+            COUNT(*)
+        from place a
+                 join area_code b on a.dist = b.code
+    </select>
+
+    <select id="selectSearchProductList" resultType="PlaceDto">
+        SELECT
+            a.no,
+            b.name as district,
+            a.title as title,
+            a.descr as description,
+            a.addr as address,
+            a.phone as phone,
+            a.lat,
+            a.lng,
+            a.first_img as imageUrl
+        from place a
+                 join area_code b on a.dist = b.code
+        WHERE a.title LIKE CONCAT('%', #{search}, '%')
+        order by a.no desc
+    </select>
+
+    <select id="findPlacesByRate" parameterType="int" resultType="placeDto">
+        SELECT
+        p.no AS no,
+        p.dist AS dist,
+        p.title AS title,
+        p.descr AS descr,
+        p.addr AS addr,
+        p.phone AS phone,
+        p.lat AS lat,
+        p.lng AS lng,
+        p.content_id AS contentId,
+        p.first_img AS firstImg,
+        ROUND(IFNULL(AVG(r.rate), 0), 1) AS avgRate
+        FROM place p
+        LEFT JOIN rev r ON p.no = r.place_no
+        GROUP BY p.no, p.dist, p.title, p.descr, p.addr, p.phone, p.lat, p.lng, p.content_id, p.first_img
+        HAVING avgRate >= #{rating}
+        AND avgRate &lt; #{rating} + 1
+        ORDER BY avgRate DESC
+
+
+    </select>
+
+    <select id="findPlacesByAreaCode" parameterType="int" resultType="PlaceDto">
+        SELECT
+            p.no AS no,
+            a.name AS district,
+            p.title AS title,
+            p.descr AS descr,
+            p.addr AS addr,
+            p.phone AS phone,
+            p.lat AS lat,
+            p.lng AS lng,
+            p.content_id AS contentId,
+            p.first_img AS firstImg
+        FROM place p
+            JOIN area_code a ON p.dist = a.code
+        WHERE p.dist = #{code}
+        ORDER BY p.title ASC
+    </select>
 
 
 
