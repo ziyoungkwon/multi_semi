@@ -1,34 +1,51 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Virtual Trip</title>
+
+    <style>
+
+    </style>
+
+</head>
 <body>
 
 <div th:fragment="header">
 
-    <h1>상품 관리 시스템</h1>
+    <h1>Virtual Trip</h1>
     <nav>
         <a th:href="@{/}">홈</a>
 
         <span id="user-email-display" style="display: none; margin-right: 15px; font-weight: bold;"></span>
 
-        <a href="#" id="test-refresh-accessToken">엑세스 토큰 재발급 테스트</a>
+        <div class="vt-header-top">
+            <a href="#" class="logo">
+                <!--<img th:src="@{/img/VTlogo.png}" alt="Virtual Trip 로고">-->
+            </a>
 
-        <script>
-            document.getElementById('test-refresh-accessToken').addEventListener('click', async (e) => {
-                e.preventDefault();
+            <div class="search-wrapper">
+                <button class="category-btn" aria-label="카테고리 선택">▽</button>
+                <input type="text" class="search-input" placeholder="여행지를 검색해 보세요">
+                <button class="search-icon-btn" aria-label="검색">🔍</button>
+            </div>
 
-                const response = await fetch('/refresh/test', { method: 'GET' });
-                const result = await response.json();
-                console.log('응답 결과:', result);
-            });
-        </script>
+            <a th:href="@{/auth/login}" id="global-login-link">로그인</a>
+            <button type="button" id="logout-btn" style="cursor: pointer;">로그아웃</button>
+        </div>
 
-        <a th:href="@{/auth/login}" id="global-login-link">로그인</a>
-        <a th:href="@{/favorites/list}">즐겨찾기 목록</a>
-        <button type="button" id="logout-btn" style="cursor: pointer;">로그아웃</button>
+        <nav class="vt-nav">
+            <a href="#" class="nav-item">관광지 목록</a>
+            <a href="#" class="nav-item">리뷰</a>
+            <a href="#" class="nav-item">이미지 만들기</a>
+            <a href="#" class="nav-item">마이페이지</a>
+        </nav>
     </nav>
 
 
     <script>
+        // (사용자 원본 스크립트 2 - fetch 래핑 - 수정 X)
+
         // 1. 기존의 window.fetch 함수를 백업해둡니다.
         const originalFetch = window.fetch;
 
@@ -163,6 +180,7 @@
 
 
     <script>
+        // (사용자 원본 스크립트 3 - 로그아웃 버튼 - 수정 X)
         const logoutButton = document.getElementById('logout-btn');
         if (logoutButton) {
             logoutButton.addEventListener('click', async () => {
@@ -204,6 +222,8 @@
 
 
     <script>
+        // (사용자 원본 스크립트 4 - JWT 파싱 및 UI 제어 - 수정 X)
+
         /**
          * [ ★★★ 신규 헬퍼 함수 ★★★ ]
          * Access Token(JWT)의 페이로드를 디코딩하여 JSON 객체로 반환합니다.

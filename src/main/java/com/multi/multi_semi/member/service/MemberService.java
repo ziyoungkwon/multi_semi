@@ -16,8 +16,13 @@ public class MemberService {
 
     private final MemberMapper memberMapper;
 
-    public Optional<MemberDto> findByMemberId(String memberId) {
-        Optional<MemberDto> memberDto = memberMapper.findByMemberId(memberId);
+    public Optional<MemberDto> findMemberByNo(Long no) {
+        Optional<MemberDto> memberDto = memberMapper.findMemberByNo(no);
+        return memberDto;
+    }
+
+    public Optional<MemberDto> findMemberByEmail(String email) {
+        Optional<MemberDto> memberDto = memberMapper.findMemberByEmail(email);
         return memberDto;
     }
 }
