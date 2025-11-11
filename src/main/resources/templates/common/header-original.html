@@ -1,151 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
 <div th:fragment="header">
 
-    <div class="vt-header-top">
+    <h1>상품 관리 시스템</h1>
+    <nav>
+        <a th:href="@{/}">홈</a>
 
-        <a th:href="@{/}" class="logo">
-            <h1>Virtual Trip</h1>
-        </a>
+        <span id="user-email-display" style="display: none; margin-right: 15px; font-weight: bold;"></span>
 
-        <div class="search-wrapper">
-            <div class="category-wrapper">
-                <button class="category-btn" aria-label="카테고리 선택">전체</button>
-                <div id="category-dropdown" style="display: none;">
-                    <button type="button" class="category-item" data-value="전체">전체</button>
-                    <button type="button" class="category-item" data-value="관광지명">관광지명</button>
-                    <button type="button" class="category-item" data-value="지역명">지역명</button>
-                    <button type="button" class="category-item" data-value="평점별">평점별</button>
-                </div>
-            </div>
-            <input type="text" class="search-input" placeholder="여행지를 검색해 보세요">
-            <button class="search-icon-btn" aria-label="검색">🔍</button>
-        </div>
+        <a href="#" id="test-refresh-accessToken">엑세스 토큰 재발급 테스트</a>
 
-        <div class="header-auth-area">
-            <span id="user-email-display" style="display: none;"></span>
-            <a th:href="@{/auth/login}" id="global-login-link">로그인</a>
-            <button type="button" id="logout-btn" style="cursor: pointer;">로그아웃</button>
-        </div>
-    </div>
+        <script>
+            document.getElementById('test-refresh-accessToken').addEventListener('click', async (e) => {
+                e.preventDefault();
 
-    <nav class="vt-nav">
-        <a th:href="@{/}" class="nav-item">홈</a>
-        <a th:href="@{/api/v1/places}" class="nav-item">관광지 목록</a>
-        <a th:href="@{/api/v1/reviews}" class="nav-item">리뷰</a>
-        <a th:href="@{/api/v1/ai-image}" class="nav-item">이미지 만들기</a>
-        <a th:href="@{/api/v1/mypage}" class="nav-item">마이페이지</a>
-        <a th:href="@{/api/v1/admin/page}" class="nav-item" id="admin-page-link" style="display: none;">관리자 페이지</a>
+                const response = await fetch('/refresh/test', { method: 'GET' });
+                const result = await response.json();
+                console.log('응답 결과:', result);
+            });
+        </script>
+
+        <a th:href="@{/auth/login}" id="global-login-link">로그인</a>
+        <a th:href="@{/favorites/list}">즐겨찾기 목록</a>
+        <button type="button" id="logout-btn" style="cursor: pointer;">로그아웃</button>
     </nav>
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const categoryBtn = document.querySelector('.category-btn');
-            const categoryDropdown = document.getElementById('category-dropdown');
-            const categoryItems = document.querySelectorAll('.category-item');
-            const searchInput = document.querySelector('.search-input');
-            const searchBtn = document.querySelector('.search-icon-btn');
-
-            if (!categoryBtn || !categoryDropdown || !categoryItems.length || !searchInput || !searchBtn) {
-                console.error("검색 UI 요소를 모두 찾을 수 없습니다.");
-                return;
-            }
-
-            // --- 1. 카테고리 버튼 클릭: 드롭다운 토글 ---
-            categoryBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const isHidden = categoryDropdown.style.display === 'none';
-                categoryDropdown.style.display = isHidden ? 'block' : 'none';
-            });
-
-            // --- 2. 드롭다운 항목 클릭: 카테고리 선택 ---
-            categoryItems.forEach(item => {
-                item.addEventListener('click', (e) => {
-                    // [수정] button 태그는 기본 동작이 없으므로 e.preventDefault() 제거
-
-                    // [수정] e.target 대신 e.currentTarget 사용 (안전성)
-                    const selectedValue = e.currentTarget.getAttribute('data-value');
-                    categoryBtn.textContent = selectedValue; // 버튼 텍스트 변경
-                    categoryDropdown.style.display = 'none'; // 드롭다운 숨김
-                });
-            });
-
-            // --- 3. 검색 버튼(돋보기) 클릭: API 요청 ---
-            searchBtn.addEventListener('click', async (e) => {
-                e.preventDefault(); // 폼 제출 방지
-
-                const category = categoryBtn.textContent.trim();
-                const query = searchInput.value;
-                const encodedQuery = encodeURIComponent(query); // URL 인코딩
-
-                let targetUrl = '';
-
-                // 요청하신 API URL 규칙에 따라 분기
-                switch (category) {
-                    case '전체':
-                        targetUrl = '/api/v1/places';
-                        break;
-                    case '관광지명':
-                        targetUrl = `/api/v1/places/search?title=${encodedQuery}`;
-                        break;
-                    case '지역명':
-                        targetUrl = `/api/v1/places/district?dist=${encodedQuery}`;
-                        break;
-                    case '평점별':
-                        targetUrl = `/api/v1/places/rate?rating=${encodedQuery}`;
-                        break;
-                    default:
-                        console.error('알 수 없는 카테고리:', category);
-                        return; // 함수 종료
-                }
-
-                console.log(`[검색 요청]
-                - 카테고리: ${category}
-                - 검색어: ${query}
-                - 요청 URL: ${targetUrl}`);
-
-                try {
-                    // (중요) 기존 스크립트 2에서 래핑된 fetch 함수를 사용합니다.
-                    // 따라서 401 자동 처리, 토큰 갱신 등이 모두 적용됩니다.
-                    const response = await fetch(targetUrl, {
-                        method: 'GET'
-                        // headers의 Authorization은 래핑된 fetch가 자동 주입
-                    });
-
-                    // 요청 후 UI 처리 (예시)
-                    if (response.ok) {
-                        const result = await response.json();
-                        console.log('검색 성공:', result.data);
-                        // TODO: 이 데이터를 기반으로 실제 페이지 내용을 업데이트하세요.
-                        alert('검색 요청 성공! (콘솔 로그를 확인하세요)');
-                    } else {
-                        // 래핑된 fetch가 401을 처리하므로, 여기 오는 에러는
-                        // 404, 500 또는 400 (예: 유효성 검사) 등일 것입니다.
-                        const errorResult = await response.json();
-                        console.error('검색 실패:', errorResult.message);
-                        alert(`검색 실패: ${errorResult.message}`);
-                    }
-
-                } catch (error) {
-                    // (예: 네트워크 단절)
-                    console.error('검색 요청 중 네트워크 오류 발생:', error);
-                    alert('검색 중 오류가 발생했습니다.');
-                }
-            });
-
-            // [선택] 페이지 바깥 클릭 시 드롭다운 닫기
-            document.addEventListener('click', (e) => {
-                // 클릭된 요소가 카테고리 버튼이나 드롭다운 내부가 아니라면
-                if (!categoryBtn.contains(e.target) && !categoryDropdown.contains(e.target)) {
-                    categoryDropdown.style.display = 'none';
-                }
-            });
-        });
-    </script>
-
-
-    <script>
-        // (사용자 원본 스크립트 2 - fetch 래핑 - 수정 X)
-
         // 1. 기존의 window.fetch 함수를 백업해둡니다.
         const originalFetch = window.fetch;
 
@@ -280,7 +163,6 @@
 
 
     <script>
-        // (사용자 원본 스크립트 3 - 로그아웃 버튼 - 수정 X)
         const logoutButton = document.getElementById('logout-btn');
         if (logoutButton) {
             logoutButton.addEventListener('click', async () => {
@@ -322,11 +204,10 @@
 
 
     <script>
-        // (사용자 원본 스크립트 4 - JWT 파싱 및 UI 제어 - ★수정됨★)
-
         /**
          * [ ★★★ 신규 헬퍼 함수 ★★★ ]
-         * (내용 동일)
+         * Access Token(JWT)의 페이로드를 디코딩하여 JSON 객체로 반환합니다.
+         * (서버의 TokenProvider.parseClaims와 동일한 역할)
          */
         function parseJwtPayload(token) {
             try {
@@ -353,52 +234,47 @@
             const accessToken = localStorage.getItem('accessToken');
             const loginLink = document.getElementById('global-login-link');
             const logoutButton = document.getElementById('logout-btn');
-            const emailDisplay = document.getElementById('user-email-display');
+            const emailDisplay = document.getElementById('user-email-display'); // [신규]
 
-            // ★★★ [신규] 1. 관리자 링크를 선택합니다. ★★★
-            const adminLink = document.getElementById('admin-page-link');
-
-            if (loginLink && logoutButton && emailDisplay) { // adminLink는 null일 수 있으므로 여기서 체크 안 함
+            if (loginLink && logoutButton && emailDisplay) {
                 if (accessToken) {
                     // === 로그인한 상태 ===
                     loginLink.style.display = 'none';
                     logoutButton.style.display = 'inline-block';
 
+                    // [ ★★★ 신규 ★★★ ]
                     // 1. AT를 디코딩해서 페이로드를 가져옵니다.
                     const payload = parseJwtPayload(accessToken);
-
                     if (payload) {
                         // 2. 'sub' 클레임(이메일)을 <span>에 표시합니다.
                         emailDisplay.textContent = payload.sub + " 님 환영합니다!";
                         emailDisplay.style.display = 'inline-block';
-
-                        // ★★★ [신규] 3. 역할(Role) 확인 로직 ★★★
-                        // ※참고: JWT의 역할 클레임 이름을 'auth'로 가정합니다.
-                        //       (서버에서 'role', 'roles' 등으로 설정했다면 그걸로 바꿔주세요)
-                        //       (예: 'ROLE_ADMIN', 'ADMIN' 등 서버에서 보낸 값 그대로 비교)
-                        if (adminLink && payload.auth === 'ROLE_ADMIN') {
-                            adminLink.style.display = 'inline-block'; // 관리자일 경우 링크 표시
-                        }
                     }
 
                 } else {
                     // === 로그아웃한 상태 ===
                     loginLink.style.display = 'inline-block';
                     logoutButton.style.display = 'none';
-                    emailDisplay.style.display = 'none';
-
-                    // ★★★ [신규] 4. 로그아웃 상태면 관리자 링크도 숨김 ★★★
-                    if (adminLink) {
-                        adminLink.style.display = 'none';
-                    }
+                    emailDisplay.style.display = 'none'; // [신규] 이메일 숨김
                 }
             }
 
             // --- [스크립트 3] 자발적 로그인 링크 클릭 로직 (기존과 동일) ---
             if (loginLink) {
-                // ... (내용 동일) ...
+                loginLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const currentUrl = window.location.pathname + window.location.search;
+                    if (window.location.pathname !== '/auth/login') {
+                        console.log('로그인 링크 클릭! 리디렉션 URL 저장:', currentUrl);
+                        localStorage.setItem('redirectUrl', currentUrl);
+                    }
+                    window.location.href = loginLink.href;
+                });
             }
         });
     </script>
 
 </div>
+
+</body>
+</html>

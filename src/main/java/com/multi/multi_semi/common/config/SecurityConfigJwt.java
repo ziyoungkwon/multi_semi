@@ -70,7 +70,7 @@ public class SecurityConfigJwt {
                         .requestMatchers("/api/v1/places/**","/places/**").permitAll()
                         .requestMatchers("/", "/error", "/auth/**", "/login/oauth2/**", "/oauth2/**", "/oauth-redirect").permitAll()
                         .requestMatchers("/api/v1/products/**", "/api/v1/product/**", "/products/**", "/product/**").permitAll()
-                        .requestMatchers("/api/v1/reviews/**", "/css/**", "/productimgs/**", "/favicon.ico").permitAll()
+                        .requestMatchers("/api/v1/reviews/**", "/common/**", "/css/**", "/productimgs/**", "/favicon.ico").permitAll()
                         .requestMatchers("/api/v1/products-management/**", "/api/v1/reviews-management/**").hasAnyRole("ADMIN")
                         .requestMatchers("/api/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
