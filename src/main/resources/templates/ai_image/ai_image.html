@@ -229,7 +229,7 @@
 
 <div class="container">
 
-  <h2>이미지 2개 + 프롬프트 기반 합성</h2>
+  <h2>원하는 이미지를 생성해보세요!</h2>
 
   <form id="generate-form">
 
@@ -319,7 +319,7 @@
       alert('다운로드할 이미지가 없습니다.');
       return;
     }
-    const proxyUrl = `/api/download-image?url=${encodeURIComponent(imageUrl)}`;
+    const proxyUrl = `/api/v1/download-image?url=${encodeURIComponent(imageUrl)}`;
     window.location.href = proxyUrl;
   });
 
