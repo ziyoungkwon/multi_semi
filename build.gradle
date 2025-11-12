@@ -50,11 +50,10 @@ dependencies {
 
     // oauth
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-    // runtimeOnly 'com.h2database:h2'
+
 
     implementation 'com.fasterxml.jackson.core:jackson-databind'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-
+    implementation 'org.apache.httpcomponents.client5:httpclient5'
 
 }
 

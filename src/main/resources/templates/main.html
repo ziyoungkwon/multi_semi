@@ -7,24 +7,237 @@
         <title>Main</title>
         <link rel="stylesheet" th:href="@{/css/styles1.css}">
 
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+        <script type="text/javascript"
+                src="//dapi.kakao.com/v2/maps/sdk.js?appkey=351cf74523b79c29cc49c868a9f55b3b&autoload=false"></script>
+
+
+
+        <style>
+            /* === 헤더와 동일 폭의 지도 컨테이너 === */
+            .map-container {
+                width: 100%;
+                max-width: 100%; /*1400px;*/
+                margin: 0 auto;
+            }
+
+            /* === 지도 크기 (높이 500px) === */
+            #map {
+                width: 100%;
+                height: 500px;
+                /*border-radius: 8px;*/
+                box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+                z-index: 1;
+            }
+
+            /* === 인포윈도우 카드 레이아웃 (자동 폭 + 20px 여백) === */
+            .place-overlay {
+                display: inline-block;
+                font-family: 'SUIT', sans-serif;
+                background: #fff;
+                border-radius: 8px;
+                border: 1px solid #ccc;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                padding: 20px;               /* ← 내용과 카드 테두리 간 여유공간 */
+                max-width: 500px;            /* 너무 커지지 않도록 제한 */
+            }
+
+            .place-overlay-inner {
+                display: flex;
+                align-items: flex-start;
+                gap: 14px;
+            }
+
+            .po-text {
+                flex: 1;
+                font-size: 15px;             /* +2pt 정도 키움 */
+                line-height: 1.9;            /* 줄 간격 더 넓힘 */
+            }
+
+            .po-row {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-bottom: 10px;         /* 항목 간 여백 넓힘 */
+            }
+
+            .po-label {
+                display: inline-block;
+                width: 45px;
+                font-weight: 600;
+            }
+
+            .po-value {
+                margin-left: 6px;
+            }
+
+            .po-right {
+                width: 100px;
+                text-align: center;
+                flex-shrink: 0;
+            }
+
+            .po-right img {
+                width: 80px;                 /* 요청: 80x80 이미지 */
+                height: 80px;
+                object-fit: cover;
+                border: 1px solid #333;
+                border-radius: 6px;
+                display: block;
+                margin: 0 auto 8px auto;
+            }
+
+            .po-image-placeholder {
+                width: 80px;
+                height: 80px;
+                border: 1px solid #333;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 13px;
+                color: #555;
+                margin: 0 auto 8px auto;
+                box-sizing: border-box;
+            }
+
+            .po-btn {
+                display: inline-block;
+                font-size: 12px;
+                padding: 5px 12px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                background: #f5f5f5;
+                cursor: pointer;
+            }
+
+            .po-btn:hover {
+                background: #e0e0e0;
+            }
+        </style>
     </head>
     <body>
+
+
     <div class="header">
         <th:block th:replace="~{common/header :: header}" />
     </div>
 
 
-
-
-
-
-
-
-
-
-    <div class="footer">
-        <th:block th:replace="~{common/footer :: footer}" />
+    <!-- 지도 -->
+    <div class="map-container">
+        <div id="map"></div>
     </div>
+
+
+
+
+
+
+    <!--<div class="footer">
+        <th:block th:replace="~{common/footer :: footer}" />
+    </div> -->
+
+
+    <script>
+        var map;
+        var markers = [];
+
+        // ===== 팝업 내용 템플릿 =====
+        function buildInfoContent(place) {
+            const rating = (place.rate !== undefined && place.rate !== null) ? place.rate : '-';
+            const imagePart = place.imageUrl
+                ? `<img src="${place.imageUrl}" alt="이미지">`
+                : `<div class="po-image-placeholder">이미지</div>`;
+            const detailUrl = `/place/detail?placeNo=${place.no}`;
+
+            return `
+        <div class="place-overlay">
+          <div class="place-overlay-inner">
+            <div class="po-text">
+              <div class="po-row"><span class="po-label">이름</span><span class="po-value">${place.title || ''}</span></div>
+              <div class="po-row"><span class="po-label">주소</span><span class="po-value">${place.address || ''}</span></div>
+              <div class="po-row"><span class="po-label">평점</span><span class="po-value">${rating}</span></div>
+            </div>
+            <div class="po-right">
+              ${imagePart}
+              <button type="button" class="po-btn"
+                      onclick="location.href='${detailUrl}'">바로가기</button>
+            </div>
+          </div>
+        </div>`;
+        }
+
+        // ===== 상세정보 로딩 =====
+        function loadPlaceDetail(placeId, marker, infowindow) {
+            fetch(`/api/v1/places/${placeId}`)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.status !== 200 || !result.data) {
+                        alert('관광지 정보를 불러오지 못했습니다.');
+                        return;
+                    }
+
+                    const place = result.data;
+                    const content = buildInfoContent(place);
+                    infowindow.setContent(content);
+                    infowindow.open(map, marker);
+                })
+                .catch(err => {
+                    console.error('Error loading place detail from main:', err);
+                    alert('관광지 정보를 불러오는 중 오류가 발생했습니다.');
+                });
+        }
+
+        // ===== 마커 표시 =====
+        function displayMarkers(data, infowindow) {
+            for (var i = 0; i < data.length; i++) {
+                var latlng = new kakao.maps.LatLng(data[i].lat, data[i].lng);
+                var placeId = data[i].no;
+
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: latlng,
+                    title: data[i].title
+                });
+
+                (function(marker, placeId) {
+                    kakao.maps.event.addListener(marker, 'click', function () {
+                        map.panTo(marker.getPosition());
+                        loadPlaceDetail(placeId, marker, infowindow);
+                    });
+                })(marker, placeId);
+
+                markers.push(marker);
+            }
+        }
+
+        // ===== 지도 초기화 =====
+        function initMap() {
+            var mapContainer = document.getElementById('map'),
+                mapOption = {
+                    center: new kakao.maps.LatLng(36.55, 127.83), // 속리산 중심
+                    level: 12
+                };
+            map = new kakao.maps.Map(mapContainer, mapOption);
+
+            var infowindow = new kakao.maps.InfoWindow({
+                removable: true
+            });
+
+            $.getJSON('/json/no_descr.json', function (data) {
+                displayMarkers(data, infowindow);
+                map.relayout();
+            }).fail(function (jqxhr, textStatus, error) {
+                console.error("JSON 파일 로드 실패:", textStatus, error);
+            });
+        }
+
+        $(function () {
+            kakao.maps.load(initMap);
+        });
+    </script>
     </body>
 </th:block>
 </html>
