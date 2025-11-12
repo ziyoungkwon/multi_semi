@@ -93,4 +93,36 @@ public class ReviewController {
 
         return ResponseEntity.ok(new ResponseDto(HttpStatus.OK, "장소별 리뷰 평점 계산 성공", reviewService.getPlaceRate(placeId)));
     }
+
+
+    //관리자
+    @GetMapping("/reviews-management")
+    public ResponseEntity<ResponseDto> findReviewListAdminByPaging(@RequestParam(name = "offset", defaultValue = "1") String offset) {
+
+        SelectCriteria selectCriteria = getSelectCriteria(Integer.parseInt(offset), reviewService.selectReviewTotal());
+
+        ResponseDtoWithPaging responseDtoWithPaging = new ResponseDtoWithPaging(reviewService.findReviewList(selectCriteria), selectCriteria);
+
+        return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "리뷰 리스트 조회 성공", responseDtoWithPaging));
+    }
+
+    @GetMapping("/reviews-management/{reviewId}")
+    public ResponseEntity<ResponseDto> findReviewAdminByNo(@PathVariable("reviewId") String reviewId) {
+
+        return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "리뷰 상세조회 성공", reviewService.findReviewByNo(reviewId)));
+    }
+
+    @PutMapping("/reviews-management")
+    @Transactional
+    public ResponseEntity<ResponseDto> updateReviewAdmin(@RequestBody ReviewReqDto reviewReqDto) {
+
+        return ResponseEntity.ok(new ResponseDto(HttpStatus.CREATED, "리뷰 수정 성공", reviewService.updateReview(reviewReqDto)));
+    }
+
+    @DeleteMapping("/reviews-management/{reviewId}")
+    @Transactional
+    public ResponseEntity<ResponseDto> deleteReviewAdmin(@PathVariable("reviewId") String reviewId) {
+
+        return ResponseEntity.ok(new ResponseDto((HttpStatus.NO_CONTENT), "리뷰 삭제 성공", reviewService.deleteReview(reviewId)));
+    }
 }
