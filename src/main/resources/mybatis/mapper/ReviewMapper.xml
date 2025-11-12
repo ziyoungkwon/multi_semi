@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.multi.multi_semi.favorite.dao.FavoriteMapper">
+<mapper namespace="com.multi.multi_semi.review.dao.ReviewMapper">
 
 
     <!-- 언더바가 들어가는 쿼리문에 한하여 매핑을 해줘야함 -->
@@ -19,50 +19,25 @@
 
         dto 에 기본생성자, setter 가 생성이 되어있어야한다.
     -->
-    <select id="selectList" resultType="FavoriteAllDto">
-        select *
-        from fav
-    </select>
 
-    <select id="selectFavoriteListWithPaging" resultType="FavoriteResDTO">
+    <select id="selectReviewListWithPaging" resultType="ReviewResDto">
         select
-        a.no as favoriteSeq,
-        b.no as placeNo,
-        c.name as district,
-        b.title as title,
-        b.descr as description,
-        b.addr as address,
-        b.lat,
-        b.lng,
-        b.first_img as imageUrl
-        from fav a, place b, area_code c
-        where a.mem_email = #{email}
-        and a.place_no = b.no
-        and b.dist = c.code
-        order by a.no
+        no as reviewNo,
+        title,
+        content,
+        rate,
+        writer_email as email
+        from rev
+        where place_no = #{placeNo}
+        order by no
         LIMIT #{selectCriteria.startRow}, #{selectCriteria.limit}
     </select>
 
-    <select id="countFavorite" resultType="int">
+    <select id="countReview" resultType="int">
         select count(*)
-        from fav
-        where mem_email = #{email}
+        from rev
+        where place_no = #{placeNo}
     </select>
 
-    <insert id="insertFavorite" parameterType="FavoriteReqDto">
-        insert into fav
-        (mem_no,
-        place_no)
-        VALUES
-        (
-        #{ userId }
-        , #{ no }
-        )
-    </insert>
-
-    <update id="deleteFavorite">
-        delete from fav
-        where no = #{ favoriteId }
-    </update>
 
 </mapper>

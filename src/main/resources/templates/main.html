@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Main</title>
-        <link rel="stylesheet" th:href="@{/css/styles.css}">
+        <link rel="stylesheet" th:href="@{/css/headerStyle.css}">
 
     </head>
     <body>
@@ -14,7 +14,7 @@
     </div>
     <div class="container">
         쇼핑몰 !!
-        <button onclick="location.href='/favorites'">즐겨찾기</button>
+        <button onclick="location.href='/favorites/list'">즐겨찾기</button>
     </div>
     <div class="footer">
         <th:block th:replace="~{common/footer :: footer}" />

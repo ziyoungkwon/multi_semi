@@ -52,6 +52,8 @@
     <!-- ✅ 탭 콘텐츠 영역 -->
     <div id="review" class="tab-content active">
         <h3>관광지리뷰</h3>
+        <ul id="reviewList"></ul>
+        <div id="pagination" style="margin-top: 20px;"></div>
     </div>
 
     <div id="details" class="tab-content">
@@ -77,7 +79,7 @@
 
     let map, marker;
 
-    async function loadProductDetail() {
+    async function loadPlaceDetail() {
         try {
             const response = await fetch(`http://localhost:8090/api/v1/places/${placeNo}`);
             const result = await response.json();
@@ -90,6 +92,7 @@
                 document.getElementById('placeAddress').textContent = place.address;
 
                 // ✅ 지도 생성
+                initReview(1);
                 initMap(place.lat, place.lng);
                 initweather(place.lat, place.lng)
             } else {
@@ -141,12 +144,90 @@
         })
 
 
+    }
 
+
+    async function initReview(offset) {
+        try {
+            const response = await fetch(`http://localhost:8090/api/v1/reviews/${placeNo}?offset=${offset}`);
+            const result = await response.json();
+
+            if (result.status === 200 && result.data && result.data.data) {
+                const reviews = result.data.data;
+                const pageInfo = result.data.pageInfo;
+                console.log("== PageInfo =="+pageInfo.toString());
+                console.log("== PageInfo =="+pageInfo.pageNo);
+                console.log("== PageInfo =="+pageInfo.startPage);
+                console.log("== PageInfo =="+pageInfo.endPage);
+
+                const reviewList = document.getElementById('reviewList');
+                reviewList.innerHTML = '';
+
+                if (reviews.length === 0) {
+                    reviewList.innerHTML = '<li>관련리뷰가 없습니다.</li>';
+                    return;
+                }
+
+                reviews.forEach(review => {
+                    const li = document.createElement('li');
+                    li.style.marginBottom = '15px';
+
+                    li.innerHTML = `
+                          <div style="display: flex; align-items: center;">
+                              <div>
+                                  <div>
+                                     <p style="margin: 0;">타이틀 : ${review.title} </p>
+                                     <p style="margin: 0;">내용 : ${review.content} </p>
+                                     <p style="margin: 0;">평점 : ${review.rate} </p>
+                                  </div>
+                              </div>
+                          </div>
+                      `;
+                    reviewList.appendChild(li);
+                });
+                renderPagination(pageInfo);
+            } else {
+                console.error('Invalid response structure:', result);
+                document.getElementById('reviewList').innerHTML = '<li>리뷰 데이터를 불러오는 데 실패했습니다.</li>';
+            }
+        } catch (error) {
+            console.error('Failed to load reviews:', error);
+            document.getElementById('reviewList').innerHTML = '<li>리뷰 데이터를 불러오는 중 오류가 발생했습니다.</li>';
+        }
+
+    }
+
+    function renderPagination(pageInfo) {
+        if (!pageInfo) return;
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = '';
+
+        if (pageInfo.pageNo > 1) {
+            const prev = document.createElement('button');
+            prev.textContent = '이전';
+            prev.onclick = () => initReview(pageInfo.pageNo - 1);
+            pagination.appendChild(prev);
+        }
+
+        for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
+            const button = document.createElement('button');
+            button.textContent = i;
+            button.disabled = i === pageInfo.pageNo;
+            button.onclick = () => initReview(i);
+            pagination.appendChild(button);
+        }
+
+        if (pageInfo.pageNo < pageInfo.maxPage) {
+            const next = document.createElement('button');
+            next.textContent = '다음';
+            next.onclick = () => initReview(pageInfo.pageNo + 1);
+            pagination.appendChild(next);
+        }
     }
 
 
     document.addEventListener('DOMContentLoaded', () => {
-        loadProductDetail();
+        loadPlaceDetail();
 
         const buttons = document.querySelectorAll('.tab-btn');
         const contents = document.querySelectorAll('.tab-content');

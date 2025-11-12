@@ -132,6 +132,9 @@ public class TokenService {
 
         RefreshToken dbRefreshToken = existingRT.get();
 
+        log.info("[clientRefreshToken]: {}", clientRefreshToken);
+        log.info("[dbRefreshToken.getRefreshToken()]: {}", dbRefreshToken.getRefreshToken());
+
         // 3-2. (보안) 클라이언트 RT와 DB의 RT가 일치하지 않는가? (탈취 의심)
         if (!dbRefreshToken.getRefreshToken().equals(clientRefreshToken)) {
             log.warn("클라이언트의 Refresh Token이 DB와 일치하지 않습니다. 탈취 의심. email: {}", memberEmail);

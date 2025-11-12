@@ -14,7 +14,7 @@ import java.util.Collection;
 @AllArgsConstructor
 @Builder
 public class CustomUser implements UserDetails {
-    //private Long memberCode;
+    private Long no;
     private String memberId;
     private String email; // 이메일을 로그인 ID로 사용
     private String memberPassword;

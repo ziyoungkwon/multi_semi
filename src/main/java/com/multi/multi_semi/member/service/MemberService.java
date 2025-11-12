@@ -20,4 +20,5 @@ public class MemberService {
         Optional<MemberDto> memberDto = memberMapper.findByMemberId(memberId);
         return memberDto;
     }
+
 }
