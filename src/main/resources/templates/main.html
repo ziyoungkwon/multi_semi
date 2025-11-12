@@ -1,120 +1,243 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Main</title>
-    <link rel="stylesheet" th:href="@{/css/headerStyle.css}">
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-    <script type="text/javascript"
-            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=351cf74523b79c29cc49c868a9f55b3b&autoload=false"></script>
+<th:block th:fragment="setContent(content)">
+    <head>
+        <meta charset="UTF-8">
+        <title>Main</title>
+        <link rel="stylesheet" th:href="@{/css/styles1.css}">
 
-    <style>
-        /* 지도 영역을 확실히 보이도록 높이를 800px로 조정 */
-        #map {
-            width: 100%;
-            height: 600px;
-            z-index: 1;
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+        <script type="text/javascript"
+                src="//dapi.kakao.com/v2/maps/sdk.js?appkey=351cf74523b79c29cc49c868a9f55b3b&autoload=false"></script>
+
+
+
+        <style>
+            /* === 헤더와 동일 폭의 지도 컨테이너 === */
+            .map-container {
+                width: 100%;
+                max-width: 100%; /*1400px;*/
+                margin: 0 auto;
+            }
+
+            /* === 지도 크기 (높이 500px) === */
+            #map {
+                width: 100%;
+                height: 500px;
+                /*border-radius: 8px;*/
+                box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+                z-index: 1;
+            }
+
+            /* === 인포윈도우 카드 레이아웃 (자동 폭 + 20px 여백) === */
+            .place-overlay {
+                display: inline-block;
+                font-family: 'SUIT', sans-serif;
+                background: #fff;
+                border-radius: 8px;
+                border: 1px solid #ccc;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+                padding: 20px;               /* ← 내용과 카드 테두리 간 여유공간 */
+                max-width: 500px;            /* 너무 커지지 않도록 제한 */
+            }
+
+            .place-overlay-inner {
+                display: flex;
+                align-items: flex-start;
+                gap: 14px;
+            }
+
+            .po-text {
+                flex: 1;
+                font-size: 15px;             /* +2pt 정도 키움 */
+                line-height: 1.9;            /* 줄 간격 더 넓힘 */
+            }
+
+            .po-row {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-bottom: 10px;         /* 항목 간 여백 넓힘 */
+            }
+
+            .po-label {
+                display: inline-block;
+                width: 45px;
+                font-weight: 600;
+            }
+
+            .po-value {
+                margin-left: 6px;
+            }
+
+            .po-right {
+                width: 100px;
+                text-align: center;
+                flex-shrink: 0;
+            }
+
+            .po-right img {
+                width: 80px;                 /* 요청: 80x80 이미지 */
+                height: 80px;
+                object-fit: cover;
+                border: 1px solid #333;
+                border-radius: 6px;
+                display: block;
+                margin: 0 auto 8px auto;
+            }
+
+            .po-image-placeholder {
+                width: 80px;
+                height: 80px;
+                border: 1px solid #333;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 13px;
+                color: #555;
+                margin: 0 auto 8px auto;
+                box-sizing: border-box;
+            }
+
+            .po-btn {
+                display: inline-block;
+                font-size: 12px;
+                padding: 5px 12px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                background: #f5f5f5;
+                cursor: pointer;
+            }
+
+            .po-btn:hover {
+                background: #e0e0e0;
+            }
+        </style>
+    </head>
+    <body>
+
+
+    <div class="header">
+        <th:block th:replace="~{common/header :: header}" />
+    </div>
+
+
+    <!-- 지도 -->
+    <div class="map-container">
+        <div id="map"></div>
+    </div>
+
+
+
+
+
+
+    <!--<div class="footer">
+        <th:block th:replace="~{common/footer :: footer}" />
+    </div> -->
+
+
+    <script>
+        var map;
+        var markers = [];
+
+        // ===== 팝업 내용 템플릿 =====
+        function buildInfoContent(place) {
+            const rating = (place.rate !== undefined && place.rate !== null) ? place.rate : '-';
+            const imagePart = place.imageUrl
+                ? `<img src="${place.imageUrl}" alt="이미지">`
+                : `<div class="po-image-placeholder">이미지</div>`;
+            const detailUrl = `/place/detail?placeNo=${place.no}`;
+
+            return `
+        <div class="place-overlay">
+          <div class="place-overlay-inner">
+            <div class="po-text">
+              <div class="po-row"><span class="po-label">이름</span><span class="po-value">${place.title || ''}</span></div>
+              <div class="po-row"><span class="po-label">주소</span><span class="po-value">${place.address || ''}</span></div>
+              <div class="po-row"><span class="po-label">평점</span><span class="po-value">${rating}</span></div>
+            </div>
+            <div class="po-right">
+              ${imagePart}
+              <button type="button" class="po-btn"
+                      onclick="location.href='${detailUrl}'">바로가기</button>
+            </div>
+          </div>
+        </div>`;
         }
-    </style>
-</head>
-<body>
-<!-- 헤더 영역: header.html 의 header fragment 삽입 -->
-<div class="header" th:replace="~{common/header :: header}"></div>
 
-<div id="map">
-</div>
+        // ===== 상세정보 로딩 =====
+        function loadPlaceDetail(placeId, marker, infowindow) {
+            fetch(`/api/v1/places/${placeId}`)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.status !== 200 || !result.data) {
+                        alert('관광지 정보를 불러오지 못했습니다.');
+                        return;
+                    }
 
-<!-- 푸터도 fragment 라면 이렇게 -->
-<div class="footer" th:replace="~{common/footer :: footer}"></div>
-<script>
-    // 전역 변수로 선언 (DOM ready 전에 선언하여 접근 가능하도록 함)
-    var map;
-    var positions = []; // JSON에서 로드한 위치 데이터 저장 배열
-    var markers = [];   // 지도에 표시된 마커 객체 저장 배열
-    let foldFlag = false;
-    let markerFlag = false;
+                    const place = result.data;
+                    const content = buildInfoContent(place);
+                    infowindow.setContent(content);
+                    infowindow.open(map, marker);
+                })
+                .catch(err => {
+                    console.error('Error loading place detail from main:', err);
+                    alert('관광지 정보를 불러오는 중 오류가 발생했습니다.');
+                });
+        }
 
-    var iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-        iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+        // ===== 마커 표시 =====
+        function displayMarkers(data, infowindow) {
+            for (var i = 0; i < data.length; i++) {
+                var latlng = new kakao.maps.LatLng(data[i].lat, data[i].lng);
+                var placeId = data[i].no;
 
-    // 인포윈도우를 생성합니다
-    var infowindow = new kakao.maps.InfoWindow({
-        content : iwContent,
-        removable : iwRemoveable
-    });
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: latlng,
+                    title: data[i].title
+                });
 
-    // 마커를 지도에 표시하는 함수
-    function displayMarkers(data) {
-        setMarkers(null);
-        markers = [];
-        positions = [];
+                (function(marker, placeId) {
+                    kakao.maps.event.addListener(marker, 'click', function () {
+                        map.panTo(marker.getPosition());
+                        loadPlaceDetail(placeId, marker, infowindow);
+                    });
+                })(marker, placeId);
 
-        for (var i = 0; i < data.length; i++) {
-            var latlng = new kakao.maps.LatLng(data[i].lat, data[i].lng);
+                markers.push(marker);
+            }
+        }
 
-            // positions 배열에 저장 시에도 새 구조 반영
-            positions.push({latlng: latlng, title: data[i].title});
+        // ===== 지도 초기화 =====
+        function initMap() {
+            var mapContainer = document.getElementById('map'),
+                mapOption = {
+                    center: new kakao.maps.LatLng(36.55, 127.83), // 속리산 중심
+                    level: 12
+                };
+            map = new kakao.maps.Map(mapContainer, mapOption);
 
-            // 마커를 생성하고 지도에 표시합니다
-            var marker = new kakao.maps.Marker({
-                map: map,
-                position: latlng,
-                title: data[i].title
+            var infowindow = new kakao.maps.InfoWindow({
+                removable: true
             });
 
-            markers.push(marker);
+            $.getJSON('/json/no_descr.json', function (data) {
+                displayMarkers(data, infowindow);
+                map.relayout();
+            }).fail(function (jqxhr, textStatus, error) {
+                console.error("JSON 파일 로드 실패:", textStatus, error);
+            });
         }
-    }
 
-    // 마커의 가시성을 제어하는 함수
-    function setMarkers(map) {
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(map);
-        }
-    }
-
-    // =========================================================================
-    // ⭐ 핵심 수정 사항: DOM과 API 로드가 완료된 후 지도 초기화 및 JSON 로드 시작
-    // =========================================================================
-    function initMap() {
-        // 1. 지도 객체 생성 (변동 없음)
-        var mapContainer = document.getElementById('map'),
-            mapOption = {
-                center: new kakao.maps.LatLng(37.473, 126.71), // 초기 중심을 인천 개항장 근처로 조정
-                level: 8 // 인천~전국을 볼 수 있도록 레벨 조정
-            };
-        map = new kakao.maps.Map(mapContainer, mapOption);
-
-        // 2. 외부 JSON 파일 로드 (경로 재수정: /no_descr.json)
-        $.getJSON('/json/no_descr.json', function (data) {
-            displayMarkers(data);
-
-            // 데이터가 인천 중심으로 치우쳐 있으므로 중심 좌표를 인천 중심으로 변경
-            map.setCenter(new kakao.maps.LatLng(37.47, 126.71));
-            map.relayout();
-
-        }).fail(function (jqxhr, textStatus, error) {
-            console.error("JSON 파일 로드 실패:", textStatus, error);
+        $(function () {
+            kakao.maps.load(initMap);
         });
-    }
-
-    kakao.maps.event.addListener(marker, 'click', function() {
-        // 마커 위에 인포윈도우를 표시합니다
-        infowindow.open(map, marker);
-    });
-
-    $(function () {
-        // 기존 autoload 방식이 문제되었을 가능성이 있으므로, initMap() 호출을 load 콜백으로 변경합니다.
-        // 현재 <head>에 autoload=false가 없으므로 kakao.maps.load(initMap)을 사용하면 오류가 발생합니다.
-
-        // 🚨 임시 조치: autoload=true 방식이므로, DOM ready에 initMap 코드를 직접 호출하는 방식으로 복구합니다.
-        // (만약 <head>에 autoload=false를 추가했다면 kakao.maps.load(initMap);이 올바릅니다.)
-
-        // 지도를 그리는 핵심 로직인 initMap()을 DOM이 준비되면 바로 실행합니다.
-        kakao.maps.load(initMap);
-    });
-</script>
-</body>
+    </script>
+    </body>
+</th:block>
 </html>
