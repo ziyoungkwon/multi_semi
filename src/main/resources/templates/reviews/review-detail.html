@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>리뷰 상세보기</title>
+    <!--<link rel="stylesheet" th:href="@{/css/review.css}">-->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 30px 40px;
+            background-color: #fff;
+            border-radius: 16px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        .review-card h3 {
+            font-size: 22px;
+            color: #2b2b2b;
+            margin-bottom: 12px;
+        }
+
+        .review-meta {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .review-meta strong {
+            color: #333;
+        }
+
+        .rating {
+            display: inline-block;
+            color: #ffc107;
+            font-size: 18px;
+            margin-left: 4px;
+        }
+
+        .content {
+            background-color: #fafafa;
+            border-radius: 12px;
+            padding: 20px;
+            line-height: 1.7;
+            color: #444;
+            white-space: pre-line;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e1e1e1;
+            margin: 25px 0;
+        }
+
+        .btn-area {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-size: 15px;
+            text-decoration: none;
+            transition: all 0.25s ease-in-out;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 91, 187, 0.3);
+        }
+
+        .error {
+            color: #d9534f;
+            text-align: center;
+            background-color: #f8d7da;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h2>리뷰 상세보기</h2>
+
+    <!-- 오류 표시 -->
+    <div th:if="${error}" class="error">
+        <p th:text="${error}"></p>
+    </div>
+
+    <!-- 리뷰 정보 표시 -->
+    <div th:if="${review}" class="review-card">
+        <h3 th:text="${review.title}">리뷰 제목</h3>
+
+        <div class="review-meta">
+            <p><strong>작성자:</strong> <span th:text="${review.writer}"></span></p>
+            <p><strong>장소:</strong> <span th:text="${review.placeTitle}"></span></p>
+            <p><strong>평점:</strong>
+                <span class="rating" th:utext="${'★'.repeat(review.rate)}"></span>
+                <span th:text="'(' + ${review.rate} + '/5)'"></span>
+            </p>
+            <p><strong>작성일:</strong> <span th:text="${#temporals.format(review.createdAt, 'yyyy-MM-dd HH:mm')}"></span></p>
+            <p><strong>수정자:</strong> <span th:text="${review.updatedPerson}"></span></p>
+            <p><strong>수정일:</strong> <span th:text="${#temporals.format(review.updatedAt, 'yyyy-MM-dd HH:mm')}"></span></p>
+        </div>
+
+        <hr/>
+
+        <div class="content" th:text="${review.content}">리뷰 내용</div>
+
+        <div class="btn-area">
+            <a th:href="@{/reviews/list}" class="btn">목록으로 돌아가기</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

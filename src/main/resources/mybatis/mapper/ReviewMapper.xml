@@ -44,7 +44,7 @@
                  join place p on r.place_no = p.no
                  join mem m on r.writer_email = m.email
                  join mem n on r.modified_by = n.email
-        where #{no} = r.no
+        where r.no = #{no}
     </select>
 
     <insert id="insertReview" parameterType="ReviewReqDto">
