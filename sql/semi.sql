@@ -164,3 +164,14 @@ VALUES
     ('가격 대비 아쉬움', '맛은 괜찮았지만 가격이 조금 비쌌어요.', 3, 5, 2, NULL, 5),
     ('서비스 굿', '직원분들이 친절해서 기분 좋게 식사했습니다.', 5, 6, 3, 'https://example.com/img/review3.jpg', 6),
     ('사진이랑 다름', '사진 보고 기대했는데 실물은 좀 달랐어요.', 2, 5, 4, 'https://example.com/img/review4.jpg', 5);
+
+insert into rev (title, content, rate, writer_email, place_no, img_url, modified_by)
+    values ('좋아요', '또 올게요', 5, 'gy011003@gmail.com', 1, '/Users/kwonjiyoung/Documents/multicampus/박보검.jpeg', 'gy011003@gmail.com');
+
+INSERT INTO rev (title, content, rate, writer_email, place_no, img_url, modified_by)
+VALUES
+    ('맛집 인정', '음식이 정말 맛있었어요! 재방문 의사 100%', 5, 'gy011003@gmail.com', 1, '박보검.jpeg', 'gy011003@gmail.com'),
+    ('조용한 분위기', '카페 분위기가 너무 조용해서 공부하기 좋았어요.', 4, 'gy011003@gmail.com', 1, '박보검.jpeg', 'gy011003@gmail.com'),
+    ('가격 대비 아쉬움', '맛은 괜찮았지만 가격이 조금 비쌌어요.', 3, 'gy011003@gmail.com', 2, '박보검.jpeg', 'gy011003@gmail.com'),
+    ('서비스 굿', '직원분들이 친절해서 기분 좋게 식사했습니다.', 5, 'gy011003@gmail.com', 3, '박보검.jpeg', 'gy011003@gmail.com'),
+    ('사진이랑 다름', '사진 보고 기대했는데 실물은 좀 달랐어요.', 2, 'gy011003@gmail.com', 4, '박보검.jpeg', 'gy011003@gmail.com');

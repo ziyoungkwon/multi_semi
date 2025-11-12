@@ -61,6 +61,18 @@
             white-space: pre-line;
         }
 
+        .review-image {
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .review-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+        }
+
         hr {
             border: none;
             border-top: 1px solid #e1e1e1;
@@ -140,6 +152,11 @@
         </div>
 
         <hr/>
+
+        <!-- ✅ 이미지 표시 영역 -->
+        <div class="review-image" th:if="${review.imgUrl != null}">
+            <img th:src="${review.imgUrl}" alt="리뷰 이미지">
+        </div>
 
         <div class="content" th:text="${review.content}">리뷰 내용</div>
 

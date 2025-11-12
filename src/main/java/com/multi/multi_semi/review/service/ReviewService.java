@@ -5,6 +5,7 @@ import com.multi.multi_semi.review.dao.ReviewMapper;
 import com.multi.multi_semi.review.dto.ReviewReqDto;
 import com.multi.multi_semi.review.dto.ReviewResDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,9 +17,15 @@ public class ReviewService {
 
     private final ReviewMapper reviewMapper;
 
-    public List<ReviewResDto> findReviewList(SelectCriteria selectCriteria) {
+    @Value("${image.url}")
+    private String IMAGE_URL;
 
-        List<ReviewResDto> reviewList = reviewMapper.findReviewList(selectCriteria);
+    public List<ReviewResDto> findReviewList() {
+
+        List<ReviewResDto> reviewList = reviewMapper.findReviewList();
+        for(int i = 0 ; i < reviewList.size() ; i++) {
+            reviewList.get(i).setImgUrl(IMAGE_URL + reviewList.get(i).getImgUrl());
+        }
 
         return reviewList;
     }
@@ -33,6 +40,9 @@ public class ReviewService {
     public ReviewResDto findReviewByNo(String reviewNo) {
 
         ReviewResDto review = reviewMapper.findReviewByNo(Integer.parseInt(reviewNo));
+        if (review.getImgUrl() != null && !review.getImgUrl().isEmpty()) {
+            review.setImgUrl(IMAGE_URL + review.getImgUrl());
+        }
 
         return review;
     }
@@ -40,6 +50,7 @@ public class ReviewService {
     public int insertReview(ReviewReqDto reviewReqDto) {
 
         int result = reviewMapper.insertReview(reviewReqDto);
+
 
         return result;
     }
@@ -58,9 +69,12 @@ public class ReviewService {
         return result;
     }
 
-    public List<ReviewResDto> findReviewByMemberId(Long memberId, SelectCriteria selectCriteria) {
+    public List<ReviewResDto> findReviewByMemberId(String memberId) {
 
-        List<ReviewResDto> reviewList = reviewMapper.findReviewByMemberId(memberId, selectCriteria);
+        List<ReviewResDto> reviewList = reviewMapper.findReviewByMemberId(memberId);
+        for(int i = 0 ; i < reviewList.size() ; i++) {
+            reviewList.get(i).setImgUrl(IMAGE_URL + reviewList.get(i).getImgUrl());
+        }
 
         return reviewList;
     }
@@ -81,9 +95,12 @@ public class ReviewService {
         return Math.round(avg * 10.0) / 10.0; // 소수점 1자리 반올림
     }
 
-    public List<ReviewResDto> findReviewByPlaceId(String placeId, SelectCriteria selectCriteria) {
+    public List<ReviewResDto> findReviewByPlaceId(String placeId) {
 
-        List<ReviewResDto> reviewList = reviewMapper.findReviewByPlaceIdPaging(Integer.parseInt(placeId), selectCriteria);
+        List<ReviewResDto> reviewList = reviewMapper.findReviewByPlaceIdPaging(Integer.parseInt(placeId));
+        for(int i = 0 ; i < reviewList.size() ; i++) {
+            reviewList.get(i).setImgUrl(IMAGE_URL + reviewList.get(i).getImgUrl());
+        }
 
         return reviewList;
     }

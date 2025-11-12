@@ -16,6 +16,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,19 +29,9 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @GetMapping("/reviews")
-    public ResponseEntity<ResponseDto> findReviewListByPaging(@RequestParam(name = "offset", defaultValue = "1") String offset) {
+    public ResponseEntity<ResponseDto> findReviewList() {
 
-        SelectCriteria selectCriteria = getSelectCriteria(Integer.parseInt(offset), reviewService.selectReviewTotal());
-
-        ResponseDtoWithPaging responseDtoWithPaging = new ResponseDtoWithPaging(reviewService.findReviewList(selectCriteria), selectCriteria);
-
-        return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "리뷰 리스트 조회 성공", responseDtoWithPaging));
-    }
-
-    private SelectCriteria getSelectCriteria(int offset, int totalCount) {
-        int limit = 10;
-        int buttonAmount = 10;
-        return Pagenation.getSelectCriteria(offset, totalCount, limit, buttonAmount);
+        return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "리뷰 리스트 조회 성공", reviewService.findReviewList()));
     }
 
     @GetMapping("/reviews/{reviewId}")
@@ -45,13 +40,44 @@ public class ReviewController {
         return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "리뷰 상세조회 성공", reviewService.findReviewByNo(reviewId)));
     }
 
-    @PostMapping("/reviews")
+//    @PostMapping("/reviews")
+//    @Transactional
+//    public ResponseEntity<ResponseDto> insertReview(@RequestBody ReviewReqDto reviewReqDto) {
+//
+//        return ResponseEntity.ok(new ResponseDto(HttpStatus.CREATED, "리뷰 등록 성공", reviewService.insertReview(reviewReqDto)));
+//
+//    }
+
+    @PostMapping(value = "/reviews", consumes = {"multipart/form-data"})
     @Transactional
-    public ResponseEntity<ResponseDto> insertReview(@RequestBody ReviewReqDto reviewReqDto) {
+    public ResponseEntity<ResponseDto> insertReview(@ModelAttribute ReviewReqDto reviewReqDto) {
+        try {
+            MultipartFile file = reviewReqDto.getImgFile();
 
-        return ResponseEntity.ok(new ResponseDto(HttpStatus.CREATED, "리뷰 등록 성공", reviewService.insertReview(reviewReqDto)));
+            String fileName = null;
+            if (file != null && !file.isEmpty()) {
+                // UUID + 원본 파일명으로 중복 방지
+                fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
+                // 저장 경로 생성
+                File dest = new File("/Users/kwonjiyoung/Documents/multi_semi/", fileName);
+                file.transferTo(dest); // 실제 파일 저장
+            }
+
+            // 파일명이 있으면 DTO에 세팅
+            reviewReqDto.setImgUrl(fileName);
+
+            // 서비스 호출
+            reviewService.insertReview(reviewReqDto);
+
+            return ResponseEntity.ok(new ResponseDto(HttpStatus.CREATED, "리뷰 등록 성공", null));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError()
+                    .body(new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR, "이미지 업로드 실패", null));
+        }
     }
+
 
     @PutMapping("/reviews")
     @Transactional
@@ -68,24 +94,16 @@ public class ReviewController {
     }
 
     @GetMapping("/reviews/mypage")
-    public ResponseEntity<ResponseDto> findReviewByMemberIdPaging(@RequestParam(name = "offset", defaultValue = "1") String offset,
-                                                                  @AuthenticationPrincipal CustomUser customUser) {
+    public ResponseEntity<ResponseDto> findReviewByMemberIdPaging(@AuthenticationPrincipal CustomUser customUser) {
 
-        SelectCriteria selectCriteria = getSelectCriteria(Integer.parseInt(offset), reviewService.selectReviewTotal());
 
-        ResponseDtoWithPaging responseDtoWithPaging = new ResponseDtoWithPaging(reviewService.findReviewByMemberId(customUser.getNo(), selectCriteria), selectCriteria);
-
-        return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "내가 쓴 리뷰 리스트 조회 성공", responseDtoWithPaging));
+        return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "내가 쓴 리뷰 리스트 조회 성공", reviewService.findReviewByMemberId(customUser.getEmail())));
     }
 
     @GetMapping("/reviews/place/{placeId}")
-    public ResponseEntity<ResponseDto> findReviewByPlaceId(@RequestParam(name = "offset", defaultValue = "1") String offset, @PathVariable("placeId") String placeId) {
+    public ResponseEntity<ResponseDto> findReviewByPlaceId(@PathVariable("placeId") String placeId) {
 
-        SelectCriteria selectCriteria = getSelectCriteria(Integer.parseInt(offset), reviewService.selectReviewTotal());
-
-        ResponseDtoWithPaging responseDtoWithPaging = new ResponseDtoWithPaging(reviewService.findReviewByPlaceId(placeId, selectCriteria), selectCriteria);
-
-        return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "장소별 리뷰 리스트 조회 성공", responseDtoWithPaging));
+        return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "장소별 리뷰 리스트 조회 성공", reviewService.findReviewByPlaceId(placeId)));
     }
 
     @GetMapping("/reviews/rating/{placeId}")
@@ -97,13 +115,9 @@ public class ReviewController {
 
     //관리자
     @GetMapping("/reviews-management")
-    public ResponseEntity<ResponseDto> findReviewListAdminByPaging(@RequestParam(name = "offset", defaultValue = "1") String offset) {
+    public ResponseEntity<ResponseDto> findReviewListAdminByPaging() {
 
-        SelectCriteria selectCriteria = getSelectCriteria(Integer.parseInt(offset), reviewService.selectReviewTotal());
-
-        ResponseDtoWithPaging responseDtoWithPaging = new ResponseDtoWithPaging(reviewService.findReviewList(selectCriteria), selectCriteria);
-
-        return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "리뷰 리스트 조회 성공", responseDtoWithPaging));
+        return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "리뷰 리스트 조회 성공", reviewService.findReviewList()));
     }
 
     @GetMapping("/reviews-management/{reviewId}")
