@@ -44,5 +44,33 @@
         set uuid = #{uuid}
         where no = #{no}
     </update>
+
+    <update id="updateMemberInfo" parameterType="UpdateMemberReqDto">
+        UPDATE mem
+        <set>
+            <if test="id != null">id = #{id},</if>
+
+            <if test="pwd != null">pwd = #{pwd},</if>
+
+            <if test="name != null">name = #{name},</if>
+            <if test="addr != null">addr = #{addr},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="intro != null">intro = #{intro},</if>
+        </set>
+        WHERE email = #{email}
+    </update>
+
+    <update id="updateMemberPwd" parameterType="UpdateMemberReqDto">
+        update mem
+        set pwd = #{pwd}
+        where email = #{email}
+    </update>
+
+    <delete id="deleteMemberByEmail">
+        delete from mem
+        where email = #{email}
+    </delete>
+
+
 </mapper>
 

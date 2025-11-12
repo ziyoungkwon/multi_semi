@@ -1,4 +1,4 @@
-package com.multi.multi_semi.member.dto;
+package com.multi.multi_semi.member.dto.req;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MemberResDto {
+public class MemberReqDto {
     private Long no;
     private String id;
     private String email;

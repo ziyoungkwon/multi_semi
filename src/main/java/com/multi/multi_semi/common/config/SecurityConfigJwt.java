@@ -69,6 +69,8 @@ public class SecurityConfigJwt {
                         .requestMatchers("/refresh/test").permitAll()
                         .requestMatchers("/api/v1/favorites/**","/favorites/**","/api/v1/favorite/**").permitAll()
                         .requestMatchers("/api/v1/places/**","/places/**").permitAll()
+                        .requestMatchers("/api/v1/members/**","/member/**", "/members/**").permitAll()
+                        .requestMatchers("/api/v1/admin/members/**").permitAll()
                         .requestMatchers("/", "/error", "/auth/**", "/login/oauth2/**", "/oauth2/**", "/oauth-redirect").permitAll()
                         .requestMatchers("/api/v1/products/**", "/api/v1/product/**", "/products/**", "/product/**").permitAll()
                         .requestMatchers("/api/v1/reviews/**", "/ai_image/**",  "/common/**", "/css/**", "/productimgs/**", "/favicon.ico").permitAll()

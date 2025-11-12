@@ -8,7 +8,7 @@ import com.multi.multi_semi.common.jwt.TokenProvider;
 import com.multi.multi_semi.common.jwt.dto.AccessTokenResponseDto;
 import com.multi.multi_semi.common.jwt.dto.TokenDto;
 import com.multi.multi_semi.common.jwt.service.TokenService;
-import com.multi.multi_semi.member.dto.MemberReqDto;
+import com.multi.multi_semi.member.dto.req.MemberReqDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
