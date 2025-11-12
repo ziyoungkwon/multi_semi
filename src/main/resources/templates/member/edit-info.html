@@ -304,7 +304,7 @@
 
             const email = form.dataset.email;
 
-            fetch(`/api/v1/members/${email}/edit-info`, {
+            fetch(`/api/v1/members/edit-info`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formDataObject)

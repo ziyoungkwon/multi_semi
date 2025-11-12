@@ -27,9 +27,9 @@
 
     <insert id="insertMember" parameterType="MemberReqDto">
         INSERT INTO mem
-            (id, name, pwd, email)
+            (id, email, pwd, name, phone, addr, intro)
         VALUES
-            (#{id}, #{name}, #{pwd}, #{email})
+            (#{id}, #{email}, #{pwd}, #{name}, #{phone}, #{addr}, #{intro})
     </insert>
 
     <insert id="insertOAuthMember" parameterType="MemberDto">
