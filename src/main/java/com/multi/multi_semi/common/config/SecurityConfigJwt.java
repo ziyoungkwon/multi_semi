@@ -74,7 +74,7 @@ public class SecurityConfigJwt {
                         .requestMatchers("/api/v1/products-management/**", "/api/v1/reviews-management/**").hasAnyRole("ADMIN")
                         .requestMatchers("/api/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/api/v1/reviews/mypage").permitAll()
+                        .requestMatchers("/api/v1/reviews/**", "/reviews/**").permitAll()
                         .anyRequest().authenticated())
 
                 // [ ★★★ 수정 ★★★ ]

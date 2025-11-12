@@ -8,7 +8,7 @@
             COUNT(*)
         FROM rev r
                  JOIN place p ON r.place_no = p.no
-                 JOIN mem m ON r.writer_no = m.no
+                 JOIN mem m ON r.writer_email = m.email
 
     </select>
 
@@ -24,7 +24,7 @@
             r.modified_at as updatedAt
         from rev r
                  join place p on r.place_no = p.no
-                 join mem m on r.writer_no = m.no
+                 join mem m on r.writer_email = m.email
         order by r.no
             LIMIT #{startRow}, #{limit}
     </select>
@@ -42,14 +42,14 @@
             r.modified_at as updatedAt
         from rev r
                  join place p on r.place_no = p.no
-                 join mem m on r.writer_no = m.no
-                 join mem n on r.modified_by = n.no
+                 join mem m on r.writer_email = m.email
+                 join mem n on r.modified_by = n.email
         where #{no} = r.no
     </select>
 
     <insert id="insertReview" parameterType="ReviewReqDto">
         insert into rev
-        (title, content, rate, writer_no, place_no, img_url, modified_by)
+        (title, content, rate, writer_email, place_no, img_url, modified_by)
         values
         (#{title}, #{content}, #{rate}, #{writerNo}, #{placeNo}, #{imgUrl}, #{modifiedBy})
     </insert>
@@ -83,8 +83,8 @@
             r.modified_at as updatedAt
         from rev r
             join place p on r.place_no = p.no
-            join mem m on r.writer_no = m.no
-        where r.writer_no = #{memberNo}
+            join mem m on r.writer_email = m.email
+        where r.writer_email = #{memberNo}
         order by r.no
             LIMIT #{selectCriteria.startRow}, #{selectCriteria.limit}
     </select>
@@ -101,7 +101,7 @@
             r.modified_at as updatedAt
         from rev r
             join place p on r.place_no = p.no
-            join mem m on r.writer_no = m.no
+            join mem m on r.writer_email = m.email
         where r.place_no = #{placeNo}
         order by r.no
     </select>
@@ -118,7 +118,7 @@
             r.modified_at as updatedAt
         from rev r
             join place p on r.place_no = p.no
-            join mem m on r.writer_no = m.no
+            join mem m on r.writer_email = m.email
         where r.place_no = #{placeNo}
         order by r.no
             LIMIT #{selectCriteria.startRow}, #{selectCriteria.limit}
