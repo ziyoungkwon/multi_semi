@@ -4,25 +4,106 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.multi.multi_semi.review.dao.ReviewMapper">
 
+    <select id="findReviewList" resultType="ReviewResDTO">
+        select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+                 join place p on r.place_no = p.no
+                 join mem m on r.writer_email = m.email
+        order by r.no
+    </select>
 
-    <!-- 언더바가 들어가는 쿼리문에 한하여 매핑을 해줘야함 -->
-    <!--property : 자바에서 필드 변수 이름,  column : DB 의 해당 컬럼명-->
-    <!--DB에서의 기본키 -->
-    <!-- 1-1. resultMap의 하위 엘리먼트 -->
-    <!--
-        <id> : primary key 컬럼을 매핑하기 위한 태그이다. (성능 향상)
-        <result> : pk가 아닌 일반 컬럼에 매핑하기 위한 태그이다.
-        <constructor> : 인스턴스화 되는 클래스의 생성자에 결과를 삽입하기 위해 사용한다.
-        <association> : 연관관계로 1:1 포함관계인 경우 사용한다.
-        <collection> : 연관관계로 1:다 포함관계인 경우 사용한다.
+    <select id="findReviewByNo" resultType = "ReviewResDTO">
+        select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.img_url as imgUrl,
+            r.rate as rate,
+            n.id as updatedPerson,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+                 join place p on r.place_no = p.no
+                 join mem m on r.writer_email = m.email
+                 join mem n on r.modified_by = n.email
+        where r.no = #{no}
+    </select>
 
+    <insert id="insertReview" parameterType="ReviewReqDto">
+        insert into rev
+        (title, content, rate, writer_email, place_no, img_url, modified_by)
+        values
+        (#{title}, #{content}, #{rate}, #{writerEmail}, #{placeNo}, #{imgUrl}, #{modifiedBy})
+    </insert>
 
-        dto 에 기본생성자, setter 가 생성이 되어있어야한다.
-    -->
+    <update id="updateReview" parameterType="ReviewReqDto">
+        update rev
+        set
+            title = #{title},
+            content = #{content},
+            modified_by = #{modifiedBy},
+            img_url = #{imgUrl},
+            rate = #{rate}
+        where no = #{no}
+    </update>
+
+    <delete id="deleteReview" parameterType="int">
+        delete
+        from rev
+        where no = #{no}
+    </delete>
+
+    <select id="findReviewByMemberId" resultType="ReviewResDTO">
+        select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.writer_email = #{memberNo}
+        order by r.no
+    </select>
+
+    <select id="findReviewByPlaceId" resultType="ReviewResDTO">
+        select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = #{placeNo}
+        order by r.no desc
+    </select>
 
     <select id="selectReviewListWithPaging" resultType="ReviewResDto">
         select
-        no as reviewNo,
+        no,
         title,
         content,
         rate,
@@ -38,6 +119,5 @@
         from rev
         where place_no = #{placeNo}
     </select>
-
 
 </mapper>

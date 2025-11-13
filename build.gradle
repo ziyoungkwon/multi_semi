@@ -51,8 +51,10 @@ dependencies {
     // oauth
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
+
     implementation 'com.fasterxml.jackson.core:jackson-databind'
     implementation 'org.apache.httpcomponents.client5:httpclient5'
+
 }
 
 tasks.named('test') {

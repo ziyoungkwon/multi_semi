@@ -1,6 +1,7 @@
 package com.multi.multi_semi.review.dto;
 
 import lombok.*;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.time.LocalDateTime;
 
@@ -9,17 +10,16 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Getter
-public class ReviewResDto {
+public class ReviewDto {
 
     private Long no;
     private String title;
     private String content;
     private int rate;
     private String writerEmail;
-    private String writer;
-    private String placeTitle;
+    private int placeNo;
     private String imgUrl;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private String updatedPerson;
+    private int updaterNo;
 }
