@@ -352,7 +352,16 @@
 
 
     try {
-      // 3. (1단계) 서버에 "작업 요청"
+      // ★★★ [수정] 1. /refresh/test 선제적 호출 ★★★
+      console.log('선제적 토큰 갱신 테스트(/refresh/test) 호출 시도...');
+      const refreshResponse = await fetch('/refresh/test', {method: 'GET'});
+
+      const refreshResult = await refreshResponse.json();
+      console.log('응답 결과:', refreshResult);
+
+      // ********************************
+
+      // 3. (2단계) 서버에 "작업 요청"
       const response = await fetch('/api/v1/generate-request', {
         method: 'POST',
         body: buildFormData()
@@ -373,10 +382,11 @@
       // ★★★ [수정] ★★★
       // "Failed to fetch"는 FormData + 401 조합으로 인한
       // 자동 갱신 실패일 가능성이 매우 높습니다.
+      // (또한 위에서 throw한 "선제적 토큰 갱신 테스트 실패" 에러도 여기서 잡힘)
       if (err.message === "Failed to fetch") {
         uiShowError("요청 실패 (Failed to fetch).\n\n토큰이 만료되었을 수 있습니다.\n페이지 상단의 '엑세스 토큰 재발급 테스트' 버튼을 누른 후 다시 시도해 주세요.");
       } else {
-        // 기타 일반 오류 (예: 서버 500)
+        // 기타 일반 오류 (예: 서버 500 또는 선제적 갱신 실패)
         uiShowError(err.message);
       }
     }

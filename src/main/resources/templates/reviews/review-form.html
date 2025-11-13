@@ -232,6 +232,17 @@
         const formData = new FormData(e.target);
 
         try {
+
+            // ★★★ [수정] 1. /refresh/test 선제적 호출 ★★★
+            console.log('선제적 토큰 갱신 테스트(/refresh/test) 호출 시도...');
+            const refreshResponse = await fetch('/refresh/test', {method: 'GET'});
+
+            const refreshResult = await refreshResponse.json();
+            console.log('응답 결과:', refreshResult);
+
+            // ********************************
+
+
             const response = await fetch('/api/v1/reviews', {
                 method: 'POST',
                 headers: {
