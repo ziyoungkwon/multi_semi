@@ -1,39 +1,171 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>상품 상세</title>
     <link rel="stylesheet" th:href="@{/css/styles1.css}">
     <style>
-        .tab-buttons { display: flex; gap: 8px; margin-bottom: 10px; }
-        .tab-buttons button {
-            padding: 8px 16px;
-            border: none;
-            background: #e0e0e0;
-            cursor: pointer;
-            border-radius: 6px;
+        /* ✅ 전체 레이아웃 */
+        body {
+            font-family: "Noto Sans KR", sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            color: #333;
         }
-        .tab-buttons button.active {
-            background: #1976d2;
-            color: white;
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 24px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
-        .tab-content {
-            display: none;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            padding: 16px;
+
+        h2 {
+            margin-bottom: 12px;
+            color: #1976d2;
         }
-        .tab-content.active {
+
+        img {
+            border-radius: 8px;
+            margin-bottom: 16px;
             display: block;
         }
+
+        /* ✅ 탭 버튼 */
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 8px;
+        }
+
+        .tab-buttons button {
+            padding: 10px 18px;
+            border: none;
+            background: #f1f1f1;
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .tab-buttons button.active {
+            background: #1976d2;
+            color: #fff;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 16px;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
         #details {
             width: 100%;
             height: 350px;
+            border-radius: 8px;
+            overflow: hidden;
         }
+
+        /* ✅ 링크 */
+        a.home-link {
+            display: inline-block;
+            margin-top: 24px;
+            text-decoration: none;
+            color: #1976d2;
+            font-weight: 600;
+        }
+
+        a.home-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ✅ 날씨 정보 */
+        .weather-info {
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .weather-icon {
+            font-size: 2rem;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        #reviewList {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            table-layout: fixed; /* 고정 레이아웃 */
+        }
+
+        #reviewList th, #reviewList td {
+            text-align: center;
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            word-wrap: break-word; /* 긴 글 자동 줄바꿈 */
+        }
+
+        #reviewList th {
+            background-color: #f7f7f7;
+            font-weight: 600;
+        }
+
+        #reviewList tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .review-rate {
+            color: #FFD700;
+        }
+
+        /* ✅ 각 열 너비 지정 (비율 조정 가능) */
+        #reviewList th:nth-child(1),
+        #reviewList td:nth-child(1) {
+            width: 18%; /* 타이틀 */
+        }
+
+        #reviewList th:nth-child(2),
+        #reviewList td:nth-child(2) {
+            width: 52%; /* 내용 - 가장 넓게 */
+            text-align: left;
+            padding-left: 15px;
+        }
+
+        #reviewList th:nth-child(3),
+        #reviewList td:nth-child(3) {
+            width: 18%; /* 작성자 */
+        }
+
+        #reviewList th:nth-child(4),
+        #reviewList td:nth-child(4) {
+            width: 12%; /* 평점 */
+        }
+
     </style>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<div th:replace="~{common/header :: header}"></div>
+<div class="header">
+    <th:block th:replace="~{common/header :: header}"/>
+</div>
+
 
 <div class="container">
     <h2 id="placeTitle"></h2>
@@ -42,54 +174,54 @@
     <p id="placeAddress"></p>
 
     <div class="tab-buttons">
-        <button class="tab-btn active" data-target="review">관련리뷰</button>
-        <button class="tab-btn" data-target="details">주변지도</button>
-        <button class="tab-btn" data-target="links">날씨정보</button>
+        <button class="tab-btn active" data-target="review">관련 리뷰</button>
+        <button class="tab-btn" data-target="details">주변 지도</button>
+        <button class="tab-btn" data-target="links">날씨 정보</button>
     </div>
 
-    <!-- ✅ 탭 콘텐츠 영역 -->
+    <!-- ✅ 리뷰 탭 -->
     <div id="review" class="tab-content active">
-        <h3>관광지리뷰</h3>
+        <h3>관광지 리뷰</h3>
+        <ul id="reviewList"></ul>
+        <div id="pagination"></div>
     </div>
 
-    <div id="details" class="tab-content">
-        <!-- Kakao Map 표시 -->
-    </div>
+    <!-- ✅ 지도 탭 -->
+    <div id="details" class="tab-content"></div>
 
+    <!-- ✅ 날씨 탭 -->
     <div id="links" class="tab-content">
         <h3>날씨 정보</h3>
+        <div class="weather-info" id="weatherInfo"></div>
     </div>
 
-    <a href="/main" style="display: inline-block; margin-top: 20px;">홈으로 돌아가기</a>
+    <a href="/main" class="home-link">← 홈으로 돌아가기</a>
 </div>
 
-<div class="footer">
-    <th:block th:replace="~{common/footer :: footer}"/>
-</div>
 
-<!-- ✅ 지도 SDK -->
+
+<!-- ✅ Kakao Map -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db0e01b397787c97dae0c9b59e1cca31"></script>
 
 <script>
-    const placeNo = [[${placeNo}]]; // Thymeleaf 바인딩
-
+    const placeNo = [[${placeNo}]];
     let map, marker;
 
-    async function loadProductDetail() {
+    async function loadPlaceDetail() {
         try {
             const response = await fetch(`http://localhost:8090/api/v1/places/${placeNo}`);
             const result = await response.json();
 
             if (result.status === 200 && result.data) {
                 const place = result.data;
-                document.getElementById('placeTitle').textContent = place.title;
-                document.getElementById('placeImage').src = place.imageUrl || '/path/to/default-image.jpg';
-                document.getElementById('placeDescription').textContent = place.description;
-                document.getElementById('placeAddress').textContent = place.address;
+                $('#placeTitle').text(place.title);
+                $('#placeImage').attr('src', place.imageUrl || '/path/to/default-image.jpg');
+                $('#placeDescription').text(place.description);
+                $('#placeAddress').text(place.address);
 
-                // ✅ 지도 생성
+                initReview(1);
                 initMap(place.lat, place.lng);
-                initweather(place.lat, place.lng)
+                initWeather(place.lat, place.lng);
             } else {
                 alert('관광지 상세 정보를 불러오는 데 실패했습니다.');
             }
@@ -99,52 +231,127 @@
         }
     }
 
-    // ✅ 지도 초기화 함수
     function initMap(lat, lng) {
         const mapContainer = document.getElementById('details');
-        const mapOption = {
-            center: new kakao.maps.LatLng(lat, lng),
-            level: 3
-        };
+        const mapOption = { center: new kakao.maps.LatLng(lat, lng), level: 3 };
         map = new kakao.maps.Map(mapContainer, mapOption);
         marker = new kakao.maps.Marker({ position: mapOption.center });
         marker.setMap(map);
     }
 
-    function initweather(lat, lng) {
+    function getWeatherIcon(main) {
+        const iconMap = {
+            Clear: "☀️",
+            Clouds: "☁️",
+            Rain: "🌧️",
+            Drizzle: "🌦️",
+            Thunderstorm: "⛈️",
+            Snow: "❄️",
+            Mist: "🌫️"
+        };
+        return iconMap[main] || "🌤️";
+    }
 
-        const resultDiv = document.getElementById('links');
-        resultDiv.innerHTML = "<p>날씨 정보를 불러오는 중...</p>";
+    function initWeather(lat, lng) {
+        const info = $('#weatherInfo');
+        info.html("<p>날씨 정보를 불러오는 중...</p>");
 
         $.ajax({
             url: `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&lang=kr&appid=a1960ea44c537a51418257f763c42f66`,
-
             dataType: 'json',
             success: function (data) {
-                console.log(data);
-                $(`#links`).html(
-                    `<h3>${data.name} 날씨</h3>
-                    날씨 : ${data.weather[0].description}<br>
-                    풍속 : ${data.wind.speed} m/s<br>
-                    최고 기온 : ${data.main.temp_max}°C<br>
-                    최저 기온 : ${data.main.temp_min}°C<br>
-                    체감 온도 : ${data.main.feels_like}°C<br>
-                    구름 : ${data.clouds.all}%`
-                )
+                const icon = getWeatherIcon(data.weather[0].main);
+                info.html(`
+                    <span class="weather-icon">${icon}</span><strong>${data.name}</strong> 현재 날씨<br>
+                    ${data.weather[0].description}<br>
+                    🌡 최고: ${data.main.temp_max}°C / 최저: ${data.main.temp_min}°C<br>
+                    💨 풍속: ${data.wind.speed} m/s<br>
+                    체감온도: ${data.main.feels_like}°C<br>
+                    구름: ${data.clouds.all}%
+                `);
             },
-            error: function (xhr, status, error) {
-                console.error("Weather API Error:", error);
-                $('#links').html("날씨 정보를 불러오지 못했습니다.");
+            error: function () {
+                info.html("날씨 정보를 불러오지 못했습니다.");
             }
-        })
-
-
-
+        });
     }
 
+    async function initReview(offset) {
+        try {
+            const response = await fetch(`http://localhost:8090/api/v1/reviews/place-detail/${placeNo}?offset=${offset}`);
+            const result = await response.json();
+
+            if (result.status === 200 && result.data?.data) {
+                const reviews = result.data.data;
+                const pageInfo = result.data.pageInfo;
+                const reviewList = $('#reviewList').empty();
+
+                if (reviews.length === 0) {
+                  //  reviewList.html('<li>관련 리뷰가 없습니다.</li>');
+                    reviewList.html('<tr><td colspan="4">관련 리뷰가 없습니다.</td></tr>');
+                    return;
+                }
+                reviewList.append(`
+                <tr>
+                    <th>타이틀</th>
+                    <th>내용</th>
+                    <th>작성자</th>
+                    <th>평점</th>
+                </tr>
+               `);
+
+                reviews.forEach(r => {
+                    const stars = '⭐'.repeat(r.rate);
+                    reviewList.append(`
+                     <tr>
+                        <td>${r.title}</td>
+                        <td>${r.content}</td>
+                        <td>${r.writerEmail}</td>
+                        <td class="review-rate">${stars}</td>
+                    </tr>
+                    `);
+                });
+
+                renderPagination(pageInfo);
+            } else {
+               $('#reviewList').html('<tr><td colspan="4">리뷰 데이터를 불러오는 데 실패했습니다.</td></tr>');
+            }
+        } catch (error) {
+            console.error('Failed to load reviews:', error);
+            $('#reviewList').html('<tr><td colspan="4">리뷰 데이터를 불러오는 중 오류가 발생했습니다.</td></tr>');
+        }
+    }
+
+    function renderPagination(pageInfo) {
+        if (!pageInfo) return;
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = '';
+
+        if (pageInfo.pageNo > 1) {
+            const prev = document.createElement('button');
+            prev.textContent = '이전';
+            prev.onclick = () => initReview(pageInfo.pageNo - 1);
+            pagination.appendChild(prev);
+        }
+
+        for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
+            const button = document.createElement('button');
+            button.textContent = i;
+            button.classList.toggle('active', i === pageInfo.pageNo);
+            button.onclick = () => initReview(i);
+            pagination.appendChild(button);
+        }
+
+        if (pageInfo.pageNo < pageInfo.maxPage) {
+            const next = document.createElement('button');
+            next.textContent = '다음';
+            next.onclick = () => initReview(pageInfo.pageNo + 1);
+            pagination.appendChild(next);
+        }
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
-        loadProductDetail();
+        loadPlaceDetail();
 
         const buttons = document.querySelectorAll('.tab-btn');
         const contents = document.querySelectorAll('.tab-content');
@@ -155,12 +362,9 @@
                 contents.forEach(c => c.classList.remove('active'));
 
                 btn.classList.add('active');
-                const targetId = btn.dataset.target;
-                const targetContent = document.getElementById(targetId);
-                targetContent.classList.add('active');
+                document.getElementById(btn.dataset.target).classList.add('active');
 
-                // ✅ "주변지도" 탭 클릭 시 지도 다시 그리기
-                if (targetId === 'details' && map) {
+                if (btn.dataset.target === 'details' && map) {
                     setTimeout(() => {
                         map.relayout();
                         map.setCenter(marker.getPosition());

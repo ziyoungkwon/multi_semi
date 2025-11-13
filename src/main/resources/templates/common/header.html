@@ -1,7 +1,7 @@
 <div th:fragment="header">
 
-    <!-- 토큰 테스트용 -->
-    <a href="#" id="test-refresh-accessToken">요청 실패 시 여기를 클릭하세요!</a>
+
+   <!-- <a href="#" id="test-refresh-accessToken">요청 실패 시 여기를 클릭하세요!</a> -->
 
     <script>
         document.getElementById('test-refresh-accessToken').addEventListener('click', async (e) => {
@@ -41,6 +41,7 @@
         <a th:href="@{/reviews/list}" class="nav-item">리뷰 게시판</a>
         <a th:href="@{/api/v1/generate-request}" class="nav-item">이미지 만들기</a>
         <a th:href="@{/api/v1/mypage}" class="nav-item">마이페이지</a>
+        <a th:href="@{/favorites/list}" class="nav-item">즐겨찾기 목록</a>
         <a th:href="@{/api/v1/admin/page}" class="nav-item" id="admin-page-link" style="display: none;">관리자 페이지</a>
     </nav>
 

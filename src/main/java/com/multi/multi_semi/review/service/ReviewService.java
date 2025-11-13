@@ -1,11 +1,13 @@
 package com.multi.multi_semi.review.service;
 
 import com.multi.multi_semi.common.paging.SelectCriteria;
+import com.multi.multi_semi.favorite.dto.FavoriteResDto;
 import com.multi.multi_semi.review.dao.ReviewMapper;
 import com.multi.multi_semi.review.dto.ReviewReqDto;
 import com.multi.multi_semi.review.dto.ReviewResDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,11 +16,13 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class ReviewService {
 
     private final ReviewMapper reviewMapper;
 
-    @Value("${image.review-image-url}")
+
+    @Value("${image.image-url}")
     private String IMAGE_URL;
 
     public List<ReviewResDto> findReviewList() {
@@ -104,4 +108,13 @@ public class ReviewService {
 
         return reviewList;
     }
+
+    public Object selectReviewListWithPaging(SelectCriteria selectCriteria, int placeNo) {
+
+        List<ReviewResDto> list = reviewMapper.selectReviewListWithPaging(selectCriteria,placeNo);
+        return list;
+    }
+
+    public int getReviewCount(int placeNo) { return reviewMapper.countReview(placeNo);}
+
 }
