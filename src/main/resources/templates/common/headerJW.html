@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<header th:fragment="header">
+    <style>
+        /* SUIT 웹폰트 */
+        @import url('https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css');
+
+        :root {
+            --vt-yellow: #ffeb3b;
+            --vt-brown: #3e2723;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'SUIT', system-ui, -apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif;
+            background-color: #ffffff;
+        }
+
+        /* 전체 헤더 정렬 영역 */
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 상단 영역 중앙 정렬 */
+        .vt-header-top {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            width: 100%;
+            max-width: 1100px;
+            padding: 12px 24px;
+        }
+
+        /* 로고 이미지 */
+        .logo img {
+            height: 60px;
+            display: block;
+        }
+
+        /* 검색창 */
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            border: 3px solid var(--vt-brown);
+            padding: 0 8px;
+            width: 450px;
+        }
+
+        .category-btn {
+            border: none;
+            background: transparent;
+            font-size: 20px;
+            color: var(--vt-brown);
+            cursor: pointer;
+            margin-right: 8px;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            padding: 8px 4px;
+        }
+
+        .search-icon-btn {
+            border: none;
+            background: transparent;
+            font-size: 22px;
+            color: var(--vt-brown);
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        /* 로그인 버튼 */
+        .login-btn {
+            background-color: var(--vt-yellow);
+            border: 3px solid var(--vt-brown);
+            color: var(--vt-brown);
+            font-size: 16px;
+            font-weight: 600;
+            padding: 10px 24px;
+            cursor: pointer;
+        }
+
+        /* 네비게이션 */
+        .vt-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1100px;
+            background-color: var(--vt-yellow);
+            margin-top: 4px;
+        }
+
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            font-size: 16px;
+            text-decoration: none;
+            color: var(--vt-brown);
+            padding: 14px 0;
+            border-left: 3px solid var(--vt-brown);
+        }
+
+        /* 첫 번째 항목은 왼쪽 테두리 제거 */
+        .nav-item:first-child {
+            border-left: none;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+    </style>
+
+    <div class="vt-header-top">
+        <a href="#" class="logo">
+            <img th:src="@{/img/VTlogo.png}" alt="Virtual Trip 로고">
+        </a>
+
+        <div class="search-wrapper">
+            <button class="category-btn" aria-label="카테고리 선택">▽</button>
+            <input type="text" class="search-input" placeholder="여행지를 검색해 보세요">
+            <button class="search-icon-btn" aria-label="검색">🔍</button>
+        </div>
+
+        <button class="login-btn">로그인</button>
+    </div>
+
+    <nav class="vt-nav">
+        <a href="#" class="nav-item">관광지 목록</a>
+        <a href="#" class="nav-item">리뷰</a>
+        <a href="#" class="nav-item">이미지 만들기</a>
+        <a href="#" class="nav-item">마이페이지</a>
+    </nav>
+</header>

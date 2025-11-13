@@ -22,7 +22,21 @@
 
     </select>
 
+    <select id="findAllPlaces" resultType = "PlaceDto">
+        SELECT
+            a.no,
+            b.name as district,
+            a.title as title,
+            a.descr as description,
+            a.addr as address,
+            a.phone as phone,
+            a.lat,
+            a.lng,
+            a.first_img as imageUrl
 
+        from place a
+            join area_code b on a.dist = b.code
+    </select>
 
 
 </mapper>

@@ -42,46 +42,55 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         log.info("Google 로그인 시도: email={}, name={}", email, name);
 
-        // 2. 님의 CustomUserDetailService와 동일하게 DB에서 이메일로 회원 조회
-        Optional<MemberDto> existingMemberOpt = memberMapper.findByEmail(email);
+        // 2. DB에서 이메일로 회원 조회
+        Optional<MemberDto> findMember = memberMapper.findMemberByEmail(email);
 
         MemberDto memberDto;
 
-        if (existingMemberOpt.isEmpty()) {
+        if (findMember.isEmpty()) {
             // 3-1. [신규 회원] DB에 없음 -> 자동 회원가입
             log.info("신규 Google 사용자. 자동 회원가입을 진행합니다.");
 
-            // 님의 AuthService가 MemberReqDto를 사용하므로,
-            // 호환성을 위해 Dto를 생성합니다.
             MemberDto newMember = MemberDto.builder()
-                    .memberEmail(email)
-                    .memberName(name)
+                    .id(email)
+                    .email(email)
+                    .name(name)
+                    .role("ROLE_USER") // 기본 권한
                     // OAuth2 사용자는 비밀번호 로그인을 사용하지 않으므로, 랜덤 값 설정
-                    .memberPassword(passwordEncoder.encode(UUID.randomUUID().toString()))
-                    .memberRole("ROLE_USER") // 기본 권한
-                    .memberId(email) // memberId가 필요하다면 이메일로 임시 설정
+                    .uuid(passwordEncoder.encode(UUID.randomUUID().toString()))
                     .build();
 
-            // (주의) 님의 MemberMapper에 MemberDto를 직접 insert하는 쿼리가 필요할 수 있습니다.
-            // (AuthService의 signup은 MemberReqDto를 받기 때문)
-            // 임시로 MemberDto를 insert하는 쿼리를 호출한다고 가정합니다.
-            memberMapper.insertOAuthMember(newMember); // (이 쿼리를 MemberMapper.xml에 추가 필요)
+            memberMapper.insertOAuthMember(newMember);
 
             memberDto = newMember;
 
         } else {
-            // 3-2. [기존 회원] DB에 있음
-            log.info("기존 사용자. Google 정보로 로그인합니다.");
-            memberDto = existingMemberOpt.get();
+            MemberDto existingMember = findMember.get();
+
+            // 4. 같은 구글 이메일로 이미 직접 입력하여 회원가입은 했지만, 구글계정과 연동이 안되어 uuid는 없고 pwd만 있는 경우
+            if(findMember.get().getUuid() == null){ // 여기서 isBlank()를 해야하나? isEmpty()를 해야하나?
+                // 5. mem테이블의 uuid에 랜덤한 uuid값 추가
+                log.info("기존 Email 사용자. Google 계정 연동을 진행합니다.");
+
+                String uuid = passwordEncoder.encode(UUID.randomUUID().toString());
+                memberMapper.updateUuidByNo(findMember.get().getNo(), uuid);
+                existingMember.setUuid(uuid);
+
+                memberDto = existingMember;
+            }else { // pwd도 있고 uuid도 있는 경우
+                // 3-2. [기존 회원] DB에 있음
+                log.info("기존 사용자. Google 정보로 로그인합니다.");
+                memberDto = existingMember;
+            }
         }
 
-        // 4. 님의 CustomUserDetailService가 빌드하는 것과
-        //    동일한 CustomUser 객체를 생성합니다.
         CustomUser customUser = CustomUser.builder()
-                .email(memberDto.getMemberEmail())
-                .memberPassword(memberDto.getMemberPassword())
-                .authorities(Collections.singletonList(new SimpleGrantedAuthority(memberDto.getMemberRole())))
-                .memberId(memberDto.getMemberId()) //
+                .no(memberDto.getNo())
+                .email(memberDto.getEmail())
+                .pwd(memberDto.getPwd()) // 구글회원가입만 했으면 null
+                .uuid(memberDto.getUuid()) //
+                .authorities(Collections.singletonList(new SimpleGrantedAuthority(memberDto.getRole())))
+                .id(memberDto.getId())
                 .build();
 
         // 5. CustomUser(UserDetails)와 OAuth2User 정보를 래핑하여 반환

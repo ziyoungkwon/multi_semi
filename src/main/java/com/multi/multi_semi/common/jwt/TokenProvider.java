@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
 public class TokenProvider {
 
     public static final String AUTHORITIES_KEY = "auth";  // 클레임에서 권한정보담을키
-    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 1;     //1분
-    private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000L * 60 * 60; //1000L * 60 * 60 * 24 * 1;  // 1일
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 1;     //60분
+    private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000L * 60 * 60 * 24; //1000L * 60 * 60 * 24 * 1;  // 1일
 
     private final ByteSecretKeyProvider byteSecretKeyProvider;  // JwtProvider 의존성 추가
     private final Key SKEY; // 디코딩된 문자열 비밀키
@@ -54,7 +54,7 @@ public class TokenProvider {
         long now = new Date().getTime(); // 현재 시간
         if(code.equals("A")){
             tokenExpirationTime = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
-            claims.put(AUTHORITIES_KEY, String.join(",", roles)); // 엑세스 토큰ㅇ니니 역할 넣기
+            claims.put(AUTHORITIES_KEY, String.join(",", roles)); // 엑세스 토큰에 역할 넣기
         }
         else if(code.equals("R")){
             tokenExpirationTime = new Date(now + REFRESH_TOKEN_EXPIRE_TIME);

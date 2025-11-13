@@ -4,64 +4,81 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.multi.multi_semi.member.dao.MemberMapper">
 
-    <select id="findByMemberId" resultType="MemberDto">
+    <select id="findMemberByNo" resultType="MemberDto">
         SELECT
-            no AS memberCode, id AS memberId, name AS memberName, pw AS memberPassword, member_role AS memberRole, member_email AS memberEmail
-        FROM member
-        WHERE id = #{memberId}
+
+            no, id, email, pwd, name, phone, addr, intro, role, uuid
+        FROM mem
+        WHERE no = #{no}
 
     </select>
 
-    <select id="findByEmail" resultType="MemberDto">
-
+    <select id="findMemberById" resultType="MemberDto">
         SELECT
-            no AS memberCode, id AS memberId, name AS memberName, pw AS memberPassword, member_role AS memberRole, member_email AS memberEmail
 
-        FROM member
-
-        WHERE member_email = #{email}
-
+            no, id, email, pwd, name, phone, addr, intro, role, uuid
+        FROM mem
+        WHERE id = #{id}
 
     </select>
 
-
+    <select id="findMemberByEmail" resultType="MemberDto">
+        SELECT
+            no, id, email, pwd, name, phone, addr, intro, role, uuid
+        FROM mem
+        WHERE email = #{email}
+    </select>
 
     <insert id="insertMember" parameterType="MemberReqDto">
-        INSERT INTO member
-        (
-            id,
-            name,
-            pw,
-            member_email,
-            member_role
-        )
+        INSERT INTO mem
+
+            (id, name, pwd, email)
+
         VALUES
-            (
-                #{memberId},
-                #{memberName},
-                #{memberPassword},
-                #{memberEmail},
-                #{memberRole}
-            )
+            (#{id}, #{name}, #{pwd}, #{email})
     </insert>
 
     <insert id="insertOAuthMember" parameterType="MemberDto">
-        INSERT INTO member
-        (
-            id,
-            name,
-            pw,
-            member_email,
-            member_role
-        )
+        INSERT INTO mem
+
+            (id, name, uuid, email)
+
         VALUES
-            (
-                #{memberId},
-                #{memberName},
-                #{memberPassword},
-                #{memberEmail},
-                #{memberRole}
-            )
+            (#{id},#{name},#{uuid},#{email})
     </insert>
+
+    <update id="updateUuidByNo" parameterType="MemberDto">
+        update mem
+        set uuid = #{uuid}
+        where no = #{no}
+    </update>
+
+    <update id="updateMemberInfo" parameterType="UpdateMemberReqDto">
+        UPDATE mem
+        <set>
+            <if test="id != null">id = #{id},</if>
+
+            <if test="pwd != null">pwd = #{pwd},</if>
+
+            <if test="name != null">name = #{name},</if>
+            <if test="addr != null">addr = #{addr},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="intro != null">intro = #{intro},</if>
+        </set>
+        WHERE email = #{email}
+    </update>
+
+    <update id="updateMemberPwd" parameterType="UpdateMemberReqDto">
+        update mem
+        set pwd = #{pwd}
+        where email = #{email}
+    </update>
+
+    <delete id="deleteMemberByEmail">
+        delete from mem
+        where email = #{email}
+    </delete>
+
+
 </mapper>
 

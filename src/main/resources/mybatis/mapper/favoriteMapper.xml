@@ -26,18 +26,18 @@
 
     <select id="selectFavoriteListWithPaging" resultType="FavoriteResDTO">
         select
-        a.no as favoriteSeq,
-        b.no as placeNo,
-        c.name as district,
-        b.title as title,
-        b.descr as description,
-        b.addr as address,
-        b.lat,
-        b.lng,
-        b.first_img as imageUrl
+            a.no as favoriteSeq,
+            b.no as placeNo,
+            c.name as district,
+            b.title as title,
+            b.descr as description,
+            b.addr as address,
+            b.lat,
+            b.lng,
+            b.first_img as imageUrl
         from fav a, place b, area_code c
         where a.no = b.no
-        and b.dist = c.code
+            and b.dist = c.code
         order by a.no
         LIMIT #{startRow}, #{limit}
     </select>
@@ -48,7 +48,7 @@
 
     <insert id="insertFavorite" parameterType="FavoriteReqDto">
         insert into fav
-        (mem_no,
+        (mem_email,
         place_no)
         VALUES
         (

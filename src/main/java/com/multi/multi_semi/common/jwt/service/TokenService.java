@@ -30,7 +30,7 @@ public class TokenService {
     @Transactional(noRollbackFor = RefreshTokenException.class)
     public TokenDto createTokenForLogin(Map<String, Object> loginData) {
 
-        String memberEmail = (String) loginData.get("email");;
+        String memberEmail = (String) loginData.get("email");
         List<String> roles = (List<String>) loginData.get("roles");
 
         log.info("Map MemberEmail >>>>>>>>>>> {}", memberEmail);
@@ -66,7 +66,7 @@ public class TokenService {
             } else {
                 // 만료되지 않은 경우, 기존 토큰 반환 (중복 로그인 허용)
                 log.info("유효한 기존 Refresh Token 반환. email: {}", memberEmail);
-                return refreshToken.getRefreshToken();
+                return refreshToken.getToken();
             }
         }
 
@@ -77,11 +77,11 @@ public class TokenService {
         if (tokenProvider.validateToken(newRefreshToken)) { // 생성된 RT가 유효한지 확인
             RefreshToken newRefreshTokenDto = RefreshToken.builder()
                     .email(memberEmail)
-                    .refreshToken(newRefreshToken)
+                    .token(newRefreshToken)
                     .expiredAt(tokenProvider.getRefreshTokenExpiry()) //
-                    .issuedAt(LocalDateTime.now())
+                    .createdAt(LocalDateTime.now())
                     .build();
-            refreshTokenMapper.insertRefreshTokenByEmail(newRefreshTokenDto); //
+            refreshTokenMapper.insertRefreshToken(newRefreshTokenDto); //
         }
 
         return newRefreshToken;
@@ -133,7 +133,7 @@ public class TokenService {
         RefreshToken dbRefreshToken = existingRT.get();
 
         // 3-2. (보안) 클라이언트 RT와 DB의 RT가 일치하지 않는가? (탈취 의심)
-        if (!dbRefreshToken.getRefreshToken().equals(clientRefreshToken)) {
+        if (!dbRefreshToken.getToken().equals(clientRefreshToken)) {
             log.warn("클라이언트의 Refresh Token이 DB와 일치하지 않습니다. 탈취 의심. email: {}", memberEmail);
             refreshTokenMapper.deleteRefreshTokenByEmail(memberEmail); // 탈취 시도 시, DB 토큰 즉시 삭제
             throw new RefreshTokenException("Refresh Token이 일치하지 않습니다. 다시 로그인해 주세요.");
