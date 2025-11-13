@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multi.multi_semi.review.dao.ReviewMapper">
+
+    <select id="findReviewList" resultType="ReviewResDTO">
+        select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+                 join place p on r.place_no = p.no
+                 join mem m on r.writer_email = m.email
+        order by r.no
+    </select>
+
+    <select id="findReviewByNo" resultType = "ReviewResDTO">
+        select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.img_url as imgUrl,
+            r.rate as rate,
+            n.id as updatedPerson,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+                 join place p on r.place_no = p.no
+                 join mem m on r.writer_email = m.email
+                 join mem n on r.modified_by = n.email
+        where r.no = #{no}
+    </select>
+
+    <insert id="insertReview" parameterType="ReviewReqDto">
+        insert into rev
+        (title, content, rate, writer_email, place_no, img_url, modified_by)
+        values
+        (#{title}, #{content}, #{rate}, #{writerEmail}, #{placeNo}, #{imgUrl}, #{modifiedBy})
+    </insert>
+
+    <update id="updateReview" parameterType="ReviewReqDto">
+        update rev
+        set
+            title = #{title},
+            content = #{content},
+            modified_by = #{modifiedBy},
+            img_url = #{imgUrl},
+            rate = #{rate}
+        where no = #{no}
+    </update>
+
+    <delete id="deleteReview" parameterType="int">
+        delete
+        from rev
+        where no = #{no}
+    </delete>
+
+    <select id="findReviewByMemberId" resultType="ReviewResDTO">
+        select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.writer_email = #{memberNo}
+        order by r.no
+    </select>
+
+    <select id="findReviewByPlaceId" resultType="ReviewResDTO">
+        select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = #{placeNo}
+        order by r.no desc
+    </select>
+
+</mapper>
