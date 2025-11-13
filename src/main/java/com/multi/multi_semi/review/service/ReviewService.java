@@ -1,6 +1,5 @@
 package com.multi.multi_semi.review.service;
 
-import com.multi.multi_semi.common.paging.SelectCriteria;
 import com.multi.multi_semi.review.dao.ReviewMapper;
 import com.multi.multi_semi.review.dto.ReviewReqDto;
 import com.multi.multi_semi.review.dto.ReviewResDto;
@@ -18,7 +17,7 @@ public class ReviewService {
 
     private final ReviewMapper reviewMapper;
 
-    @Value("${image.url}")
+    @Value("${image.image-url}")
     private String IMAGE_URL;
 
     public List<ReviewResDto> findReviewList() {
