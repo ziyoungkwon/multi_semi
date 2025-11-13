@@ -28,12 +28,15 @@
 
     <!-- Refresh Token 조회 -->
     <select id="selectByUserId" resultType="RefreshToken" parameterType="String">
+
         SELECT * FROM ref_token WHERE id = #{id}
+
     </select>
 
     <!-- Refresh Token 업데이트 -->
     <update id="updateRefreshToken" parameterType="RefreshToken">
         UPDATE ref_token
+
         SET token = #{token}, created_at = CURRENT_TIMESTAMP, expired_at = #{expiredAt}
         WHERE user_id = #{userId}
     </update>
@@ -44,12 +47,15 @@
         DELETE FROM ref_token WHERE email = #{userId}
     </delete>
 
+
     <!-- Refresh Token 업데이트 -->
     <update id="updateRefreshTokenByEmail" parameterType="RefreshToken">
         UPDATE ref_token
         SET token = #{refreshToken}, create_at = CURRENT_TIMESTAMP, expired_at = #{expiredAt}
         WHERE email = #{email}
     </update>
+
+
 
 </mapper>
 

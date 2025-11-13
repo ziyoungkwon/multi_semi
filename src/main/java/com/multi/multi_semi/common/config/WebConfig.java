@@ -18,6 +18,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${image.add-resource-handler}")
     private String ADD_RESOURCE_HANDLER;
 
+
     @Value("${image.image-url}")
     private String IMAGE_URL; // ← 필요 시 다른 클래스에서도 이 값 사용 가능
 

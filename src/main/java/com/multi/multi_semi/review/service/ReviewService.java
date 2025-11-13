@@ -21,6 +21,7 @@ public class ReviewService {
 
     private final ReviewMapper reviewMapper;
 
+
     @Value("${image.image-url}")
     private String IMAGE_URL;
 
@@ -30,7 +31,6 @@ public class ReviewService {
         for(int i = 0 ; i < reviewList.size() ; i++) {
             reviewList.get(i).setImgUrl(IMAGE_URL + reviewList.get(i).getImgUrl());
         }
-
         return reviewList;
     }
 
@@ -55,7 +55,6 @@ public class ReviewService {
     public int insertReview(ReviewReqDto reviewReqDto) {
 
         int result = reviewMapper.insertReview(reviewReqDto);
-
 
         return result;
     }
@@ -84,8 +83,8 @@ public class ReviewService {
         return reviewList;
     }
 
-    public Double getPlaceRate(String placeId) {
-        List<ReviewResDto> reviewList = reviewMapper.findReviewByPlaceId(Integer.parseInt(placeId));
+    public Double getPlaceRate(Long placeId) {
+        List<ReviewResDto> reviewList = reviewMapper.findReviewByPlaceId(placeId);
 
         if (reviewList == null || reviewList.isEmpty()) {
             return 0.0; // 리뷰 없을 때 0점
