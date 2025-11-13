@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequiredArgsConstructor
-//@RequestMapping("/api/v1")
 @Slf4j
 public class FrontAuthController {
 
