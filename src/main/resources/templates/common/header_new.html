@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Virtual Trip</title>
+    <!-- 정적 CSS: /css/headerStyle.css -->
+    <link rel="stylesheet" th:href="@{/css/headerStyle.css}">
+</head>
+<body>
+<div th:fragment="header">
+<header>
+    <div class="vt-header-top">
+        <!-- 로고: /img/VTlogo.png -->
+        <a href="#" class="logo">
+            <img th:src="@{/img/VTlogo.png}" alt="Virtual Trip 로고">
+        </a>
+
+        <div class="search-wrapper">
+            <button class="category-btn" aria-label="카테고리 선택">▽</button>
+            <input
+                    type="text"
+                    class="search-input"
+                    placeholder="여행지를 검색해 보세요"
+            >
+            <button class="search-icon-btn" aria-label="검색">🔍</button>
+        </div>
+
+        <button onclick="location.href='/auth/login'" class="login-btn">로그인</button>
+        <a th:href="@{/auth/login}" id="global-login-link">로그인</a>
+    </div>
+
+    <nav class="vt-nav">
+        <a href="#" class="nav-item">관광지 목록</a>
+        <a href="#" class="nav-item">리뷰</a>
+        <a href="#" class="nav-item">이미지 만들기</a>
+        <a href="#" class="nav-item">마이페이지</a>
+    </nav>
+</header>
+</div>
+</body>
+</html>
