@@ -277,7 +277,7 @@
 
     async function initReview(offset) {
         try {
-            const response = await fetch(`http://localhost:8090/api/v1/reviews/place/${placeNo}?offset=${offset}`);
+            const response = await fetch(`http://localhost:8090/api/v1/reviews/place-detail/${placeNo}?offset=${offset}`);
             const result = await response.json();
 
             if (result.status === 200 && result.data?.data) {
@@ -305,7 +305,7 @@
                      <tr>
                         <td>${r.title}</td>
                         <td>${r.content}</td>
-                        <td>${r.email}</td>
+                        <td>${r.writerEmail}</td>
                         <td class="review-rate">${stars}</td>
                     </tr>
                     `);

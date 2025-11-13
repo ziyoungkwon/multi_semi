@@ -107,7 +107,7 @@
         title,
         content,
         rate,
-        writer_email as email
+        writer_email as writerEmail
         from rev
         where place_no = #{placeNo}
         order by no

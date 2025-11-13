@@ -189,7 +189,7 @@ public class ReviewController {
         return ResponseEntity.ok(new ResponseDto((HttpStatus.NO_CONTENT), "리뷰 삭제 성공", reviewService.deleteReview(reviewId)));
     }
 
-    @GetMapping("/reviews/place/{placeNo}")
+    @GetMapping("/reviews/place-detail/{placeNo}")
     public ResponseEntity<ResponseDto> selectReviewListWithPaging(@RequestParam(name = "offset", defaultValue = "1") String offset,@PathVariable("placeNo") int placeNo) {
 
         log.info("[FavoriteController] selectFavoriteListWithPaging offset: {}", offset);
