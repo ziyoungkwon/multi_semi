@@ -7,5 +7,5 @@ import lombok.*;
 public class WeatherDto {
     private String type;     // SUNNY, CLOUDY, OVERCAST, RAIN, SNOW
     private String korean;   // 맑음, 구름 많음, 흐림, 비, 눈
-    private String iconUrl;  // /img/weather/sunny.png 같은 경로
+    private String emoji;  // "☀️"
 }

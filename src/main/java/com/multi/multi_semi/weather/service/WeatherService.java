@@ -39,11 +39,13 @@ public class WeatherService {
         GridCoord grid = GridConverter.toGrid(lat, lng);
         String key = grid.getNx() + "_" + grid.getNy();
 
-        // 2) 캐시 확인 (30분 이내면 그대로 사용)
+        // 2) 캐시 확인 (1시간 이내면 그대로 사용)
         CachedWeather cached = cache.get(key);
-        if (cached != null && !cached.isExpired(30)) {
+        if (cached != null && !cached.isExpired(60)) {
             return cached.getWeatherDto();
         }
+        else
+            System.out.println("New grid position:" + key);
 
         // 3) base_date / base_time 계산 (02시부터 3시간 간격)
         LocalDateTime nowKst = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
@@ -60,7 +62,7 @@ public class WeatherService {
                 .queryParam("base_time", base.getBaseTime())
                 .queryParam("nx", grid.getNx())
                 .queryParam("ny", grid.getNy())
-                .build(true) // 서비스키에 인코딩 문자 있을 수 있어서
+                .build(true) // serviceKey에 인코딩 문자 있을 수 있어서
                 .toUriString();
 
         String body = restTemplate.getForObject(url, String.class);
@@ -76,11 +78,11 @@ public class WeatherService {
 
     /**
      * 기상청 JSON 응답에서:
-     *  - 오늘 날짜의
-     *  - targetTime(현재 시각)의 fcstTime(예: 15시 → "1500")
+     * - 오늘 날짜의
+     * - targetTime(현재 시각)의 fcstTime(예: 15시 → "1500")
      * 에 해당하는 SKY/PTY를 우선 찾고,
      * 없으면 같은 날짜 중 아무 SKY/PTY 하나를 fallback으로 사용해서
-     * 맑음/구름많음/흐림/비/눈 으로 매핑.
+     * 맑음/구름많음/흐림/비/눈 + emoji 로 매핑.
      */
     private WeatherDto parseWeather(String json, LocalDateTime targetTime) {
         try {
@@ -142,20 +144,21 @@ public class WeatherService {
 
             return mapCodeToDto(skyCode, ptyCode);
 
+            // 여기까지 정상적으로 왔다면 dto 리턴
         } catch (Exception e) {
             e.printStackTrace();
             // 파싱 실패 시 기본값(맑음) 반환
             WeatherDto fallback = new WeatherDto();
             fallback.setType("SUNNY");
             fallback.setKorean("맑음");
-            fallback.setIconUrl("/img/weather/sunny.png");
+            fallback.setEmoji("☀️");
             return fallback;
         }
     }
 
     /**
-     * SKY / PTY 코드 → 맑음/구름많음/흐림/비/눈 매핑
-     *
+     * SKY / PTY 코드 → 맑음/구름많음/흐림/비/눈 + emoji 매핑
+     * <p>
      * SKY: 1=맑음, 3=구름많음, 4=흐림
      * PTY: 0=없음, 1=비, 2=비/눈, 3=눈, 5=빗방울, 6=비/눈날림, 7=눈날림
      */
@@ -171,18 +174,18 @@ public class WeatherService {
                 case "6": // 비/눈날림
                     dto.setType("RAIN");
                     dto.setKorean("비");
-                    dto.setIconUrl("/img/weather/rain.png");
+                    dto.setEmoji("🌧️");
                     return dto;
                 case "3": // 눈
                 case "7": // 눈날림
                     dto.setType("SNOW");
                     dto.setKorean("눈");
-                    dto.setIconUrl("/img/weather/snow.png");
+                    dto.setEmoji("❄️");
                     return dto;
                 default:
                     dto.setType("RAIN");
                     dto.setKorean("비");
-                    dto.setIconUrl("/img/weather/rain.png");
+                    dto.setEmoji("🌧️");
                     return dto;
             }
         }
@@ -192,23 +195,22 @@ public class WeatherService {
             case "1": // 맑음
                 dto.setType("SUNNY");
                 dto.setKorean("맑음");
-                dto.setIconUrl("/img/weather/sunny.png");
+                dto.setEmoji("☀️");
                 break;
             case "3": // 구름 많음
                 dto.setType("CLOUDY");
                 dto.setKorean("구름 많음");
-                // 아이콘 파일은 원하면 /cloudy.png 로 분리해도 되고, 임시로 overcast 재사용해도 됨
-                dto.setIconUrl("/img/weather/cloudy.png");
+                dto.setEmoji("⛅");
                 break;
             case "4": // 흐림
                 dto.setType("OVERCAST");
                 dto.setKorean("흐림");
-                dto.setIconUrl("/img/weather/overcast.png");
+                dto.setEmoji("☁️");
                 break;
             default:
                 dto.setType("SUNNY");
                 dto.setKorean("맑음");
-                dto.setIconUrl("/img/weather/sunny.png");
+                dto.setEmoji("☀️");
         }
 
         return dto;
@@ -216,14 +218,14 @@ public class WeatherService {
 
     /**
      * 02시부터 3시간 간격(02,05,08,11,14,17,20,23)으로 base_time 계산
-     *  - 지금 시각보다 작거나 같은 값 중 가장 큰 base_time 선택
-     *  - 새벽 0~1시는 전날 23시 사용
+     * - 지금 시각보다 작거나 같은 값 중 가장 큰 base_time 선택
+     * - 새벽 0~1시는 전날 23시 사용
      */
     private BaseDateTime calculateBaseDateTime(LocalDateTime nowKst) {
         int[] baseHours = {2, 5, 8, 11, 14, 17, 20, 23};
 
         int hour = nowKst.getHour();
-        LocalDateTime baseDateTime = nowKst;
+        LocalDateTime baseDateTime;
 
         int chosenHour = 2;
 
@@ -236,12 +238,13 @@ public class WeatherService {
 
         // 새벽 0~1시는 전날 23시 예보 사용
         if (hour < 2) {
-            chosenHour = 23;
-            baseDateTime = nowKst.minusDays(1);
+            baseDateTime = nowKst.minusDays(1).withHour(23);
+        } else {
+            baseDateTime = nowKst.withHour(chosenHour);
         }
 
         String baseDate = baseDateTime.format(DateTimeFormatter.BASIC_ISO_DATE); // yyyyMMdd
-        String baseTime = String.format("%02d00", chosenHour);                   // HH00
+        String baseTime = String.format("%02d00", baseDateTime.getHour());       // HH00
 
         return new BaseDateTime(baseDate, baseTime);
     }
