@@ -5,6 +5,7 @@
     <title>리뷰 등록</title>
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/styles1.css}">
     <style>
         body {
             background-color: #ffffff;
@@ -103,14 +104,30 @@
             border-radius: 10px;
             border: 1px solid #eee;
         }
+
+        .author-box {
+            text-align: right;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #5a5a5a;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
+<!-- ✅ 공통 헤더 -->
+<div th:replace="~{common/header :: header}"></div>
 
 <div class="container">
     <h2>리뷰 등록</h2>
 
-    <form th:action="@{/reviews/save}" method="post" enctype="multipart/form-data">
+    <!-- ✅ 작성자 정보 -->
+    <div class="author-box">
+        작성자 : <span id="authorEmail">확인 중...</span>
+    </div>
+
+    <!-- ✅ 리뷰 등록 폼 -->
+    <form id="reviewForm" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="title">제목</label>
             <input type="text" id="title" name="title" placeholder="리뷰 제목을 입력하세요" required>
@@ -126,7 +143,6 @@
             <input type="number" id="rate" name="rate" min="1" max="5" value="5" required>
         </div>
 
-        <!-- ✅ 장소 드롭다운 -->
         <div class="mb-3">
             <label for="placeNo">장소 선택</label>
             <select id="placeNo" name="placeNo" required>
@@ -150,6 +166,43 @@
 </div>
 
 <script>
+    // ✅ 페이지 진입 시 accessToken 유효성 검증 및 사용자 정보 표시
+    window.addEventListener("DOMContentLoaded", async () => {
+        const token = localStorage.getItem("accessToken");
+
+        if (!token) {
+            // Spring Security에서 자동 리다이렉트 설정이 되어 있으면 여긴 안탐
+            alert("로그인 후 이용해주세요.");
+            window.location.href = "/auth/login";
+            return;
+        }
+
+        try {
+            const response = await fetch("/api/v1/members/me", {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+                localStorage.removeItem("accessToken");
+                window.location.href = "/auth/login";
+                return;
+            }
+
+            const data = await response.json();
+            document.getElementById("authorEmail").innerText = data.email || "(알 수 없음)";
+
+        } catch (err) {
+            console.error("사용자 정보 불러오기 실패:", err);
+            alert("로그인 정보 확인 중 오류가 발생했습니다.");
+            window.location.href = "/auth/login";
+        }
+    });
+
+    // ✅ 이미지 미리보기
     function previewImage(event) {
         const preview = document.getElementById('preview');
         const file = event.target.files[0];
@@ -160,202 +213,43 @@
             preview.style.display = 'none';
         }
     }
-</script>
-<script>
-    // 1. 기존의 window.fetch 함수를 백업해둡니다.
-    const originalFetch = window.fetch;
 
-    // 강제 로그아웃 헬퍼 함수
-    function forceLogout(message) {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('redirectUrl');
-        alert(message || '세션이 만료되었습니다. 다시 로그인해 주세요.');
-        window.location.href = '/auth/login';
-    }
+    // ✅ 리뷰 등록 fetch
+    document.getElementById('reviewForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
 
-    // '자발적/강제' 로그인을 위한 헬퍼 함수
-    function redirectToLogin() {
-        if (window.location.pathname !== '/auth/login') {
-            const fullRedirectUrl = window.location.pathname + window.location.search;
-            console.log('401 감지! 리디렉션 URL 저장:', fullRedirectUrl);
-            localStorage.setItem('redirectUrl', fullRedirectUrl);
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+            alert("로그인 후 이용해주세요.");
+            window.location.href = "/auth/login";
+            return;
         }
-        alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
-        window.location.href = '/auth/login';
-    }
 
-    /**
-     * 자동 토큰 갱신(Silent Refresh) 헬퍼 함수
-     * (HttpOnly 쿠키 방식)
-     */
-    async function handleTokenRefresh() {
-        const accessToken = localStorage.getItem('accessToken');
-
-        if (!accessToken) {
-            console.log('Access Token이 없어 갱신 불가.');
-            return false;
-        }
+        const formData = new FormData(e.target);
 
         try {
-            // /auth/refresh 요청
-            const refreshResponse = await originalFetch('/auth/refresh', {
+            const response = await fetch('/api/v1/reviews', {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${accessToken}` // 만료된 AT
+                    "Authorization": `Bearer ${token}`
                 },
-                // ★★★ [수정 1] credentials 추가 (버그 수정) ★★★
-                credentials: 'include'
+                body: formData
             });
 
-            if (refreshResponse.ok) {
-                const result = await refreshResponse.json();
-                const newAccessToken = result.data.accessToken;
-                localStorage.setItem('accessToken', newAccessToken);
+            const result = await response.json();
 
-                console.log('토큰 갱신 성공 (새 AT 발급)');
-                return true; // 갱신 성공
+            if (response.ok) {
+                alert('리뷰 등록 성공!');
+                window.location.href = '/reviews/list';
             } else {
-                const errorBody = await refreshResponse.json();
-                console.error('Refresh Token 갱신 실패 (쿠키 만료 또는 무효):', errorBody.message);
-                return false; // 갱신 실패
+                alert(result.message || '리뷰 등록 실패');
             }
 
         } catch (error) {
-            console.error('토큰 갱신 중 네트워크 오류:', error);
-            return false; // 갱신 실패
+            console.error('리뷰 등록 중 오류 발생:', error);
+            alert('리뷰 등록 중 오류가 발생했습니다.');
         }
-    }
-
-
-    // 2. window.fetch 함수 덮어쓰기
-    window.fetch = async (...args) => {
-
-        let options = args[1] || {};
-        const url = args[0];
-
-        // 모든 fetch 요청에 credentials: 'include'를 기본값으로 설정
-        options.credentials = options.credentials || 'include';
-
-        // 3. [역할 1] 토큰 자동 주입
-        if (url !== '/auth/login' && url !== '/auth/signup' && !url.startsWith('/auth/refresh')) {
-            const accessToken = localStorage.getItem('accessToken');
-            if (accessToken) {
-                options.headers = options.headers || {};
-                options.headers['Authorization'] = `Bearer ${accessToken}`;
-            }
-        }
-
-        // 4. 원본 fetch 함수로 실제 요청을 보냄
-        const response = await originalFetch(url, options);
-
-        // 5. [역할 2] 401 에러 감지
-        if (response.status === 401) {
-
-            if (url.startsWith('/auth/refresh')) {
-                console.warn('/auth/refresh 요청 실패 (RT 쿠키 만료). 강제 로그아웃.');
-                forceLogout('세션이 만료되었습니다. 다시 로그인해 주세요.');
-                return new Promise(() => {});
-            }
-
-            const clonedResponse = response.clone();
-
-            try {
-                const errorBody = await clonedResponse.json();
-
-                if (errorBody.message === "만료된 JWT 토큰입니다.") {
-                    console.log("Access Token 만료. 자동 갱신 시도...");
-
-                    const refreshSuccess = await handleTokenRefresh();
-
-                    if (refreshSuccess) {
-
-                        // ★★★ [수정 2] FormData(Stream)인지 확인 ★★★
-                        const isStream = options.body && (options.body instanceof FormData || options.body instanceof ReadableStream);
-
-                        if (isStream) {
-                            // FormData/Stream은 래퍼가 재시도(X), 커스텀 에러 발생(O)
-                            console.log("토큰 갱신 성공. [Stream Body] 재시도는 호출자가 직접 해야 함.");
-                            const error = new Error("TOKEN_REFRESHED_RETRY_MANUALLY");
-                            error.name = "TokenRefreshedError";
-                            throw error; // ai-image.html의 catch문으로 전달
-                        } else {
-                            // GET 요청이나 JSON Body는 래퍼가 직접 재시도(O)
-                            console.log("토큰 갱신 성공. 원래 요청(GET 등) 재시도.");
-                            options.headers['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`;
-                            return await originalFetch(url, options); // ★ 자동 재시도
-                        }
-
-                    } else {
-                        forceLogout('세션이 만료되었습니다. 다시 로그인해 주세요.');
-                        return new Promise(() => {});
-                    }
-                }
-                else {
-                    console.warn(`기타 401 에러 (${errorBody.message}). 로그인 페이지로.`);
-                    redirectToLogin();
-                    return new Promise(() => {});
-                }
-
-            } catch (e) {
-                // [수정] TokenRefreshedError는 다시 던져서 ai-image.html로 보냄
-                if (e.name === "TokenRefreshedError") {
-                    throw e;
-                }
-
-                console.error("401 응답이 예상된 JSON 형식이 아님.", e);
-                redirectToLogin();
-                return new Promise(() => {});
-            }
-        }
-
-        // 10. 401이 아니면, 원래 응답을 그대로 반환
-        return response;
-    };
+    });
 </script>
-
-
-<script>
-    const logoutButton = document.getElementById('logout-btn');
-    if (logoutButton) {
-        logoutButton.addEventListener('click', async () => {
-
-            // "정말 로그아웃하시겠습니까?" 확인창
-            if (window.confirm("정말 로그아웃하시겠습니까?")) {
-
-                const accessToken = localStorage.getItem('accessToken');
-                if (!accessToken) {
-                    alert('이미 로그아웃 상태입니다.');
-                    return;
-                }
-                try {
-                    // 서버는 이 요청을 받고 RT 쿠키를 삭제하는 응답을 보냄
-                    const response = await originalFetch('/auth/logout', {
-                        method: 'POST',
-                        headers: {
-                            'Authorization': `Bearer ${accessToken}`
-                        },
-
-                        credentials: 'include'
-                    });
-                    if (response.ok) {
-                        console.log('서버 Refresh Token 삭제 완료 (쿠키 포함)');
-                    } else {
-                        console.error('서버 로그아웃 처리 실패');
-                    }
-                } catch (error) {
-                    console.error('서버 로그아웃 요청 중 오류 발생:', error);
-                } finally {
-                    localStorage.removeItem('accessToken');
-                    localStorage.removeItem('redirectUrl');
-                    alert('로그아웃되었습니다.');
-                    window.location.href = '/';
-                }
-
-            } // if (window.confirm...) 닫는 괄호
-        });
-    }
-</script>
-
-
 </body>
 </html>

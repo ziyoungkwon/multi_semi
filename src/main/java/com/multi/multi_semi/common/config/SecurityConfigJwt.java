@@ -78,7 +78,7 @@ public class SecurityConfigJwt {
                         .requestMatchers("/json/**", "/img/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/api/v1/reviews/**", "/reviews/**").permitAll()
-                        .requestMatchers("/reviews/form", "/reviews/save").authenticated()
+                        .requestMatchers("/reviews/form", "/reviews/save").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/api/v1/reviews-management/**").hasAnyRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/v1/generate-request/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/generate-request/**").hasAnyRole("ADMIN", "USER")

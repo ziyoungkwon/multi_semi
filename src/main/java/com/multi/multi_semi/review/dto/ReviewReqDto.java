@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 public class ReviewReqDto {
 
-    private int no;
+    private Long no;
     private String title;
     private String content;
     private int rate;

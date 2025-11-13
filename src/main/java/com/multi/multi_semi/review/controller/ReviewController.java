@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,52 +50,100 @@ public class ReviewController {
 //    }
 
     @PostMapping(value = "/reviews", consumes = {"multipart/form-data"})
-    @Transactional
-    public ResponseEntity<ResponseDto> insertReview(@ModelAttribute ReviewReqDto reviewReqDto) {
+    public ResponseEntity<ResponseDto> insertReview(@ModelAttribute ReviewReqDto reviewReqDto, @AuthenticationPrincipal CustomUser customUser) {
         try {
             MultipartFile file = reviewReqDto.getImgFile();
-
             String fileName = null;
-            if (file != null && !file.isEmpty()) {
-                // UUID + 원본 파일명으로 중복 방지
-                fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
-                // 저장 경로 생성
-                File dest = new File("/Users/kwonjiyoung/Documents/multi_semi/", fileName);
-                file.transferTo(dest); // 실제 파일 저장
+            // ✅ 이미지 저장 처리
+            if (file != null && !file.isEmpty()) {
+                // 저장 경로 (본인 프로젝트 경로 맞게 수정 가능)
+                String uploadDir = "/Users/kwonjiyoung/Documents/multi_semi_project/";
+                File dir = new File(uploadDir);
+                if (!dir.exists()) dir.mkdirs();
+
+                // UUID + 파일명
+                fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+                File dest = new File(uploadDir, fileName);
+                file.transferTo(dest);
+
+                reviewReqDto.setImgUrl("/uploads/" + fileName); // 웹 접근 경로 (원하면 DB에 전체 경로로 저장 가능)
             }
 
-            // 파일명이 있으면 DTO에 세팅
-            reviewReqDto.setImgUrl(fileName);
+            reviewReqDto.setWriterEmail(customUser.getEmail());
+            reviewReqDto.setModifiedBy(customUser.getEmail());
 
-            // 서비스 호출
+            // ✅ DB 저장 호출
             reviewService.insertReview(reviewReqDto);
 
-            return ResponseEntity.ok(new ResponseDto(HttpStatus.CREATED, "리뷰 등록 성공", null));
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new ResponseDto(HttpStatus.OK, "리뷰 등록 성공", null));
+
         } catch (IOException e) {
             e.printStackTrace();
-            return ResponseEntity.internalServerError()
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR, "이미지 업로드 실패", null));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR, "리뷰 등록 중 오류 발생", null));
         }
     }
 
 
-    @PutMapping("/reviews")
-    @Transactional
-    public ResponseEntity<ResponseDto> updateReview(@RequestBody ReviewReqDto reviewReqDto) {
+    @PutMapping(value = "/reviews/{reviewId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<ResponseDto> updateReview(
+            @PathVariable Long reviewId,
+            @ModelAttribute ReviewReqDto reviewReqDto,
+            @AuthenticationPrincipal CustomUser customUser) {
 
-        return ResponseEntity.ok(new ResponseDto(HttpStatus.CREATED, "리뷰 수정 성공", reviewService.updateReview(reviewReqDto)));
+        try {
+
+            MultipartFile file = reviewReqDto.getImgFile();
+            String fileName = null;
+
+            // ✅ 이미지 저장 처리
+            if (file != null && !file.isEmpty()) {
+                // 저장 경로 (본인 프로젝트 경로 맞게 수정 가능)
+                String uploadDir = "/Users/kwonjiyoung/Documents/multi_semi_project/";
+                File dir = new File(uploadDir);
+                if (!dir.exists()) dir.mkdirs();
+
+                // UUID + 파일명
+                fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+                File dest = new File(uploadDir, fileName);
+                file.transferTo(dest);
+
+                reviewReqDto.setImgUrl("/uploads/" + fileName); // 웹 접근 경로 (원하면 DB에 전체 경로로 저장 가능)
+            }
+
+            reviewReqDto.setNo(reviewId); // ✅ 수정할 리뷰 번호 주입
+            reviewReqDto.setModifiedBy(customUser.getEmail());
+            reviewService.updateReview(reviewReqDto);
+
+            return ResponseEntity.ok(
+                    new ResponseDto(HttpStatus.OK, "리뷰 수정 성공", null)
+            );
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError()
+                    .body(new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR, "리뷰 수정 실패", null));
+        }
     }
 
     @DeleteMapping("/reviews/{reviewId}")
-    @Transactional
     public ResponseEntity<ResponseDto> deleteReview(@PathVariable("reviewId") String reviewId) {
 
         return ResponseEntity.ok(new ResponseDto((HttpStatus.NO_CONTENT), "리뷰 삭제 성공", reviewService.deleteReview(reviewId)));
     }
 
-    @GetMapping("/reviews/mypage")
-    public ResponseEntity<ResponseDto> findReviewByMemberIdPaging(@AuthenticationPrincipal CustomUser customUser) {
+    @GetMapping("/reviews/my")
+    public ResponseEntity<ResponseDto> findReviewByMemberId(@AuthenticationPrincipal CustomUser customUser) {
 
 
         return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "내가 쓴 리뷰 리스트 조회 성공", reviewService.findReviewByMemberId(customUser.getEmail())));
@@ -127,14 +176,12 @@ public class ReviewController {
     }
 
     @PutMapping("/reviews-management")
-    @Transactional
     public ResponseEntity<ResponseDto> updateReviewAdmin(@RequestBody ReviewReqDto reviewReqDto) {
 
         return ResponseEntity.ok(new ResponseDto(HttpStatus.CREATED, "리뷰 수정 성공", reviewService.updateReview(reviewReqDto)));
     }
 
     @DeleteMapping("/reviews-management/{reviewId}")
-    @Transactional
     public ResponseEntity<ResponseDto> deleteReviewAdmin(@PathVariable("reviewId") String reviewId) {
 
         return ResponseEntity.ok(new ResponseDto((HttpStatus.NO_CONTENT), "리뷰 삭제 성공", reviewService.deleteReview(reviewId)));

@@ -9,6 +9,7 @@ import com.multi.multi_semi.place.dto.PlaceDto;
 import com.multi.multi_semi.place.service.PlaceService;
 import com.multi.multi_semi.review.dto.ReviewReqDto;
 import com.multi.multi_semi.review.dto.ReviewResDto;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -95,41 +96,16 @@ public class FrontReviewController {
         return "reviews/review-form";
     }
 
-    // 📍 리뷰 등록 처리
-    /** 리뷰 저장 (ReviewController API 호출) */
-    @PostMapping("/save")
-    public String saveReview(@AuthenticationPrincipal CustomUser userDetails,
-                             @ModelAttribute ReviewReqDto reviewReqDto,
-                             RedirectAttributes redirectAttributes) {
-        try {
-            // ✅ 로그인한 사용자 정보 사용
-            reviewReqDto.setWriterEmail(userDetails.getEmail());
-            reviewReqDto.setModifiedBy(userDetails.getEmail());
-
-            // 내부 API 호출
-            MultiValueMap<String, Object> formData = new LinkedMultiValueMap<>();
-            formData.add("title", reviewReqDto.getTitle());
-            formData.add("content", reviewReqDto.getContent());
-            formData.add("rate", reviewReqDto.getRate());
-            formData.add("placeNo", reviewReqDto.getPlaceNo());
-            formData.add("imgFile", reviewReqDto.getImgFile());
-
-            RestTemplate restTemplate = restTemplateBuilder.build();
-            ResponseEntity<ResponseDto> response =
-                    restTemplate.postForEntity("http://localhost:8090/api/v1/reviews", formData, ResponseDto.class);
-
-            if (response.getStatusCode() == HttpStatus.OK) {
-                redirectAttributes.addFlashAttribute("success", "리뷰 등록 성공!");
-                return "redirect:/reviews/list";
-            } else {
-                redirectAttributes.addFlashAttribute("error", "리뷰 등록 실패");
-                return "redirect:/reviews/form";
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            redirectAttributes.addFlashAttribute("error", "리뷰 등록 중 오류 발생");
-            return "redirect:/reviews/form";
-        }
+    /** 리뷰 수정 페이지 이동 (단순 렌더링) */
+    @GetMapping("/edit/{reviewId}")
+    public String reviewEditPage(@PathVariable("reviewId") Long reviewId) {
+        return "reviews/review-update";
     }
+
+    @GetMapping("/mypage")
+    public String myReviewPage() {
+        return "reviews/review-mypage";   // templates/review/review-mypage.html
+    }
+
+
 }

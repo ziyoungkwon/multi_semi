@@ -1,6 +1,7 @@
 package com.multi.multi_semi.member.controller;
 
 
+import com.multi.multi_semi.auth.dto.CustomUser;
 import com.multi.multi_semi.common.ResponseDto;
 import com.multi.multi_semi.member.dto.MemberDto;
 import com.multi.multi_semi.member.dto.req.UpdateMemberReqDto;
@@ -8,8 +9,10 @@ import com.multi.multi_semi.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -74,6 +77,14 @@ public class MemberController {
         memberService.updateMemberInfo(email, updateMemberReqDto);
 
         return ResponseEntity.ok(new ResponseDto(HttpStatus.OK, "회원정보 수정 성공(관리자)", null));
+    }
+
+    @GetMapping("/members/me")
+    public ResponseEntity<?> getCurrentUser(@AuthenticationPrincipal CustomUser customUser) {
+        if (customUser == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "로그인 필요"));
+        }
+        return ResponseEntity.ok(Map.of("email", customUser.getEmail(), "id", memberService.findMemberByEmail(customUser.getEmail()).get().getId()));
     }
 
 

@@ -13,6 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ReviewService {
 
     private final ReviewMapper reviewMapper;
@@ -46,6 +47,7 @@ public class ReviewService {
 
         return review;
     }
+
 
     public int insertReview(ReviewReqDto reviewReqDto) {
 
