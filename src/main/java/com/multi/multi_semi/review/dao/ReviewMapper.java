@@ -24,7 +24,7 @@ public interface ReviewMapper {
 
     List<ReviewResDto> findReviewByMemberId(@Param("memberNo") String memberId);
 
-    List<ReviewResDto> findReviewByPlaceId(@Param("placeNo") int placeId);
+    List<ReviewResDto> findReviewByPlaceId(@Param("placeNo") Long placeId);
 
     List<ReviewResDto> findReviewByPlaceIdPaging(@Param("placeNo")int placeId);
 }

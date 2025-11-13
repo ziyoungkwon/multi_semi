@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>상품 상세</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/styles1.css}">
     <style>
         .tab-buttons { display: flex; gap: 8px; margin-bottom: 10px; }
         .tab-buttons button {
@@ -33,9 +33,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<div class="header">
-    <th:block th:replace="~{common/header-new :: header}"/>
-</div>
+<div th:replace="~{common/header :: header}"></div>
 
 <div class="container">
     <h2 id="placeTitle"></h2>

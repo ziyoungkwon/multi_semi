@@ -155,11 +155,11 @@ public class ReviewController {
         return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "장소별 리뷰 리스트 조회 성공", reviewService.findReviewByPlaceId(placeId)));
     }
 
-    @GetMapping("/reviews/rating/{placeId}")
-    public ResponseEntity<ResponseDto> getPlaceRate(@PathVariable("placeId") String placeId) {
-
-        return ResponseEntity.ok(new ResponseDto(HttpStatus.OK, "장소별 리뷰 평점 계산 성공", reviewService.getPlaceRate(placeId)));
-    }
+//    @GetMapping("/reviews/rating/{placeId}")
+//    public ResponseEntity<ResponseDto> getPlaceRate(@PathVariable("placeId") String placeId) {
+//
+//        return ResponseEntity.ok(new ResponseDto(HttpStatus.OK, "장소별 리뷰 평점 계산 성공", reviewService.getPlaceRate(placeId)));
+//    }
 
 
     //관리자

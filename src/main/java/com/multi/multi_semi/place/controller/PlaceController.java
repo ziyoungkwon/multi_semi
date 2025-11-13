@@ -26,9 +26,9 @@ public class PlaceController {
 
     @GetMapping("/places/{placeId}")
     public ResponseEntity<ResponseDto> findPlaceId(@PathVariable("placeId") int placeId){
-        Optional<PlaceDto> place = placeService.findByPlaceId(placeId);
+        PlaceDto place = placeService.findByPlaceId(placeId);
 
-        if(place.isEmpty()){
+        if(place == null){
             return ResponseEntity.ok(new ResponseDto(HttpStatus.NO_CONTENT, "상세조회실패", null));
         }
 
@@ -37,9 +37,10 @@ public class PlaceController {
 
     @GetMapping("/places")
     public ResponseEntity<ResponseDto> findAllPlacesByPaging(@RequestParam(name = "offset", defaultValue = "1") String offset){
-        SelectCriteria selectCriteria = getSelectCriteria(Integer.parseInt(offset), placeService.selectReviewTotal());
+        SelectCriteria selectCriteria = getSelectCriteria(Integer.parseInt(offset), placeService.selectPlaceTotal());
 
-        ResponseDtoWithPaging responseDtoWithPaging = new ResponseDtoWithPaging(placeService.findAllPlaces(selectCriteria), selectCriteria);
+        ResponseDtoWithPaging responseDtoWithPaging = new ResponseDtoWithPaging(placeService.findAllPlacesByPaging(selectCriteria), selectCriteria);
+
 
         return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "장소 리스트 조회 성공", responseDtoWithPaging));
     }
@@ -51,7 +52,9 @@ public class PlaceController {
     }
 
     @GetMapping("/search/places")
-    public ResponseEntity<ResponseDto> selectSearchPlaceList(@RequestParam(name = "query", defaultValue = "") String query) {
+    public ResponseEntity<ResponseDto> selectSearchPlaceList(@RequestParam(name = "keyword", defaultValue = "") String query) {
+
+        System.out.println(">>>>>>>>>>>>>keyword: " + query);
 
         List<PlaceDto> places = placeService.selectSearchPlaceList(query);
 
@@ -71,6 +74,11 @@ public class PlaceController {
     @GetMapping("/places/district")
     public ResponseEntity<ResponseDto> findPlacesByAreaCode(@RequestParam("dist") int code) {
         List<PlaceDto> places = placeService.findPlacesByAreaCode(code);
+
+        for(PlaceDto placeDto : places){
+            System.out.println(">>>>>>>>>>>>>>>>>>>>IMGURL : " + placeDto.getImageUrl());
+        }
+
         return ResponseEntity.ok(new ResponseDto(HttpStatus.OK, "권역별 관광지 조회 성공", places));
     }
 }
