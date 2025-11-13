@@ -1,4 +1,5 @@
 package com.multi.multi_semi.common.config;
+import com.multi.multi_semi.ai_image.controller.GenerationStatus;
 
 import com.multi.multi_semi.ai_image.controller.GenerationStatus;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizationRequestResolver;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -80,4 +82,7 @@ public class AppConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+
+
 }

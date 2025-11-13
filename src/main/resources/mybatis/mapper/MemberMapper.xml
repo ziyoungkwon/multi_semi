@@ -9,6 +9,7 @@
             no, id, email, pwd, name, phone, addr, intro, role, uuid
         FROM mem
         WHERE no = #{no}
+
     </select>
 
     <select id="findMemberById" resultType="MemberDto">
@@ -16,6 +17,7 @@
             no, id, email, pwd, name, phone, addr, intro, role, uuid
         FROM mem
         WHERE id = #{id}
+
     </select>
 
     <select id="findMemberByEmail" resultType="MemberDto">
