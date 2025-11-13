@@ -324,6 +324,14 @@
   });
 
 
+  // ★★★ 새로고침 방지 리스너 (Enter 키 동작 비활성화) ★★★
+  generateForm.addEventListener('submit', (e) => {
+    // 1. 폼의 기본 제출(새로고침) 동작을 즉시 중단시킵니다.
+    e.preventDefault();
+    // 2. 'Enter' 키를 눌러도 버튼이 클릭되지 않도록 click() 호출을 제거합니다.
+  });
+
+
   // 2. '이미지 생성' 버튼 클릭 이벤트 리스너
   generateBtn.addEventListener('click', async () => {
 
