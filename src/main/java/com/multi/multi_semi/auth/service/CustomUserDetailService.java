@@ -21,15 +21,15 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        MemberDto memberDto = memberMapper.findMemberByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 계정입니다. 이메일을 확인해주세요."));
+        MemberDto memberDto = memberMapper.findByEmail(email)
+
+                .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다: " + email));
 
         return CustomUser.builder()
-                .no(memberDto.getNo())
-                .id(memberDto.getId())
-                .email(memberDto.getEmail())
-                .pwd(memberDto.getPwd())
-                .authorities(Collections.singletonList(new SimpleGrantedAuthority(memberDto.getRole())))
+                // .memberCode(memberDto.getMemberCode())
+                .email(memberDto.getMemberEmail())
+                .memberPassword(memberDto.getMemberPassword())
+                .authorities(Collections.singletonList(new SimpleGrantedAuthority(memberDto.getMemberRole())))
                 .build();
     }
 }

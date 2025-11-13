@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 public class RefreshToken {
-    private Long no;
+    private Long id;
     private String email;
-    private String token;
-    private LocalDateTime createdAt;
+    private String refreshToken;
+    private LocalDateTime issuedAt;
     private LocalDateTime expiredAt;
 
 }

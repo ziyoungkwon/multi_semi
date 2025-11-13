@@ -10,7 +10,6 @@ import com.multi.multi_semi.common.jwt.TokenProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -69,22 +68,12 @@ public class SecurityConfigJwt {
                         .requestMatchers("/refresh/test").permitAll()
                         .requestMatchers("/api/v1/favorites/**","/favorites/**","/api/v1/favorite/**").permitAll()
                         .requestMatchers("/api/v1/places/**","/places/**").permitAll()
-                        .requestMatchers("/api/v1/members/**","/member/**", "/members/**").permitAll()
-                        .requestMatchers("/api/v1/admin/members/**").permitAll()
                         .requestMatchers("/", "/error", "/auth/**", "/login/oauth2/**", "/oauth2/**", "/oauth-redirect").permitAll()
                         .requestMatchers("/api/v1/products/**", "/api/v1/product/**", "/products/**", "/product/**").permitAll()
-                        .requestMatchers("/api/v1/reviews/**", "/ai_image/**",  "/common/**", "/css/**", "/productimgs/**", "/favicon.ico").permitAll()
+                        .requestMatchers("/api/v1/reviews/**", "/css/**", "/productimgs/**", "/favicon.ico").permitAll()
                         .requestMatchers("/api/v1/products-management/**", "/api/v1/reviews-management/**").hasAnyRole("ADMIN")
-                        .requestMatchers("/json/**", "/img/**").permitAll()
+                        .requestMatchers("/api/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/api/v1/reviews/**", "/reviews/**").permitAll()
-                        .requestMatchers("/reviews/form", "/reviews/save").hasAnyRole("ADMIN", "USER")
-                        .requestMatchers("/api/v1/reviews-management/**").hasAnyRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/v1/generate-request/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/generate-request/**").hasAnyRole("ADMIN", "USER")
-                        .requestMatchers(HttpMethod.POST, "/api/v1/generate-status/**").hasAnyRole("ADMIN", "USER")
-                        .requestMatchers("/api/v1/download-image/**").permitAll()
-
                         .anyRequest().authenticated())
 
                 // [ ★★★ 수정 ★★★ ]

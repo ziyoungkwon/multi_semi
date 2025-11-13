@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MemberDto {
+public class MemberResDto {
     private Long memberCode;
     private String memberId;
-    private String memberPassword;
     private String memberName;
     private String memberEmail;
     private String memberRole;
