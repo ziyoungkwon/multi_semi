@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>리뷰 등록</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/styles1.css}">
+    <style>
+        body {
+            background-color: #ffffff;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: #3C1E1E;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 60px auto;
+            background-color: #fff;
+            padding: 40px 50px;
+            border-radius: 14px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #F1F1F1;
+        }
+
+        h2 {
+            text-align: center;
+            font-weight: 700;
+            color: #3C1E1E;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #3C1E1E;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        textarea {
+            resize: none;
+            height: 120px;
+        }
+
+        input[type="file"] {
+            border: none;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: #FEE500;
+            border: none;
+            color: #3C1E1E;
+            font-weight: 600;
+            padding: 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #FFD900;
+            box-shadow: 0 4px 10px rgba(254, 229, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-cancel {
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            color: #3C1E1E;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-cancel:hover {
+            background-color: #FFFBEA;
+        }
+
+        .img-preview {
+            display: block;
+            margin-top: 10px;
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid #eee;
+        }
+
+        .author-box {
+            text-align: right;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #5a5a5a;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<!-- ✅ 공통 헤더 -->
+<div th:replace="~{common/header :: header}"></div>
+
+<div class="container">
+    <h2>리뷰 등록</h2>
+
+    <!-- ✅ 작성자 정보 -->
+    <div class="author-box">
+        작성자 : <span id="authorEmail">확인 중...</span>
+    </div>
+
+    <!-- ✅ 리뷰 등록 폼 -->
+    <form id="reviewForm" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="title">제목</label>
+            <input type="text" id="title" name="title" placeholder="리뷰 제목을 입력하세요" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="content">내용</label>
+            <textarea id="content" name="content" placeholder="리뷰 내용을 입력하세요" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="rate">평점 (1~5)</label>
+            <input type="number" id="rate" name="rate" min="1" max="5" value="5" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="placeNo">장소 선택</label>
+            <select id="placeNo" name="placeNo" required>
+                <option value="">장소를 선택하세요</option>
+                <option th:each="place : ${places}"
+                        th:value="${place.no}"
+                        th:text="${place.title}">
+                </option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="imgFile">이미지 업로드</label>
+            <input type="file" id="imgFile" name="imgFile" accept="image/*" onchange="previewImage(event)">
+            <img id="preview" class="img-preview" style="display:none;" alt="이미지 미리보기">
+        </div>
+
+        <button type="submit" class="btn-submit">리뷰 등록하기</button>
+        <a th:href="@{/reviews/list}" class="btn-cancel">취소</a>
+    </form>
+</div>
+
+<script>
+    // ✅ 페이지 진입 시 accessToken 유효성 검증 및 사용자 정보 표시
+    window.addEventListener("DOMContentLoaded", async () => {
+        const token = localStorage.getItem("accessToken");
+
+        if (!token) {
+            // Spring Security에서 자동 리다이렉트 설정이 되어 있으면 여긴 안탐
+            alert("로그인 후 이용해주세요.");
+            window.location.href = "/auth/login";
+            return;
+        }
+
+        try {
+            const response = await fetch("/api/v1/members/me", {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+                localStorage.removeItem("accessToken");
+                window.location.href = "/auth/login";
+                return;
+            }
+
+            const data = await response.json();
+            document.getElementById("authorEmail").innerText = data.email || "(알 수 없음)";
+
+        } catch (err) {
+            console.error("사용자 정보 불러오기 실패:", err);
+            alert("로그인 정보 확인 중 오류가 발생했습니다.");
+            window.location.href = "/auth/login";
+        }
+    });
+
+    // ✅ 이미지 미리보기
+    function previewImage(event) {
+        const preview = document.getElementById('preview');
+        const file = event.target.files[0];
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = 'block';
+        } else {
+            preview.style.display = 'none';
+        }
+    }
+
+    // ✅ 리뷰 등록 fetch
+    document.getElementById('reviewForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+            alert("로그인 후 이용해주세요.");
+            window.location.href = "/auth/login";
+            return;
+        }
+
+        const formData = new FormData(e.target);
+
+        try {
+            const response = await fetch('/api/v1/reviews', {
+                method: 'POST',
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert('리뷰 등록 성공!');
+                window.location.href = '/reviews/list';
+            } else {
+                alert(result.message || '리뷰 등록 실패');
+            }
+
+        } catch (error) {
+            console.error('리뷰 등록 중 오류 발생:', error);
+            alert('리뷰 등록 중 오류가 발생했습니다.');
+        }
+    });
+</script>
+</body>
+</html>

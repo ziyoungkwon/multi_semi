@@ -5,7 +5,7 @@ import com.multi.multi_semi.common.exception.*;
 import com.multi.multi_semi.common.jwt.dto.TokenDto;
 import com.multi.multi_semi.common.jwt.service.TokenService;
 import com.multi.multi_semi.member.dao.MemberMapper;
-import com.multi.multi_semi.member.dto.MemberReqDto;
+import com.multi.multi_semi.member.dto.req.MemberReqDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;

@@ -15,6 +15,7 @@ public class ReviewResDto {
     private String title;
     private String content;
     private int rate;
+    private String writerEmail;
     private String writer;
     private String placeTitle;
     private String imgUrl;

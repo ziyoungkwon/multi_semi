@@ -48,7 +48,7 @@
 
     <insert id="insertFavorite" parameterType="FavoriteReqDto">
         insert into fav
-        (mem_no,
+        (mem_email,
         place_no)
         VALUES
         (

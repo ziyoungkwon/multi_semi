@@ -3,20 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.multi.multi_semi.review.dao.ReviewMapper">
-    <select id="selectReviewTotal" resultType="int">
-        SELECT
-            COUNT(*)
-        FROM rev r
-                 JOIN place p ON r.place_no = p.no
-                 JOIN mem m ON r.writer_email = m.email
-
-    </select>
 
     <select id="findReviewList" resultType="ReviewResDTO">
         select
             r.no as no,
             p.title as placeTitle,
             m.id as writer,
+            m.email as writerEmail,
             r.title as title,
             r.content as content,
             r.rate as rate,
@@ -26,7 +19,6 @@
                  join place p on r.place_no = p.no
                  join mem m on r.writer_email = m.email
         order by r.no
-            LIMIT #{startRow}, #{limit}
     </select>
 
     <select id="findReviewByNo" resultType = "ReviewResDTO">
@@ -34,8 +26,10 @@
             r.no as no,
             p.title as placeTitle,
             m.id as writer,
+            m.email as writerEmail,
             r.title as title,
             r.content as content,
+            r.img_url as imgUrl,
             r.rate as rate,
             n.id as updatedPerson,
             r.created_at as createdAt,
@@ -44,14 +38,14 @@
                  join place p on r.place_no = p.no
                  join mem m on r.writer_email = m.email
                  join mem n on r.modified_by = n.email
-        where #{no} = r.no
+        where r.no = #{no}
     </select>
 
     <insert id="insertReview" parameterType="ReviewReqDto">
         insert into rev
         (title, content, rate, writer_email, place_no, img_url, modified_by)
         values
-        (#{title}, #{content}, #{rate}, #{writerNo}, #{placeNo}, #{imgUrl}, #{modifiedBy})
+        (#{title}, #{content}, #{rate}, #{writerEmail}, #{placeNo}, #{imgUrl}, #{modifiedBy})
     </insert>
 
     <update id="updateReview" parameterType="ReviewReqDto">
@@ -71,11 +65,12 @@
         where no = #{no}
     </delete>
 
-    <select id="findReviewByMemberEmail" resultType="ReviewResDTO">
+    <select id="findReviewByMemberId" resultType="ReviewResDTO">
         select
             r.no as no,
             p.title as placeTitle,
             m.id as writer,
+            m.email as writerEmail,
             r.title as title,
             r.content as content,
             r.rate as rate,
@@ -84,9 +79,8 @@
         from rev r
             join place p on r.place_no = p.no
             join mem m on r.writer_email = m.email
-        where r.writer_email = #{memberEmail}
+        where r.writer_email = #{memberNo}
         order by r.no
-            LIMIT #{selectCriteria.startRow}, #{selectCriteria.limit}
     </select>
 
     <select id="findReviewByPlaceId" resultType="ReviewResDTO">
@@ -94,6 +88,7 @@
             r.no as no,
             p.title as placeTitle,
             m.id as writer,
+            m.email as writerEmail,
             r.title as title,
             r.content as content,
             r.rate as rate,
@@ -103,26 +98,7 @@
             join place p on r.place_no = p.no
             join mem m on r.writer_email = m.email
         where r.place_no = #{placeNo}
-        order by r.no
+        order by r.no desc
     </select>
-
-    <select id="findReviewByPlaceIdPaging" resultType="ReviewResDTO">
-        select
-            r.no as no,
-            p.title as placeTitle,
-            m.id as writer,
-            r.title as title,
-            r.content as content,
-            r.rate as rate,
-            r.created_at as createdAt,
-            r.modified_at as updatedAt
-        from rev r
-            join place p on r.place_no = p.no
-            join mem m on r.writer_email = m.email
-        where r.place_no = #{placeNo}
-        order by r.no
-            LIMIT #{selectCriteria.startRow}, #{selectCriteria.limit}
-    </select>
-
 
 </mapper>

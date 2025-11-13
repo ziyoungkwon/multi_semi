@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [2025-11-12 07:17:29:267][background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
 [2025-11-12 07:17:29:283][restartedMain] INFO  c.m.multi_semi.MultiSemiApplication - Starting MultiSemiApplication using Java 17.0.16 with PID 58649 (/Users/kwonjiyoung/Documents/multi_semi_project/multi_semi/multi_semi/build/classes/java/main started by kwonjiyoung in /Users/kwonjiyoung/Documents/multi_semi_project/multi_semi/multi_semi)
 [2025-11-12 07:17:29:283][restartedMain] INFO  c.m.multi_semi.MultiSemiApplication - The following 1 profile is active: "local"
@@ -732,3 +733,876 @@ Caused by: org.xml.sax.SAXParseException: 요소 콘텐츠는 올바른 형식�
 |----|--------|------------------------|---------|---------------------------------|------------------------------------------------------------|--------------|---------------|-----------|-------------------------------------------------------------------|
 
 [2025-11-12 07:55:45:51858][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+=======
+[2025-11-13 09:59:42:1286792][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 09:59:42:1286827][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /.well-known/appspecific/com.chrome.devtools.json
+[2025-11-13 09:59:42:1286827][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 09:59:42:1286827][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-13 09:59:42:1286827][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-13 09:59:42:1286828][http-nio-8090-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 09:59:42:1286828][http-nio-8090-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 5992D87C55D06C3A9DC1494FA23BB701
+[2025-11-13 09:59:42:1286828][http-nio-8090-exec-2] WARN  c.m.m.c.j.JwtAuthenticationEntryPoint - 인증 실패: 인증되지 않은 사용자가 /.well-known/appspecific/com.chrome.devtools.json 경로에 접근하려고 했습니다. 401 Unauthorized 반환.
+[2025-11-13 09:59:42:1286829][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 09:59:42:1286831][http-nio-8090-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/styles1.css
+[2025-11-13 09:59:42:1286831][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 09:59:42:1286831][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-13 09:59:42:1286831][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-13 09:59:42:1286831][http-nio-8090-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 09:59:42:1286831][http-nio-8090-exec-7] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 5992D87C55D06C3A9DC1494FA23BB701
+[2025-11-13 09:59:42:1286831][http-nio-8090-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/styles1.css
+[2025-11-13 09:59:42:1286832][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 09:59:42:1286837][http-nio-8090-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/members/me
+[2025-11-13 09:59:42:1286837][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 09:59:42:1286837][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [deletePrefix] Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTU5Nn0.AjIlHmHOd6r814zD8XBBvd3VvRIheQ5UKz-kKNRj5nbjOhbZ6qZVfbmA1_rlQCKqsBVuTk9bypykRFQo1_IN5Q
+[2025-11-13 09:59:42:1286838][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTU5Nn0.AjIlHmHOd6r814zD8XBBvd3VvRIheQ5UKz-kKNRj5nbjOhbZ6qZVfbmA1_rlQCKqsBVuTk9bypykRFQo1_IN5Q
+[2025-11-13 09:59:42:1286838][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재합니다.
+[2025-11-13 09:59:42:1286838][http-nio-8090-exec-10] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] 유효성 검증 중인 토큰: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTU5Nn0.AjIlHmHOd6r814zD8XBBvd3VvRIheQ5UKz-kKNRj5nbjOhbZ6qZVfbmA1_rlQCKqsBVuTk9bypykRFQo1_IN5Q
+[2025-11-13 09:59:42:1286841][http-nio-8090-exec-10] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] JWT 토큰이 유효합니다
+[2025-11-13 09:59:42:1286841][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 유효합니다.
+[2025-11-13 09:59:42:1286842][http-nio-8090-exec-10] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] authorities: [ROLE_USER]
+[2025-11-13 09:59:42:1286842][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContext에 Authentication 객체 설정 완료: UsernamePasswordAuthenticationToken [Principal=CustomUser(no=null, id=null, email=111@gmail.com, pwd=null, uuid=null, authorities=[ROLE_USER]), Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]
+[2025-11-13 09:59:42:1286842][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContext에 Authentication 객체 설정 완료  authentication.getAuthorities(): [ROLE_USER]
+[2025-11-13 09:59:42:1286843][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContextHolder 객체 확인: UsernamePasswordAuthenticationToken [Principal=CustomUser(no=null, id=null, email=111@gmail.com, pwd=null, uuid=null, authorities=[ROLE_USER]), Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]
+[2025-11-13 09:59:42:1286843][http-nio-8090-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/members/me
+[2025-11-13 09:59:42:1286850][http-nio-8090-exec-10] INFO  jdbc.sqlonly - SELECT
+            no, id, email, pwd, name, phone, addr, intro, role, uuid
+        FROM mem
+        WHERE email = '111@gmail.com'
+
+[2025-11-13 09:59:42:1286854][http-nio-8090-exec-10] INFO  jdbc.sqltiming - SELECT
+            no, id, email, pwd, name, phone, addr, intro, role, uuid
+        FROM mem
+        WHERE email = '111@gmail.com'
+ {executed in 3 msec}
+[2025-11-13 09:59:42:1286855][http-nio-8090-exec-10] INFO  jdbc.resultsettable - 
+|---|------|--------------|-------------------------------------------------------------|-----|------|-----|------|----------|-----|
+|no |id    |email         |pwd                                                          |name |phone |addr |intro |role      |uuid |
+|---|------|--------------|-------------------------------------------------------------|-----|------|-----|------|----------|-----|
+|2  |test1 |111@gmail.com |$2a$12$lu6975A9H8wsgRhZL.uk..sOfcfwRAh1PM4Y2A6nbWlhvNuE/u6B. |1234 |1234  |1234 |1234  |ROLE_USER |null |
+|---|------|--------------|-------------------------------------------------------------|-----|------|-----|------|----------|-----|
+
+[2025-11-13 09:59:42:1286857][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:00:06:1310596][http-nio-8090-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/reviews
+[2025-11-13 10:00:06:1310597][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:00:06:1310598][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [deletePrefix] Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTU5Nn0.AjIlHmHOd6r814zD8XBBvd3VvRIheQ5UKz-kKNRj5nbjOhbZ6qZVfbmA1_rlQCKqsBVuTk9bypykRFQo1_IN5Q
+[2025-11-13 10:00:06:1310598][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTU5Nn0.AjIlHmHOd6r814zD8XBBvd3VvRIheQ5UKz-kKNRj5nbjOhbZ6qZVfbmA1_rlQCKqsBVuTk9bypykRFQo1_IN5Q
+[2025-11-13 10:00:06:1310598][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재합니다.
+[2025-11-13 10:00:06:1310598][http-nio-8090-exec-8] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] 유효성 검증 중인 토큰: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTU5Nn0.AjIlHmHOd6r814zD8XBBvd3VvRIheQ5UKz-kKNRj5nbjOhbZ6qZVfbmA1_rlQCKqsBVuTk9bypykRFQo1_IN5Q
+[2025-11-13 10:00:06:1310606][http-nio-8090-exec-8] WARN  c.m.m.common.jwt.TokenProvider - [TokenProvider] 만료된 JWT 토큰입니다. 토큰: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTU5Nn0.AjIlHmHOd6r814zD8XBBvd3VvRIheQ5UKz-kKNRj5nbjOhbZ6qZVfbmA1_rlQCKqsBVuTk9bypykRFQo1_IN5Q, 만료 시각: Thu Nov 13 09:59:56 KST 2025
+io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-11-13T00:59:56Z. Current time: 2025-11-13T01:00:06Z, a difference of 10568 milliseconds.  Allowed clock skew: 0 milliseconds.
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:427)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:529)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:589)
+	at io.jsonwebtoken.impl.ImmutableJwtParser.parseClaimsJws(ImmutableJwtParser.java:173)
+	at com.multi.multi_semi.common.jwt.TokenProvider.validateToken(TokenProvider.java:82)
+	at com.multi.multi_semi.common.jwt.JwtFilter.doFilterInternal(JwtFilter.java:73)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:235)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:229)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter.doFilterInternal(OAuth2AuthorizationRequestRedirectFilter.java:198)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+[2025-11-13 10:00:06:1310607][http-nio-8090-exec-8] ERROR c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 처리 중 예외 발생: 만료된 JWT 토큰입니다.
+com.multi.multi_semi.common.exception.TokenException: 만료된 JWT 토큰입니다.
+	at com.multi.multi_semi.common.jwt.TokenProvider.validateToken(TokenProvider.java:91)
+	at com.multi.multi_semi.common.jwt.JwtFilter.doFilterInternal(JwtFilter.java:73)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:235)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:229)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter.doFilterInternal(OAuth2AuthorizationRequestRedirectFilter.java:198)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+[2025-11-13 10:00:06:1310615][http-nio-8090-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing POST /auth/refresh
+[2025-11-13 10:00:06:1310615][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:00:06:1310616][http-nio-8090-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 10:00:06:1310616][http-nio-8090-exec-9] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 5992D87C55D06C3A9DC1494FA23BB701
+[2025-11-13 10:00:06:1310616][http-nio-8090-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured POST /auth/refresh
+[2025-11-13 10:00:06:1310623][http-nio-8090-exec-9] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] 유효성 검증 중인 토큰: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiZXhwIjoxNzYzMDc1NjIwfQ.T2QHq3Awa8i4uRmn7FJsPe9jA1aQ9E66wI9TGwQMYCB_XfgoyMYcSS-QWNI453aS0yVT3RdnbZL1AOt_CLQj8g
+[2025-11-13 10:00:06:1310624][http-nio-8090-exec-9] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] JWT 토큰이 유효합니다
+[2025-11-13 10:00:06:1310631][http-nio-8090-exec-9] INFO  jdbc.sqlonly - SELECT * FROM ref_token WHERE email = '111@gmail.com'
+
+[2025-11-13 10:00:06:1310636][http-nio-8090-exec-9] INFO  jdbc.sqltiming - SELECT * FROM ref_token WHERE email = '111@gmail.com'
+ {executed in 5 msec}
+[2025-11-13 10:00:06:1310646][http-nio-8090-exec-9] INFO  jdbc.resultsettable - 
+|---|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|--------------------|
+|no |email         |token                                                                                                                                                              |created_at          |expired_at          |
+|---|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|--------------------|
+|15 |111@gmail.com |eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiZXhwIjoxNzYzMDc1NjIwfQ.T2QHq3Awa8i4uRmn7FJsPe9jA1aQ9E66wI9TGwQMYCB_XfgoyMYcSS-QWNI453aS0yVT3RdnbZL1AOt_CLQj8g |2025-11-13 08:13:40 |2025-11-14 08:13:40 |
+|---|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|--------------------|
+
+[2025-11-13 10:00:06:1310646][http-nio-8090-exec-9] INFO  c.m.m.c.jwt.service.TokenService - Refresh Token 검증 성공. 새 Access Token 발급. email: 111@gmail.com
+[2025-11-13 10:00:06:1310657][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter - EXACT_PATHS] 요청 URI가 제외 경로에 해당하여 필터를 건너뜁니다.
+[2025-11-13 10:00:35:1339191][http-nio-8090-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /refresh/test
+[2025-11-13 10:00:35:1339193][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:00:35:1339193][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [deletePrefix] Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTY2Nn0.6oPUfhpBW18sCJawW9wup5GeW2st_DBNWMhW2XFsUAvb7bNq26jJ6AwO57SKjrPufwuohK4Q4ORTpSSOLNJSMA
+[2025-11-13 10:00:35:1339193][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTY2Nn0.6oPUfhpBW18sCJawW9wup5GeW2st_DBNWMhW2XFsUAvb7bNq26jJ6AwO57SKjrPufwuohK4Q4ORTpSSOLNJSMA
+[2025-11-13 10:00:35:1339193][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재합니다.
+[2025-11-13 10:00:35:1339193][http-nio-8090-exec-5] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] 유효성 검증 중인 토큰: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTY2Nn0.6oPUfhpBW18sCJawW9wup5GeW2st_DBNWMhW2XFsUAvb7bNq26jJ6AwO57SKjrPufwuohK4Q4ORTpSSOLNJSMA
+[2025-11-13 10:00:35:1339206][http-nio-8090-exec-5] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] JWT 토큰이 유효합니다
+[2025-11-13 10:00:35:1339206][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 유효합니다.
+[2025-11-13 10:00:35:1339209][http-nio-8090-exec-5] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] authorities: [ROLE_USER]
+[2025-11-13 10:00:35:1339210][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContext에 Authentication 객체 설정 완료: UsernamePasswordAuthenticationToken [Principal=CustomUser(no=null, id=null, email=111@gmail.com, pwd=null, uuid=null, authorities=[ROLE_USER]), Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]
+[2025-11-13 10:00:35:1339210][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContext에 Authentication 객체 설정 완료  authentication.getAuthorities(): [ROLE_USER]
+[2025-11-13 10:00:35:1339210][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContextHolder 객체 확인: UsernamePasswordAuthenticationToken [Principal=CustomUser(no=null, id=null, email=111@gmail.com, pwd=null, uuid=null, authorities=[ROLE_USER]), Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]
+[2025-11-13 10:00:35:1339211][http-nio-8090-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /refresh/test
+[2025-11-13 10:00:35:1339227][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:00:37:1341768][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/reviews
+[2025-11-13 10:00:37:1341768][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:00:37:1341768][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [deletePrefix] Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTY2Nn0.6oPUfhpBW18sCJawW9wup5GeW2st_DBNWMhW2XFsUAvb7bNq26jJ6AwO57SKjrPufwuohK4Q4ORTpSSOLNJSMA
+[2025-11-13 10:00:37:1341769][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTY2Nn0.6oPUfhpBW18sCJawW9wup5GeW2st_DBNWMhW2XFsUAvb7bNq26jJ6AwO57SKjrPufwuohK4Q4ORTpSSOLNJSMA
+[2025-11-13 10:00:37:1341769][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재합니다.
+[2025-11-13 10:00:37:1341769][http-nio-8090-exec-2] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] 유효성 검증 중인 토큰: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTY2Nn0.6oPUfhpBW18sCJawW9wup5GeW2st_DBNWMhW2XFsUAvb7bNq26jJ6AwO57SKjrPufwuohK4Q4ORTpSSOLNJSMA
+[2025-11-13 10:00:37:1341772][http-nio-8090-exec-2] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] JWT 토큰이 유효합니다
+[2025-11-13 10:00:37:1341772][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 유효합니다.
+[2025-11-13 10:00:37:1341774][http-nio-8090-exec-2] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] authorities: [ROLE_USER]
+[2025-11-13 10:00:37:1341774][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContext에 Authentication 객체 설정 완료: UsernamePasswordAuthenticationToken [Principal=CustomUser(no=null, id=null, email=111@gmail.com, pwd=null, uuid=null, authorities=[ROLE_USER]), Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]
+[2025-11-13 10:00:37:1341774][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContext에 Authentication 객체 설정 완료  authentication.getAuthorities(): [ROLE_USER]
+[2025-11-13 10:00:37:1341774][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContextHolder 객체 확인: UsernamePasswordAuthenticationToken [Principal=CustomUser(no=null, id=null, email=111@gmail.com, pwd=null, uuid=null, authorities=[ROLE_USER]), Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]
+[2025-11-13 10:00:37:1341774][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /api/v1/reviews
+[2025-11-13 10:00:37:1341807][http-nio-8090-exec-2] INFO  jdbc.sqlonly - insert into rev
+        (title, content, rate, writer_email, place_no, img_url, modified_by)
+        values
+        ('ㄹㄴㄹ', 'ㅇㅎㅇ', 5, '111@gmail.com', 33, '/uploads/016295b8-5259-4695-92d0-7a40372ed568_박보검.jpeg', '111@gmail.com')
+
+[2025-11-13 10:00:37:1341811][http-nio-8090-exec-2] INFO  jdbc.sqltiming - insert into rev
+        (title, content, rate, writer_email, place_no, img_url, modified_by)
+        values
+        ('ㄹㄴㄹ', 'ㅇㅎㅇ', 5, '111@gmail.com', 33, '/uploads/016295b8-5259-4695-92d0-7a40372ed568_박보검.jpeg', '111@gmail.com')
+ {executed in 4 msec}
+[2025-11-13 10:00:37:1341817][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:00:39:1343491][http-nio-8090-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /reviews/list
+[2025-11-13 10:00:39:1343491][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:00:39:1343491][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-13 10:00:39:1343491][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-13 10:00:39:1343491][http-nio-8090-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 10:00:39:1343491][http-nio-8090-exec-7] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 5992D87C55D06C3A9DC1494FA23BB701
+[2025-11-13 10:00:39:1343491][http-nio-8090-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /reviews/list
+[2025-11-13 10:00:39:1343507][http-nio-8090-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/reviews
+[2025-11-13 10:00:39:1343507][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:00:39:1343507][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-13 10:00:39:1343507][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-13 10:00:39:1343507][http-nio-8090-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 10:00:39:1343507][http-nio-8090-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/reviews
+[2025-11-13 10:00:39:1343510][http-nio-8090-exec-10] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+                 join place p on r.place_no = p.no
+                 join mem m on r.writer_email = m.email
+        order by r.no
+
+[2025-11-13 10:00:39:1343512][http-nio-8090-exec-10] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+                 join place p on r.place_no = p.no
+                 join mem m on r.writer_email = m.email
+        order by r.no
+ {executed in 2 msec}
+[2025-11-13 10:00:39:1343515][http-nio-8090-exec-10] INFO  jdbc.resultsettable - 
+|---|--------------|-------------------|-------------------|----------|---------------------------|-----|--------------------|--------------------|
+|no |title         |id                 |email              |title     |content                    |rate |created_at          |modified_at         |
+|---|--------------|-------------------|-------------------|----------|---------------------------|-----|--------------------|--------------------|
+|6  |개항장 거리        |test3              |333@gmail.com      |맛집 인정     |음식이 정말 맛있었어요! 재방문 의사 100%  |5    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|7  |개항장 거리        |test4              |444@gmail.com      |조용한 분위기   |카페 분위기가 너무 조용해서 공부하기 좋았어요. |4    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|8  |개항장 댕댕 도서관    |test4              |444@gmail.com      |가격 대비 아쉬움 |맛은 괜찮았지만 가격이 조금 비쌌어요.      |3    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|9  |인천개항장 국가유산 야행 |test5              |555@gmail.com      |서비스 굿     |직원분들이 친절해서 기분 좋게 식사했습니다.   |5    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|10 |인천개항장 근대건축전시관 |test4              |444@gmail.com      |사진이랑 다름   |사진 보고 기대했는데 실물은 좀 달랐어요.    |2    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|12 |개항장 거리        |gy011003@gmail.com |gy011003@gmail.com |좋아요       |또 올게요                      |5    |2025-11-12 13:11:41 |2025-11-12 13:11:41 |
+|13 |개항장 거리        |gy011003@gmail.com |gy011003@gmail.com |맛집 인정     |음식이 정말 맛있었어요! 재방문 의사 100%  |5    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|14 |개항장 거리        |gy011003@gmail.com |gy011003@gmail.com |조용한 분위기   |카페 분위기가 너무 조용해서 공부하기 좋았어요. |4    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|15 |개항장 댕댕 도서관    |gy011003@gmail.com |gy011003@gmail.com |가격 대비 아쉬움 |맛은 괜찮았지만 가격이 조금 비쌌어요.      |3    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|16 |인천개항장 국가유산 야행 |gy011003@gmail.com |gy011003@gmail.com |서비스 굿     |직원분들이 친절해서 기분 좋게 식사했습니다.   |5    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|17 |인천개항장 근대건축전시관 |gy011003@gmail.com |gy011003@gmail.com |사진이랑 다름   |사진 보고 기대했는데 실물은 좀 달랐어요.    |2    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|20 |아산 외암마을 참판댁   |test1              |111@gmail.com      |ㄹㄴㄹ       |ㅇㅎㅇ                        |5    |2025-11-13 10:00:37 |2025-11-13 10:00:37 |
+|---|--------------|-------------------|-------------------|----------|---------------------------|-----|--------------------|--------------------|
+
+[2025-11-13 10:00:39:1343520][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:00:39:1343538][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:00:39:1343572][http-nio-8090-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /.well-known/appspecific/com.chrome.devtools.json
+[2025-11-13 10:00:39:1343572][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:00:39:1343572][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-13 10:00:39:1343572][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-13 10:00:39:1343572][http-nio-8090-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 10:00:39:1343572][http-nio-8090-exec-6] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 5992D87C55D06C3A9DC1494FA23BB701
+[2025-11-13 10:00:39:1343573][http-nio-8090-exec-6] WARN  c.m.m.c.j.JwtAuthenticationEntryPoint - 인증 실패: 인증되지 않은 사용자가 /.well-known/appspecific/com.chrome.devtools.json 경로에 접근하려고 했습니다. 401 Unauthorized 반환.
+[2025-11-13 10:00:39:1343573][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:00:39:1343576][http-nio-8090-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/styles1.css
+[2025-11-13 10:00:39:1343576][http-nio-8090-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /multiimgs/null
+[2025-11-13 10:00:39:1343576][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:00:39:1343576][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-13 10:00:39:1343576][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-13 10:00:39:1343576][http-nio-8090-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 10:00:39:1343576][http-nio-8090-exec-3] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 5992D87C55D06C3A9DC1494FA23BB701
+[2025-11-13 10:00:39:1343576][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:00:39:1343576][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-13 10:00:39:1343576][http-nio-8090-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/styles1.css
+[2025-11-13 10:00:39:1343576][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-13 10:00:39:1343577][http-nio-8090-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 10:00:39:1343577][http-nio-8090-exec-4] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 5992D87C55D06C3A9DC1494FA23BB701
+[2025-11-13 10:00:39:1343578][http-nio-8090-exec-4] WARN  c.m.m.c.j.JwtAuthenticationEntryPoint - 인증 실패: 인증되지 않은 사용자가 /multiimgs/null 경로에 접근하려고 했습니다. 401 Unauthorized 반환.
+[2025-11-13 10:00:39:1343579][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:00:39:1343585][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:00:39:1343596][http-nio-8090-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /multiimgs/null
+[2025-11-13 10:00:39:1343596][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:00:39:1343596][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-13 10:00:39:1343596][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-13 10:00:39:1343596][http-nio-8090-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 10:00:39:1343596][http-nio-8090-exec-1] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 5992D87C55D06C3A9DC1494FA23BB701
+[2025-11-13 10:00:39:1343596][http-nio-8090-exec-1] WARN  c.m.m.c.j.JwtAuthenticationEntryPoint - 인증 실패: 인증되지 않은 사용자가 /multiimgs/null 경로에 접근하려고 했습니다. 401 Unauthorized 반환.
+[2025-11-13 10:00:39:1343597][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:00:57:1361776][http-nio-8090-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /reviews/20
+[2025-11-13 10:00:57:1361777][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:00:57:1361777][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-13 10:00:57:1361777][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-13 10:00:57:1361778][http-nio-8090-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 10:00:57:1361778][http-nio-8090-exec-8] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 5992D87C55D06C3A9DC1494FA23BB701
+[2025-11-13 10:00:57:1361778][http-nio-8090-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /reviews/20
+[2025-11-13 10:00:57:1361790][http-nio-8090-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/reviews/20
+[2025-11-13 10:00:57:1361790][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:00:57:1361790][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-13 10:00:57:1361790][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-13 10:00:57:1361790][http-nio-8090-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 10:00:57:1361790][http-nio-8090-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/reviews/20
+[2025-11-13 10:00:57:1361794][http-nio-8090-exec-9] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.img_url as imgUrl,
+            r.rate as rate,
+            n.id as updatedPerson,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+                 join place p on r.place_no = p.no
+                 join mem m on r.writer_email = m.email
+                 join mem n on r.modified_by = n.email
+        where r.no = 20
+
+[2025-11-13 10:00:57:1361796][http-nio-8090-exec-9] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.img_url as imgUrl,
+            r.rate as rate,
+            n.id as updatedPerson,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+                 join place p on r.place_no = p.no
+                 join mem m on r.writer_email = m.email
+                 join mem n on r.modified_by = n.email
+        where r.no = 20
+ {executed in 2 msec}
+[2025-11-13 10:00:57:1361797][http-nio-8090-exec-9] INFO  jdbc.resultsettable - 
+|---|------------|------|--------------|------|--------|------------------------------------------------------------|-----|------|--------------------|--------------------|
+|no |title       |id    |email         |title |content |img_url                                                     |rate |id    |created_at          |modified_at         |
+|---|------------|------|--------------|------|--------|------------------------------------------------------------|-----|------|--------------------|--------------------|
+|20 |아산 외암마을 참판댁 |test1 |111@gmail.com |ㄹㄴㄹ   |ㅇㅎㅇ     |/uploads/016295b8-5259-4695-92d0-7a40372ed568_박보검.jpeg |5    |test1 |2025-11-13 10:00:37 |2025-11-13 10:00:37 |
+|---|------------|------|--------------|------|--------|------------------------------------------------------------|-----|------|--------------------|--------------------|
+
+[2025-11-13 10:00:57:1361800][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:00:57:1361808][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:00:57:1361878][http-nio-8090-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /.well-known/appspecific/com.chrome.devtools.json
+[2025-11-13 10:00:57:1361878][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:00:57:1361878][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-13 10:00:57:1361878][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-13 10:00:57:1361878][http-nio-8090-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 10:00:57:1361878][http-nio-8090-exec-5] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 5992D87C55D06C3A9DC1494FA23BB701
+[2025-11-13 10:00:57:1361879][http-nio-8090-exec-5] WARN  c.m.m.c.j.JwtAuthenticationEntryPoint - 인증 실패: 인증되지 않은 사용자가 /.well-known/appspecific/com.chrome.devtools.json 경로에 접근하려고 했습니다. 401 Unauthorized 반환.
+[2025-11-13 10:00:57:1361879][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:00:57:1361884][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/styles1.css
+[2025-11-13 10:00:57:1361884][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:00:57:1361884][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-13 10:00:57:1361884][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-13 10:00:57:1361885][http-nio-8090-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 10:00:57:1361885][http-nio-8090-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 5992D87C55D06C3A9DC1494FA23BB701
+[2025-11-13 10:00:57:1361885][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/styles1.css
+[2025-11-13 10:00:57:1361887][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:00:57:1361940][http-nio-8090-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/members/me
+[2025-11-13 10:00:57:1361940][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:00:57:1361940][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [deletePrefix] Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTY2Nn0.6oPUfhpBW18sCJawW9wup5GeW2st_DBNWMhW2XFsUAvb7bNq26jJ6AwO57SKjrPufwuohK4Q4ORTpSSOLNJSMA
+[2025-11-13 10:00:57:1361940][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTY2Nn0.6oPUfhpBW18sCJawW9wup5GeW2st_DBNWMhW2XFsUAvb7bNq26jJ6AwO57SKjrPufwuohK4Q4ORTpSSOLNJSMA
+[2025-11-13 10:00:57:1361940][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재합니다.
+[2025-11-13 10:00:57:1361940][http-nio-8090-exec-10] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] 유효성 검증 중인 토큰: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTY2Nn0.6oPUfhpBW18sCJawW9wup5GeW2st_DBNWMhW2XFsUAvb7bNq26jJ6AwO57SKjrPufwuohK4Q4ORTpSSOLNJSMA
+[2025-11-13 10:00:57:1361954][http-nio-8090-exec-10] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] JWT 토큰이 유효합니다
+[2025-11-13 10:00:57:1361954][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 유효합니다.
+[2025-11-13 10:00:57:1361956][http-nio-8090-exec-10] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] authorities: [ROLE_USER]
+[2025-11-13 10:00:57:1361956][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContext에 Authentication 객체 설정 완료: UsernamePasswordAuthenticationToken [Principal=CustomUser(no=null, id=null, email=111@gmail.com, pwd=null, uuid=null, authorities=[ROLE_USER]), Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]
+[2025-11-13 10:00:57:1361956][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContext에 Authentication 객체 설정 완료  authentication.getAuthorities(): [ROLE_USER]
+[2025-11-13 10:00:57:1361956][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContextHolder 객체 확인: UsernamePasswordAuthenticationToken [Principal=CustomUser(no=null, id=null, email=111@gmail.com, pwd=null, uuid=null, authorities=[ROLE_USER]), Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]
+[2025-11-13 10:00:57:1361957][http-nio-8090-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/members/me
+[2025-11-13 10:00:57:1361960][http-nio-8090-exec-10] INFO  jdbc.sqlonly - SELECT
+            no, id, email, pwd, name, phone, addr, intro, role, uuid
+        FROM mem
+        WHERE email = '111@gmail.com'
+
+[2025-11-13 10:00:57:1361961][http-nio-8090-exec-10] INFO  jdbc.sqltiming - SELECT
+            no, id, email, pwd, name, phone, addr, intro, role, uuid
+        FROM mem
+        WHERE email = '111@gmail.com'
+ {executed in 1 msec}
+[2025-11-13 10:00:57:1361961][http-nio-8090-exec-10] INFO  jdbc.resultsettable - 
+|---|------|--------------|-------------------------------------------------------------|-----|------|-----|------|----------|-----|
+|no |id    |email         |pwd                                                          |name |phone |addr |intro |role      |uuid |
+|---|------|--------------|-------------------------------------------------------------|-----|------|-----|------|----------|-----|
+|2  |test1 |111@gmail.com |$2a$12$lu6975A9H8wsgRhZL.uk..sOfcfwRAh1PM4Y2A6nbWlhvNuE/u6B. |1234 |1234  |1234 |1234  |ROLE_USER |null |
+|---|------|--------------|-------------------------------------------------------------|-----|------|-----|------|----------|-----|
+
+[2025-11-13 10:00:57:1361964][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:00:57:1361966][http-nio-8090-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/reviews/20
+[2025-11-13 10:00:57:1361967][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:00:57:1361967][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [deletePrefix] Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTY2Nn0.6oPUfhpBW18sCJawW9wup5GeW2st_DBNWMhW2XFsUAvb7bNq26jJ6AwO57SKjrPufwuohK4Q4ORTpSSOLNJSMA
+[2025-11-13 10:00:57:1361967][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTY2Nn0.6oPUfhpBW18sCJawW9wup5GeW2st_DBNWMhW2XFsUAvb7bNq26jJ6AwO57SKjrPufwuohK4Q4ORTpSSOLNJSMA
+[2025-11-13 10:00:57:1361967][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재합니다.
+[2025-11-13 10:00:57:1361967][http-nio-8090-exec-7] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] 유효성 검증 중인 토큰: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTY2Nn0.6oPUfhpBW18sCJawW9wup5GeW2st_DBNWMhW2XFsUAvb7bNq26jJ6AwO57SKjrPufwuohK4Q4ORTpSSOLNJSMA
+[2025-11-13 10:00:57:1361968][http-nio-8090-exec-7] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] JWT 토큰이 유효합니다
+[2025-11-13 10:00:57:1361968][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 유효합니다.
+[2025-11-13 10:00:57:1361969][http-nio-8090-exec-7] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] authorities: [ROLE_USER]
+[2025-11-13 10:00:57:1361969][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContext에 Authentication 객체 설정 완료: UsernamePasswordAuthenticationToken [Principal=CustomUser(no=null, id=null, email=111@gmail.com, pwd=null, uuid=null, authorities=[ROLE_USER]), Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]
+[2025-11-13 10:00:57:1361969][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContext에 Authentication 객체 설정 완료  authentication.getAuthorities(): [ROLE_USER]
+[2025-11-13 10:00:57:1361969][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContextHolder 객체 확인: UsernamePasswordAuthenticationToken [Principal=CustomUser(no=null, id=null, email=111@gmail.com, pwd=null, uuid=null, authorities=[ROLE_USER]), Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]
+[2025-11-13 10:00:57:1361969][http-nio-8090-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/reviews/20
+[2025-11-13 10:00:57:1361972][http-nio-8090-exec-7] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.img_url as imgUrl,
+            r.rate as rate,
+            n.id as updatedPerson,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+                 join place p on r.place_no = p.no
+                 join mem m on r.writer_email = m.email
+                 join mem n on r.modified_by = n.email
+        where r.no = 20
+
+[2025-11-13 10:00:57:1361973][http-nio-8090-exec-7] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.img_url as imgUrl,
+            r.rate as rate,
+            n.id as updatedPerson,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+                 join place p on r.place_no = p.no
+                 join mem m on r.writer_email = m.email
+                 join mem n on r.modified_by = n.email
+        where r.no = 20
+ {executed in 1 msec}
+[2025-11-13 10:00:57:1361974][http-nio-8090-exec-7] INFO  jdbc.resultsettable - 
+|---|------------|------|--------------|------|--------|------------------------------------------------------------|-----|------|--------------------|--------------------|
+|no |title       |id    |email         |title |content |img_url                                                     |rate |id    |created_at          |modified_at         |
+|---|------------|------|--------------|------|--------|------------------------------------------------------------|-----|------|--------------------|--------------------|
+|20 |아산 외암마을 참판댁 |test1 |111@gmail.com |ㄹㄴㄹ   |ㅇㅎㅇ     |/uploads/016295b8-5259-4695-92d0-7a40372ed568_박보검.jpeg |5    |test1 |2025-11-13 10:00:37 |2025-11-13 10:00:37 |
+|---|------------|------|--------------|------|--------|------------------------------------------------------------|-----|------|--------------------|--------------------|
+
+[2025-11-13 10:00:57:1361976][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:00:57:1361983][http-nio-8090-exec-6] DEBUG o.s.s.w.f.HttpStatusRequestRejectedHandler - Rejecting request due to: The request was rejected because the URL contained a potentially malicious String "//"
+org.springframework.security.web.firewall.RequestRejectedException: The request was rejected because the URL contained a potentially malicious String "//"
+	at org.springframework.security.web.firewall.StrictHttpFirewall.rejectedBlocklistedUrls(StrictHttpFirewall.java:548)
+	at org.springframework.security.web.firewall.StrictHttpFirewall.getFirewalledRequest(StrictHttpFirewall.java:518)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+[2025-11-13 10:00:57:1361999][http-nio-8090-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /error
+[2025-11-13 10:00:57:1362000][http-nio-8090-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 10:00:57:1362000][http-nio-8090-exec-6] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 5992D87C55D06C3A9DC1494FA23BB701
+[2025-11-13 10:00:57:1362000][http-nio-8090-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /error
+[2025-11-13 10:01:08:1372073][http-nio-8090-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing DELETE /api/v1/reviews/20
+[2025-11-13 10:01:08:1372073][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:01:08:1372074][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [deletePrefix] Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTY2Nn0.6oPUfhpBW18sCJawW9wup5GeW2st_DBNWMhW2XFsUAvb7bNq26jJ6AwO57SKjrPufwuohK4Q4ORTpSSOLNJSMA
+[2025-11-13 10:01:08:1372074][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTY2Nn0.6oPUfhpBW18sCJawW9wup5GeW2st_DBNWMhW2XFsUAvb7bNq26jJ6AwO57SKjrPufwuohK4Q4ORTpSSOLNJSMA
+[2025-11-13 10:01:08:1372074][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재합니다.
+[2025-11-13 10:01:08:1372074][http-nio-8090-exec-4] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] 유효성 검증 중인 토큰: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTY2Nn0.6oPUfhpBW18sCJawW9wup5GeW2st_DBNWMhW2XFsUAvb7bNq26jJ6AwO57SKjrPufwuohK4Q4ORTpSSOLNJSMA
+[2025-11-13 10:01:08:1372076][http-nio-8090-exec-4] WARN  c.m.m.common.jwt.TokenProvider - [TokenProvider] 만료된 JWT 토큰입니다. 토큰: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTY2Nn0.6oPUfhpBW18sCJawW9wup5GeW2st_DBNWMhW2XFsUAvb7bNq26jJ6AwO57SKjrPufwuohK4Q4ORTpSSOLNJSMA, 만료 시각: Thu Nov 13 10:01:06 KST 2025
+io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-11-13T01:01:06Z. Current time: 2025-11-13T01:01:08Z, a difference of 2039 milliseconds.  Allowed clock skew: 0 milliseconds.
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:427)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:529)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:589)
+	at io.jsonwebtoken.impl.ImmutableJwtParser.parseClaimsJws(ImmutableJwtParser.java:173)
+	at com.multi.multi_semi.common.jwt.TokenProvider.validateToken(TokenProvider.java:82)
+	at com.multi.multi_semi.common.jwt.JwtFilter.doFilterInternal(JwtFilter.java:73)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:235)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:229)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter.doFilterInternal(OAuth2AuthorizationRequestRedirectFilter.java:198)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+[2025-11-13 10:01:08:1372077][http-nio-8090-exec-4] ERROR c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 처리 중 예외 발생: 만료된 JWT 토큰입니다.
+com.multi.multi_semi.common.exception.TokenException: 만료된 JWT 토큰입니다.
+	at com.multi.multi_semi.common.jwt.TokenProvider.validateToken(TokenProvider.java:91)
+	at com.multi.multi_semi.common.jwt.JwtFilter.doFilterInternal(JwtFilter.java:73)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:235)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:229)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter.doFilterInternal(OAuth2AuthorizationRequestRedirectFilter.java:198)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+[2025-11-13 10:01:08:1372082][http-nio-8090-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /auth/refresh
+[2025-11-13 10:01:08:1372082][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:01:08:1372082][http-nio-8090-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 10:01:08:1372083][http-nio-8090-exec-3] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 5992D87C55D06C3A9DC1494FA23BB701
+[2025-11-13 10:01:08:1372083][http-nio-8090-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /auth/refresh
+[2025-11-13 10:01:08:1372085][http-nio-8090-exec-3] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] 유효성 검증 중인 토큰: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiZXhwIjoxNzYzMDc1NjIwfQ.T2QHq3Awa8i4uRmn7FJsPe9jA1aQ9E66wI9TGwQMYCB_XfgoyMYcSS-QWNI453aS0yVT3RdnbZL1AOt_CLQj8g
+[2025-11-13 10:01:08:1372087][http-nio-8090-exec-3] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] JWT 토큰이 유효합니다
+[2025-11-13 10:01:08:1372110][http-nio-8090-exec-3] INFO  jdbc.sqlonly - SELECT * FROM ref_token WHERE email = '111@gmail.com'
+
+[2025-11-13 10:01:08:1372112][http-nio-8090-exec-3] INFO  jdbc.sqltiming - SELECT * FROM ref_token WHERE email = '111@gmail.com'
+ {executed in 2 msec}
+[2025-11-13 10:01:08:1372113][http-nio-8090-exec-3] INFO  jdbc.resultsettable - 
+|---|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|--------------------|
+|no |email         |token                                                                                                                                                              |created_at          |expired_at          |
+|---|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|--------------------|
+|15 |111@gmail.com |eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiZXhwIjoxNzYzMDc1NjIwfQ.T2QHq3Awa8i4uRmn7FJsPe9jA1aQ9E66wI9TGwQMYCB_XfgoyMYcSS-QWNI453aS0yVT3RdnbZL1AOt_CLQj8g |2025-11-13 08:13:40 |2025-11-14 08:13:40 |
+|---|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|--------------------|
+
+[2025-11-13 10:01:08:1372113][http-nio-8090-exec-3] INFO  c.m.m.c.jwt.service.TokenService - Refresh Token 검증 성공. 새 Access Token 발급. email: 111@gmail.com
+[2025-11-13 10:01:08:1372115][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter - EXACT_PATHS] 요청 URI가 제외 경로에 해당하여 필터를 건너뜁니다.
+[2025-11-13 10:01:08:1372117][http-nio-8090-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing DELETE /api/v1/reviews/20
+[2025-11-13 10:01:08:1372118][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:01:08:1372118][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [deletePrefix] Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTcyOH0.xW3RQ2EuzF_zY75alGrUxTLe0YqiIx2XMkRIlhtDWWjZpfos7TaiX94zEeZjyhkdW7SBj0A8NLfUQZYwjKfdTg
+[2025-11-13 10:01:08:1372118][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTcyOH0.xW3RQ2EuzF_zY75alGrUxTLe0YqiIx2XMkRIlhtDWWjZpfos7TaiX94zEeZjyhkdW7SBj0A8NLfUQZYwjKfdTg
+[2025-11-13 10:01:08:1372118][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재합니다.
+[2025-11-13 10:01:08:1372118][http-nio-8090-exec-1] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] 유효성 검증 중인 토큰: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTcyOH0.xW3RQ2EuzF_zY75alGrUxTLe0YqiIx2XMkRIlhtDWWjZpfos7TaiX94zEeZjyhkdW7SBj0A8NLfUQZYwjKfdTg
+[2025-11-13 10:01:08:1372118][http-nio-8090-exec-1] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] JWT 토큰이 유효합니다
+[2025-11-13 10:01:08:1372118][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 유효합니다.
+[2025-11-13 10:01:08:1372119][http-nio-8090-exec-1] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] authorities: [ROLE_USER]
+[2025-11-13 10:01:08:1372119][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContext에 Authentication 객체 설정 완료: UsernamePasswordAuthenticationToken [Principal=CustomUser(no=null, id=null, email=111@gmail.com, pwd=null, uuid=null, authorities=[ROLE_USER]), Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]
+[2025-11-13 10:01:08:1372119][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContext에 Authentication 객체 설정 완료  authentication.getAuthorities(): [ROLE_USER]
+[2025-11-13 10:01:08:1372119][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContextHolder 객체 확인: UsernamePasswordAuthenticationToken [Principal=CustomUser(no=null, id=null, email=111@gmail.com, pwd=null, uuid=null, authorities=[ROLE_USER]), Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]
+[2025-11-13 10:01:08:1372119][http-nio-8090-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured DELETE /api/v1/reviews/20
+[2025-11-13 10:01:08:1372120][http-nio-8090-exec-1] INFO  jdbc.sqlonly - delete
+        from rev
+        where no = 20
+
+[2025-11-13 10:01:08:1372121][http-nio-8090-exec-1] INFO  jdbc.sqltiming - delete
+        from rev
+        where no = 20
+ {executed in 1 msec}
+[2025-11-13 10:01:08:1372124][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:01:08:1372962][http-nio-8090-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /reviews/list
+[2025-11-13 10:01:08:1372962][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:01:08:1372962][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-13 10:01:08:1372962][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-13 10:01:08:1372962][http-nio-8090-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 10:01:08:1372962][http-nio-8090-exec-9] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 5992D87C55D06C3A9DC1494FA23BB701
+[2025-11-13 10:01:08:1372962][http-nio-8090-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /reviews/list
+[2025-11-13 10:01:08:1372974][http-nio-8090-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/reviews
+[2025-11-13 10:01:08:1372975][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:01:08:1372975][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-13 10:01:08:1372976][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-13 10:01:08:1372976][http-nio-8090-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 10:01:08:1372976][http-nio-8090-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/reviews
+[2025-11-13 10:01:08:1372978][http-nio-8090-exec-8] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+                 join place p on r.place_no = p.no
+                 join mem m on r.writer_email = m.email
+        order by r.no
+
+[2025-11-13 10:01:08:1372981][http-nio-8090-exec-8] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+                 join place p on r.place_no = p.no
+                 join mem m on r.writer_email = m.email
+        order by r.no
+ {executed in 3 msec}
+[2025-11-13 10:01:08:1372984][http-nio-8090-exec-8] INFO  jdbc.resultsettable - 
+|---|--------------|-------------------|-------------------|----------|---------------------------|-----|--------------------|--------------------|
+|no |title         |id                 |email              |title     |content                    |rate |created_at          |modified_at         |
+|---|--------------|-------------------|-------------------|----------|---------------------------|-----|--------------------|--------------------|
+|6  |개항장 거리        |test3              |333@gmail.com      |맛집 인정     |음식이 정말 맛있었어요! 재방문 의사 100%  |5    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|7  |개항장 거리        |test4              |444@gmail.com      |조용한 분위기   |카페 분위기가 너무 조용해서 공부하기 좋았어요. |4    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|8  |개항장 댕댕 도서관    |test4              |444@gmail.com      |가격 대비 아쉬움 |맛은 괜찮았지만 가격이 조금 비쌌어요.      |3    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|9  |인천개항장 국가유산 야행 |test5              |555@gmail.com      |서비스 굿     |직원분들이 친절해서 기분 좋게 식사했습니다.   |5    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|10 |인천개항장 근대건축전시관 |test4              |444@gmail.com      |사진이랑 다름   |사진 보고 기대했는데 실물은 좀 달랐어요.    |2    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|12 |개항장 거리        |gy011003@gmail.com |gy011003@gmail.com |좋아요       |또 올게요                      |5    |2025-11-12 13:11:41 |2025-11-12 13:11:41 |
+|13 |개항장 거리        |gy011003@gmail.com |gy011003@gmail.com |맛집 인정     |음식이 정말 맛있었어요! 재방문 의사 100%  |5    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|14 |개항장 거리        |gy011003@gmail.com |gy011003@gmail.com |조용한 분위기   |카페 분위기가 너무 조용해서 공부하기 좋았어요. |4    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|15 |개항장 댕댕 도서관    |gy011003@gmail.com |gy011003@gmail.com |가격 대비 아쉬움 |맛은 괜찮았지만 가격이 조금 비쌌어요.      |3    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|16 |인천개항장 국가유산 야행 |gy011003@gmail.com |gy011003@gmail.com |서비스 굿     |직원분들이 친절해서 기분 좋게 식사했습니다.   |5    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|17 |인천개항장 근대건축전시관 |gy011003@gmail.com |gy011003@gmail.com |사진이랑 다름   |사진 보고 기대했는데 실물은 좀 달랐어요.    |2    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|---|--------------|-------------------|-------------------|----------|---------------------------|-----|--------------------|--------------------|
+
+[2025-11-13 10:01:08:1372992][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:01:08:1373013][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:01:08:1373035][http-nio-8090-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /.well-known/appspecific/com.chrome.devtools.json
+[2025-11-13 10:01:08:1373035][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:01:08:1373035][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-13 10:01:08:1373035][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-13 10:01:08:1373035][http-nio-8090-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 10:01:08:1373036][http-nio-8090-exec-5] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 5992D87C55D06C3A9DC1494FA23BB701
+[2025-11-13 10:01:08:1373036][http-nio-8090-exec-5] WARN  c.m.m.c.j.JwtAuthenticationEntryPoint - 인증 실패: 인증되지 않은 사용자가 /.well-known/appspecific/com.chrome.devtools.json 경로에 접근하려고 했습니다. 401 Unauthorized 반환.
+[2025-11-13 10:01:08:1373036][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:01:09:1373048][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/styles1.css
+[2025-11-13 10:01:09:1373048][http-nio-8090-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /multiimgs/null
+[2025-11-13 10:01:09:1373048][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:01:09:1373048][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:01:09:1373048][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-13 10:01:09:1373048][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-13 10:01:09:1373048][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-13 10:01:09:1373048][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-13 10:01:09:1373049][http-nio-8090-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 10:01:09:1373049][http-nio-8090-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 10:01:09:1373049][http-nio-8090-exec-10] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 5992D87C55D06C3A9DC1494FA23BB701
+[2025-11-13 10:01:09:1373049][http-nio-8090-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 5992D87C55D06C3A9DC1494FA23BB701
+[2025-11-13 10:01:09:1373049][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/styles1.css
+[2025-11-13 10:01:09:1373049][http-nio-8090-exec-10] WARN  c.m.m.c.j.JwtAuthenticationEntryPoint - 인증 실패: 인증되지 않은 사용자가 /multiimgs/null 경로에 접근하려고 했습니다. 401 Unauthorized 반환.
+[2025-11-13 10:01:09:1373050][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:01:09:1373051][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-13 10:01:09:1373066][http-nio-8090-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /multiimgs/null
+[2025-11-13 10:01:09:1373066][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-13 10:01:09:1373068][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-13 10:01:09:1373068][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-13 10:01:09:1373070][http-nio-8090-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-13 10:01:09:1373070][http-nio-8090-exec-7] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 5992D87C55D06C3A9DC1494FA23BB701
+[2025-11-13 10:01:09:1373071][http-nio-8090-exec-7] WARN  c.m.m.c.j.JwtAuthenticationEntryPoint - 인증 실패: 인증되지 않은 사용자가 /multiimgs/null 경로에 접근하려고 했습니다. 401 Unauthorized 반환.
+[2025-11-13 10:01:09:1373072][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+>>>>>>> dev

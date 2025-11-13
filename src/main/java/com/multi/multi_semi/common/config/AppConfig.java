@@ -1,5 +1,7 @@
 package com.multi.multi_semi.common.config;
+import com.multi.multi_semi.ai_image.controller.GenerationStatus;
 
+import com.multi.multi_semi.ai_image.controller.GenerationStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -9,11 +11,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizationRequestResolver;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * [신규] @Bean 정의를 SecurityConfigJwt에서 분리한 별도의 설정 클래스
@@ -25,6 +30,17 @@ public class AppConfig {
 
     // 이 클래스는 순수하게 Bean만 정의하므로, 생성자 주입이 간단합니다.
     private final ClientRegistrationRepository clientRegistrationRepository;
+
+
+    /**
+     * 작업 ID(String)와 작업 상태(GenerationStatus)를 저장하는
+     * 인-메모리 캐시(저장소)를 Bean으로 등록합니다.
+     * 이 맵은 스레드-세이프(thread-safe)합니다.
+     */
+    @Bean
+    public Map<String, GenerationStatus> taskResults() {
+        return new ConcurrentHashMap<>();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -66,4 +82,7 @@ public class AppConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+
+
 }

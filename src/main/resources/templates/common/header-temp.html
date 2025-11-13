@@ -1,19 +1,5 @@
 <div th:fragment="header">
 
-    <a href="#" id="test-refresh-accessToken">요청 실패 시 여기를 클릭하세요!</a>
-
-    <script>
-        document.getElementById('test-refresh-accessToken').addEventListener('click', async (e) => {
-            e.preventDefault();
-
-            const response = await fetch('/refresh/test', {method: 'GET'});
-
-            const result = await response.json();
-            console.log('응답 결과:', result);
-        });
-    </script>
-
-
     <div class="vt-header-top">
 
         <a th:href="@{/}" class="logo">
@@ -44,7 +30,7 @@
     <nav class="vt-nav">
         <a th:href="@{/}" class="nav-item">홈</a>
         <a th:href="@{/api/v1/places}" class="nav-item">관광지 목록</a>
-        <a th:href="@{/reviews/list}" class="nav-item">리뷰 게시판</a>
+        <a th:href="@{/api/v1/reviews}" class="nav-item">리뷰</a>
         <a th:href="@{/api/v1/generate-request}" class="nav-item">이미지 만들기</a>
         <a th:href="@{/api/v1/mypage}" class="nav-item">마이페이지</a>
         <a th:href="@{/api/v1/admin/page}" class="nav-item" id="admin-page-link" style="display: none;">관리자 페이지</a>
@@ -129,12 +115,8 @@
                     }
 
                 } catch (error) {
-                    if (error.name === "TokenRefreshedError") {
-                        console.error("토큰 갱신 후 재시도했으나 최종 실패:", error);
-                    } else {
-                        console.error('검색 요청 중 네트워크 오류 발생:', error);
-                        alert('검색 중 오류가 발생했습니다.');
-                    }
+                    console.error('검색 요청 중 네트워크 오류 발생:', error);
+                    alert('검색 중 오류가 발생했습니다.');
                 }
             });
 
@@ -185,12 +167,13 @@
 
             try {
                 // /auth/refresh 요청
+                // 브라우저가 HttpOnly 쿠키(RT)를 자동으로 실어 보냅니다.
                 const refreshResponse = await originalFetch('/auth/refresh', {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${accessToken}` // 만료된 AT
                     },
-                    // ★★★ [수정 1] credentials 추가 (버그 수정) ★★★
+
                     credentials: 'include'
                 });
 
@@ -241,8 +224,7 @@
                 if (url.startsWith('/auth/refresh')) {
                     console.warn('/auth/refresh 요청 실패 (RT 쿠키 만료). 강제 로그아웃.');
                     forceLogout('세션이 만료되었습니다. 다시 로그인해 주세요.');
-                    return new Promise(() => {
-                    });
+                    return new Promise(() => {});
                 }
 
                 const clonedResponse = response.clone();
@@ -256,45 +238,24 @@
                         const refreshSuccess = await handleTokenRefresh();
 
                         if (refreshSuccess) {
-
-                            // ★★★ [수정 2] FormData(Stream)인지 확인 ★★★
-                            const isStream = options.body && (options.body instanceof FormData || options.body instanceof ReadableStream);
-
-                            if (isStream) {
-                                // FormData/Stream은 래퍼가 재시도(X), 커스텀 에러 발생(O)
-                                console.log("토큰 갱신 성공. [Stream Body] 재시도는 호출자가 직접 해야 함.");
-                                const error = new Error("TOKEN_REFRESHED_RETRY_MANUALLY");
-                                error.name = "TokenRefreshedError";
-                                throw error; // ai-image.html의 catch문으로 전달
-                            } else {
-                                // GET 요청이나 JSON Body는 래퍼가 직접 재시도(O)
-                                console.log("토큰 갱신 성공. 원래 요청(GET 등) 재시도.");
-                                options.headers['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`;
-                                return await originalFetch(url, options); // ★ 자동 재시도
-                            }
-
+                            console.log("토큰 갱신 성공. 원래 요청 재시도.");
+                            options.headers['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`;
+                            return await originalFetch(url, options);
                         } else {
                             forceLogout('세션이 만료되었습니다. 다시 로그인해 주세요.');
-                            return new Promise(() => {
-                            });
+                            return new Promise(() => {});
                         }
-                    } else {
+                    }
+                    else {
                         console.warn(`기타 401 에러 (${errorBody.message}). 로그인 페이지로.`);
                         redirectToLogin();
-                        return new Promise(() => {
-                        });
+                        return new Promise(() => {});
                     }
 
                 } catch (e) {
-                    // [수정] TokenRefreshedError는 다시 던져서 ai-image.html로 보냄
-                    if (e.name === "TokenRefreshedError") {
-                        throw e;
-                    }
-
                     console.error("401 응답이 예상된 JSON 형식이 아님.", e);
                     redirectToLogin();
-                    return new Promise(() => {
-                    });
+                    return new Promise(() => {});
                 }
             }
 
@@ -361,7 +322,7 @@
                 const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Base64Url -> Base64
 
                 // Base64 디코딩 (UTF-8 문자열을 안전하게 디코딩)
-                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
                     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
                 }).join(''));
 

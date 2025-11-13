@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface ReviewMapper {
-    List<ReviewResDto> findReviewList(SelectCriteria selectCriteria);
+    List<ReviewResDto> findReviewList();
 
     int selectReviewTotal();
 
@@ -22,9 +22,9 @@ public interface ReviewMapper {
 
     int deleteReview(@Param("no") int reviewNo);
 
-    List<ReviewResDto> findReviewByMemberEmail(@Param("memberEmail") String memberEmail, @Param("selectCriteria")SelectCriteria selectCriteria);
+    List<ReviewResDto> findReviewByMemberId(@Param("memberNo") String memberId);
 
     List<ReviewResDto> findReviewByPlaceId(@Param("placeNo") int placeId);
 
-    List<ReviewResDto> findReviewByPlaceIdPaging(@Param("placeNo")int placeId, @Param("selectCriteria")SelectCriteria selectCriteria);
+    List<ReviewResDto> findReviewByPlaceIdPaging(@Param("placeNo")int placeId);
 }

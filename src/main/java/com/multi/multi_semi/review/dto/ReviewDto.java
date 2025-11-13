@@ -16,7 +16,7 @@ public class ReviewDto {
     private String title;
     private String content;
     private int rate;
-    private int writerNo;
+    private String writerEmail;
     private int placeNo;
     private String imgUrl;
     private LocalDateTime createdAt;
