@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>내 AI 이미지</title>
+    <link rel="stylesheet" th:href="@{/css/styles1.css}">
+
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FFFFFF;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #F1F3F5;
+            padding: 15px 20px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .image-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .image-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 12px;
+            background-color: #fafafa;
+            text-align: center;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .status-message {
+            text-align: center;
+            font-size: 18px;
+            padding: 40px 0;
+            color: #555;
+        }
+
+        #loading-message {
+            font-size: 18px;
+            text-align: center;
+            padding: 40px 0;
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <th:block th:replace="~{common/header :: header}" />
+</div>
+
+<div class="container">
+
+    <a href="/" class="back-link">← 홈으로 돌아가기</a>
+
+    <h2>내가 생성한 AI 이미지</h2>
+
+    <div id="loading-message">불러오는 중...</div>
+
+    <div id="image-list" class="image-list"></div>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const loadingMessage = document.getElementById("loading-message");
+        const container = document.getElementById("image-list");
+
+        fetch("/api/v1/ai-images/my", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("accessToken")
+            }
+        })
+            .then(response => response.json())
+            .then(result => {
+                console.log("서버 응답:", result);
+
+                // ★★★ 서버가 배열을 직접 반환하므로 그대로 사용
+                const imageList = result;
+
+                loadingMessage.style.display = "none";
+
+                if (!imageList || imageList.length === 0) {
+                    container.innerHTML = '<p class="status-message">아직 생성한 이미지가 없습니다.</p>';
+                    return;
+                }
+
+                imageList.forEach(imageDto => {
+                    const div = document.createElement("div");
+                    div.className = "image-box";
+
+                    const img = document.createElement("img");
+
+                    // ★ DB에 저장된 org_url 그대로 사용
+                    img.src = imageDto.orgUrl;
+                    img.alt = "AI Image";
+
+                    div.appendChild(img);
+                    container.appendChild(div);
+                });
+            })
+            .catch(error => {
+                console.error("이미지 조회 중 에러:", error);
+                loadingMessage.textContent = "이미지를 불러오는 중 오류가 발생했습니다.";
+            });
+
+    });
+</script>
+
+</body>
+</html>

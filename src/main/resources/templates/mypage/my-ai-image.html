@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="fragment">
+
+    <style>
+        /* 이미지 갤러리 컨테이너 */
+        #my-image-container {
+            display: flex;
+            flex-wrap: wrap; /* 이미지가 넘치면 다음 줄로 */
+            gap: 15px; /* 이미지 사이의 간격 */
+        }
+
+        /* 개별 이미지 스타일 */
+        #my-image-container img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover; /* 비율을 유지하며 꽉 채우기 */
+            border: 1px solid #ddd;
+            border-radius: 8px; /* 모서리 둥글게 */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        #my-image-container img:hover {
+            transform: scale(1.03); /* 마우스 오버 시 살짝 확대 */
+        }
+
+        /* 메시지 스타일 */
+        .status-message {
+            font-size: 1.1em;
+            color: #555;
+        }
+        .error-message {
+            color: red;
+        }
+    </style>
+
+    <h1>내가 생성한 이미지</h1>
+
+    <div id="my-image-container">
+        <p id="loading-message" class="status-message">이미지를 불러오는 중입니다...</p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const container = document.getElementById("my-image-container");
+            const loadingMessage = document.getElementById("loading-message");
+
+            fetch("/api/v1/ai-images/my")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("응답 실패: " + response.status);
+                    }
+                    return response.json();
+                })
+                .then(imageList => {
+                    // =======================================================
+                    // [디버깅 코드 추가]
+
+                    // 1. 개발자 도구(F12) 콘솔에 수신된 데이터를 그대로 출력합니다.
+                    console.log("서버로부터 받은 데이터:", imageList);
+
+                    // 2. (중요) 코드 실행을 여기서 잠시 멈춥니다.
+                    //    F12 개발자 도구를 열어둔 상태에서만 작동합니다.
+                    debugger;
+
+                    // =======================================================
+
+                    loadingMessage.style.display = "none";
+
+                    if (!imageList || imageList.length === 0) {
+                        container.innerHTML = '<p class="status-message">아직 생성한 이미지가 없습니다.</p>';
+                        return;
+                    }
+
+                    imageList.forEach(imageDto => {
+                        // 3. 콘솔에 이 루프가 도는지, DTO가 뭔지 확인
+                        console.log("이미지 DTO 확인:", imageDto);
+
+                        const imgElement = document.createElement("img");
+
+                        // 4. 여기에 브레이크포인트를 걸거나 콘솔로 확인
+                        console.log("img.src에 할당할 값:", imageDto.orgUrl);
+
+                        imgElement.src = imageDto.orgUrl; // <-- 여기가 정말 이 코드인지 확인
+
+                        imgElement.alt = "AI 생성 이미지";
+                        container.appendChild(imgElement);
+                    });
+                })
+                .catch(error => {
+                    // 5. 에러가 나면 여기도 찍힙니다.
+                    console.error("Fetch 또는 .then 블록 에러:", error);
+
+                    if (loadingMessage) {
+                        loadingMessage.style.display = "none";
+                    }
+                    container.innerHTML = `<p class="status-message error-message">오류 발생: ${error.message}</p>`;
+                });
+        });
+    </script>
+
+</th:block>
+</html>

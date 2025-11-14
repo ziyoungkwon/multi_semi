@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>마이페이지</title>
+    <link rel="stylesheet" th:href="@{/css/styles1.css}">
+
+    <style>
+        :root {
+            --kakao-yellow: #FEE500; /* 카카오 테마 색상 */
+            --kakao-brown: #3C1E1E; /* 카카오 텍스트/강조 색상 */
+            --border-color: #eee;
+            --background-color: #ffffff;
+            --sidebar-width: 240px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", helvetica, "Apple SD Gothic Neo", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: #333;
+        }
+
+        .header {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .page-wrapper {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .main-container {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            min-width: var(--sidebar-width);
+            background-color: #f9f9f9;
+            border-right: 1px solid var(--border-color);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav li a {
+            display: block;
+            padding: 12px 15px;
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .sidebar-nav li a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .sidebar-nav li a.active {
+            background-color: var(--kakao-yellow);
+            color: var(--kakao-brown);
+            font-weight: 700;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .content h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--kakao-yellow);
+            margin-bottom: 30px; /* 카드와의 간격 조절 */
+        }
+
+        /* [수정] 회원 정보 카드 너비를 부모 요소(content)에 맞게 확장 */
+        .user-info-card {
+            margin-top: 0; /* h2 하단 마진으로 간격 조절 */
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background-color: #fafafa;
+            /* 기존 max-width를 제거하고 width 100%로 설정 */
+            max-width: none; /* 이전 max-width 속성 제거 */
+            width: 100%; /* 부모 요소의 너비를 가득 채우도록 */
+            box-sizing: border-box; /* 패딩을 너비에 포함 */
+        }
+
+        .user-info-card p {
+            font-size: 16px;
+            margin: 15px 0;
+            color: #333;
+        }
+
+        .user-info-card p strong {
+            display: inline-block;
+            width: 120px;
+            color: #000;
+            font-weight: 600;
+        }
+
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--kakao-yellow);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+
+        .withdrawal-section {
+            margin-top: 40px;
+            /* user-info-card와 너비를 맞추기 위해 width 100% 설정 */
+            width: 100%;
+            max-width: none; /* 이전 max-width 속성 제거 */
+            text-align: right;
+            box-sizing: border-box; /* 패딩을 너비에 포함 */
+        }
+
+        .withdraw-button {
+            font-size: 13px;
+            font-weight: 500;
+            color: #888;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+
+        .withdraw-button:hover {
+            color: #d32f2f;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <th:block th:replace="~{common/header :: header}" />
+</div>
+
+<div class="page-wrapper">
+    <div class="main-container">
+
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a th:href="@{/mypage}" class="active">회원 정보</a></li>
+                    <li><a th:href="@{/members/edit-info}">회원정보 수정</a></li>
+                    <li><a th:href="@{/reviews/my}">내 리뷰</a></li>
+                    <li><a th:href="@{/favorites/my}">내 즐겨찾기</a></li>
+                    <li><a th:href="@{/ai-images/my}">내가 생성한 이미지</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <h2>회원 정보</h2>
+
+            <div id="user-info-card" class="user-info-card">
+                <div id="loading-spinner" class="loader"></div>
+
+                <p><strong>이메일</strong>: <span id="user-email"></span></p>
+                <p><strong>닉네임</strong>: <span id="user-nickname"></span></p>
+                <p><strong>이름</strong>: <span id="user-name"></span></p>
+                <p><strong>전화번호</strong>: <span id="user-phone"></span></p>
+                <p><strong>주소</strong>: <span id="user-addr"></span></p>
+                <p><strong>자기소개</strong>: <span id="user-intro"></span></p>
+            </div>
+
+            <div class="withdrawal-section">
+                <button id="withdraw-btn" class="withdraw-button">회원 탈퇴</button>
+            </div>
+
+        </main>
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        loadUserInfo();
+
+        const withdrawButton = document.getElementById('withdraw-btn');
+        if (withdrawButton) {
+            withdrawButton.addEventListener('click', handleWithdrawal);
+        }
+    });
+
+    async function loadUserInfo() {
+        const userInfoCard = document.getElementById('user-info-card');
+        const spinner = document.getElementById('loading-spinner');
+
+        try {
+            const response = await fetch('/api/v1/members', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('사용자 정보를 가져오는데 실패했습니다. (상태: ' + response.status + ')');
+            }
+
+            const responseDto = await response.json();
+            const memberData = responseDto.data;
+
+            if(spinner) spinner.style.display = 'none';
+
+            if (!memberData) {
+                throw new Error(responseDto.message || '회원 정보를 찾을 수 없습니다.');
+            }
+
+            document.getElementById('user-email').textContent = memberData.email || '정보 없음';
+            document.getElementById('user-nickname').textContent = memberData.id || '정보 없음';
+            document.getElementById('user-name').textContent = memberData.name || '정보 없음';
+            document.getElementById('user-phone').textContent = memberData.phone || '정보 없음';
+            document.getElementById('user-addr').textContent = memberData.addr || '정보 없음';
+            document.getElementById('user-intro').textContent = memberData.intro || '정보 없음';
+
+        } catch (error) {
+            console.error('Error fetching user info:', error);
+            if(spinner) spinner.style.display = 'none';
+            userInfoCard.innerHTML = `<p style="color: red;">${error.message}</p>`;
+        }
+    }
+
+    async function handleWithdrawal() {
+        // 1. 사용자 확인 (기존 코드)
+        // [참고] confirm()은 실제 서비스에서는 커스텀 모달로 바꾸는 것이 좋습니다.
+        const isConfirmed = confirm('정말 탈퇴하시겠습니까?\n이 작업은 되돌릴 수 없습니다.');
+
+        if (isConfirmed) {
+            try {
+                // 3. fetch 요청
+                const response = await fetch('/api/v1/members', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                // [수정 2] 응답을 JSON이 아닌 일반 텍스트로 읽어옵니다.
+                const responseText = await response.text();
+
+                if (response.ok) {
+                    // [수정 3] 성공 시, 응답받은 텍스트(responseText)를 그대로 alert에 표시
+                    alert(responseText || '회원 탈퇴가 완료되었습니다.');
+
+                    // 4. (중요) 프론트엔드에서도 Access Token 삭제
+                    localStorage.removeItem('accessToken');
+
+                    // (백엔드가 refreshToken 쿠키는 삭제해 줄 것입니다.)
+                    window.location.href = '/'; // 메인 페이지로 리디렉션
+
+                } else {
+                    // 5. 실패 시에도 응답 본문은 텍스트일 수 있습니다.
+                    alert('회원 탈퇴에 실패했습니다: ' + (responseText || '알 수 없는 오류'));
+                }
+
+            } catch (error) {
+                console.error('Error during withdrawal:', error);
+                alert('회원 탈퇴 중 오류가 발생했습니다.');
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

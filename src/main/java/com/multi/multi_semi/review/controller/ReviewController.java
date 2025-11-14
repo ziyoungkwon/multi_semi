@@ -5,24 +5,15 @@ import com.multi.multi_semi.common.ResponseDto;
 import com.multi.multi_semi.common.paging.Pagenation;
 import com.multi.multi_semi.common.paging.ResponseDtoWithPaging;
 import com.multi.multi_semi.common.paging.SelectCriteria;
-import com.multi.multi_semi.review.dto.ReviewDto;
 import com.multi.multi_semi.review.dto.ReviewReqDto;
 import com.multi.multi_semi.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
-import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -74,7 +65,7 @@ public class ReviewController {
 
     @PutMapping(value = "/reviews/{reviewId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<ResponseDto> updateReview(
-            @PathVariable Long reviewId,
+            @PathVariable("reviewId") Long reviewId,
             @ModelAttribute ReviewReqDto reviewReqDto,
             @AuthenticationPrincipal CustomUser customUser) {
 
@@ -115,11 +106,11 @@ public class ReviewController {
         return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "장소별 리뷰 리스트 조회 성공", reviewService.findReviewByPlaceId(placeId)));
     }
 
-//    @GetMapping("/reviews/rating/{placeId}")
-//    public ResponseEntity<ResponseDto> getPlaceRate(@PathVariable("placeId") String placeId) {
-//
-//        return ResponseEntity.ok(new ResponseDto(HttpStatus.OK, "장소별 리뷰 평점 계산 성공", reviewService.getPlaceRate(placeId)));
-//    }
+    @GetMapping("/reviews/rating/{placeId}")
+    public ResponseEntity<ResponseDto> getPlaceRate(@PathVariable("placeId") String placeId) {
+
+        return ResponseEntity.ok(new ResponseDto(HttpStatus.OK, "장소별 리뷰 평점 계산 성공", reviewService.getPlaceRate(Long.parseLong(placeId))));
+    }
 
 
     //관리자

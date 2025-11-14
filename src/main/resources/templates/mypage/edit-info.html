@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="fragment">
+
+    <style>
+        .form-container {
+            width: 100%;
+            max-width: 600px;
+            padding: 40px;
+            background-color: #FFFFFF;
+            border: 2px solid var(--kakao-yellow);
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+            position: relative;
+            /* ★★★ 여기가 수정되었습니다! ★★★
+              margin: 0; -> margin: 0 auto;
+            */
+            margin: 0 auto;
+        }
+        .back-button {
+            position: absolute;
+            top: 35px;
+            left: 40px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #888;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: #000;
+        }
+        .form-container h1 {
+            text-align: center;
+            color: var(--text-color);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--kakao-yellow);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--kakao-yellow);
+            box-shadow: 0 0 5px rgba(254, 229, 0, 0.5);
+        }
+        .form-control[readonly] {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+        }
+        .error-message {
+            color: var(--error-color);
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        textarea.form-control {
+            height: 120px;
+            resize: none;
+        }
+        .char-counter {
+            text-align: right;
+            font-size: 14px;
+            color: #888;
+            margin-top: 5px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--kakao-yellow);
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .submit-btn:hover {
+            background-color: var(--kakao-yellow-hover);
+        }
+        .cancel-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #555;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            margin-top: 10px;
+        }
+        .cancel-btn:hover {
+            background-color: #f9f9f9;
+            border-color: #bbb;
+        }
+    </style>
+
+    <div class="form-container">
+
+<!--        <a id="back-button" class="back-button" title="뒤로가기">&larr;</a>-->
+
+        <h1>회원 정보 수정</h1>
+
+        <form id="update-form">
+            <div class="form-group">
+                <label for="id">닉네임</label>
+                <input type="text" id="id" name="id" class="form-control" placeholder="닉네임 중복 불가. 수정 실패 시 다른 닉네임으로 시도하세요">
+            </div>
+            <div class="form-group">
+                <label for="pwd">새 비밀번호</label>
+                <input type="password" id="pwd" name="pwd" class="form-control" placeholder="변경할 경우에만 입력하세요">
+                <div id="pwd-error" class="error-message"></div>
+            </div>
+            <div class="form-group">
+                <label for="pwd_confirm">새 비밀번호 확인</label>
+                <input type="password" id="pwd_confirm" name="pwd_confirm" class="form-control" placeholder="비밀번호를 다시 입력하세요">
+                <div id="pwd-confirm-error" class="error-message"></div>
+            </div>
+            <div class="form-group">
+                <label for="name">이름</label>
+                <input type="text" id="name" name="name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="addr">주소</label>
+                <input type="text" id="addr" name="addr" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="phone">전화번호</label>
+                <input type="text" id="phone" name="phone" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="intro">소개</label>
+                <textarea id="intro" name="intro" class="form-control" maxlength="300"></textarea>
+                <div id="char-counter" class="char-counter">0 / 300</div>
+            </div>
+
+            <button type="submit" class="submit-btn">정보 수정 완료</button>
+            <button type="button" id="cancel-button" class="cancel-btn">취소</button>
+        </form>
+    </div>
+
+
+    <script>
+        // --- 뒤로가기/취소 버튼 로직 ---
+        const backButton = document.getElementById('back-button');
+        const cancelButton = document.getElementById('cancel-button');
+        function goBack() { history.back(); }
+        if (backButton) backButton.addEventListener('click', goBack);
+        if (cancelButton) cancelButton.addEventListener('click', goBack);
+
+        // --- '소개' 글자 수 카운터 로직 ---
+        const introTextarea = document.getElementById('intro');
+        const charCounter = document.getElementById('char-counter');
+        const maxLength = 300;
+        function updateCharCount() {
+            if (!introTextarea) return; // Null 체크 추가
+            const currentLength = introTextarea.value.length;
+            charCounter.textContent = `${currentLength} / ${maxLength}`;
+        }
+        if (introTextarea) introTextarea.addEventListener('input', updateCharCount);
+
+        // --- 비밀번호 유효성 검사 로직 ---
+        const form = document.getElementById('update-form');
+        const pwdInput = document.getElementById('pwd');
+        const pwdConfirmInput = document.getElementById('pwd_confirm');
+        const pwdError = document.getElementById('pwd-error');
+        const pwdConfirmError = document.getElementById('pwd-confirm-error');
+
+        function validateLength() {
+            if (!pwdInput || !pwdError) return true; // Null 체크
+            const pwd = pwdInput.value;
+            if (pwd.length > 0 && pwd.length < 8) {
+                pwdError.textContent = '비밀번호는 8자리 이상이어야 합니다.';
+                pwdError.style.display = 'block';
+                return false;
+            } else {
+                pwdError.textContent = '';
+                pwdError.style.display = 'none';
+                return true;
+            }
+        }
+        function validateMatch() {
+            if (!pwdInput || !pwdConfirmInput || !pwdConfirmError) return true; // Null 체크
+            const pwd = pwdInput.value;
+            const pwdConfirm = pwdConfirmInput.value;
+            if (pwdConfirm.length > 0 && pwd !== pwdConfirm) {
+                pwdConfirmError.textContent = '비밀번호가 일치하지 않습니다.';
+                pwdConfirmError.style.display = 'block';
+                return false;
+            } else {
+                pwdConfirmError.textContent = '';
+                pwdConfirmError.style.display = 'none';
+                return true;
+            }
+        }
+
+        if (pwdInput) pwdInput.addEventListener('input', () => {
+            validateLength();
+            validateMatch();
+        });
+        if (pwdConfirmInput) pwdConfirmInput.addEventListener('input', () => {
+            validateMatch();
+        });
+
+        // --- 데이터 로드 로직 ---
+        async function loadMemberData() {
+            try {
+                const response = await fetch('/api/v1/members', {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const result = await response.json();
+                const member = result.data;
+                if (!member) {
+                    alert('회원 정보를 불러오지 못했습니다.');
+                    return;
+                }
+                document.getElementById('id').value = member.id || '';
+                document.getElementById('name').value = member.name || '';
+                document.getElementById('addr').value = member.addr || '';
+                document.getElementById('phone').value = member.phone || '';
+                document.getElementById('intro').value = member.intro || '';
+                updateCharCount(); // 데이터 로드 후 글자 수 초기화
+            } catch (error) {
+                console.error('회원 정보 조회 중 오류:', error);
+                alert('회원 정보를 가져오는데 실패했습니다.');
+            }
+        }
+
+        // --- 폼 제출(Submit) 핸들러 ---
+        if (form) form.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const isLengthValid = validateLength();
+            const isMatchValid = validateMatch();
+            let isSubmitValid = true;
+            const pwd = pwdInput ? pwdInput.value : '';
+            const pwdConfirm = pwdConfirmInput ? pwdConfirmInput.value : '';
+
+            if (pwd.length > 0 || pwdConfirm.length > 0) {
+                if (!isLengthValid) isSubmitValid = false;
+                if (pwd !== pwdConfirm) {
+                    validateMatch(); // 일치하지 않음 메시지 표시
+                    isSubmitValid = false;
+                }
+            }
+
+            if (isSubmitValid) {
+                const formData = new FormData(form);
+                const formDataObject = {};
+                formData.forEach((value, key) => {
+                    if (key !== 'pwd_confirm') {
+                        formDataObject[key] = value;
+                    }
+                });
+                // 비밀번호가 비어있으면 객체에서 아예 삭제
+                if (formDataObject.pwd && formDataObject.pwd.length === 0) {
+                    delete formDataObject.pwd;
+                }
+                try {
+                    const response = await fetch(`/api/v1/members/edit-info`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formDataObject)
+                    });
+                    if (!response.ok) {
+                        const errorData = await response.json(); // 서버의 에러 메시지 받기
+                        throw new Error(errorData.message || '회원정보 수정에 실패했습니다.');
+                    }
+                    const data = await response.json();
+                    alert(data.message);
+                    location.href = '/mypage'; // 성공 시 마이페이지로 이동
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert(error.message); // 서버가 보낸 에러 메시지 표시
+                }
+            }
+        });
+
+        // --- 페이지 로드 시 데이터 조회 실행 ---
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMemberData();
+        });
+    </script>
+
+</th:block>
+</html>

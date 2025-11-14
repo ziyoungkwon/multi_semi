@@ -1,8 +1,9 @@
 /src/main/resources/application.yml
 /src/main/resources/application.properties
-.env
+env.txt
 
 
+/logs/**
 HELP.md
 .gradle
 build/

@@ -296,7 +296,7 @@
             success: function (data) {
                 const icon = getWeatherIcon(data.weather[0].main);
                 info.html(`
-                    <span class="weather-icon">${icon}</span><strong>${data.name}</strong> 현재 날씨<br>
+                    <span class="weather-icon">${icon}</span> 현재 날씨<br>
                     ${data.weather[0].description}<br>
                     🌡 최고: ${data.main.temp_max}°C / 최저: ${data.main.temp_min}°C<br>
                     💨 풍속: ${data.wind.speed} m/s<br>

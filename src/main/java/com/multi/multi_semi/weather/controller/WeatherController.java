@@ -17,8 +17,8 @@ public class WeatherController {
     private final WeatherService weatherService;
 
     @GetMapping("/weather")
-    public ResponseEntity<?> getWeather(@RequestParam double lat,
-                                        @RequestParam double lng) {
+    public ResponseEntity<?> getWeather(@RequestParam("lat") double lat,
+                                        @RequestParam("lng") double lng) {
 
         WeatherDto dto = weatherService.getWeatherByLatLng(lat, lng);
 

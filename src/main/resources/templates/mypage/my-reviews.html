@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="fragment">
+
+    <div class="mypage-content-header">
+        <div class="mypage-content-title">내가 쓴 리뷰</div>
+        <div class="mypage-content-sub" id="review-count-text">
+            리뷰를 불러오는 중입니다…
+        </div>
+    </div>
+
+    <div id="review-list" class="review-list">
+    </div>
+
+    <div id="empty-message" class="empty-message" style="display: none;">
+        아직 작성한 리뷰가 없어요.<br>
+        여행 대리만족 사진을 만들고 첫 리뷰를 남겨볼까요? 😊
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            loadMyReviews();
+        });
+
+        function loadMyReviews() {
+            // const accessToken = localStorage.getItem("accessToken");
+
+            fetch("/api/v1/reviews/my", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    // "Authorization": "Bearer " + accessToken
+                }
+            })
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error("리뷰 목록 조회 실패");
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    const reviews = Array.isArray(data) ? data : data.data;
+                    renderReviewList(reviews);
+                })
+                .catch(err => {
+                    console.error(err);
+                    const countText = document.getElementById("review-count-text");
+                    if(countText) countText.textContent = "리뷰를 불러오지 못했습니다.";
+                });
+        }
+
+        function renderReviewList(reviews) {
+            const listEl = document.getElementById("review-list");
+            const emptyEl = document.getElementById("empty-message");
+            const countText = document.getElementById("review-count-text");
+
+            if (!listEl || !emptyEl || !countText) return;
+
+            listEl.innerHTML = "";
+
+            if (!reviews || reviews.length === 0) {
+                emptyEl.style.display = "block";
+                countText.textContent = "작성한 리뷰 0개";
+                return;
+            }
+
+            emptyEl.style.display = "none";
+            countText.textContent = `작성한 리뷰 ${reviews.length}개`;
+
+            reviews.forEach(review => {
+                const card = document.createElement("div");
+                card.className = "review-card";
+
+                const thumb = document.createElement("div");
+                thumb.className = "review-thumbnail";
+
+                if (review.imgUrl) {
+                    const img = document.createElement("img");
+                    img.src = review.imgUrl;
+                    img.alt = review.title || "리뷰 이미지";
+                    thumb.appendChild(img);
+                }
+
+                const info = document.createElement("div");
+                info.className = "review-info";
+
+                const place = document.createElement("div");
+                place.className = "review-place";
+                place.textContent = review.placeName || "여행지 정보 없음";
+
+                const title = document.createElement("div");
+                title.className = "review-title";
+                title.textContent = review.title;
+
+                const content = document.createElement("div");
+                content.className = "review-content";
+                content.textContent = review.content;
+
+                const meta = document.createElement("div");
+                meta.className = "review-meta";
+
+                const rateBadge = document.createElement("span");
+                rateBadge.className = "badge-rate";
+                rateBadge.textContent = `★ ${review.rate || 0} / 5`;
+
+                const created = document.createElement("span");
+                let createDate = review.createdAt || "";
+                if (createDate.includes("T")) {
+                    createDate = createDate.split("T")[0];
+                }
+                created.textContent = createDate;
+
+                meta.appendChild(rateBadge);
+                meta.appendChild(created);
+
+                info.appendChild(place);
+                info.appendChild(title);
+                info.appendChild(content);
+                info.appendChild(meta);
+
+                card.appendChild(thumb);
+                card.appendChild(info);
+
+                listEl.appendChild(card);
+            });
+        }
+    </script>
+</th:block>
+</html>
