@@ -344,6 +344,16 @@
 
 
     try {
+        // ★★★ [수정] 1. /refresh/test 선제적 호출 ★★★
+        console.log('선제적 토큰 갱신 테스트(/refresh/test) 호출 시도...');
+        const refreshResponse = await fetch('/refresh/test', {method: 'GET'});
+
+        const refreshResult = await refreshResponse.json();
+        console.log('응답 결과:', refreshResult);
+
+// ********************************
+
+
       // 3. (1단계) 서버에 "작업 요청"
       const response = await fetch('/api/v1/generate-request', {
         method: 'POST',
@@ -377,6 +387,17 @@
   // 5. "폴링" (상태 체크) 함수
   async function checkStatus(taskId) {
     try {
+
+        // ★★★ [수정] 1. /refresh/test 선제적 호출 ★★★
+        console.log('선제적 토큰 갱신 테스트(/refresh/test) 호출 시도...');
+        const refreshResponse = await fetch('/refresh/test', {method: 'GET'});
+
+        const refreshResult = await refreshResponse.json();
+        console.log('응답 결과:', refreshResult);
+
+// ********************************
+
+
       // 5-1. 서버에 "상태 확인" 요청
       const response = await fetch(`/api/v1/generate-status/${taskId}`);
 

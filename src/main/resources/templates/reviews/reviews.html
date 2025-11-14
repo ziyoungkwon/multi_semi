@@ -143,8 +143,9 @@
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" th:if="${!#lists.isEmpty(reviews)}">
         <div class="col" th:each="review : ${reviews}">
             <div class="card review-card">
-                <img th:src="${review.imgUrl != null ? review.imgUrl : '/images/no-image.png'}"
-                     class="review-img" alt="리뷰 이미지">
+                <img th:if="${review.imgUrl}" th:src="${review.imgUrl}"
+                class="review-img" alt="리뷰 이미지">
+
 
                 <div class="review-body">
                     <div class="review-title" th:text="${review.title}">리뷰 제목</div>

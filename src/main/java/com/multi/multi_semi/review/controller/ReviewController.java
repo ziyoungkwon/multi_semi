@@ -9,6 +9,7 @@ import com.multi.multi_semi.review.dto.ReviewDto;
 import com.multi.multi_semi.review.dto.ReviewReqDto;
 import com.multi.multi_semi.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.Response;
 import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
+@Slf4j
 public class ReviewController {
     private final ReviewService reviewService;
 
@@ -58,7 +60,7 @@ public class ReviewController {
             // ✅ 이미지 저장 처리
             if (file != null && !file.isEmpty()) {
                 // 저장 경로 (본인 프로젝트 경로 맞게 수정 가능)
-                String uploadDir = "/Users/kwonjiyoung/Documents/multi_semi_project/";
+                String uploadDir = "/C:\\productimgs/";
                 File dir = new File(uploadDir);
                 if (!dir.exists()) dir.mkdirs();
 
@@ -109,7 +111,7 @@ public class ReviewController {
             // ✅ 이미지 저장 처리
             if (file != null && !file.isEmpty()) {
                 // 저장 경로 (본인 프로젝트 경로 맞게 수정 가능)
-                String uploadDir = "/Users/kwonjiyoung/Documents/multi_semi_project/";
+                String uploadDir = "/C:\\productimgs/";
                 File dir = new File(uploadDir);
                 if (!dir.exists()) dir.mkdirs();
 
@@ -155,11 +157,11 @@ public class ReviewController {
         return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "장소별 리뷰 리스트 조회 성공", reviewService.findReviewByPlaceId(placeId)));
     }
 
-    @GetMapping("/reviews/rating/{placeId}")
-    public ResponseEntity<ResponseDto> getPlaceRate(@PathVariable("placeId") String placeId) {
-
-        return ResponseEntity.ok(new ResponseDto(HttpStatus.OK, "장소별 리뷰 평점 계산 성공", reviewService.getPlaceRate(placeId)));
-    }
+//    @GetMapping("/reviews/rating/{placeId}")
+//    public ResponseEntity<ResponseDto> getPlaceRate(@PathVariable("placeId") String placeId) {
+//
+//        return ResponseEntity.ok(new ResponseDto(HttpStatus.OK, "장소별 리뷰 평점 계산 성공", reviewService.getPlaceRate(placeId)));
+//    }
 
 
     //관리자
@@ -185,5 +187,24 @@ public class ReviewController {
     public ResponseEntity<ResponseDto> deleteReviewAdmin(@PathVariable("reviewId") String reviewId) {
 
         return ResponseEntity.ok(new ResponseDto((HttpStatus.NO_CONTENT), "리뷰 삭제 성공", reviewService.deleteReview(reviewId)));
+    }
+
+    @GetMapping("/reviews/place-detail/{placeNo}")
+    public ResponseEntity<ResponseDto> selectReviewListWithPaging(@RequestParam(name = "offset", defaultValue = "1") String offset,@PathVariable("placeNo") int placeNo) {
+
+        log.info("[FavoriteController] selectFavoriteListWithPaging offset: {}", offset);
+
+        SelectCriteria selectCriteria = getSelectCriteria(Integer.parseInt(offset), reviewService.getReviewCount(placeNo));
+
+        ResponseDtoWithPaging responseDtoWithPaging = new ResponseDtoWithPaging(reviewService.selectReviewListWithPaging(selectCriteria,placeNo), selectCriteria);
+        return ResponseEntity.ok().body(new ResponseDto(HttpStatus.OK, "조회성공", responseDtoWithPaging));
+    }
+
+    private SelectCriteria getSelectCriteria(int offset, int totalCount) {
+
+        int limit = 10;
+        int buttonAmount = 10;
+
+        return Pagenation.getSelectCriteria(offset, totalCount, limit, buttonAmount);
     }
 }

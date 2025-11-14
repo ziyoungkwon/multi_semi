@@ -30,16 +30,21 @@
             margin-bottom: 30px;
         }
 
-        label {
+        /* [수정] .container 내부의 label에만 적용되도록 수정 */
+        .container label {
             font-weight: 600;
             color: #3C1E1E;
             margin-top: 10px;
         }
 
-        input[type="text"],
-        input[type="number"],
-        textarea,
-        select {
+        /* * [수정]
+         * 가장 큰 문제였던 부분입니다.
+         * .container 내부의 폼 요소에만 width: 100%가 적용되도록 수정합니다.
+         */
+        .container input[type="text"],
+        .container input[type="number"],
+        .container textarea,
+        .container select {
             width: 100%;
             padding: 10px 12px;
             border: 1px solid #ddd;
@@ -49,12 +54,14 @@
             font-size: 0.95rem;
         }
 
-        textarea {
+        /* [수정] .container 내부의 textarea에만 적용되도록 수정 */
+        .container textarea {
             resize: none;
             height: 120px;
         }
 
-        input[type="file"] {
+        /* [수정] .container 내부의 input[type="file"]에만 적용되도록 수정 */
+        .container input[type="file"] {
             border: none;
             margin-top: 5px;
             margin-bottom: 15px;
@@ -115,18 +122,15 @@
     </style>
 </head>
 <body>
-<!-- ✅ 공통 헤더 -->
 <div th:replace="~{common/header :: header}"></div>
 
 <div class="container">
     <h2>리뷰 등록</h2>
 
-    <!-- ✅ 작성자 정보 -->
     <div class="author-box">
         작성자 : <span id="authorEmail">확인 중...</span>
     </div>
 
-    <!-- ✅ 리뷰 등록 폼 -->
     <form id="reviewForm" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="title">제목</label>
@@ -228,6 +232,17 @@
         const formData = new FormData(e.target);
 
         try {
+
+            // ★★★ [수정] 1. /refresh/test 선제적 호출 ★★★
+            console.log('선제적 토큰 갱신 테스트(/refresh/test) 호출 시도...');
+            const refreshResponse = await fetch('/refresh/test', {method: 'GET'});
+
+            const refreshResult = await refreshResponse.json();
+            console.log('응답 결과:', refreshResult);
+
+            // ********************************
+
+
             const response = await fetch('/api/v1/reviews', {
                 method: 'POST',
                 headers: {

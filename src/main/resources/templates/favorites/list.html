@@ -2,164 +2,120 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>즐겨찾기 목록</title>
-    <link rel="stylesheet" th:href="@{/css/headerStyle.css}">
+    <link rel="stylesheet" th:href="@{/css/styles1.css}">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <style>
-
-        .delete-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #e74c3c;
-            font-size: 18px;
-            transition: color 0.2s ease;
-        }
-        .delete-btn:hover {
-            color: #c0392b;
-        }
-    </style>
 </head>
 <body>
 <div class="header">
-    <th:block th:replace="~{common/header-new :: header}" />
+    <th:block th:replace="~{common/header :: header}" />
 </div>
-<div class="container">
-<th:block th:fragment="content">
-    <h2>즐겨찾기 목록</h2>
-    <ul id="favoriteList" style="list-style: none; padding: 0;"></ul>
-</th:block>
+
+<div class="container favorite-container">
+    <h2>⭐ 내 즐겨찾기 목록</h2>
+    <ul id="favoriteList" class="favorite-list"></ul>
+    <div id="pagination" class="pagination"></div>
+</div>
 
 
-  <script>
-      async function loadFavorites(offset) {
-          try {
-              const response = await fetch(`/api/v1/favorites?offset=${offset}`); // 같은도메인이면 // 풀경로 적어줘도되고,
-              const result = await response.json();
+<script>
+    async function loadFavorites(offset) {
+        try {
+            const token = localStorage.getItem("accessToken");
+            const response = await fetch(`/api/v1/favorites?offset=${offset}`);
+            const result = await response.json();
 
-              if (result.status === 200 && result.data && result.data.data) {
-                  const favorites = result.data.data;
-                  const pageInfo = result.data.pageInfo;
-                  const favoriteList = document.getElementById('favoriteList');
-                  favoriteList.innerHTML = '';
+            if (result.status === 200 && result.data && result.data.data) {
+                const favorites = result.data.data;
+                const pageInfo = result.data.pageInfo;
+                const favoriteList = document.getElementById('favoriteList');
+                favoriteList.innerHTML = '';
 
-                  if (favorites.length === 0) {
-                      favoriteList.innerHTML = '<li>즐거찾기가 없습니다.</li>';
-                      return;
-                  }
+                if (favorites.length === 0) {
+                    favoriteList.innerHTML = '<li>즐겨찾기가 없습니다.</li>';
+                    return;
+                }
 
-                  favorites.forEach(favorite => {
-                      const li = document.createElement('li');
-                      li.style.marginBottom = '15px';
+                favorites.forEach(favorite => {
+                    const li = document.createElement('li');
+                    li.classList.add('favorite-card');
 
+                    li.innerHTML = `
+                        <img src="${favorite.imageUrl}" alt="즐겨찾기사진" class="favorite-img">
+                        <div class="favorite-info">
+                            <a href="/places/${favorite.placeNo}" class="favorite-title">${favorite.title}</a>
+                            <p>지역 : ${favorite.district}</p>
+                            <p>주소 : ${favorite.address}</p>
+                        </div>
+                        <button class="delete-btn" data-id="${favorite.favoriteSeq}" title="삭제">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    `;
+                    favoriteList.appendChild(li);
+                });
 
+                renderPagination(pageInfo);
+            } else {
+                document.getElementById('favoriteList').innerHTML = '<li>즐겨찾기 데이터를 불러오는 데 실패했습니다.</li>';
+            }
+        } catch (error) {
+            document.getElementById('favoriteList').innerHTML = '<li>즐겨찾기 데이터를 불러오는 중 오류가 발생했습니다.</li>';
+        }
+    }
 
-                      li.innerHTML = `
-                          <div style="display: flex; align-items: center;">
+    function renderPagination(pageInfo) {
+        if (!pageInfo) return;
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = '';
 
-                              <div>
-                                  <img src=${favorite.imageUrl} alt="즐겨찾기사진" style="width: 50px; height: 50px; margin-right: 10px;">
-                                  <div>
-                                     <a href="/places/${favorite.placeNo}" style="font-weight: bold;">타이틀 : ${favorite.title}</a>
+        if (pageInfo.pageNo > 1) {
+            const prev = document.createElement('button');
+            prev.textContent = '이전';
+            prev.onclick = () => loadFavorites(pageInfo.pageNo - 1);
+            pagination.appendChild(prev);
+        }
 
-                                     <p style="margin: 0;">지역 : ${favorite.district} </p>
-                                     <p style="margin: 0;">주소 : ${favorite.address} </p>
-                                     <button class="delete-btn"
-                                             data-id="${favorite.favoriteSeq}"
-                                             title="삭제">
-                                             <i class="fa-solid fa-trash"></i>
-                                     </button>
+        for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
+            const button = document.createElement('button');
+            button.textContent = i;
+            button.classList.toggle('active', i === pageInfo.pageNo);
+            button.onclick = () => loadFavorites(i);
+            pagination.appendChild(button);
+        }
 
-                                  </div>
+        if (pageInfo.pageNo < pageInfo.maxPage) {
+            const next = document.createElement('button');
+            next.textContent = '다음';
+            next.onclick = () => loadFavorites(pageInfo.pageNo + 1);
+            pagination.appendChild(next);
+        }
+    }
 
-                              </div>
-                          </div>
-                      `;
-                      favoriteList.appendChild(li);
-                  });
+    document.addEventListener('DOMContentLoaded', () => {
+        loadFavorites(1);
 
-                  renderPagination(pageInfo);
-              } else {
-                  console.error('Invalid response structure:', result);
-                  document.getElementById('favoriteList').innerHTML = '<li>즐겨찾기 데이터를 불러오는 데 실패했습니다.</li>';
-              }
-          } catch (error) {
-              console.error('Failed to load favorites:', error);
-              document.getElementById('favoriteList').innerHTML = '<li>즐겨찾기 데이터를 불러오는 중 오류가 발생했습니다.</li>';
-          }
-      }
+        document.getElementById('favoriteList').addEventListener('click', async (event) => {
+            const btn = event.target.closest('.delete-btn');
+            if (!btn) return;
 
-      function renderPagination(pageInfo) {
-          if (!pageInfo) return;
-          const pagination = document.getElementById('pagination');
-          pagination.innerHTML = '';
+            const itemId = btn.getAttribute('data-id');
+            if (!itemId) return;
 
-          if (pageInfo.pageNo > 1) {
-              const prev = document.createElement('button');
-              prev.textContent = '이전';
-              prev.onclick = () => loadFavorites(pageInfo.pageNo - 1);
-              pagination.appendChild(prev);
-          }
-
-          for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
-              const button = document.createElement('button');
-              button.textContent = i;
-              button.disabled = i === pageInfo.pageNo;
-              button.onclick = () => loadFavorites(i);
-              pagination.appendChild(button);
-          }
-
-          if (pageInfo.pageNo < pageInfo.maxPage) {
-              const next = document.createElement('button');
-              next.textContent = '다음';
-              next.onclick = () => loadFavorites(pageInfo.pageNo + 1);
-              pagination.appendChild(next);
-          }
-      }
-
-
-      document.addEventListener('DOMContentLoaded', () => {
-
-          loadFavorites(1);
-
-          // ✅ 이벤트 위임으로 삭제 이벤트 처리
-          document.getElementById('favoriteList').addEventListener('click', async (event) => {
-              const btn = event.target.closest('.delete-btn');
-              if (!btn) return; // 버튼이 아니면 무시
-
-              const itemId = btn.getAttribute('data-id');
-              if (!itemId) return;
-
-              if (confirm('정말 삭제하시겠습니까?')) {
-                  try {
-                      const response = await fetch(`/api/v1/favorites/${itemId}`, {
-                          method: 'DELETE'
-                      });
-
-                      if (response.ok) {
-                          alert('삭제되었습니다.');
-                          // li 요소 삭제
-                          btn.closest('li').remove();
-                      } else {
-                          alert('삭제 실패: ' + response.status);
-                      }
-                  } catch (error) {
-                      console.error('삭제 중 오류:', error);
-                      alert('서버 통신 오류가 발생했습니다.');
-                  }
-              }
-          });
-
-      });
+            if (confirm('정말 삭제하시겠습니까?')) {
+                try {
+                    const response = await fetch(`/api/v1/favorites/${itemId}`, { method: 'DELETE' });
+                    if (response.ok) {
+                        alert('삭제되었습니다.');
+                        btn.closest('li').remove();
+                    } else {
+                        alert('삭제 실패: ' + response.status);
+                    }
+                } catch (error) {
+                    alert('서버 통신 오류가 발생했습니다.');
+                }
+            }
+        });
+    });
 </script>
-
-
-
-<div id="pagination" style="margin-top: 20px;"></div>
- </div>
-<div class="footer">
-    <th:block th:replace="~{common/footer :: footer}" />
-</div>
-
 </body>
 </html>

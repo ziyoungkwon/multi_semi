@@ -5,6 +5,7 @@ import com.multi.multi_semi.favorite.dao.FavoriteMapper;
 import com.multi.multi_semi.favorite.dto.FavoriteAllDto;
 import com.multi.multi_semi.favorite.dto.FavoriteReqDto;
 import com.multi.multi_semi.favorite.dto.FavoriteResDto;
+import com.multi.multi_semi.member.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,13 +24,13 @@ public class FavoriteService {
     }
 
 
-    public Object selectFavoriteListWithPaging(SelectCriteria selectCriteria) {
+    public Object selectFavoriteListWithPaging(String email, SelectCriteria selectCriteria) {
 
-        List<FavoriteResDto> list = favoriteMapper.selectFavoriteListWithPaging(selectCriteria);
+        List<FavoriteResDto> list = favoriteMapper.selectFavoriteListWithPaging(email,selectCriteria);
         return list;
     }
 
-    public int getFavoriteCount() { return favoriteMapper.countFavorite();}
+    public int getFavoriteCount(String email) { return favoriteMapper.countFavorite(email);}
 
     public Object insertFavorite(FavoriteReqDto favoriteDto) {
 

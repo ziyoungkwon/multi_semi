@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.multi.multi_semi.review.dao.ReviewMapper">
 
     <select id="findReviewList" resultType="ReviewResDTO">
@@ -99,6 +99,25 @@
             join mem m on r.writer_email = m.email
         where r.place_no = #{placeNo}
         order by r.no desc
+    </select>
+
+    <select id="selectReviewListWithPaging" resultType="ReviewResDto">
+        select
+        no,
+        title,
+        content,
+        rate,
+        writer_email as writerEmail
+        from rev
+        where place_no = #{placeNo}
+        order by no
+        LIMIT #{selectCriteria.startRow}, #{selectCriteria.limit}
+    </select>
+
+    <select id="countReview" resultType="int">
+        select count(*)
+        from rev
+        where place_no = #{placeNo}
     </select>
 
     <select id="findTopRatedPlaceAgg"

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>전체 관광지 리스트</title>
+    <link rel="stylesheet" th:href="@{/css/styles1.css}">
+    <style>
+        body {
+            background: #ffffff;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .layout {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 30px;
+        }
+
+        .side-menu {
+            width: 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: sticky;
+            top: 120px;
+            height: fit-content;
+        }
+
+        .menu-btn {
+            padding: 15px 20px;
+            background: #fff;
+            border: 3px solid #FEE500;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .menu-btn:hover {
+            background: #fff6a8;
+        }
+
+        .menu-btn.active {
+            background: #FEE500;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        .place-card {
+            border: 3px solid #FEE500;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 18px;
+            background: #fff;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+            display: flex;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .place-card:hover {
+            background: #fff9cc;
+            transition: 0.2s;
+        }
+
+        .place-img {
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 10px;
+            background: #eee;
+        }
+
+        .place-info {
+            flex: 1;
+        }
+
+        .place-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .place-desc {
+            color: #555;
+            margin-top: 6px;
+            font-size: 14px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 8px;
+        }
+
+        .page-btn {
+            padding: 8px 14px;
+            border: 1px solid #FEE500;
+            border-radius: 8px;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        .page-btn.active {
+            background: #FEE500;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+<div th:replace="~{common/header :: header}"></div>
+
+<div class="layout">
+
+    <!-- ===== 왼쪽 메뉴 ===== -->
+    <div class="side-menu">
+        <div class="menu-btn active" onclick="location.href='/places/list'">전체 관광지</div>
+        <div class="menu-btn" onclick="location.href='/places/district'">권역별 관광지</div>
+        <div class="menu-btn" onclick="location.href='/places/search'">관광지명 검색</div>
+        <div class="menu-btn" onclick="location.href='/places/rate'">평점별 관광지</div>
+    </div>
+
+    <!-- ===== 오른쪽 컨텐츠 ===== -->
+    <div class="content">
+        <h2>전체 관광지 리스트</h2>
+
+        <div id="placeList"></div>
+
+        <div class="pagination" id="pagination"></div>
+    </div>
+
+</div>
+
+<script>
+    let currentOffset = 1;
+
+    window.onload = function() {
+        loadPlaceList(currentOffset);
+    };
+
+    function loadPlaceList(offset) {
+        fetch(`/api/v1/places?offset=${offset}`)
+            .then(res => res.json())
+            .then(resData => {
+                const list = resData.data.data;
+                const pageInfo = resData.data.pageInfo;
+
+                renderPlaces(list);
+                renderPagination(pageInfo);
+            })
+            .catch(err => console.error(err));
+    }
+
+    function renderPlaces(placeList) {
+        const container = document.getElementById("placeList");
+        container.innerHTML = "";
+
+        placeList.forEach(place => {
+            const imageUrl = place.imageUrl ? place.imageUrl : "/images/default.png";
+            const html = `
+                <div class="place-card" onclick="goDetail(${place.no})">
+                    <img src="${imageUrl}" class="place-img">
+                    <div class="place-info">
+                        <div class="place-title">${place.title}</div>
+                        <div class="place-desc">${place.description || ""}</div>
+                        <div style="margin-top: 8px;">
+                            지역: ${place.district}<br>
+                            ⭐ 평점: ${place.avgRate || 0}
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML("beforeend", html);
+        });
+    }
+
+    function renderPagination(pageInfo) {
+        const pag = document.getElementById("pagination");
+        pag.innerHTML = "";
+
+        for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
+            const btn = `
+                <button class="page-btn ${i === pageInfo.pageNo ? "active" : ""}"
+                        onclick="changePage(${i})">
+                    ${i}
+                </button>
+            `;
+            pag.insertAdjacentHTML("beforeend", btn);
+        }
+    }
+
+    function changePage(page) {
+        currentOffset = page;
+        loadPlaceList(currentOffset);
+    }
+
+    function goDetail(no) {
+        window.location.href = `/places/${no}`;
+    }
+</script>
+
+</body>
+</html>
