@@ -12,6 +12,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class FavoriteReqDto {
-    private String userId;
-    private String no;
+    private String memEmail;
+    private String placeNo;
 }

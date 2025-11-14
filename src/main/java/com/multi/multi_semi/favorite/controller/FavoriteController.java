@@ -59,7 +59,8 @@ public class FavoriteController {
     }
 
     @PostMapping("/favorites/favorite")
-    public ResponseEntity<ResponseDto> insertFavorite(@ModelAttribute FavoriteReqDto favoriteDto) {
+    public ResponseEntity<ResponseDto> insertFavorite(@ModelAttribute FavoriteReqDto favoriteDto, @AuthenticationPrincipal CustomUser customUser) {
+        favoriteDto.setMemEmail(customUser.getEmail());
         log.info("[FavoriteController] Insert favoriteDto: {}", favoriteDto);
         return ResponseEntity.ok().body(new ResponseDto(HttpStatus.CREATED, "favorite 등록 성공", favoriteService.insertFavorite(favoriteDto)));
     }

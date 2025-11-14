@@ -123,4 +123,38 @@
         where place_no = #{placeNo}
     </select>
 
+    <select id="findTopRatedPlaceAgg"
+            parameterType="int"
+            resultType="com.multi.multi_semi.main_list.rating.dto.TopRatedPlaceDto">
+
+        SELECT
+            p.no           AS placeNo,
+            p.title        AS placeTitle,
+            SUM(r.rate)    AS rateSum,
+            COUNT(*)       AS rateCount,
+            MAX(r.img_url) AS imgUrl
+        FROM rev r
+                 JOIN place p ON r.place_no = p.no
+        GROUP BY p.no, p.title
+        HAVING COUNT(*) > 0
+        ORDER BY (SUM(r.rate) * 1.0 / COUNT(*)) DESC
+            LIMIT #{limit}
+    </select>
+
+    <select id="findPlaceRatingAgg"
+            parameterType="long"
+            resultType="com.multi.multi_semi.main_list.rating.dto.TopRatedPlaceDto">
+
+        SELECT
+            p.no           AS placeNo,
+            p.title        AS placeTitle,
+            SUM(r.rate)    AS rateSum,
+            COUNT(*)       AS rateCount,
+            MAX(r.img_url) AS imgUrl
+        FROM rev r
+                 JOIN place p ON r.place_no = p.no
+        WHERE p.no = #{placeNo}
+        GROUP BY p.no, p.title
+    </select>
+
 </mapper>

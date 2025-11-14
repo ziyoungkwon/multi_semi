@@ -1,18 +1,5 @@
 <div th:fragment="header">
 
-    <!--<a href="#" id="test-refresh-accessToken">요청 실패 시 여기를 클릭하세요!</a>-->
-
-    <!--    <script>-->
-    <!--        document.getElementById('test-refresh-accessToken').addEventListener('click', async (e) => {-->
-    <!--            e.preventDefault();-->
-
-    <!--            const response = await fetch('/refresh/test', {method: 'GET'});-->
-
-    <!--            const result = await response.json();-->
-    <!--            console.log('응답 결과:', result);-->
-    <!--        });-->
-    <!--    </script>-->
-
 
     <div class="vt-header-top">
 
@@ -45,6 +32,7 @@
         <a th:href="@{/}" class="nav-item">홈</a>
         <a th:href="@{/places/list}" class="nav-item">관광지 목록</a>
         <a th:href="@{/reviews/list}" class="nav-item">리뷰 게시판</a>
+        <a th:href="@{/favorites/list}" class="nav-item">내 즐겨 찾기</a>
         <a th:href="@{/api/v1/generate-request}" class="nav-item">이미지 만들기</a>
         <a th:href="@{/mypage}" class="nav-item">마이페이지</a>
         <a th:href="@{/api/v1/admin/page}" class="nav-item" id="admin-page-link" style="display: none;">관리자 페이지</a>
@@ -435,7 +423,7 @@
             }
         });
     </script>
-
+    
     <!-- 검색 버튼 클릭 시 페이지 이동 -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -501,5 +489,5 @@
             });
         });
     </script>
-
+    
 </div>

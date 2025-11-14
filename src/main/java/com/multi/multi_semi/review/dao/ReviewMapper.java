@@ -1,6 +1,7 @@
 package com.multi.multi_semi.review.dao;
 
 import com.multi.multi_semi.common.paging.SelectCriteria;
+import com.multi.multi_semi.main_list.rating.dto.*;
 import com.multi.multi_semi.review.dto.ReviewReqDto;
 import com.multi.multi_semi.review.dto.ReviewResDto;
 import com.multi.multi_semi.favorite.dto.FavoriteResDto;
@@ -33,4 +34,6 @@ public interface ReviewMapper {
     List<ReviewResDto> findReviewByPlaceId(@Param("placeNo") Long placeId);
 
     List<ReviewResDto> findReviewByPlaceIdPaging(@Param("placeNo")int placeId);
+
+    List<TopRatedPlaceDto> findTopRatedPlaceAgg(@Param("limit") int limit);
 }
