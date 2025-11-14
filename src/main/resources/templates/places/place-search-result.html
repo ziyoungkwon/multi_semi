@@ -87,10 +87,6 @@
                 const placeList = data.data;
                 renderPlaces(placeList);
             })
-            .catch(err => {
-                console.error("검색 실패:", err);
-                document.getElementById('searchResultContainer').innerHTML = "<p>검색 중 오류가 발생했습니다.</p>";
-            });
     }
 
     function renderPlaces(placeList) {

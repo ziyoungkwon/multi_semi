@@ -1,18 +1,5 @@
 <div th:fragment="header">
 
-    <!--<a href="#" id="test-refresh-accessToken">요청 실패 시 여기를 클릭하세요!</a>-->
-
-<!--    <script>-->
-<!--        document.getElementById('test-refresh-accessToken').addEventListener('click', async (e) => {-->
-<!--            e.preventDefault();-->
-
-<!--            const response = await fetch('/refresh/test', {method: 'GET'});-->
-
-<!--            const result = await response.json();-->
-<!--            console.log('응답 결과:', result);-->
-<!--        });-->
-<!--    </script>-->
-
 
     <div class="vt-header-top">
 
@@ -22,13 +9,7 @@
 
         <div class="search-wrapper">
             <div class="category-wrapper">
-                <button class="category-btn" aria-label="카테고리 선택">전체</button>
-                <div id="category-dropdown" style="display: none;">
-                    <button type="button" class="category-item" data-value="전체">전체</button>
-                    <button type="button" class="category-item" data-value="관광지명">관광지명</button>
-                    <button type="button" class="category-item" data-value="지역명">지역명</button>
-                    <button type="button" class="category-item" data-value="평점별">평점별</button>
-                </div>
+                관광지명
             </div>
             <input type="text" class="search-input" placeholder="여행지를 검색해 보세요">
             <button class="search-icon-btn" aria-label="검색">🔍</button>
@@ -436,5 +417,71 @@
             }
         });
     </script>
+    
+    <!-- 검색 버튼 클릭 시 페이지 이동 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchBtn = document.querySelector('.search-icon-btn');
+            const searchInput = document.querySelector('.search-input');
 
+            if (!searchBtn || !searchInput) {
+                console.error("검색 버튼 또는 입력창을 찾을 수 없습니다.");
+                return;
+            }
+
+            searchBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const query = searchInput.value.trim();
+
+                if (!query) {
+                    alert('검색어를 입력해 주세요.');
+                    return;
+                }
+
+                // 페이지 이동
+                const encoded = encodeURIComponent(query);
+                window.location.href = `/places/search-result?keyword=${encoded}`;
+            });
+        });
+    </script>
+    <!-- 검색 버튼 클릭 & 엔터 시 검색 결과 페이지 이동 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchBtn = document.querySelector('.search-icon-btn');
+            const searchInput = document.querySelector('.search-input');
+
+            if (!searchBtn || !searchInput) {
+                console.error("검색 버튼 또는 입력창을 찾을 수 없습니다.");
+                return;
+            }
+
+            // 🔍 검색 실행 함수
+            const executeSearch = () => {
+                const query = searchInput.value.trim();
+
+                if (!query) {
+                    alert('검색어를 입력해 주세요.');
+                    return;
+                }
+
+                const encoded = encodeURIComponent(query);
+                window.location.href = `/places/search-result?keyword=${encoded}`;
+            };
+
+            // 🔎 검색 버튼 클릭 시
+            searchBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                executeSearch();
+            });
+
+            // ⌨️ 엔터 키 입력 시
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    executeSearch();
+                }
+            });
+        });
+    </script>
+    
 </div>

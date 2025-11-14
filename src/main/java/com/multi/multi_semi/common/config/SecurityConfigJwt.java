@@ -87,6 +87,7 @@ public class SecurityConfigJwt {
                         .requestMatchers(HttpMethod.POST, "/api/v1/generate-request/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.POST, "/api/v1/generate-status/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/api/v1/download-image/**").permitAll()
+                        .requestMatchers("/multiimgs/**").permitAll()
                         .requestMatchers("api/v1/weather/**").permitAll()
                         .anyRequest().authenticated())
 

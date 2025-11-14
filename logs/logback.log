@@ -1,3 +1,190 @@
+<<<<<<< HEAD
+[2025-11-14 14:10:41:378][background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+[2025-11-14 14:10:41:402][restartedMain] INFO  c.m.multi_semi.MultiSemiApplication - Starting MultiSemiApplication using Java 17.0.16 with PID 7744 (/Users/kwonjiyoung/Documents/multi_semi_project/multi_semi/multi_semi/build/classes/java/main started by kwonjiyoung in /Users/kwonjiyoung/Documents/multi_semi_project/multi_semi/multi_semi)
+[2025-11-14 14:10:41:402][restartedMain] INFO  c.m.multi_semi.MultiSemiApplication - The following 1 profile is active: "local"
+[2025-11-14 14:10:41:426][restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-11-14 14:10:41:426][restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-11-14 14:10:42:1240][restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8090 (http)
+[2025-11-14 14:10:42:1249][restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8090"]
+[2025-11-14 14:10:42:1249][restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+[2025-11-14 14:10:42:1250][restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.48]
+[2025-11-14 14:10:42:1275][restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[2025-11-14 14:10:42:1275][restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 849 ms
+[2025-11-14 14:10:43:1706][restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailService
+[2025-11-14 14:10:43:1870][restartedMain] DEBUG o.s.s.w.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, OAuth2AuthorizationRequestRedirectFilter, OAuth2LoginAuthenticationFilter, JwtFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+[2025-11-14 14:10:43:2050][restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[2025-11-14 14:10:43:2067][restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8090"]
+[2025-11-14 14:10:43:2076][restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8090 (http) with context path '/'
+[2025-11-14 14:10:43:2085][restartedMain] INFO  c.m.multi_semi.MultiSemiApplication - Started MultiSemiApplication in 1.983 seconds (process running for 2.442)
+[2025-11-14 14:10:52:10701][http-nio-8090-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2025-11-14 14:10:52:10701][http-nio-8090-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[2025-11-14 14:10:52:10702][http-nio-8090-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+[2025-11-14 14:10:52:10711][http-nio-8090-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+[2025-11-14 14:10:52:10715][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:10:52:10715][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:10:52:10715][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:10:52:10717][http-nio-8090-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:10:52:10717][http-nio-8090-exec-1] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:10:52:10718][http-nio-8090-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /
+[2025-11-14 14:10:52:10907][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:10:52:10912][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/styles1.css
+[2025-11-14 14:10:52:10913][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:10:52:10913][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:10:52:10913][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:10:52:10913][http-nio-8090-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:10:52:10913][http-nio-8090-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:10:52:10913][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/styles1.css
+[2025-11-14 14:10:52:10922][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:10:52:11015][http-nio-8090-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /json/no_descr.json
+[2025-11-14 14:10:52:11015][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:10:52:11016][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:10:52:11016][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:10:52:11016][http-nio-8090-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:10:52:11016][http-nio-8090-exec-3] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:10:52:11016][http-nio-8090-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /json/no_descr.json
+[2025-11-14 14:10:52:11019][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:10:58:17228][http-nio-8090-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /reviews/list
+[2025-11-14 14:10:58:17230][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:10:58:17231][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:10:58:17231][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:10:58:17232][http-nio-8090-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:10:58:17232][http-nio-8090-exec-4] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:10:58:17233][http-nio-8090-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /reviews/list
+[2025-11-14 14:10:58:17385][http-nio-8090-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/reviews
+[2025-11-14 14:10:58:17386][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:10:58:17386][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:10:58:17386][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:10:58:17386][http-nio-8090-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:10:58:17386][http-nio-8090-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/reviews
+[2025-11-14 14:10:58:17392][http-nio-8090-exec-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[2025-11-14 14:10:58:17581][http-nio-8090-exec-5] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@7185666e
+[2025-11-14 14:10:58:17582][http-nio-8090-exec-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[2025-11-14 14:10:58:17615][http-nio-8090-exec-5] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+                 join place p on r.place_no = p.no
+                 join mem m on r.writer_email = m.email
+        order by r.no
+
+[2025-11-14 14:10:58:17622][http-nio-8090-exec-5] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+                 join place p on r.place_no = p.no
+                 join mem m on r.writer_email = m.email
+        order by r.no
+ {executed in 7 msec}
+[2025-11-14 14:10:58:17641][http-nio-8090-exec-5] INFO  jdbc.resultsettable - 
+|---|--------------|-------------------|-------------------|----------|---------------------------|-----|--------------------|--------------------|
+|no |title         |id                 |email              |title     |content                    |rate |created_at          |modified_at         |
+|---|--------------|-------------------|-------------------|----------|---------------------------|-----|--------------------|--------------------|
+|6  |개항장 거리        |test3              |333@gmail.com      |맛집 인정     |음식이 정말 맛있었어요! 재방문 의사 100%  |5    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|7  |개항장 거리        |test4              |444@gmail.com      |조용한 분위기   |카페 분위기가 너무 조용해서 공부하기 좋았어요. |4    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|8  |개항장 댕댕 도서관    |test4              |444@gmail.com      |가격 대비 아쉬움 |맛은 괜찮았지만 가격이 조금 비쌌어요.      |3    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|9  |인천개항장 국가유산 야행 |test5              |555@gmail.com      |서비스 굿     |직원분들이 친절해서 기분 좋게 식사했습니다.   |5    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|10 |인천개항장 근대건축전시관 |test4              |444@gmail.com      |사진이랑 다름   |사진 보고 기대했는데 실물은 좀 달랐어요.    |2    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|12 |개항장 거리        |gy011003@gmail.com |gy011003@gmail.com |좋아요       |또 올게요                      |5    |2025-11-12 13:11:41 |2025-11-12 13:11:41 |
+|13 |개항장 거리        |gy011003@gmail.com |gy011003@gmail.com |맛집 인정     |음식이 정말 맛있었어요! 재방문 의사 100%  |5    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|14 |개항장 거리        |gy011003@gmail.com |gy011003@gmail.com |조용한 분위기   |카페 분위기가 너무 조용해서 공부하기 좋았어요. |4    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|15 |개항장 댕댕 도서관    |gy011003@gmail.com |gy011003@gmail.com |가격 대비 아쉬움 |맛은 괜찮았지만 가격이 조금 비쌌어요.      |3    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|16 |인천개항장 국가유산 야행 |gy011003@gmail.com |gy011003@gmail.com |서비스 굿     |직원분들이 친절해서 기분 좋게 식사했습니다.   |5    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|17 |인천개항장 근대건축전시관 |gy011003@gmail.com |gy011003@gmail.com |사진이랑 다름   |사진 보고 기대했는데 실물은 좀 달랐어요.    |2    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|21 |개항장 댕댕 도서관    |test1              |111@gmail.com      |굿         |굿굿                         |3    |2025-11-13 12:59:36 |2025-11-13 13:03:24 |
+|---|--------------|-------------------|-------------------|----------|---------------------------|-----|--------------------|--------------------|
+
+[2025-11-14 14:10:59:17672][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:10:59:17729][http-nio-8090-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/styles1.css
+[2025-11-14 14:10:59:17729][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:10:59:17730][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:10:59:17730][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:10:59:17730][http-nio-8090-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:10:59:17730][http-nio-8090-exec-6] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:10:59:17730][http-nio-8090-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/styles1.css
+[2025-11-14 14:10:59:17732][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:10:59:17736][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:10:59:17743][http-nio-8090-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /multiimgs/null
+[2025-11-14 14:10:59:17743][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:10:59:17743][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:10:59:17743][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:10:59:17743][http-nio-8090-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:10:59:17743][http-nio-8090-exec-7] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:10:59:17745][http-nio-8090-exec-7] WARN  c.m.m.c.j.JwtAuthenticationEntryPoint - 인증 실패: 인증되지 않은 사용자가 /multiimgs/null 경로에 접근하려고 했습니다. 401 Unauthorized 반환.
+[2025-11-14 14:10:59:17745][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:11:00:18839][http-nio-8090-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /mypage
+[2025-11-14 14:11:00:18841][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:11:00:18841][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:11:00:18841][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:11:00:18841][http-nio-8090-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:11:00:18841][http-nio-8090-exec-8] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:11:00:18842][http-nio-8090-exec-8] WARN  c.m.m.c.j.JwtAuthenticationEntryPoint - 인증 실패: 인증되지 않은 사용자가 /mypage 경로에 접근하려고 했습니다. 401 Unauthorized 반환.
+[2025-11-14 14:11:00:18843][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:11:02:20869][http-nio-8090-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /generate-request
+[2025-11-14 14:11:02:20870][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:11:02:20870][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:11:02:20870][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:11:02:20870][http-nio-8090-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:11:02:20870][http-nio-8090-exec-9] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:11:02:20870][http-nio-8090-exec-9] WARN  c.m.m.c.j.JwtAuthenticationEntryPoint - 인증 실패: 인증되지 않은 사용자가 /generate-request 경로에 접근하려고 했습니다. 401 Unauthorized 반환.
+[2025-11-14 14:11:02:20871][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:11:07:26234][http-nio-8090-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing POST /auth/logout
+[2025-11-14 14:11:07:26235][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:11:07:26235][http-nio-8090-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:11:07:26238][http-nio-8090-exec-10] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:11:07:26239][http-nio-8090-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured POST /auth/logout
+[2025-11-14 14:11:07:26284][http-nio-8090-exec-10] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-11-13T10:05:13Z. Current time: 2025-11-14T05:11:07Z, a difference of 68754612 milliseconds.  Allowed clock skew: 0 milliseconds.]
+[2025-11-14 14:11:07:26285][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter - EXACT_PATHS] 요청 URI가 제외 경로에 해당하여 필터를 건너뜁니다.
+[2025-11-14 14:11:08:27567][http-nio-8090-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+[2025-11-14 14:11:08:27568][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:11:08:27568][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:11:08:27568][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:11:08:27568][http-nio-8090-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:11:08:27568][http-nio-8090-exec-1] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:11:08:27569][http-nio-8090-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /
+[2025-11-14 14:11:08:27587][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:11:08:27599][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/styles1.css
+[2025-11-14 14:11:08:27599][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:11:08:27599][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:11:08:27600][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:11:08:27600][http-nio-8090-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:11:08:27600][http-nio-8090-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:11:08:27600][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/styles1.css
+[2025-11-14 14:11:08:27602][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:11:08:27637][http-nio-8090-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /json/no_descr.json
+[2025-11-14 14:11:08:27637][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:11:08:27637][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:11:08:27637][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:11:08:27638][http-nio-8090-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:11:08:27638][http-nio-8090-exec-3] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:11:08:27639][http-nio-8090-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /json/no_descr.json
+[2025-11-14 14:11:08:27642][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:11:11:29805][http-nio-8090-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /auth/login
+[2025-11-14 14:11:11:29806][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:11:11:29806][http-nio-8090-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:11:11:29806][http-nio-8090-exec-5] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:11:11:29807][http-nio-8090-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /auth/login
+[2025-11-14 14:11:11:29816][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter - EXACT_PATHS] 요청 URI가 제외 경로에 해당하여 필터를 건너뜁니다.
+[2025-11-14 14:11:14:33358][http-nio-8090-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing POST /auth/login
+[2025-11-14 14:11:14:33358][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:11:14:33359][http-nio-8090-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:11:14:33359][http-nio-8090-exec-6] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:11:14:33359][http-nio-8090-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured POST /auth/login
+[2025-11-14 14:11:14:33383][http-nio-8090-exec-6] INFO  jdbc.sqlonly - SELECT
+=======
 [2025-11-13 09:59:42:1286792][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
 [2025-11-13 09:59:42:1286827][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /.well-known/appspecific/com.chrome.devtools.json
 [2025-11-13 09:59:42:1286827][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
@@ -29,22 +216,680 @@
 [2025-11-13 09:59:42:1286843][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContextHolder 객체 확인: UsernamePasswordAuthenticationToken [Principal=CustomUser(no=null, id=null, email=111@gmail.com, pwd=null, uuid=null, authorities=[ROLE_USER]), Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]
 [2025-11-13 09:59:42:1286843][http-nio-8090-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/members/me
 [2025-11-13 09:59:42:1286850][http-nio-8090-exec-10] INFO  jdbc.sqlonly - SELECT
+>>>>>>> dev
             no, id, email, pwd, name, phone, addr, intro, role, uuid
         FROM mem
         WHERE email = '111@gmail.com'
 
+<<<<<<< HEAD
+[2025-11-14 14:11:14:33386][http-nio-8090-exec-6] INFO  jdbc.sqltiming - SELECT
+            no, id, email, pwd, name, phone, addr, intro, role, uuid
+        FROM mem
+        WHERE email = '111@gmail.com'
+ {executed in 2 msec}
+[2025-11-14 14:11:14:33387][http-nio-8090-exec-6] INFO  jdbc.resultsettable - 
+=======
 [2025-11-13 09:59:42:1286854][http-nio-8090-exec-10] INFO  jdbc.sqltiming - SELECT
             no, id, email, pwd, name, phone, addr, intro, role, uuid
         FROM mem
         WHERE email = '111@gmail.com'
  {executed in 3 msec}
 [2025-11-13 09:59:42:1286855][http-nio-8090-exec-10] INFO  jdbc.resultsettable - 
+>>>>>>> dev
 |---|------|--------------|-------------------------------------------------------------|-----|------|-----|------|----------|-----|
 |no |id    |email         |pwd                                                          |name |phone |addr |intro |role      |uuid |
 |---|------|--------------|-------------------------------------------------------------|-----|------|-----|------|----------|-----|
 |2  |test1 |111@gmail.com |$2a$12$lu6975A9H8wsgRhZL.uk..sOfcfwRAh1PM4Y2A6nbWlhvNuE/u6B. |1234 |1234  |1234 |1234  |ROLE_USER |null |
 |---|------|--------------|-------------------------------------------------------------|-----|------|-----|------|----------|-----|
 
+<<<<<<< HEAD
+[2025-11-14 14:11:15:33899][http-nio-8090-exec-6] INFO  c.m.m.c.jwt.service.TokenService - Map MemberEmail >>>>>>>>>>> 111@gmail.com
+[2025-11-14 14:11:15:33899][http-nio-8090-exec-6] INFO  c.m.m.c.jwt.service.TokenService - Map Roles >>>>>>>>>>> [ROLE_USER]
+[2025-11-14 14:11:15:33900][http-nio-8090-exec-6] INFO  jdbc.sqlonly - SELECT * FROM ref_token WHERE email = '111@gmail.com'
+
+[2025-11-14 14:11:15:33902][http-nio-8090-exec-6] INFO  jdbc.sqltiming - SELECT * FROM ref_token WHERE email = '111@gmail.com'
+ {executed in 2 msec}
+[2025-11-14 14:11:15:33903][http-nio-8090-exec-6] INFO  jdbc.resultsettable - 
+|---|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|--------------------|
+|no |email         |token                                                                                                                                                              |created_at          |expired_at          |
+|---|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|--------------------|
+|15 |111@gmail.com |eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiZXhwIjoxNzYzMDc1NjIwfQ.T2QHq3Awa8i4uRmn7FJsPe9jA1aQ9E66wI9TGwQMYCB_XfgoyMYcSS-QWNI453aS0yVT3RdnbZL1AOt_CLQj8g |2025-11-13 08:13:40 |2025-11-14 08:13:40 |
+|---|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|--------------------|
+
+[2025-11-14 14:11:15:33903][http-nio-8090-exec-6] INFO  jdbc.sqlonly - DELETE FROM ref_token WHERE email = '111@gmail.com'
+
+[2025-11-14 14:11:15:33910][http-nio-8090-exec-6] INFO  jdbc.sqltiming - DELETE FROM ref_token WHERE email = '111@gmail.com'
+ {executed in 7 msec}
+[2025-11-14 14:11:15:33910][http-nio-8090-exec-6] INFO  c.m.m.c.jwt.service.TokenService - 기존의 만료된 Refresh Token 삭제. email: 111@gmail.com
+[2025-11-14 14:11:15:33910][http-nio-8090-exec-6] INFO  c.m.m.c.jwt.service.TokenService - 새 Refresh Token 발급. email: 111@gmail.com
+[2025-11-14 14:11:15:33917][http-nio-8090-exec-6] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] 유효성 검증 중인 토큰: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiZXhwIjoxNzYzMTgzNDc1fQ.vgo1gPcBwTkKRHrcJpmwIc--Qew313Qprb-m3DYNYaH91aYk5fckA4g2vBfdCCpNoFSZFfcNsMAj6RXd5b3Xug
+[2025-11-14 14:11:15:33918][http-nio-8090-exec-6] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] JWT 토큰이 유효합니다
+[2025-11-14 14:11:15:33919][http-nio-8090-exec-6] INFO  jdbc.sqlonly - INSERT INTO ref_token (email, token, created_at, expired_at)
+        VALUES ('111@gmail.com', 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiZXhwIjoxNzYzMTgzNDc1fQ.vgo1gPcBwTkKRHrcJpmwIc--Qew313Qprb-m3DYNYaH91aYk5fckA4g2vBfdCCpNoFSZFfcNsMAj6RXd5b3Xug', CURRENT_TIMESTAMP, 2025-11-15T14:11:15.253027)
+
+[2025-11-14 14:11:15:33925][http-nio-8090-exec-6] INFO  jdbc.sqltiming - INSERT INTO ref_token (email, token, created_at, expired_at)
+        VALUES ('111@gmail.com', 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiZXhwIjoxNzYzMTgzNDc1fQ.vgo1gPcBwTkKRHrcJpmwIc--Qew313Qprb-m3DYNYaH91aYk5fckA4g2vBfdCCpNoFSZFfcNsMAj6RXd5b3Xug', CURRENT_TIMESTAMP, 2025-11-15T14:11:15.253027)
+ {executed in 5 msec}
+[2025-11-14 14:11:15:33938][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter - EXACT_PATHS] 요청 URI가 제외 경로에 해당하여 필터를 건너뜁니다.
+[2025-11-14 14:11:15:33948][http-nio-8090-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+[2025-11-14 14:11:15:33948][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:11:15:33948][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:11:15:33948][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:11:15:33948][http-nio-8090-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:11:15:33948][http-nio-8090-exec-4] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:11:15:33948][http-nio-8090-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /
+[2025-11-14 14:11:15:33954][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:11:15:33967][http-nio-8090-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/styles1.css
+[2025-11-14 14:11:15:33967][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:11:15:33967][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:11:15:33967][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:11:15:33967][http-nio-8090-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:11:15:33967][http-nio-8090-exec-7] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:11:15:33967][http-nio-8090-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/styles1.css
+[2025-11-14 14:11:15:33968][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:11:15:34008][http-nio-8090-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /json/no_descr.json
+[2025-11-14 14:11:15:34009][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:11:15:34009][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:11:15:34009][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:11:15:34010][http-nio-8090-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:11:15:34010][http-nio-8090-exec-8] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:11:15:34010][http-nio-8090-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /json/no_descr.json
+[2025-11-14 14:11:15:34015][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:11:17:36473][http-nio-8090-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /generate-request
+[2025-11-14 14:11:17:36473][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:11:17:36473][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:11:17:36474][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:11:17:36474][http-nio-8090-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:11:17:36474][http-nio-8090-exec-9] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:11:17:36476][http-nio-8090-exec-9] WARN  c.m.m.c.j.JwtAuthenticationEntryPoint - 인증 실패: 인증되지 않은 사용자가 /generate-request 경로에 접근하려고 했습니다. 401 Unauthorized 반환.
+[2025-11-14 14:11:17:36478][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:11:36:55438][http-nio-8090-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+[2025-11-14 14:11:36:55439][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:11:36:55439][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:11:36:55439][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:11:36:55440][http-nio-8090-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:11:36:55440][http-nio-8090-exec-10] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:11:36:55440][http-nio-8090-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /
+[2025-11-14 14:11:36:55453][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:11:36:55466][http-nio-8090-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/styles1.css
+[2025-11-14 14:11:36:55467][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:11:36:55467][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:11:36:55467][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:11:36:55467][http-nio-8090-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:11:36:55468][http-nio-8090-exec-1] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:11:36:55468][http-nio-8090-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/styles1.css
+[2025-11-14 14:11:36:55471][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:11:36:55487][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /json/no_descr.json
+[2025-11-14 14:11:36:55488][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:11:36:55488][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:11:36:55488][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:11:36:55488][http-nio-8090-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:11:36:55488][http-nio-8090-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:11:36:55488][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /json/no_descr.json
+[2025-11-14 14:11:36:55490][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:11:37:56240][http-nio-8090-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/places
+[2025-11-14 14:11:37:56241][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:11:37:56241][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:11:37:56241][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:11:37:56241][http-nio-8090-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:11:37:56242][http-nio-8090-exec-3] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:11:37:56242][http-nio-8090-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/places
+[2025-11-14 14:11:37:56246][http-nio-8090-exec-3] INFO  jdbc.sqlonly - SELECT
+            COUNT(*)
+        from place a
+                 join area_code b on a.dist = b.code
+
+[2025-11-14 14:11:37:56247][http-nio-8090-exec-3] INFO  jdbc.sqltiming - SELECT
+            COUNT(*)
+        from place a
+                 join area_code b on a.dist = b.code
+ {executed in 1 msec}
+[2025-11-14 14:11:37:56250][http-nio-8090-exec-3] INFO  jdbc.resultsettable - 
+|---------|
+|count(*) |
+|---------|
+|208      |
+|---------|
+
+[2025-11-14 14:11:37:56255][http-nio-8090-exec-3] INFO  jdbc.sqlonly - SELECT
+            a.no,
+            b.name as district,
+            a.title as title,
+            a.descr as description,
+            a.addr as address,
+            a.phone as phone,
+            a.lat,
+            a.lng,
+            a.first_img as imageUrl
+        from place a
+                 join area_code b on a.dist = b.code
+        order by a.no
+            LIMIT 0, 10
+
+[2025-11-14 14:11:37:56258][http-nio-8090-exec-3] INFO  jdbc.sqltiming - SELECT
+            a.no,
+            b.name as district,
+            a.title as title,
+            a.descr as description,
+            a.addr as address,
+            a.phone as phone,
+            a.lat,
+            a.lng,
+            a.first_img as imageUrl
+        from place a
+                 join area_code b on a.dist = b.code
+        order by a.no
+            LIMIT 0, 10
+ {executed in 3 msec}
+[2025-11-14 14:11:37:56266][http-nio-8090-exec-3] INFO  jdbc.resultsettable - 
+|---|-----|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|--------------|--------------|---------------|------------------------------------------------------------------|
+|no |name |title                          |descr                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |addr                       |phone         |lat           |lng            |first_img                                                         |
+|---|-----|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|--------------|--------------|---------------|------------------------------------------------------------------|
+|1  |인천   |개항장 거리                         |인천 개항누리길은 1800년대 말 개항기 시절의 풍경을 간직한 길이다. 인천 개항 후 대외무역이 활발해지자 지금의 인천광역시 중구 일대에 일본과 청나라를 비롯한 각국의 조계지가 형성됐고, 최초의 근대식 공원, 은행, 호텔 같은 건축물도 세워졌다. 개항누리길을 걷다 보면 청‧일 조계지 경계계단부터 당시에 지어진 서양식 건축물까지 다양한 근대 문화유산을 만날 수 있다. 130년 전 인천을 통해 국내에 들어온 근대유물을 전시하는 인천개항박물관, 인천항의 물품 보관 창고에서 문화예술공간으로 거듭난 인천아트플랫폼, 중국인들이 모여 살던 차이나타운, 한국 제1호 중국 음식점 공화춘 건물을 활용한 짜장면박물관 등 인천의 과거와 현재가 공존하는 길이다. 이곳에서는 인천문화 관광해설사가 있어 예약하면 해설을 들으며 도보 관광을 즐길 수 있다.                                                                                                                                                                    |인천광역시 중구 관동1가              |              |37.4729337678 |126.6210062460 |http://tong.visitkorea.or.kr/cms/resource/52/3518552_image2_1.jpg |
+|2  |인천   |개항장 댕댕 도서관                     |<개항장 댕댕 도서관> 은 반려인과 시민이 함께 어울려 책을 읽고, 걷고, 소통하며 추억을 만드는 힐링 축제다. 11월 8일 토요일 오후 1시부터 6시까지, 인천 상상플랫폼 1883개항광장에서 열린다. 이번 축제는 단순한 전시나 체험이 아닌, 사람과 반려동물, 그리고 책이 함께하는 감성 공간으로 운영된다. 누구나 자유롭게 머물며 책을 읽을 수 있는 북라운지, 반려견이 마음껏 뛰어놀 수 있는 프리존 & 어질리티 코스, 그리고 전문가와 함께하는 산책훈련, 미용, 마사지 등 다양한 클래스가 진행된다. 현장에서는 직접 참여하고 경험할 수 있는 다채로운 액티비티도 마련된다. 반려인을 위한 산책가방 만들기, 펫 상담톡, 펫타로 체험 등 나만의 추억을 남길 수 있는 프로그램이 준비되어 있다. 또한 로컬상권과 연계된 마켓존에서는 수제 간식과 반려용품, 감성 굿즈 등 반려 라이프를 더욱 풍요롭게 만들어줄 아이템들을 만나볼 수 있다. 개항광장 산책코스에서는 반려견과 함께 걷는 여유로운 가을의 정취를 느낄 수 있다. 불어오는 바람 사이로 펼쳐지는 독서의 향기와 웃음소리, 그리고 따뜻한 교감이 이 가을의 하루를 더욱 특별하게 만든다. |인천광역시 중구 월미로 33 (북성동1가)    |010-8456-2948 |37.4761360618 |126.6146650689 |http://tong.visitkorea.or.kr/cms/resource/81/3557781_image2_1.png |
+|3  |인천   |인천개항장 국가유산 야행                  |10주년을 맞은 인천개항장 국가유산 야행은 '한국 최초의 국제도시'라는 정체성으로 개항장을 리브랜딩하고 인천만의 유니크한 개항 스토리를 더욱 확장했다. 1883년, 타인에 의해 문을 열었지만 인천은 새로운 문화를 배척하지 않고 받아들였다. 그 안에서 스스로의 문화를 지켜내며, 공존의 길을 택한 도시 인천개항장은 전통과 근대, 조선과 세계가 나란히 걷던 공간이자 대한민국 최초의 국제도시였다. 세계와 처음 연결된 도시로서의 개항장을 2025년 야행에서 다시 조명한다.                                                                                                                                                                                                                                                                                                                          |인천광역시 중구 신포로27번길 80 (관동1가) |032-899-7425  |37.4735225945 |126.6213645301 |http://tong.visitkorea.or.kr/cms/resource/88/3491388_image2_1.png |
+|4  |인천   |인천개항장 근대건축전시관                  |인천 개항장 근대건축전시관은 개항장 내 서구 근대건축물을 모아 전시하는 공간이다. 일본 나가사키에 본점을 둔 18은행의 인천 지점으로 처음 세워졌다가 1954년부터 1992년까지 한국흥업은행과 카페로 활용된 바 있다. 4개의 전시관을 차례대로 훑어보면 1883년 개항 당시 국내외 정세부터 근대건축물 정보까지 다양한 사료를 만날 수 있다. 은행으로 사용될 당시의 금고와 지붕이 건물 안에 그대로 남아, 타임머신을 타고 역사의 현장으로 들어온 느낌마저 든다. 메인 전시관인 3전시실은 각국의 외교관사, 관공서부터 소실된 외국인의 주택 등 다양한 근대건축물 디오라마를 전시 중이다. 원하는 건축물을 선택하면 커다란 스크린을 통해 영상 설명을 들을 수도 있다. 금고로 사용되었던 공간은 18은행과 조선인 수탈 사이의 관계를 설명하는 4전시실로 꾸며놓았다. 18은행은 조선에서 무역하는 나가사키 상인들을 지원하는 한편 조선인들을 대상으로 고리대금업을 벌였는데, 이때 조선인들에게 받은 이자 대부분이 일본인에게 넘어가 조선인들의 삶이 피폐해졌다고 한다.                                               |인천광역시 중구 신포로23번길 77        |              |37.4729393262 |126.6212117826 |http://tong.visitkorea.or.kr/cms/resource/78/3381778_image2_1.jpg |
+|5  |인천   |all nights INCHEON 월미·개항장 야간마켓 |'2025 all nights INCHEON 월미 · 개항장 야간마켓'은 인천 원도심 관광의 매력을 밤에도 즐길 수 있도록 기획된 지역 연계 할인 쿠폰 행사이다. 월미도, 개항장, 차이나타운, 신포동 일대의 다양한 상점이 참여하며, 음식점, 주점, 카페, 베이커리, 체험시설 등 여러 업종에서 사용할 수 있는 할인쿠폰이 인천e지 앱을 통해 제공된다. 본 행사는 6월 20일부터 6주간, 매주 금요일과 토요일 오후 5시부터 자정까지 운영되며, 방문객들은 쿠폰을 활용해 인천 원도심의 다채로운 맛과 체험을 보다 합리적인 가격으로 즐길 수 있다.                                                                                                                                                                                                                                                                                 |인천광역시 중구 월미문화로 30 (북성동1가)  |032-715-5633  |37.4758413510 |126.5976277433 |http://tong.visitkorea.or.kr/cms/resource/40/3497940_image2_1.png |
+|6  |인천   |월미문화의거리 & 달빛음악분수               |인천의 대표적인 관광지 중의 하나인 월미도에는 월미도 문화의 거리, 월미공원, 월미테마파크 등이 있다. 월미도 문화의 거리는 보행자 전용 도로로 차량 출입시간을 제외하고는 차량의 출입이 통제되어 있다. 초상화를 그려주는 길거리 화가들이 나와 있고 앉아 쉴 수 있는 벤치가 있는 작은 쉼터 같은 거리다. 월미공원에 위치한 월미 전망대에서는 인천항 일대의 전경을 다 볼 수 있어 월미도를 간다면 한 번쯤 들러서 전망을 구경하는 것도 좋다. 놀이와 체험이 가능한 월미테마파크에는 다양한 놀이 기구가 있어 연인들의 데이트 장소나 가족들의 나들이 장소로 인기 있다. 월미 달빛 음악 분수는 월미문화 거리 안에 있는 분수로 크지는 않지만 월미도의 볼거리 중 하나이다. 5월 1일부터 10월 31일까지 진행하고 매주 월요일은 정기점검을 한다. 음악 분수는 음악에 맞춰 불줄기들이 춤을 추는데 물과 음악이 조합되어 멋진 장관을 이룬다. 저녁이 되면 음악에 따라 6~7가지 빛의 분수 쇼가 펼쳐진다. 그러므로 낮에 감상하는 것보다는 밤에 보는 모습이 더욱더 멋지다.                                            |인천광역시 중구 월미로 252           |              |37.4738860361 |126.5983832839 |http://tong.visitkorea.or.kr/cms/resource/69/2786469_image2_1.jpg |
+|7  |인천   |하나개해수욕장                        |하나개해수욕장은 무의도 서쪽에 자리한 갯벌을 품은 해수욕장이다. 하나개는 가장 큰 갯벌이라는 뜻이다. 1㎞ 길이의 고운 모래 백사장이 펼쳐지고, 물이 빠지면 고운 모래사장 너머로 너른 갯벌이 드러난다. 갯벌을 조금만 파 내려가면 흰 속살의 동죽조개를 비롯하여 소라, 방게, 바지락 등이 지천이다. 해가 질 때의 붉은빛 노을은 해수욕장의 또 다른 장관이다. 하나개해수욕장은 아이들이 놀기에 수심이 적당하고 숙박시설과 샤워장, 식당, 노래방 등 편의시설이 많아 주로 가족 단위 관광객들이 많이 찾는다. 해수욕장 뒤편에는 유원지가 조성돼 있어 즐길 거리도 많다.
+
+유원지에서는 승마, 사륜오토바이, 씨 스카이월드를 즐길 수 있다. 씨 스카이월드는 백사장에 설치된 높이 25m의 철탑으로부터 413m의 와이어를 연결하여 높은 곳에서 낮은 곳으로 하늘을 날 듯 하강하는 신종 익스트림 레포츠이다. 노천 포장마차에서 싱싱한 해산물을 맛보는 것도 빼놓을 수 없다. 이곳은 드라마 ‘천국의 계단’ 촬영지로 해변 한쪽에 촬영 세트장이 남아 있어, 또 다른 볼거리를 제공한다.                                       |인천광역시 중구 하나개로 150 (무의동)    |              |37.3844625784 |126.4102556957 |http://tong.visitkorea.or.kr/cms/resource/54/3498254_image2_1.jpg |
+|8  |경기도  |세미원                            |세미원은 팔당호가 삼면에 둘러싸인 물과 꽃의 정원으로 동양의 전통적인 정원 양식과 수생식물 등 약 270종의 식물을 보유하고 있으며, 다양한 볼거리가 있는 곳이다. 2019년 6월에는 경기도 제1호 지방 정원으로 지정되었으며, 정약용이 강폭이 좁아지는 양주 지역 남한강에 배다리를 놓았는데 이곳이 오늘날의 세미원 자리인 것으로 알려져 있다. 또한 연꽃박물관과 수련온실, 석창원, 상춘원을 비롯하여 다양한 시설 조성과 체험 행사를 통해 우리 역사의 숨결과 문화 예술의 공간으로 탄생된 물과 꽃의 정원이다.                                                                                                                                                                                                                                                                                                      |경기도 양평군 양서면 양수로 93         |              |37.5407412665 |127.3241902960 |http://tong.visitkorea.or.kr/cms/resource/90/3447890_image2_1.jpg |
+|9  |경기도  |세미원 연꽃박물관                      |세미원 연꽃박물관은 연꽃이라는 단일한 테마로 연꽃 관련 생활용품, 음식관련, 옛 문서 등 유물들을 모아 전시하고 있는 박물관으로 2009년 1월에 개관하였다. 박물관 2층에 있는 상설전시는 연꽃의 기원 및 역사, 연꽃 문양의 종류와 시대별 특징, 불교에서 연꽃의 의미 등 연꽃의 역사와 문화, 관련 유물 등을 한눈에 살펴볼 수 있고 3층은 대관 전시로 기간에 따라 다른 기획전이 열린다.
+경의중앙선 양수역에서 약 2분, 도보 약 11분 거리에 위치하고 지하철역에서 부근까지 버스도 있어 대중교통 접근성도 용이하다. 인근에 두물머리, 카페리노, 물의정원, 정약용유적지, 실학박물관 등이 있다.                                                                                                                                                                                                                                                     |경기도 양평군 양서면 양수로 93         |              |37.5409856786 |127.3239847527 |http://tong.visitkorea.or.kr/cms/resource/90/3012390_image2_1.jpg |
+|10 |경기도  |시흥 갯골생태공원                      |갯골생태공원은 150만 평의 폐염전 부지에 깊숙한 내만갯벌로 형성된 습지이다. 내만갯골 자연생태자원과 옛 염전의 문화유산을 활용하여 조성되었으며, 자연생태가 살아 숨 쉬는 보고(寶庫)이자, 시민에게 휴식을 제공하는 자연과 사람이 어우러진 친환경적 생태공원이다. 갯골 수로에는 서해안의 특성인 조수간만의 차가 크게 나타나고, 이곳에 형성된 갯골과 초지 군락지는 보기 드문 다양한 생물의 분포를 보이고 있으며, 옛 염전부지와 소금창고 등은 사라져 가는 해안문화의 자취를 지니고 있다. 이곳에서 칠면초, 나문재, 퉁퉁마디 등의 염생식물을 관찰할 수 있으며, 붉은 발 농게, 방게 등 다양한 생물도 관찰할 수 있다. 시흥갯골은 아름다운 경관과 생태적 우수성으로 시흥시의 생태환경 1등급 지역이며, 2012년 2월 국가 해양 습지보호지역으로 지정되었다.                                                                                                                                                               |경기도 시흥시 동서로 287 (장곡동)      |              |37.3898240311 |126.7812550601 |http://tong.visitkorea.or.kr/cms/resource/11/3304111_image2_1.JPG |
+|---|-----|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|--------------|--------------|---------------|------------------------------------------------------------------|
+
+[2025-11-14 14:11:37:56270][http-nio-8090-exec-3] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 1
+        order by r.no desc
+
+[2025-11-14 14:11:37:56272][http-nio-8090-exec-3] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 1
+        order by r.no desc
+ {executed in 2 msec}
+[2025-11-14 14:11:37:56275][http-nio-8090-exec-3] INFO  jdbc.resultsettable - 
+|---|-------|-------------------|-------------------|--------|---------------------------|-----|--------------------|--------------------|
+|no |title  |id                 |email              |title   |content                    |rate |created_at          |modified_at         |
+|---|-------|-------------------|-------------------|--------|---------------------------|-----|--------------------|--------------------|
+|14 |개항장 거리 |gy011003@gmail.com |gy011003@gmail.com |조용한 분위기 |카페 분위기가 너무 조용해서 공부하기 좋았어요. |4    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|13 |개항장 거리 |gy011003@gmail.com |gy011003@gmail.com |맛집 인정   |음식이 정말 맛있었어요! 재방문 의사 100%  |5    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|12 |개항장 거리 |gy011003@gmail.com |gy011003@gmail.com |좋아요     |또 올게요                      |5    |2025-11-12 13:11:41 |2025-11-12 13:11:41 |
+|7  |개항장 거리 |test4              |444@gmail.com      |조용한 분위기 |카페 분위기가 너무 조용해서 공부하기 좋았어요. |4    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|6  |개항장 거리 |test3              |333@gmail.com      |맛집 인정   |음식이 정말 맛있었어요! 재방문 의사 100%  |5    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|---|-------|-------------------|-------------------|--------|---------------------------|-----|--------------------|--------------------|
+
+[2025-11-14 14:11:37:56276][http-nio-8090-exec-3] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 2
+        order by r.no desc
+
+[2025-11-14 14:11:37:56278][http-nio-8090-exec-3] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 2
+        order by r.no desc
+ {executed in 2 msec}
+[2025-11-14 14:11:37:56280][http-nio-8090-exec-3] INFO  jdbc.resultsettable - 
+|---|-----------|-------------------|-------------------|----------|----------------------|-----|--------------------|--------------------|
+|no |title      |id                 |email              |title     |content               |rate |created_at          |modified_at         |
+|---|-----------|-------------------|-------------------|----------|----------------------|-----|--------------------|--------------------|
+|21 |개항장 댕댕 도서관 |test1              |111@gmail.com      |굿         |굿굿                    |3    |2025-11-13 12:59:36 |2025-11-13 13:03:24 |
+|15 |개항장 댕댕 도서관 |gy011003@gmail.com |gy011003@gmail.com |가격 대비 아쉬움 |맛은 괜찮았지만 가격이 조금 비쌌어요. |3    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|8  |개항장 댕댕 도서관 |test4              |444@gmail.com      |가격 대비 아쉬움 |맛은 괜찮았지만 가격이 조금 비쌌어요. |3    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|---|-----------|-------------------|-------------------|----------|----------------------|-----|--------------------|--------------------|
+
+[2025-11-14 14:11:37:56281][http-nio-8090-exec-3] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 3
+        order by r.no desc
+
+[2025-11-14 14:11:37:56282][http-nio-8090-exec-3] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 3
+        order by r.no desc
+ {executed in 1 msec}
+[2025-11-14 14:11:37:56283][http-nio-8090-exec-3] INFO  jdbc.resultsettable - 
+|---|--------------|-------------------|-------------------|------|-------------------------|-----|--------------------|--------------------|
+|no |title         |id                 |email              |title |content                  |rate |created_at          |modified_at         |
+|---|--------------|-------------------|-------------------|------|-------------------------|-----|--------------------|--------------------|
+|16 |인천개항장 국가유산 야행 |gy011003@gmail.com |gy011003@gmail.com |서비스 굿 |직원분들이 친절해서 기분 좋게 식사했습니다. |5    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|9  |인천개항장 국가유산 야행 |test5              |555@gmail.com      |서비스 굿 |직원분들이 친절해서 기분 좋게 식사했습니다. |5    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|---|--------------|-------------------|-------------------|------|-------------------------|-----|--------------------|--------------------|
+
+[2025-11-14 14:11:37:56283][http-nio-8090-exec-3] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 4
+        order by r.no desc
+
+[2025-11-14 14:11:37:56284][http-nio-8090-exec-3] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 4
+        order by r.no desc
+ {executed in 1 msec}
+[2025-11-14 14:11:37:56285][http-nio-8090-exec-3] INFO  jdbc.resultsettable - 
+|---|--------------|-------------------|-------------------|--------|------------------------|-----|--------------------|--------------------|
+|no |title         |id                 |email              |title   |content                 |rate |created_at          |modified_at         |
+|---|--------------|-------------------|-------------------|--------|------------------------|-----|--------------------|--------------------|
+|17 |인천개항장 근대건축전시관 |gy011003@gmail.com |gy011003@gmail.com |사진이랑 다름 |사진 보고 기대했는데 실물은 좀 달랐어요. |2    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|10 |인천개항장 근대건축전시관 |test4              |444@gmail.com      |사진이랑 다름 |사진 보고 기대했는데 실물은 좀 달랐어요. |2    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|---|--------------|-------------------|-------------------|--------|------------------------|-----|--------------------|--------------------|
+
+[2025-11-14 14:11:37:56285][http-nio-8090-exec-3] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 5
+        order by r.no desc
+
+[2025-11-14 14:11:37:56286][http-nio-8090-exec-3] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 5
+        order by r.no desc
+ {executed in 1 msec}
+[2025-11-14 14:11:37:56286][http-nio-8090-exec-3] INFO  jdbc.resultsettable - 
+|---|------|---|------|------|--------|-----|-----------|------------|
+|no |title |id |email |title |content |rate |created_at |modified_at |
+|---|------|---|------|------|--------|-----|-----------|------------|
+|---|------|---|------|------|--------|-----|-----------|------------|
+
+[2025-11-14 14:11:37:56286][http-nio-8090-exec-3] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 6
+        order by r.no desc
+
+[2025-11-14 14:11:37:56287][http-nio-8090-exec-3] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 6
+        order by r.no desc
+ {executed in 1 msec}
+[2025-11-14 14:11:37:56287][http-nio-8090-exec-3] INFO  jdbc.resultsettable - 
+|---|------|---|------|------|--------|-----|-----------|------------|
+|no |title |id |email |title |content |rate |created_at |modified_at |
+|---|------|---|------|------|--------|-----|-----------|------------|
+|---|------|---|------|------|--------|-----|-----------|------------|
+
+[2025-11-14 14:11:37:56288][http-nio-8090-exec-3] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 7
+        order by r.no desc
+
+[2025-11-14 14:11:37:56288][http-nio-8090-exec-3] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 7
+        order by r.no desc
+ {executed in 0 msec}
+[2025-11-14 14:11:37:56288][http-nio-8090-exec-3] INFO  jdbc.resultsettable - 
+|---|------|---|------|------|--------|-----|-----------|------------|
+|no |title |id |email |title |content |rate |created_at |modified_at |
+|---|------|---|------|------|--------|-----|-----------|------------|
+|---|------|---|------|------|--------|-----|-----------|------------|
+
+[2025-11-14 14:11:37:56289][http-nio-8090-exec-3] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 8
+        order by r.no desc
+
+[2025-11-14 14:11:37:56289][http-nio-8090-exec-3] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 8
+        order by r.no desc
+ {executed in 0 msec}
+[2025-11-14 14:11:37:56290][http-nio-8090-exec-3] INFO  jdbc.resultsettable - 
+|---|------|---|------|------|--------|-----|-----------|------------|
+|no |title |id |email |title |content |rate |created_at |modified_at |
+|---|------|---|------|------|--------|-----|-----------|------------|
+|---|------|---|------|------|--------|-----|-----------|------------|
+
+[2025-11-14 14:11:37:56290][http-nio-8090-exec-3] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 9
+        order by r.no desc
+
+[2025-11-14 14:11:37:56291][http-nio-8090-exec-3] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 9
+        order by r.no desc
+ {executed in 1 msec}
+[2025-11-14 14:11:37:56291][http-nio-8090-exec-3] INFO  jdbc.resultsettable - 
+|---|------|---|------|------|--------|-----|-----------|------------|
+|no |title |id |email |title |content |rate |created_at |modified_at |
+|---|------|---|------|------|--------|-----|-----------|------------|
+|---|------|---|------|------|--------|-----|-----------|------------|
+
+[2025-11-14 14:11:37:56292][http-nio-8090-exec-3] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 10
+        order by r.no desc
+
+[2025-11-14 14:11:37:56292][http-nio-8090-exec-3] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 10
+        order by r.no desc
+ {executed in 0 msec}
+[2025-11-14 14:11:37:56292][http-nio-8090-exec-3] INFO  jdbc.resultsettable - 
+|---|------|---|------|------|--------|-----|-----------|------------|
+|no |title |id |email |title |content |rate |created_at |modified_at |
+|---|------|---|------|------|--------|-----|-----------|------------|
+|---|------|---|------|------|--------|-----|-----------|------------|
+
+[2025-11-14 14:11:37:56299][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:11:39:57742][http-nio-8090-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+[2025-11-14 14:11:39:57743][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:11:39:57743][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:11:39:57744][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:11:39:57744][http-nio-8090-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:11:39:57744][http-nio-8090-exec-5] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:11:39:57744][http-nio-8090-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /
+[2025-11-14 14:11:39:57758][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:11:39:57770][http-nio-8090-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/styles1.css
+[2025-11-14 14:11:39:57770][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:11:39:57770][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:11:39:57770][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:11:39:57771][http-nio-8090-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:11:39:57771][http-nio-8090-exec-6] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:11:39:57771][http-nio-8090-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/styles1.css
+[2025-11-14 14:11:39:57773][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:11:39:57790][http-nio-8090-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /json/no_descr.json
+[2025-11-14 14:11:39:57790][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:11:39:57790][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:11:39:57790][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:11:39:57790][http-nio-8090-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:11:39:57790][http-nio-8090-exec-4] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:11:39:57790][http-nio-8090-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /json/no_descr.json
+[2025-11-14 14:11:39:57792][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:13:37:176255][SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+[2025-11-14 14:13:37:176262][tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+[2025-11-14 14:13:37:176269][SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+[2025-11-14 14:13:37:176272][SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+[2025-11-14 14:13:40:444][background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+[2025-11-14 14:13:40:467][restartedMain] INFO  c.m.multi_semi.MultiSemiApplication - Starting MultiSemiApplication using Java 17.0.16 with PID 7778 (/Users/kwonjiyoung/Documents/multi_semi_project/multi_semi/multi_semi/build/classes/java/main started by kwonjiyoung in /Users/kwonjiyoung/Documents/multi_semi_project/multi_semi/multi_semi)
+[2025-11-14 14:13:40:468][restartedMain] INFO  c.m.multi_semi.MultiSemiApplication - The following 1 profile is active: "local"
+[2025-11-14 14:13:40:490][restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-11-14 14:13:40:491][restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-11-14 14:13:41:1289][restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8090 (http)
+[2025-11-14 14:13:41:1297][restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8090"]
+[2025-11-14 14:13:41:1298][restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+[2025-11-14 14:13:41:1298][restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.48]
+[2025-11-14 14:13:41:1323][restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[2025-11-14 14:13:41:1324][restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 832 ms
+[2025-11-14 14:13:41:1731][restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailService
+[2025-11-14 14:13:41:1889][restartedMain] DEBUG o.s.s.w.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, OAuth2AuthorizationRequestRedirectFilter, OAuth2LoginAuthenticationFilter, JwtFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+[2025-11-14 14:13:41:2058][restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[2025-11-14 14:13:41:2077][restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8090"]
+[2025-11-14 14:13:41:2088][restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8090 (http) with context path '/'
+[2025-11-14 14:13:41:2098][restartedMain] INFO  c.m.multi_semi.MultiSemiApplication - Started MultiSemiApplication in 1.943 seconds (process running for 2.582)
+[2025-11-14 14:13:44:4640][http-nio-8090-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2025-11-14 14:13:44:4640][http-nio-8090-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[2025-11-14 14:13:44:4642][http-nio-8090-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+[2025-11-14 14:13:44:4650][http-nio-8090-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+[2025-11-14 14:13:44:4653][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:13:44:4653][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:13:44:4653][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:13:44:4654][http-nio-8090-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:13:44:4654][http-nio-8090-exec-1] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:13:44:4655][http-nio-8090-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /
+[2025-11-14 14:13:44:4825][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:13:44:4846][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/styles1.css
+[2025-11-14 14:13:44:4846][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:13:44:4846][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:13:44:4846][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:13:44:4846][http-nio-8090-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:13:44:4846][http-nio-8090-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:13:44:4847][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/styles1.css
+[2025-11-14 14:13:44:4852][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:13:44:4887][http-nio-8090-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /json/no_descr.json
+[2025-11-14 14:13:44:4888][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:13:44:4889][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:13:44:4889][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:13:44:4889][http-nio-8090-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:13:44:4889][http-nio-8090-exec-3] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:13:44:4890][http-nio-8090-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /json/no_descr.json
+[2025-11-14 14:13:44:4899][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:13:45:5804][http-nio-8090-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /places/list
+[2025-11-14 14:13:45:5805][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:13:45:5806][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:13:45:5807][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:13:45:5808][http-nio-8090-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:13:45:5808][http-nio-8090-exec-4] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:13:45:5809][http-nio-8090-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /places/list
+[2025-11-14 14:13:45:5831][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:13:45:5846][http-nio-8090-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/styles1.css
+[2025-11-14 14:13:45:5847][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:13:45:5847][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:13:45:5847][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:13:45:5847][http-nio-8090-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:13:45:5847][http-nio-8090-exec-5] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:13:45:5847][http-nio-8090-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/styles1.css
+[2025-11-14 14:13:45:5850][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:13:45:5860][http-nio-8090-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/places?offset=1
+[2025-11-14 14:13:45:5861][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:13:45:5861][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [deletePrefix] Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2MzA5NzEzNX0.jIXA5HWpU6os80AFd--8q6Nl3ceKvHTnLQRZ6aQV7YRxtR-fV5Gl4zpNysRflqRoF7vhuky2NkBM5GRtFfgLvw
+[2025-11-14 14:13:45:5861][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2MzA5NzEzNX0.jIXA5HWpU6os80AFd--8q6Nl3ceKvHTnLQRZ6aQV7YRxtR-fV5Gl4zpNysRflqRoF7vhuky2NkBM5GRtFfgLvw
+[2025-11-14 14:13:45:5861][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재합니다.
+[2025-11-14 14:13:45:5861][http-nio-8090-exec-6] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] 유효성 검증 중인 토큰: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2MzA5NzEzNX0.jIXA5HWpU6os80AFd--8q6Nl3ceKvHTnLQRZ6aQV7YRxtR-fV5Gl4zpNysRflqRoF7vhuky2NkBM5GRtFfgLvw
+[2025-11-14 14:13:45:5905][http-nio-8090-exec-6] WARN  c.m.m.common.jwt.TokenProvider - [TokenProvider] 만료된 JWT 토큰입니다. 토큰: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2MzA5NzEzNX0.jIXA5HWpU6os80AFd--8q6Nl3ceKvHTnLQRZ6aQV7YRxtR-fV5Gl4zpNysRflqRoF7vhuky2NkBM5GRtFfgLvw, 만료 시각: Fri Nov 14 14:12:15 KST 2025
+io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-11-14T05:12:15Z. Current time: 2025-11-14T05:13:45Z, a difference of 90693 milliseconds.  Allowed clock skew: 0 milliseconds.
+=======
 [2025-11-13 09:59:42:1286857][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
 [2025-11-13 10:00:06:1310596][http-nio-8090-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing POST /api/v1/reviews
 [2025-11-13 10:00:06:1310597][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
@@ -54,6 +899,7 @@
 [2025-11-13 10:00:06:1310598][http-nio-8090-exec-8] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] 유효성 검증 중인 토큰: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTU5Nn0.AjIlHmHOd6r814zD8XBBvd3VvRIheQ5UKz-kKNRj5nbjOhbZ6qZVfbmA1_rlQCKqsBVuTk9bypykRFQo1_IN5Q
 [2025-11-13 10:00:06:1310606][http-nio-8090-exec-8] WARN  c.m.m.common.jwt.TokenProvider - [TokenProvider] 만료된 JWT 토큰입니다. 토큰: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2Mjk5NTU5Nn0.AjIlHmHOd6r814zD8XBBvd3VvRIheQ5UKz-kKNRj5nbjOhbZ6qZVfbmA1_rlQCKqsBVuTk9bypykRFQo1_IN5Q, 만료 시각: Thu Nov 13 09:59:56 KST 2025
 io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-11-13T00:59:56Z. Current time: 2025-11-13T01:00:06Z, a difference of 10568 milliseconds.  Allowed clock skew: 0 milliseconds.
+>>>>>>> dev
 	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:427)
 	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:529)
 	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:589)
@@ -131,7 +977,11 @@ io.jsonwebtoken.ExpiredJwtException: JWT expired at 2025-11-13T00:59:56Z. Curren
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
 	at java.base/java.lang.Thread.run(Thread.java:840)
+<<<<<<< HEAD
+[2025-11-14 14:13:45:5907][http-nio-8090-exec-6] ERROR c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 처리 중 예외 발생: 만료된 JWT 토큰입니다.
+=======
 [2025-11-13 10:00:06:1310607][http-nio-8090-exec-8] ERROR c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 처리 중 예외 발생: 만료된 JWT 토큰입니다.
+>>>>>>> dev
 com.multi.multi_semi.common.exception.TokenException: 만료된 JWT 토큰입니다.
 	at com.multi.multi_semi.common.jwt.TokenProvider.validateToken(TokenProvider.java:91)
 	at com.multi.multi_semi.common.jwt.JwtFilter.doFilterInternal(JwtFilter.java:73)
@@ -206,6 +1056,548 @@ com.multi.multi_semi.common.exception.TokenException: 만료된 JWT 토큰입니
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
 	at java.base/java.lang.Thread.run(Thread.java:840)
+<<<<<<< HEAD
+[2025-11-14 14:13:45:5925][http-nio-8090-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing POST /auth/refresh
+[2025-11-14 14:13:45:5930][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:13:45:5930][http-nio-8090-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:13:45:5930][http-nio-8090-exec-7] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:13:45:5930][http-nio-8090-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured POST /auth/refresh
+[2025-11-14 14:13:45:5938][http-nio-8090-exec-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[2025-11-14 14:13:45:6131][http-nio-8090-exec-7] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy@349c04a2
+[2025-11-14 14:13:45:6132][http-nio-8090-exec-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[2025-11-14 14:13:45:6136][http-nio-8090-exec-7] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] 유효성 검증 중인 토큰: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiZXhwIjoxNzYzMTgzNDc1fQ.vgo1gPcBwTkKRHrcJpmwIc--Qew313Qprb-m3DYNYaH91aYk5fckA4g2vBfdCCpNoFSZFfcNsMAj6RXd5b3Xug
+[2025-11-14 14:13:45:6137][http-nio-8090-exec-7] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] JWT 토큰이 유효합니다
+[2025-11-14 14:13:45:6179][http-nio-8090-exec-7] INFO  jdbc.sqlonly - SELECT * FROM ref_token WHERE email = '111@gmail.com'
+
+[2025-11-14 14:13:45:6185][http-nio-8090-exec-7] INFO  jdbc.sqltiming - SELECT * FROM ref_token WHERE email = '111@gmail.com'
+ {executed in 6 msec}
+[2025-11-14 14:13:45:6198][http-nio-8090-exec-7] INFO  jdbc.resultsettable - 
+|---|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|--------------------|
+|no |email         |token                                                                                                                                                              |created_at          |expired_at          |
+|---|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|--------------------|
+|16 |111@gmail.com |eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiZXhwIjoxNzYzMTgzNDc1fQ.vgo1gPcBwTkKRHrcJpmwIc--Qew313Qprb-m3DYNYaH91aYk5fckA4g2vBfdCCpNoFSZFfcNsMAj6RXd5b3Xug |2025-11-14 14:11:15 |2025-11-15 14:11:15 |
+|---|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|--------------------|
+
+[2025-11-14 14:13:45:6200][http-nio-8090-exec-7] INFO  c.m.m.c.jwt.service.TokenService - [clientRefreshToken]: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiZXhwIjoxNzYzMTgzNDc1fQ.vgo1gPcBwTkKRHrcJpmwIc--Qew313Qprb-m3DYNYaH91aYk5fckA4g2vBfdCCpNoFSZFfcNsMAj6RXd5b3Xug
+[2025-11-14 14:13:45:6200][http-nio-8090-exec-7] INFO  c.m.m.c.jwt.service.TokenService - Refresh Token 검증 성공. 새 Access Token 발급. email: 111@gmail.com
+[2025-11-14 14:13:46:6216][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter - EXACT_PATHS] 요청 URI가 제외 경로에 해당하여 필터를 건너뜁니다.
+[2025-11-14 14:13:46:6220][http-nio-8090-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/places?offset=1
+[2025-11-14 14:13:46:6220][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:13:46:6220][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [deletePrefix] Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2MzA5NzI4NX0.24r0LrR5vrYQTN5p6TdhCdYTLXVsTu3DEOQdh3w75bgn9CEc0IHNtbtsV3nsDMi4WYB4HetKr3INjfH8bR2MsQ
+[2025-11-14 14:13:46:6220][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2MzA5NzI4NX0.24r0LrR5vrYQTN5p6TdhCdYTLXVsTu3DEOQdh3w75bgn9CEc0IHNtbtsV3nsDMi4WYB4HetKr3INjfH8bR2MsQ
+[2025-11-14 14:13:46:6220][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재합니다.
+[2025-11-14 14:13:46:6220][http-nio-8090-exec-8] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] 유효성 검증 중인 토큰: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTFAZ21haWwuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTc2MzA5NzI4NX0.24r0LrR5vrYQTN5p6TdhCdYTLXVsTu3DEOQdh3w75bgn9CEc0IHNtbtsV3nsDMi4WYB4HetKr3INjfH8bR2MsQ
+[2025-11-14 14:13:46:6221][http-nio-8090-exec-8] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] JWT 토큰이 유효합니다
+[2025-11-14 14:13:46:6221][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 유효합니다.
+[2025-11-14 14:13:46:6222][http-nio-8090-exec-8] INFO  c.m.m.common.jwt.TokenProvider - [TokenProvider] authorities: [ROLE_USER]
+[2025-11-14 14:13:46:6223][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContext에 Authentication 객체 설정 완료: UsernamePasswordAuthenticationToken [Principal=CustomUser(no=null, id=null, email=111@gmail.com, pwd=null, uuid=null, authorities=[ROLE_USER]), Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]
+[2025-11-14 14:13:46:6223][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContext에 Authentication 객체 설정 완료  authentication.getAuthorities(): [ROLE_USER]
+[2025-11-14 14:13:46:6223][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] SecurityContextHolder 객체 확인: UsernamePasswordAuthenticationToken [Principal=CustomUser(no=null, id=null, email=111@gmail.com, pwd=null, uuid=null, authorities=[ROLE_USER]), Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]
+[2025-11-14 14:13:46:6223][http-nio-8090-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/places?offset=1
+[2025-11-14 14:13:46:6225][http-nio-8090-exec-8] INFO  jdbc.sqlonly - SELECT
+            COUNT(*)
+        from place a
+                 join area_code b on a.dist = b.code
+
+[2025-11-14 14:13:46:6226][http-nio-8090-exec-8] INFO  jdbc.sqltiming - SELECT
+            COUNT(*)
+        from place a
+                 join area_code b on a.dist = b.code
+ {executed in 1 msec}
+[2025-11-14 14:13:46:6227][http-nio-8090-exec-8] INFO  jdbc.resultsettable - 
+|---------|
+|count(*) |
+|---------|
+|208      |
+|---------|
+
+[2025-11-14 14:13:46:6229][http-nio-8090-exec-8] INFO  jdbc.sqlonly - SELECT
+            a.no,
+            b.name as district,
+            a.title as title,
+            a.descr as description,
+            a.addr as address,
+            a.phone as phone,
+            a.lat,
+            a.lng,
+            a.first_img as imageUrl
+        from place a
+                 join area_code b on a.dist = b.code
+        order by a.no
+            LIMIT 0, 10
+
+[2025-11-14 14:13:46:6231][http-nio-8090-exec-8] INFO  jdbc.sqltiming - SELECT
+            a.no,
+            b.name as district,
+            a.title as title,
+            a.descr as description,
+            a.addr as address,
+            a.phone as phone,
+            a.lat,
+            a.lng,
+            a.first_img as imageUrl
+        from place a
+                 join area_code b on a.dist = b.code
+        order by a.no
+            LIMIT 0, 10
+ {executed in 2 msec}
+[2025-11-14 14:13:46:6236][http-nio-8090-exec-8] INFO  jdbc.resultsettable - 
+|---|-----|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|--------------|--------------|---------------|------------------------------------------------------------------|
+|no |name |title                          |descr                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |addr                       |phone         |lat           |lng            |first_img                                                         |
+|---|-----|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|--------------|--------------|---------------|------------------------------------------------------------------|
+|1  |인천   |개항장 거리                         |인천 개항누리길은 1800년대 말 개항기 시절의 풍경을 간직한 길이다. 인천 개항 후 대외무역이 활발해지자 지금의 인천광역시 중구 일대에 일본과 청나라를 비롯한 각국의 조계지가 형성됐고, 최초의 근대식 공원, 은행, 호텔 같은 건축물도 세워졌다. 개항누리길을 걷다 보면 청‧일 조계지 경계계단부터 당시에 지어진 서양식 건축물까지 다양한 근대 문화유산을 만날 수 있다. 130년 전 인천을 통해 국내에 들어온 근대유물을 전시하는 인천개항박물관, 인천항의 물품 보관 창고에서 문화예술공간으로 거듭난 인천아트플랫폼, 중국인들이 모여 살던 차이나타운, 한국 제1호 중국 음식점 공화춘 건물을 활용한 짜장면박물관 등 인천의 과거와 현재가 공존하는 길이다. 이곳에서는 인천문화 관광해설사가 있어 예약하면 해설을 들으며 도보 관광을 즐길 수 있다.                                                                                                                                                                    |인천광역시 중구 관동1가              |              |37.4729337678 |126.6210062460 |http://tong.visitkorea.or.kr/cms/resource/52/3518552_image2_1.jpg |
+|2  |인천   |개항장 댕댕 도서관                     |<개항장 댕댕 도서관> 은 반려인과 시민이 함께 어울려 책을 읽고, 걷고, 소통하며 추억을 만드는 힐링 축제다. 11월 8일 토요일 오후 1시부터 6시까지, 인천 상상플랫폼 1883개항광장에서 열린다. 이번 축제는 단순한 전시나 체험이 아닌, 사람과 반려동물, 그리고 책이 함께하는 감성 공간으로 운영된다. 누구나 자유롭게 머물며 책을 읽을 수 있는 북라운지, 반려견이 마음껏 뛰어놀 수 있는 프리존 & 어질리티 코스, 그리고 전문가와 함께하는 산책훈련, 미용, 마사지 등 다양한 클래스가 진행된다. 현장에서는 직접 참여하고 경험할 수 있는 다채로운 액티비티도 마련된다. 반려인을 위한 산책가방 만들기, 펫 상담톡, 펫타로 체험 등 나만의 추억을 남길 수 있는 프로그램이 준비되어 있다. 또한 로컬상권과 연계된 마켓존에서는 수제 간식과 반려용품, 감성 굿즈 등 반려 라이프를 더욱 풍요롭게 만들어줄 아이템들을 만나볼 수 있다. 개항광장 산책코스에서는 반려견과 함께 걷는 여유로운 가을의 정취를 느낄 수 있다. 불어오는 바람 사이로 펼쳐지는 독서의 향기와 웃음소리, 그리고 따뜻한 교감이 이 가을의 하루를 더욱 특별하게 만든다. |인천광역시 중구 월미로 33 (북성동1가)    |010-8456-2948 |37.4761360618 |126.6146650689 |http://tong.visitkorea.or.kr/cms/resource/81/3557781_image2_1.png |
+|3  |인천   |인천개항장 국가유산 야행                  |10주년을 맞은 인천개항장 국가유산 야행은 '한국 최초의 국제도시'라는 정체성으로 개항장을 리브랜딩하고 인천만의 유니크한 개항 스토리를 더욱 확장했다. 1883년, 타인에 의해 문을 열었지만 인천은 새로운 문화를 배척하지 않고 받아들였다. 그 안에서 스스로의 문화를 지켜내며, 공존의 길을 택한 도시 인천개항장은 전통과 근대, 조선과 세계가 나란히 걷던 공간이자 대한민국 최초의 국제도시였다. 세계와 처음 연결된 도시로서의 개항장을 2025년 야행에서 다시 조명한다.                                                                                                                                                                                                                                                                                                                          |인천광역시 중구 신포로27번길 80 (관동1가) |032-899-7425  |37.4735225945 |126.6213645301 |http://tong.visitkorea.or.kr/cms/resource/88/3491388_image2_1.png |
+|4  |인천   |인천개항장 근대건축전시관                  |인천 개항장 근대건축전시관은 개항장 내 서구 근대건축물을 모아 전시하는 공간이다. 일본 나가사키에 본점을 둔 18은행의 인천 지점으로 처음 세워졌다가 1954년부터 1992년까지 한국흥업은행과 카페로 활용된 바 있다. 4개의 전시관을 차례대로 훑어보면 1883년 개항 당시 국내외 정세부터 근대건축물 정보까지 다양한 사료를 만날 수 있다. 은행으로 사용될 당시의 금고와 지붕이 건물 안에 그대로 남아, 타임머신을 타고 역사의 현장으로 들어온 느낌마저 든다. 메인 전시관인 3전시실은 각국의 외교관사, 관공서부터 소실된 외국인의 주택 등 다양한 근대건축물 디오라마를 전시 중이다. 원하는 건축물을 선택하면 커다란 스크린을 통해 영상 설명을 들을 수도 있다. 금고로 사용되었던 공간은 18은행과 조선인 수탈 사이의 관계를 설명하는 4전시실로 꾸며놓았다. 18은행은 조선에서 무역하는 나가사키 상인들을 지원하는 한편 조선인들을 대상으로 고리대금업을 벌였는데, 이때 조선인들에게 받은 이자 대부분이 일본인에게 넘어가 조선인들의 삶이 피폐해졌다고 한다.                                               |인천광역시 중구 신포로23번길 77        |              |37.4729393262 |126.6212117826 |http://tong.visitkorea.or.kr/cms/resource/78/3381778_image2_1.jpg |
+|5  |인천   |all nights INCHEON 월미·개항장 야간마켓 |'2025 all nights INCHEON 월미 · 개항장 야간마켓'은 인천 원도심 관광의 매력을 밤에도 즐길 수 있도록 기획된 지역 연계 할인 쿠폰 행사이다. 월미도, 개항장, 차이나타운, 신포동 일대의 다양한 상점이 참여하며, 음식점, 주점, 카페, 베이커리, 체험시설 등 여러 업종에서 사용할 수 있는 할인쿠폰이 인천e지 앱을 통해 제공된다. 본 행사는 6월 20일부터 6주간, 매주 금요일과 토요일 오후 5시부터 자정까지 운영되며, 방문객들은 쿠폰을 활용해 인천 원도심의 다채로운 맛과 체험을 보다 합리적인 가격으로 즐길 수 있다.                                                                                                                                                                                                                                                                                 |인천광역시 중구 월미문화로 30 (북성동1가)  |032-715-5633  |37.4758413510 |126.5976277433 |http://tong.visitkorea.or.kr/cms/resource/40/3497940_image2_1.png |
+|6  |인천   |월미문화의거리 & 달빛음악분수               |인천의 대표적인 관광지 중의 하나인 월미도에는 월미도 문화의 거리, 월미공원, 월미테마파크 등이 있다. 월미도 문화의 거리는 보행자 전용 도로로 차량 출입시간을 제외하고는 차량의 출입이 통제되어 있다. 초상화를 그려주는 길거리 화가들이 나와 있고 앉아 쉴 수 있는 벤치가 있는 작은 쉼터 같은 거리다. 월미공원에 위치한 월미 전망대에서는 인천항 일대의 전경을 다 볼 수 있어 월미도를 간다면 한 번쯤 들러서 전망을 구경하는 것도 좋다. 놀이와 체험이 가능한 월미테마파크에는 다양한 놀이 기구가 있어 연인들의 데이트 장소나 가족들의 나들이 장소로 인기 있다. 월미 달빛 음악 분수는 월미문화 거리 안에 있는 분수로 크지는 않지만 월미도의 볼거리 중 하나이다. 5월 1일부터 10월 31일까지 진행하고 매주 월요일은 정기점검을 한다. 음악 분수는 음악에 맞춰 불줄기들이 춤을 추는데 물과 음악이 조합되어 멋진 장관을 이룬다. 저녁이 되면 음악에 따라 6~7가지 빛의 분수 쇼가 펼쳐진다. 그러므로 낮에 감상하는 것보다는 밤에 보는 모습이 더욱더 멋지다.                                            |인천광역시 중구 월미로 252           |              |37.4738860361 |126.5983832839 |http://tong.visitkorea.or.kr/cms/resource/69/2786469_image2_1.jpg |
+|7  |인천   |하나개해수욕장                        |하나개해수욕장은 무의도 서쪽에 자리한 갯벌을 품은 해수욕장이다. 하나개는 가장 큰 갯벌이라는 뜻이다. 1㎞ 길이의 고운 모래 백사장이 펼쳐지고, 물이 빠지면 고운 모래사장 너머로 너른 갯벌이 드러난다. 갯벌을 조금만 파 내려가면 흰 속살의 동죽조개를 비롯하여 소라, 방게, 바지락 등이 지천이다. 해가 질 때의 붉은빛 노을은 해수욕장의 또 다른 장관이다. 하나개해수욕장은 아이들이 놀기에 수심이 적당하고 숙박시설과 샤워장, 식당, 노래방 등 편의시설이 많아 주로 가족 단위 관광객들이 많이 찾는다. 해수욕장 뒤편에는 유원지가 조성돼 있어 즐길 거리도 많다.
+
+유원지에서는 승마, 사륜오토바이, 씨 스카이월드를 즐길 수 있다. 씨 스카이월드는 백사장에 설치된 높이 25m의 철탑으로부터 413m의 와이어를 연결하여 높은 곳에서 낮은 곳으로 하늘을 날 듯 하강하는 신종 익스트림 레포츠이다. 노천 포장마차에서 싱싱한 해산물을 맛보는 것도 빼놓을 수 없다. 이곳은 드라마 ‘천국의 계단’ 촬영지로 해변 한쪽에 촬영 세트장이 남아 있어, 또 다른 볼거리를 제공한다.                                       |인천광역시 중구 하나개로 150 (무의동)    |              |37.3844625784 |126.4102556957 |http://tong.visitkorea.or.kr/cms/resource/54/3498254_image2_1.jpg |
+|8  |경기도  |세미원                            |세미원은 팔당호가 삼면에 둘러싸인 물과 꽃의 정원으로 동양의 전통적인 정원 양식과 수생식물 등 약 270종의 식물을 보유하고 있으며, 다양한 볼거리가 있는 곳이다. 2019년 6월에는 경기도 제1호 지방 정원으로 지정되었으며, 정약용이 강폭이 좁아지는 양주 지역 남한강에 배다리를 놓았는데 이곳이 오늘날의 세미원 자리인 것으로 알려져 있다. 또한 연꽃박물관과 수련온실, 석창원, 상춘원을 비롯하여 다양한 시설 조성과 체험 행사를 통해 우리 역사의 숨결과 문화 예술의 공간으로 탄생된 물과 꽃의 정원이다.                                                                                                                                                                                                                                                                                                      |경기도 양평군 양서면 양수로 93         |              |37.5407412665 |127.3241902960 |http://tong.visitkorea.or.kr/cms/resource/90/3447890_image2_1.jpg |
+|9  |경기도  |세미원 연꽃박물관                      |세미원 연꽃박물관은 연꽃이라는 단일한 테마로 연꽃 관련 생활용품, 음식관련, 옛 문서 등 유물들을 모아 전시하고 있는 박물관으로 2009년 1월에 개관하였다. 박물관 2층에 있는 상설전시는 연꽃의 기원 및 역사, 연꽃 문양의 종류와 시대별 특징, 불교에서 연꽃의 의미 등 연꽃의 역사와 문화, 관련 유물 등을 한눈에 살펴볼 수 있고 3층은 대관 전시로 기간에 따라 다른 기획전이 열린다.
+경의중앙선 양수역에서 약 2분, 도보 약 11분 거리에 위치하고 지하철역에서 부근까지 버스도 있어 대중교통 접근성도 용이하다. 인근에 두물머리, 카페리노, 물의정원, 정약용유적지, 실학박물관 등이 있다.                                                                                                                                                                                                                                                     |경기도 양평군 양서면 양수로 93         |              |37.5409856786 |127.3239847527 |http://tong.visitkorea.or.kr/cms/resource/90/3012390_image2_1.jpg |
+|10 |경기도  |시흥 갯골생태공원                      |갯골생태공원은 150만 평의 폐염전 부지에 깊숙한 내만갯벌로 형성된 습지이다. 내만갯골 자연생태자원과 옛 염전의 문화유산을 활용하여 조성되었으며, 자연생태가 살아 숨 쉬는 보고(寶庫)이자, 시민에게 휴식을 제공하는 자연과 사람이 어우러진 친환경적 생태공원이다. 갯골 수로에는 서해안의 특성인 조수간만의 차가 크게 나타나고, 이곳에 형성된 갯골과 초지 군락지는 보기 드문 다양한 생물의 분포를 보이고 있으며, 옛 염전부지와 소금창고 등은 사라져 가는 해안문화의 자취를 지니고 있다. 이곳에서 칠면초, 나문재, 퉁퉁마디 등의 염생식물을 관찰할 수 있으며, 붉은 발 농게, 방게 등 다양한 생물도 관찰할 수 있다. 시흥갯골은 아름다운 경관과 생태적 우수성으로 시흥시의 생태환경 1등급 지역이며, 2012년 2월 국가 해양 습지보호지역으로 지정되었다.                                                                                                                                                               |경기도 시흥시 동서로 287 (장곡동)      |              |37.3898240311 |126.7812550601 |http://tong.visitkorea.or.kr/cms/resource/11/3304111_image2_1.JPG |
+|---|-----|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|--------------|--------------|---------------|------------------------------------------------------------------|
+
+[2025-11-14 14:13:46:6238][http-nio-8090-exec-8] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 1
+        order by r.no desc
+
+[2025-11-14 14:13:46:6239][http-nio-8090-exec-8] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 1
+        order by r.no desc
+ {executed in 1 msec}
+[2025-11-14 14:13:46:6242][http-nio-8090-exec-8] INFO  jdbc.resultsettable - 
+|---|-------|-------------------|-------------------|--------|---------------------------|-----|--------------------|--------------------|
+|no |title  |id                 |email              |title   |content                    |rate |created_at          |modified_at         |
+|---|-------|-------------------|-------------------|--------|---------------------------|-----|--------------------|--------------------|
+|14 |개항장 거리 |gy011003@gmail.com |gy011003@gmail.com |조용한 분위기 |카페 분위기가 너무 조용해서 공부하기 좋았어요. |4    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|13 |개항장 거리 |gy011003@gmail.com |gy011003@gmail.com |맛집 인정   |음식이 정말 맛있었어요! 재방문 의사 100%  |5    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|12 |개항장 거리 |gy011003@gmail.com |gy011003@gmail.com |좋아요     |또 올게요                      |5    |2025-11-12 13:11:41 |2025-11-12 13:11:41 |
+|7  |개항장 거리 |test4              |444@gmail.com      |조용한 분위기 |카페 분위기가 너무 조용해서 공부하기 좋았어요. |4    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|6  |개항장 거리 |test3              |333@gmail.com      |맛집 인정   |음식이 정말 맛있었어요! 재방문 의사 100%  |5    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|---|-------|-------------------|-------------------|--------|---------------------------|-----|--------------------|--------------------|
+
+[2025-11-14 14:13:46:6243][http-nio-8090-exec-8] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 2
+        order by r.no desc
+
+[2025-11-14 14:13:46:6244][http-nio-8090-exec-8] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 2
+        order by r.no desc
+ {executed in 1 msec}
+[2025-11-14 14:13:46:6245][http-nio-8090-exec-8] INFO  jdbc.resultsettable - 
+|---|-----------|-------------------|-------------------|----------|----------------------|-----|--------------------|--------------------|
+|no |title      |id                 |email              |title     |content               |rate |created_at          |modified_at         |
+|---|-----------|-------------------|-------------------|----------|----------------------|-----|--------------------|--------------------|
+|21 |개항장 댕댕 도서관 |test1              |111@gmail.com      |굿         |굿굿                    |3    |2025-11-13 12:59:36 |2025-11-13 13:03:24 |
+|15 |개항장 댕댕 도서관 |gy011003@gmail.com |gy011003@gmail.com |가격 대비 아쉬움 |맛은 괜찮았지만 가격이 조금 비쌌어요. |3    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|8  |개항장 댕댕 도서관 |test4              |444@gmail.com      |가격 대비 아쉬움 |맛은 괜찮았지만 가격이 조금 비쌌어요. |3    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|---|-----------|-------------------|-------------------|----------|----------------------|-----|--------------------|--------------------|
+
+[2025-11-14 14:13:46:6246][http-nio-8090-exec-8] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 3
+        order by r.no desc
+
+[2025-11-14 14:13:46:6247][http-nio-8090-exec-8] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 3
+        order by r.no desc
+ {executed in 1 msec}
+[2025-11-14 14:13:46:6248][http-nio-8090-exec-8] INFO  jdbc.resultsettable - 
+|---|--------------|-------------------|-------------------|------|-------------------------|-----|--------------------|--------------------|
+|no |title         |id                 |email              |title |content                  |rate |created_at          |modified_at         |
+|---|--------------|-------------------|-------------------|------|-------------------------|-----|--------------------|--------------------|
+|16 |인천개항장 국가유산 야행 |gy011003@gmail.com |gy011003@gmail.com |서비스 굿 |직원분들이 친절해서 기분 좋게 식사했습니다. |5    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|9  |인천개항장 국가유산 야행 |test5              |555@gmail.com      |서비스 굿 |직원분들이 친절해서 기분 좋게 식사했습니다. |5    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|---|--------------|-------------------|-------------------|------|-------------------------|-----|--------------------|--------------------|
+
+[2025-11-14 14:13:46:6248][http-nio-8090-exec-8] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 4
+        order by r.no desc
+
+[2025-11-14 14:13:46:6249][http-nio-8090-exec-8] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 4
+        order by r.no desc
+ {executed in 1 msec}
+[2025-11-14 14:13:46:6250][http-nio-8090-exec-8] INFO  jdbc.resultsettable - 
+|---|--------------|-------------------|-------------------|--------|------------------------|-----|--------------------|--------------------|
+|no |title         |id                 |email              |title   |content                 |rate |created_at          |modified_at         |
+|---|--------------|-------------------|-------------------|--------|------------------------|-----|--------------------|--------------------|
+|17 |인천개항장 근대건축전시관 |gy011003@gmail.com |gy011003@gmail.com |사진이랑 다름 |사진 보고 기대했는데 실물은 좀 달랐어요. |2    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+|10 |인천개항장 근대건축전시관 |test4              |444@gmail.com      |사진이랑 다름 |사진 보고 기대했는데 실물은 좀 달랐어요. |2    |2025-11-11 17:04:42 |2025-11-11 17:04:42 |
+|---|--------------|-------------------|-------------------|--------|------------------------|-----|--------------------|--------------------|
+
+[2025-11-14 14:13:46:6251][http-nio-8090-exec-8] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 5
+        order by r.no desc
+
+[2025-11-14 14:13:46:6251][http-nio-8090-exec-8] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 5
+        order by r.no desc
+ {executed in 0 msec}
+[2025-11-14 14:13:46:6251][http-nio-8090-exec-8] INFO  jdbc.resultsettable - 
+|---|------|---|------|------|--------|-----|-----------|------------|
+|no |title |id |email |title |content |rate |created_at |modified_at |
+|---|------|---|------|------|--------|-----|-----------|------------|
+|---|------|---|------|------|--------|-----|-----------|------------|
+
+[2025-11-14 14:13:46:6252][http-nio-8090-exec-8] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 6
+        order by r.no desc
+
+[2025-11-14 14:13:46:6252][http-nio-8090-exec-8] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 6
+        order by r.no desc
+ {executed in 0 msec}
+[2025-11-14 14:13:46:6253][http-nio-8090-exec-8] INFO  jdbc.resultsettable - 
+|---|------|---|------|------|--------|-----|-----------|------------|
+|no |title |id |email |title |content |rate |created_at |modified_at |
+|---|------|---|------|------|--------|-----|-----------|------------|
+|---|------|---|------|------|--------|-----|-----------|------------|
+
+[2025-11-14 14:13:46:6253][http-nio-8090-exec-8] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 7
+        order by r.no desc
+
+[2025-11-14 14:13:46:6254][http-nio-8090-exec-8] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 7
+        order by r.no desc
+ {executed in 1 msec}
+[2025-11-14 14:13:46:6254][http-nio-8090-exec-8] INFO  jdbc.resultsettable - 
+|---|------|---|------|------|--------|-----|-----------|------------|
+|no |title |id |email |title |content |rate |created_at |modified_at |
+|---|------|---|------|------|--------|-----|-----------|------------|
+|---|------|---|------|------|--------|-----|-----------|------------|
+
+[2025-11-14 14:13:46:6254][http-nio-8090-exec-8] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 8
+        order by r.no desc
+
+[2025-11-14 14:13:46:6255][http-nio-8090-exec-8] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 8
+        order by r.no desc
+ {executed in 1 msec}
+[2025-11-14 14:13:46:6255][http-nio-8090-exec-8] INFO  jdbc.resultsettable - 
+|---|------|---|------|------|--------|-----|-----------|------------|
+|no |title |id |email |title |content |rate |created_at |modified_at |
+|---|------|---|------|------|--------|-----|-----------|------------|
+|---|------|---|------|------|--------|-----|-----------|------------|
+
+[2025-11-14 14:13:46:6255][http-nio-8090-exec-8] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 9
+        order by r.no desc
+
+[2025-11-14 14:13:46:6256][http-nio-8090-exec-8] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 9
+        order by r.no desc
+ {executed in 1 msec}
+[2025-11-14 14:13:46:6256][http-nio-8090-exec-8] INFO  jdbc.resultsettable - 
+|---|------|---|------|------|--------|-----|-----------|------------|
+|no |title |id |email |title |content |rate |created_at |modified_at |
+|---|------|---|------|------|--------|-----|-----------|------------|
+|---|------|---|------|------|--------|-----|-----------|------------|
+
+[2025-11-14 14:13:46:6257][http-nio-8090-exec-8] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 10
+        order by r.no desc
+
+[2025-11-14 14:13:46:6257][http-nio-8090-exec-8] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+            join place p on r.place_no = p.no
+            join mem m on r.writer_email = m.email
+        where r.place_no = 10
+        order by r.no desc
+ {executed in 0 msec}
+[2025-11-14 14:13:46:6257][http-nio-8090-exec-8] INFO  jdbc.resultsettable - 
+|---|------|---|------|------|--------|-----|-----------|------------|
+|no |title |id |email |title |content |rate |created_at |modified_at |
+|---|------|---|------|------|--------|-----|-----------|------------|
+|---|------|---|------|------|--------|-----|-----------|------------|
+
+[2025-11-14 14:13:46:6263][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:13:46:7193][http-nio-8090-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /reviews/list
+[2025-11-14 14:13:46:7194][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:13:46:7194][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:13:46:7194][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:13:46:7195][http-nio-8090-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:13:46:7195][http-nio-8090-exec-9] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:13:46:7195][http-nio-8090-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured GET /reviews/list
+[2025-11-14 14:13:47:7288][http-nio-8090-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/reviews
+[2025-11-14 14:13:47:7288][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:13:47:7288][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:13:47:7289][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:13:47:7289][http-nio-8090-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:13:47:7289][http-nio-8090-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/reviews
+[2025-11-14 14:13:47:7291][http-nio-8090-exec-10] INFO  jdbc.sqlonly - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+                 join place p on r.place_no = p.no
+                 join mem m on r.writer_email = m.email
+        order by r.no
+
+[2025-11-14 14:13:47:7291][http-nio-8090-exec-10] INFO  jdbc.sqltiming - select
+            r.no as no,
+            p.title as placeTitle,
+            m.id as writer,
+            m.email as writerEmail,
+            r.title as title,
+            r.content as content,
+            r.rate as rate,
+            r.created_at as createdAt,
+            r.modified_at as updatedAt
+        from rev r
+                 join place p on r.place_no = p.no
+                 join mem m on r.writer_email = m.email
+        order by r.no
+ {executed in 0 msec}
+[2025-11-14 14:13:47:7296][http-nio-8090-exec-10] INFO  jdbc.resultsettable - 
+=======
 [2025-11-13 10:00:06:1310615][http-nio-8090-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing POST /auth/refresh
 [2025-11-13 10:00:06:1310615][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
 [2025-11-13 10:00:06:1310616][http-nio-8090-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
@@ -308,6 +1700,7 @@ com.multi.multi_semi.common.exception.TokenException: 만료된 JWT 토큰입니
         order by r.no
  {executed in 2 msec}
 [2025-11-13 10:00:39:1343515][http-nio-8090-exec-10] INFO  jdbc.resultsettable - 
+>>>>>>> dev
 |---|--------------|-------------------|-------------------|----------|---------------------------|-----|--------------------|--------------------|
 |no |title         |id                 |email              |title     |content                    |rate |created_at          |modified_at         |
 |---|--------------|-------------------|-------------------|----------|---------------------------|-----|--------------------|--------------------|
@@ -322,6 +1715,181 @@ com.multi.multi_semi.common.exception.TokenException: 만료된 JWT 토큰입니
 |15 |개항장 댕댕 도서관    |gy011003@gmail.com |gy011003@gmail.com |가격 대비 아쉬움 |맛은 괜찮았지만 가격이 조금 비쌌어요.      |3    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
 |16 |인천개항장 국가유산 야행 |gy011003@gmail.com |gy011003@gmail.com |서비스 굿     |직원분들이 친절해서 기분 좋게 식사했습니다.   |5    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
 |17 |인천개항장 근대건축전시관 |gy011003@gmail.com |gy011003@gmail.com |사진이랑 다름   |사진 보고 기대했는데 실물은 좀 달랐어요.    |2    |2025-11-12 14:46:34 |2025-11-12 14:46:34 |
+<<<<<<< HEAD
+|21 |개항장 댕댕 도서관    |test1              |111@gmail.com      |굿         |굿굿                         |3    |2025-11-13 12:59:36 |2025-11-13 13:03:24 |
+|---|--------------|-------------------|-------------------|----------|---------------------------|-----|--------------------|--------------------|
+
+[2025-11-14 14:13:47:7299][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:13:47:7347][http-nio-8090-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/styles1.css
+[2025-11-14 14:13:47:7347][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:13:47:7347][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:13:47:7347][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:13:47:7347][http-nio-8090-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:13:47:7347][http-nio-8090-exec-1] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:13:47:7347][http-nio-8090-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/styles1.css
+[2025-11-14 14:13:47:7348][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:13:47:7350][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:13:47:7352][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /multiimgs/null
+[2025-11-14 14:13:47:7352][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:13:47:7352][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:13:47:7352][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:13:47:7352][http-nio-8090-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:13:47:7352][http-nio-8090-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:13:47:7353][http-nio-8090-exec-2] WARN  c.m.m.c.j.JwtAuthenticationEntryPoint - 인증 실패: 인증되지 않은 사용자가 /multiimgs/null 경로에 접근하려고 했습니다. 401 Unauthorized 반환.
+[2025-11-14 14:13:47:7353][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:13:47:7757][http-nio-8090-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+[2025-11-14 14:13:47:7758][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:13:47:7758][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:13:47:7758][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:13:47:7758][http-nio-8090-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:13:47:7759][http-nio-8090-exec-3] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:13:47:7759][http-nio-8090-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /
+[2025-11-14 14:13:47:7772][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:13:47:7784][http-nio-8090-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/styles1.css
+[2025-11-14 14:13:47:7784][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:13:47:7785][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:13:47:7785][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:13:47:7785][http-nio-8090-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:13:47:7785][http-nio-8090-exec-4] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:13:47:7785][http-nio-8090-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/styles1.css
+[2025-11-14 14:13:47:7787][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:13:47:7821][http-nio-8090-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /json/no_descr.json
+[2025-11-14 14:13:47:7822][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:13:47:7822][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:13:47:7822][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:13:47:7822][http-nio-8090-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:13:47:7822][http-nio-8090-exec-5] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:13:47:7823][http-nio-8090-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /json/no_descr.json
+[2025-11-14 14:13:47:7828][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:13:48:8690][http-nio-8090-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /generate-request
+[2025-11-14 14:13:48:8691][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:13:48:8691][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:13:48:8691][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:13:48:8691][http-nio-8090-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:13:48:8691][http-nio-8090-exec-6] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:13:48:8692][http-nio-8090-exec-6] WARN  c.m.m.c.j.JwtAuthenticationEntryPoint - 인증 실패: 인증되지 않은 사용자가 /generate-request 경로에 접근하려고 했습니다. 401 Unauthorized 반환.
+[2025-11-14 14:13:48:8693][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:14:56:76609][SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+[2025-11-14 14:14:56:76615][tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+[2025-11-14 14:14:56:76625][SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+[2025-11-14 14:14:56:76628][SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+[2025-11-14 14:14:58:434][background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+[2025-11-14 14:14:58:456][restartedMain] INFO  c.m.multi_semi.MultiSemiApplication - Starting MultiSemiApplication using Java 17.0.16 with PID 7808 (/Users/kwonjiyoung/Documents/multi_semi_project/multi_semi/multi_semi/build/classes/java/main started by kwonjiyoung in /Users/kwonjiyoung/Documents/multi_semi_project/multi_semi/multi_semi)
+[2025-11-14 14:14:58:457][restartedMain] INFO  c.m.multi_semi.MultiSemiApplication - The following 1 profile is active: "local"
+[2025-11-14 14:14:58:479][restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2025-11-14 14:14:58:479][restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2025-11-14 14:14:59:1246][restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8090 (http)
+[2025-11-14 14:14:59:1254][restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8090"]
+[2025-11-14 14:14:59:1255][restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+[2025-11-14 14:14:59:1255][restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.48]
+[2025-11-14 14:14:59:1280][restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[2025-11-14 14:14:59:1280][restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 801 ms
+[2025-11-14 14:14:59:1689][restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailService
+[2025-11-14 14:15:00:1846][restartedMain] DEBUG o.s.s.w.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, OAuth2AuthorizationRequestRedirectFilter, OAuth2LoginAuthenticationFilter, JwtFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+[2025-11-14 14:15:00:2014][restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[2025-11-14 14:15:00:2029][restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8090"]
+[2025-11-14 14:15:00:2040][restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8090 (http) with context path '/'
+[2025-11-14 14:15:00:2049][restartedMain] INFO  c.m.multi_semi.MultiSemiApplication - Started MultiSemiApplication in 1.898 seconds (process running for 2.49)
+[2025-11-14 14:15:07:8918][http-nio-8090-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2025-11-14 14:15:07:8918][http-nio-8090-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[2025-11-14 14:15:07:8919][http-nio-8090-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+[2025-11-14 14:15:07:8928][http-nio-8090-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+[2025-11-14 14:15:07:8931][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:15:07:8931][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:15:07:8931][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:15:07:8932][http-nio-8090-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:15:07:8933][http-nio-8090-exec-1] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:15:07:8934][http-nio-8090-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /
+[2025-11-14 14:15:07:9111][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:15:07:9123][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/styles1.css
+[2025-11-14 14:15:07:9124][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:15:07:9124][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:15:07:9124][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:15:07:9124][http-nio-8090-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:15:07:9124][http-nio-8090-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:15:07:9124][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/styles1.css
+[2025-11-14 14:15:07:9131][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:15:07:9204][http-nio-8090-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /json/no_descr.json
+[2025-11-14 14:15:07:9205][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:15:07:9206][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:15:07:9206][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:15:07:9206][http-nio-8090-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:15:07:9206][http-nio-8090-exec-3] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:15:07:9207][http-nio-8090-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /json/no_descr.json
+[2025-11-14 14:15:07:9213][http-nio-8090-exec-3] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:15:08:10534][http-nio-8090-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /api/v1/generate-request
+[2025-11-14 14:15:08:10534][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:15:08:10535][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:15:08:10535][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:15:08:10535][http-nio-8090-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:15:08:10535][http-nio-8090-exec-4] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:15:08:10537][http-nio-8090-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /api/v1/generate-request
+[2025-11-14 14:15:08:10561][http-nio-8090-exec-4] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:15:08:10572][http-nio-8090-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/styles1.css
+[2025-11-14 14:15:08:10573][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:15:08:10573][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:15:08:10573][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:15:08:10573][http-nio-8090-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:15:08:10573][http-nio-8090-exec-5] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:15:08:10573][http-nio-8090-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/styles1.css
+[2025-11-14 14:15:08:10575][http-nio-8090-exec-5] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:15:11:12805][http-nio-8090-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+[2025-11-14 14:15:11:12806][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:15:11:12806][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:15:11:12807][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:15:11:12807][http-nio-8090-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:15:11:12807][http-nio-8090-exec-6] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:15:11:12807][http-nio-8090-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /
+[2025-11-14 14:15:11:12822][http-nio-8090-exec-6] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:15:11:12834][http-nio-8090-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/styles1.css
+[2025-11-14 14:15:11:12834][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:15:11:12834][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:15:11:12835][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:15:11:12835][http-nio-8090-exec-7] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:15:11:12835][http-nio-8090-exec-7] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:15:11:12835][http-nio-8090-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/styles1.css
+[2025-11-14 14:15:11:12838][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:15:11:12856][http-nio-8090-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /json/no_descr.json
+[2025-11-14 14:15:11:12856][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:15:11:12856][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:15:11:12856][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:15:11:12857][http-nio-8090-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:15:11:12857][http-nio-8090-exec-8] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:15:11:12857][http-nio-8090-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /json/no_descr.json
+[2025-11-14 14:15:11:12860][http-nio-8090-exec-8] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:15:12:13975][http-nio-8090-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing GET /mypage
+[2025-11-14 14:15:12:13976][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:15:12:13976][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:15:12:13977][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:15:12:13977][http-nio-8090-exec-9] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:15:12:13977][http-nio-8090-exec-9] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:15:12:13980][http-nio-8090-exec-9] WARN  c.m.m.c.j.JwtAuthenticationEntryPoint - 인증 실패: 인증되지 않은 사용자가 /mypage 경로에 접근하려고 했습니다. 401 Unauthorized 반환.
+[2025-11-14 14:15:12:13982][http-nio-8090-exec-9] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:15:14:16142][http-nio-8090-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing GET /
+[2025-11-14 14:15:14:16143][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:15:14:16144][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:15:14:16145][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:15:14:16146][http-nio-8090-exec-10] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:15:14:16146][http-nio-8090-exec-10] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:15:14:16147][http-nio-8090-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured GET /
+[2025-11-14 14:15:14:16162][http-nio-8090-exec-10] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:15:14:16176][http-nio-8090-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /css/styles1.css
+[2025-11-14 14:15:14:16177][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:15:14:16177][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:15:14:16177][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:15:14:16177][http-nio-8090-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:15:14:16177][http-nio-8090-exec-1] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:15:14:16178][http-nio-8090-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /css/styles1.css
+[2025-11-14 14:15:14:16180][http-nio-8090-exec-1] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+[2025-11-14 14:15:14:16202][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /json/no_descr.json
+[2025-11-14 14:15:14:16203][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] doFilterInternal START ===================================
+[2025-11-14 14:15:14:16203][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] AccessToken = null
+[2025-11-14 14:15:14:16203][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] JWT 토큰이 존재하지 않습니다.
+[2025-11-14 14:15:14:16203][http-nio-8090-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+[2025-11-14 14:15:14:16203][http-nio-8090-exec-2] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id EEC701CF1DE213533F609B1147219716
+[2025-11-14 14:15:14:16203][http-nio-8090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /json/no_descr.json
+[2025-11-14 14:15:14:16206][http-nio-8090-exec-2] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+=======
 |20 |아산 외암마을 참판댁   |test1              |111@gmail.com      |ㄹㄴㄹ       |ㅇㅎㅇ                        |5    |2025-11-13 10:00:37 |2025-11-13 10:00:37 |
 |---|--------------|-------------------|-------------------|----------|---------------------------|-----|--------------------|--------------------|
 
@@ -869,3 +2437,4 @@ com.multi.multi_semi.common.exception.TokenException: 만료된 JWT 토큰입니
 [2025-11-13 10:01:09:1373070][http-nio-8090-exec-7] DEBUG o.s.s.w.s.SessionManagementFilter - Request requested invalid session id 5992D87C55D06C3A9DC1494FA23BB701
 [2025-11-13 10:01:09:1373071][http-nio-8090-exec-7] WARN  c.m.m.c.j.JwtAuthenticationEntryPoint - 인증 실패: 인증되지 않은 사용자가 /multiimgs/null 경로에 접근하려고 했습니다. 401 Unauthorized 반환.
 [2025-11-13 10:01:09:1373072][http-nio-8090-exec-7] INFO  c.m.multi_semi.common.jwt.JwtFilter - [JwtFilter] 필터 체인 완료 후 응답 처리
+>>>>>>> dev

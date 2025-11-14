@@ -12,6 +12,7 @@
             m.email as writerEmail,
             r.title as title,
             r.content as content,
+            r.img_url as imgUrl,
             r.rate as rate,
             r.created_at as createdAt,
             r.modified_at as updatedAt
@@ -75,6 +76,7 @@
             r.content as content,
             r.rate as rate,
             r.created_at as createdAt,
+            r.img_url as imgUrl,
             r.modified_at as updatedAt
         from rev r
             join place p on r.place_no = p.no
@@ -91,6 +93,7 @@
             m.email as writerEmail,
             r.title as title,
             r.content as content,
+            r.img_url as imgUrl,
             r.rate as rate,
             r.created_at as createdAt,
             r.modified_at as updatedAt

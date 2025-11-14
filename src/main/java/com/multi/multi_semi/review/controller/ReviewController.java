@@ -54,39 +54,14 @@ public class ReviewController {
     @PostMapping(value = "/reviews", consumes = {"multipart/form-data"})
     public ResponseEntity<ResponseDto> insertReview(@ModelAttribute ReviewReqDto reviewReqDto, @AuthenticationPrincipal CustomUser customUser) {
         try {
-            MultipartFile file = reviewReqDto.getImgFile();
-            String fileName = null;
-
-            // ✅ 이미지 저장 처리
-            if (file != null && !file.isEmpty()) {
-                // 저장 경로 (본인 프로젝트 경로 맞게 수정 가능)
-                String uploadDir = "/C:\\productimgs/";
-                File dir = new File(uploadDir);
-                if (!dir.exists()) dir.mkdirs();
-
-                // UUID + 파일명
-                fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-                File dest = new File(uploadDir, fileName);
-                file.transferTo(dest);
-
-                reviewReqDto.setImgUrl("/uploads/" + fileName); // 웹 접근 경로 (원하면 DB에 전체 경로로 저장 가능)
-            }
-
             reviewReqDto.setWriterEmail(customUser.getEmail());
             reviewReqDto.setModifiedBy(customUser.getEmail());
 
-            // ✅ DB 저장 호출
             reviewService.insertReview(reviewReqDto);
 
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(new ResponseDto(HttpStatus.OK, "리뷰 등록 성공", null));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR, "이미지 업로드 실패", null));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -104,27 +79,9 @@ public class ReviewController {
             @AuthenticationPrincipal CustomUser customUser) {
 
         try {
-
-            MultipartFile file = reviewReqDto.getImgFile();
-            String fileName = null;
-
-            // ✅ 이미지 저장 처리
-            if (file != null && !file.isEmpty()) {
-                // 저장 경로 (본인 프로젝트 경로 맞게 수정 가능)
-                String uploadDir = "/C:\\productimgs/";
-                File dir = new File(uploadDir);
-                if (!dir.exists()) dir.mkdirs();
-
-                // UUID + 파일명
-                fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-                File dest = new File(uploadDir, fileName);
-                file.transferTo(dest);
-
-                reviewReqDto.setImgUrl("/uploads/" + fileName); // 웹 접근 경로 (원하면 DB에 전체 경로로 저장 가능)
-            }
-
-            reviewReqDto.setNo(reviewId); // ✅ 수정할 리뷰 번호 주입
+            reviewReqDto.setNo(reviewId);
             reviewReqDto.setModifiedBy(customUser.getEmail());
+
             reviewService.updateReview(reviewReqDto);
 
             return ResponseEntity.ok(
@@ -137,6 +94,7 @@ public class ReviewController {
                     .body(new ResponseDto(HttpStatus.INTERNAL_SERVER_ERROR, "리뷰 수정 실패", null));
         }
     }
+
 
     @DeleteMapping("/reviews/{reviewId}")
     public ResponseEntity<ResponseDto> deleteReview(@PathVariable("reviewId") String reviewId) {
