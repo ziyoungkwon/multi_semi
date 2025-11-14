@@ -1,6 +1,7 @@
 <div th:fragment="header">
 
 
+    <div class="vt-header-wrapper" th:fragment="header">
     <div class="vt-header-top">
 
         <a th:href="@{/}" class="logo">
@@ -29,6 +30,8 @@
         <a th:href="@{/mypage}" class="nav-item">마이페이지</a>
 <!--        <a th:href="@{/api/v1/admin/page}" class="nav-item" id="admin-page-link" style="display: none;">관리자 페이지</a>-->
     </nav>
+
+    </div>
 
 
     <script>
@@ -320,31 +323,31 @@
     </script>
 
     <!-- 검색 버튼 클릭 시 페이지 이동 -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const searchBtn = document.querySelector('.search-icon-btn');
-            const searchInput = document.querySelector('.search-input');
+<!--    <script>-->
+<!--        document.addEventListener('DOMContentLoaded', () => {-->
+<!--            const searchBtn = document.querySelector('.search-icon-btn');-->
+<!--            const searchInput = document.querySelector('.search-input');-->
 
-            if (!searchBtn || !searchInput) {
-                console.error("검색 버튼 또는 입력창을 찾을 수 없습니다.");
-                return;
-            }
+<!--            if (!searchBtn || !searchInput) {-->
+<!--                console.error("검색 버튼 또는 입력창을 찾을 수 없습니다.");-->
+<!--                return;-->
+<!--            }-->
 
-            searchBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const query = searchInput.value.trim();
+<!--            searchBtn.addEventListener('click', (e) => {-->
+<!--                e.preventDefault();-->
+<!--                const query = searchInput.value.trim();-->
 
-                if (!query) {
-                    alert('검색어를 입력해 주세요.');
-                    return;
-                }
+<!--                if (!query) {-->
+<!--                    alert('검색어를 입력해 주세요.');-->
+<!--                    return;-->
+<!--                }-->
 
-                // 페이지 이동
-                const encoded = encodeURIComponent(query);
-                window.location.href = `/places/search-result?keyword=${encoded}`;
-            });
-        });
-    </script>
+<!--                // 페이지 이동-->
+<!--                const encoded = encodeURIComponent(query);-->
+<!--                window.location.href = `/places/search-result?keyword=${encoded}`;-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
     <!-- 검색 버튼 클릭 & 엔터 시 검색 결과 페이지 이동 -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {

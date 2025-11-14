@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.multi.multi_semi.common.ResponseDto;
+import com.multi.multi_semi.member.service.MemberService;
 import com.multi.multi_semi.place.dto.PlaceDto;
 import com.multi.multi_semi.place.service.PlaceService;
 import com.multi.multi_semi.review.dto.ReviewResDto;
@@ -29,6 +30,7 @@ public class FrontReviewController {
     private final RestTemplateBuilder restTemplateBuilder;
     private final ObjectMapper objectMapper;
     private final PlaceService placeService;
+    private final MemberService memberService;
 
     @Value("${server.api-url:http://localhost:8090}")
     private String apiUrl;
@@ -61,6 +63,8 @@ public class FrontReviewController {
         try {
             RestTemplate restTemplate = restTemplateBuilder.build();
             ResponseEntity<ResponseDto> response = restTemplate.getForEntity(BASE_URL + reviewId, ResponseDto.class);
+
+
 
             if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
                 ReviewResDto review = objectMapper.convertValue(response.getBody().getData(), ReviewResDto.class);

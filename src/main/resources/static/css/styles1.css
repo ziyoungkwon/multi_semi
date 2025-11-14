@@ -1,60 +1,38 @@
-/* ========== [ styles1.css ] ========== */
+/* ============================================================
+   HEADER 전용 스타일 (외부 CSS 절대 영향 못받게 보호됨)
+   ============================================================ */
 
-/* --- 1. 기본 및 공통 스타일 --- */
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #fff;
-    color: #333;
-    font-size: 16px;
-}
+/* --- 0. 네임스페이스 전체 리셋 & 보호 --- */
 
-/* [수정] '요청 실패' 링크 스타일 */
-#test-refresh-accessToken {
-    display: block; /* <a> 태그를 블록 요소로 변경 */
-    text-align: center; /* 가운데 정렬 */
-    padding: 10px 0; /* 위아래 여백 추가 */
-    background-color: #fffbe6; /* 배경색 추가 */
-    color: #d9534f; /* 붉은색 */
-    font-weight: bold;
-    font-size: 15px;
-    transition: background-color 0.1s ease, color 0.1s ease; /* 부드러운 효과 */
-}
-
-/* [추가] '요청 실패' 링크 - 마우스 오버 */
-#test-refresh-accessToken:hover {
-    background-color: #fff3c4;
-    text-decoration: underline;
-}
-
-/* [추가] '요청 실패' 링크 - 클릭 시 */
-#test-refresh-accessToken:active {
-    background-color: #fceb9d; /* 더 진한 노란색 */
-    color: #b92c28; /* 더 진한 붉은색 */
-}
-
-* {
+.vt-header-wrapper,
+.vt-header-wrapper * {
+    font-family: 'Noto Sans KR', sans-serif !important;
+    color: #333 !important;
     box-sizing: border-box;
+    line-height: normal !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
+/* 외부 페이지 a 스타일이 침투하는 거 방지 */
+.vt-header-wrapper a {
+    color: inherit !important;
 }
 
-button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    padding: 0;
-    font-family: inherit;
-    font-size: inherit;
+/* 외부 페이지 button 스타일 침투 차단 */
+.vt-header-wrapper button {
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    font-family: inherit !important;
+    font-size: inherit !important;
 }
 
-/* --- 2. 헤더 상단 (노란색) --- */
-/* [수정] 헤더 레이아웃 */
-.vt-header-top {
+/* ============================================================
+   1. 상단 노란 헤더 영역
+   ============================================================ */
+
+.vt-header-wrapper .vt-header-top {
     display: flex;
     align-items: center;
     background-color: #FEE500;
@@ -63,53 +41,59 @@ button {
     position: relative;
 }
 
-/* [수정] 2-1. 로고 */
-.logo {
+/* 로고 */
+.vt-header-wrapper .logo {
     position: absolute;
     left: 24px;
     top: 50%;
     transform: translateY(-50%);
 }
 
-.logo h1 {
-    margin: 0;
-    font-size: 24px;
-    color: #333;
-    font-weight: 800;
+.vt-header-wrapper .logo h1 {
+    margin: 0 !important;
+    font-size: 24px !important;
+    font-weight: 800 !important;
+    color: #333 !important;
 }
 
-/* ★★★ [수정됨] 2-2. 검색창 (필터 제거) ★★★ */
-.search-wrapper {
+/* ============================================================
+   2. 검색창 영역
+   ============================================================ */
+
+.vt-header-wrapper .search-wrapper {
     display: flex;
-    align-items: center; /* 자식 요소(input, button) 수직 중앙 정렬 */
+    align-items: center;
     margin: 0 auto;
     background-color: #fff;
-    border-radius: 8px; /* ★전체 컨테이너에 둥근 모서리 적용 */
+    border-radius: 8px;
     border: 1px solid #ddd;
     max-width: 600px;
     width: 100%;
-    height: 48px; /* ★검색창 높이 고정 */
-    overflow: hidden; /* ★자식 요소가 둥근 모서리를 넘치지 않도록 */
+    height: 48px;
+    overflow: hidden;
 }
 
-.search-wrapper .search-input {
+.vt-header-wrapper .search-input {
     flex-grow: 1;
-    border: none;
-    outline: none;
+    border: none !important;
+    outline: none !important;
     padding: 12px;
     font-size: 16px;
-    height: 100%; /* ★부모 높이에 맞춤 */
+    height: 100%;
 }
 
-.search-wrapper .search-icon-btn {
+.vt-header-wrapper .search-icon-btn {
     padding: 10px 12px;
     font-size: 18px;
-    height: 100%; /* ★부모 높이에 맞춤 */
-    background-color: transparent; /* 배경색 제거 */
+    height: 100%;
+    background-color: transparent !important;
 }
 
-/* [수정] 2-3. 인증 영역 (로그인/이메일) */
-.header-auth-area {
+/* ============================================================
+   3. 로그인 영역
+   ============================================================ */
+
+.vt-header-wrapper .header-auth-area {
     display: flex;
     align-items: center;
     position: absolute;
@@ -118,27 +102,26 @@ button {
     transform: translateY(-50%);
 }
 
-#user-email-display {
+.vt-header-wrapper #user-email-display {
     margin-right: 15px;
-    font-weight: bold;
-    font-size: 14px;
-    color: #333;
+    font-weight: 600 !important;
+    font-size: 14px !important;
 }
 
-#global-login-link,
-#logout-btn {
-    font-weight: bold;
-    color: #333;
-    font-size: 15px;
+/* 로그인/로그아웃 버튼 */
+.vt-header-wrapper #global-login-link,
+.vt-header-wrapper #logout-btn {
+    font-weight: 600 !important;
+    color: #333 !important;
+    font-size: 15px !important;
     white-space: nowrap;
 }
 
-/* ★★★ [삭제됨] 3. 카테고리 드롭다운 ★★★ */
-/* (이 섹션의 모든 스타일이 제거되었습니다) */
+/* ============================================================
+   4. 네비게이션 영역
+   ============================================================ */
 
-
-/* --- 4. 메인 네비게이션 (흰색) --- */
-.vt-nav {
+.vt-header-wrapper .vt-nav {
     display: flex;
     justify-content: center;
     background-color: #fff;
@@ -147,128 +130,16 @@ button {
     padding: 0 24px;
 }
 
-.vt-nav .nav-item {
+.vt-header-wrapper .nav-item {
     padding: 16px 20px;
-    font-size: 17px;
-    font-weight: 500;
-    color: #333;
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    color: #333 !important;
     border-bottom: 3px solid transparent;
     transition: border-color 0.2s, color 0.2s;
 }
 
-.vt-nav .nav-item:hover {
-    color: #111;
-    border-bottom-color: #FEE500;
-}
-
-/* --- 5. 즐겨찾기 --- */
-.container {
-    max-width: 900px;
-    margin: 60px auto;
-    padding: 40px;
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-    text-align: center;
-}
-
-.container h2 {
-    margin-bottom: 30px;
-    font-size: 26px;
-    font-weight: 700;
-    color: #222;
-    border-bottom: 2px solid #FEE500;
-    display: inline-block;
-    padding-bottom: 8px;
-}
-
-/* 즐겨찾기 목록 스타일 */
-#favoriteList {
-    list-style: none;
-    padding: 0;
-    margin: 0 auto;
-    max-width: 750px;
-}
-
-#favoriteList li {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    background: #fafafa;
-    border: 1px solid #eee;
-    border-radius: 12px;
-    margin-bottom: 15px;
-    padding: 15px 20px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-#favoriteList li:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-}
-
-#favoriteList img {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-right: 20px;
-}
-
-#favoriteList a {
-    font-weight: 600;
-    font-size: 17px;
-    color: #333;
-    text-decoration: none;
-}
-
-#favoriteList a:hover {
-    color: #FEE500;
-}
-
-#favoriteList p {
-    margin: 4px 0;
-    font-size: 14px;
-    color: #666;
-    text-align: left;
-}
-
-/* 삭제 버튼 */
-.delete-btn {
-    margin-left: auto;
-    color: #e74c3c;
-    font-size: 18px;
-    transition: color 0.2s ease, transform 0.1s ease;
-}
-
-.delete-btn:hover {
-    color: #c0392b;
-    transform: scale(1.15);
-}
-
-/* 페이지네이션 버튼 */
-#pagination {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-}
-
-#pagination button {
-    padding: 8px 14px;
-    border-radius: 6px;
-    background: #f5f5f5;
-    border: 1px solid #ddd;
-    cursor: pointer;
-    transition: background 0.2s ease;
-}
-
-#pagination button:hover {
-    background: #FEE500;
-}
-
-#pagination button:disabled {
-    background: #333;
-    color: #fff;
-    cursor: default;
+.vt-header-wrapper .nav-item:hover {
+    color: #111 !important;
+    border-bottom-color: #FEE500 !important;
 }
