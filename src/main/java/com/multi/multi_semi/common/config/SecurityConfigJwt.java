@@ -68,7 +68,7 @@ public class SecurityConfigJwt {
                         // (기존 permitAll 경로들...)
                         .requestMatchers("/refresh/test").permitAll()
                         .requestMatchers("/favorites/**").permitAll()
-                        //.requestMatchers("/api/v1/favorites/**","/favorites/**","/api/v1/favorite/**").permitAll()
+                        .requestMatchers("/api/v1/favorites/**","/api/v1/favorite/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/api/v1/places/**","/places/**").permitAll()
                         .requestMatchers("/api/v1/members/**","/member/**", "/members/**").permitAll()
                         .requestMatchers("/api/v1/admin/members/**").permitAll()

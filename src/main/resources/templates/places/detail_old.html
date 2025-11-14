@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <title>관광지 상세</title>
     <link rel="stylesheet" th:href="@{/css/styles1.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
+        /* ✅ 전체 레이아웃 */
         body {
             font-family: "Noto Sans KR", sans-serif;
             background-color: #f8f9fa;
@@ -29,73 +28,17 @@
             color: #1976d2;
         }
 
-        /* ✅ 상단 상세 영역 */
-        .place-detail {
-            display: flex;
-            gap: 24px;
-            align-items: flex-start;
-        }
-
-        .place-detail img {
-            width: 380px;
-            height: auto;
-            border-radius: 12px;
-            object-fit: cover;
-        }
-
-        .place-info {
-            flex: 1;
-        }
-
-        .place-info p {
-            margin: 8px 0;
-            line-height: 1.6;
-        }
-
-        /* ✅ 즐겨찾기 버튼 (세련된 스타일로 변경) */
-        .favorite-btn {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #ff6b6b, #ff8787);
-            color: white;
-            border: none;
-            border-radius: 20px;
-            width: 120px;
-            height: 48px;
-            font-size: 18px;
-            font-weight: 600;
-            gap: 8px;
-            cursor: pointer;
-            transition: all 0.25s ease-in-out;
-            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.25);
-        }
-
-        .favorite-btn i {
-            font-size: 20px;
-            transition: transform 0.2s ease;
-        }
-
-        .favorite-btn:hover {
-            transform: translateY(-2px);
-            background: linear-gradient(135deg, #ff4d4d, #ff6b6b);
-            box-shadow: 0 6px 14px rgba(255, 107, 107, 0.35);
-        }
-
-        .favorite-btn:hover i {
-            transform: scale(1.2);
-        }
-
-        /* 클릭 시 작게 튕기는 효과 */
-        .favorite-btn:active {
-            transform: scale(0.95);
+        img {
+            border-radius: 8px;
+            margin-bottom: 16px;
+            display: block;
         }
 
         /* ✅ 탭 버튼 */
         .tab-buttons {
             display: flex;
             gap: 10px;
-            margin: 30px 0 10px;
+            margin: 20px 0;
             border-bottom: 2px solid #e0e0e0;
             padding-bottom: 8px;
         }
@@ -117,11 +60,9 @@
 
         .tab-content {
             display: none;
-          /*  padding: 16px; */
-            padding: 30px;
+            padding: 16px;
             border-radius: 8px;
             background: #fafafa;
-            min-height: 350px; /** 세로 영역을 넉넉히 확보 */
         }
 
         .tab-content.active {
@@ -141,19 +82,43 @@
             overflow: hidden;
         }
 
-        /* ✅ 리뷰 테이블 */
+        /* ✅ 링크 */
+        a.home-link {
+            display: inline-block;
+            margin-top: 24px;
+            text-decoration: none;
+            color: #1976d2;
+            font-weight: 600;
+        }
+
+        a.home-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ✅ 날씨 정보 */
+        .weather-info {
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .weather-icon {
+            font-size: 2rem;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
         #reviewList {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
-            table-layout: fixed;
+            table-layout: fixed; /* 고정 레이아웃 */
         }
 
         #reviewList th, #reviewList td {
             text-align: center;
             padding: 12px;
             border-bottom: 1px solid #e0e0e0;
-            word-wrap: break-word;
+            word-wrap: break-word; /* 긴 글 자동 줄바꿈 */
         }
 
         #reviewList th {
@@ -167,74 +132,78 @@
 
         .review-rate {
             color: #FFD700;
-          /*  font-size: 18px;
-            white-space: nowrap;   ⭐ 줄바꿈 방지
-            display: inline-block; */
         }
 
-        #reviewList th:nth-child(1), #reviewList td:nth-child(1) { width: 20%; }
-        #reviewList th:nth-child(2), #reviewList td:nth-child(2) { width: 45%; text-align: left; padding-left: 15px; }
-        #reviewList th:nth-child(3), #reviewList td:nth-child(3) { width: 20%; white-space: nowrap; }
-        #reviewList th:nth-child(4), #reviewList td:nth-child(4) { width: 15%; white-space: nowrap; }
-
-        a.home-link {
-            display: inline-block;
-            margin-top: 24px;
-            text-decoration: none;
-            color: #1976d2;
-            font-weight: 600;
+        /* ✅ 각 열 너비 지정 (비율 조정 가능) */
+        #reviewList th:nth-child(1),
+        #reviewList td:nth-child(1) {
+            width: 18%; /* 타이틀 */
         }
 
-        a.home-link:hover { text-decoration: underline; }
+        #reviewList th:nth-child(2),
+        #reviewList td:nth-child(2) {
+            width: 52%; /* 내용 - 가장 넓게 */
+            text-align: left;
+            padding-left: 15px;
+        }
+
+        #reviewList th:nth-child(3),
+        #reviewList td:nth-child(3) {
+            width: 18%; /* 작성자 */
+        }
+
+        #reviewList th:nth-child(4),
+        #reviewList td:nth-child(4) {
+            width: 12%; /* 평점 */
+        }
+
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div class="header">
     <th:block th:replace="~{common/header :: header}"/>
 </div>
 
-
 <div class="container">
     <h2 id="placeTitle"></h2>
+    <div id="placeFavorite"></div>
+    <img id="placeImage" alt="관광지 이미지" style="width: 300px; height: auto;">
+    <p id="placeDescription"></p>
+    <p id="placeAddress"></p>
 
-    <!-- ✅ 상세 정보 + 이미지 섹션 -->
-    <div class="place-detail">
-        <img id="placeImage" alt="관광지 이미지">
-        <div class="place-info">
-            <p id="placeDescription"></p>
-            </br>
-            <p><strong>주소:</strong> <span id="placeAddress"></span></p>
-        </div>
-    </div>
 
-    <!-- ✅ 즐겨찾기 버튼 (이미지 아래 배치) -->
-    <div id="placeFavorite" style="margin-top: 10px; text-align: left;"></div>
 
-    <!-- ✅ 탭 -->
     <div class="tab-buttons">
         <button class="tab-btn active" data-target="review">관련 리뷰</button>
-        <button class="tab-btn " data-target="details">주변 지도</button>
+        <button class="tab-btn" data-target="details">주변 지도</button>
         <button class="tab-btn" data-target="links">날씨 정보</button>
     </div>
 
+    <!-- ✅ 리뷰 탭 -->
     <div id="review" class="tab-content active">
-
-        <table id="reviewList"></table>
+        <h3>관광지 리뷰</h3>
+        <ul id="reviewList"></ul>
         <div id="pagination"></div>
     </div>
 
+    <!-- ✅ 지도 탭 -->
     <div id="details" class="tab-content"></div>
 
+    <!-- ✅ 날씨 탭 -->
     <div id="links" class="tab-content">
-
+        <h3>날씨 정보</h3>
         <div class="weather-info" id="weatherInfo"></div>
     </div>
 
     <a href="/main" class="home-link">← 홈으로 돌아가기</a>
 </div>
 
+
+
 <!-- ✅ Kakao Map -->
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db0e01b397787c97dae0c9b59e1cca31"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db0e01b397787c97dae0c9b59e1cca31"></script>
 
 <script>
     const placeNo = [[${placeNo}]];
@@ -251,11 +220,8 @@
                 $('#placeImage').attr('src', place.imageUrl || '/path/to/default-image.jpg');
                 $('#placeDescription').text(place.description);
                 $('#placeAddress').text(place.address);
-
-                const buttonTag = `
-                    <button id="favoriteBtn" class="favorite-btn" data-id="${placeNo}" title="즐겨찾기">
-                        <i class="fa-solid fa-heart"></i> 추가하기
-                    </button>`;
+                const buttonTag = `<button id="favoriteBtn" class="favorite-btn" data-id="${placeNo}" title="즐겨찾기">
+                                   <i class="fa-solid fa-heart"></i></button>`;
                 $('#placeFavorite').html(buttonTag);
 
                 initReview(1);
@@ -266,6 +232,7 @@
             }
         } catch (error) {
             console.error('Error loading place detail:', error);
+            alert('관광지 정보를 불러오는 중 오류가 발생했습니다.');
         }
     }
 
@@ -279,9 +246,13 @@
 
     function getWeatherIcon(main) {
         const iconMap = {
-            Clear: "☀️", Clouds: "☁️", Rain: "🌧️",
-            Drizzle: "🌦️", Thunderstorm: "⛈️",
-            Snow: "❄️", Mist: "🌫️"
+            Clear: "☀️",
+            Clouds: "☁️",
+            Rain: "🌧️",
+            Drizzle: "🌦️",
+            Thunderstorm: "⛈️",
+            Snow: "❄️",
+            Mist: "🌫️"
         };
         return iconMap[main] || "🌤️";
     }
@@ -315,57 +286,85 @@
             const response = await fetch(`http://localhost:8090/api/v1/reviews/place-detail/${placeNo}?offset=${offset}`);
             const result = await response.json();
 
-            const reviewList = $('#reviewList').empty();
-
-            if (result.status === 200 && result.data?.data?.length) {
+            if (result.status === 200 && result.data?.data) {
                 const reviews = result.data.data;
                 const pageInfo = result.data.pageInfo;
+                const reviewList = $('#reviewList').empty();
 
+                if (reviews.length === 0) {
+                  //  reviewList.html('<li>관련 리뷰가 없습니다.</li>');
+                    reviewList.html('<tr><td colspan="4">관련 리뷰가 없습니다.</td></tr>');
+                    return;
+                }
                 reviewList.append(`
-                    <tr><th>타이틀</th><th>내용</th><th>작성자</th><th>평점</th></tr>
-                `);
+                <tr>
+                    <th>타이틀</th>
+                    <th>내용</th>
+                    <th>작성자</th>
+                    <th>평점</th>
+                </tr>
+               `);
+
                 reviews.forEach(r => {
                     const stars = '⭐'.repeat(r.rate);
                     reviewList.append(`
-                        <tr>
-                            <td>${r.title}</td>
-                            <td>${r.content}</td>
-                            <td>${r.writerEmail}</td>
-                            <td class="review-rate">${stars}</td>
-                        </tr>
+                     <tr>
+                        <td>${r.title}</td>
+                        <td>${r.content}</td>
+                        <td>${r.writerEmail}</td>
+                        <td class="review-rate">${stars}</td>
+                    </tr>
                     `);
                 });
+
                 renderPagination(pageInfo);
             } else {
-                reviewList.html('<tr><td colspan="4">관련 리뷰가 없습니다.</td></tr>');
+               $('#reviewList').html('<tr><td colspan="4">리뷰 데이터를 불러오는 데 실패했습니다.</td></tr>');
             }
         } catch (error) {
             console.error('Failed to load reviews:', error);
+            $('#reviewList').html('<tr><td colspan="4">리뷰 데이터를 불러오는 중 오류가 발생했습니다.</td></tr>');
         }
     }
 
     function renderPagination(pageInfo) {
         if (!pageInfo) return;
-        const pagination = $('#pagination').empty();
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = '';
 
-        if (pageInfo.pageNo > 1)
-            pagination.append(`<button onclick="initReview(${pageInfo.pageNo - 1})">이전</button>`);
-
-        for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
-            pagination.append(`<button class="${i === pageInfo.pageNo ? 'active' : ''}" onclick="initReview(${i})">${i}</button>`);
+        if (pageInfo.pageNo > 1) {
+            const prev = document.createElement('button');
+            prev.textContent = '이전';
+            prev.onclick = () => initReview(pageInfo.pageNo - 1);
+            pagination.appendChild(prev);
         }
 
-        if (pageInfo.pageNo < pageInfo.maxPage)
-            pagination.append(`<button onclick="initReview(${pageInfo.pageNo + 1})">다음</button>`);
+        for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
+            const button = document.createElement('button');
+            button.textContent = i;
+            button.classList.toggle('active', i === pageInfo.pageNo);
+            button.onclick = () => initReview(i);
+            pagination.appendChild(button);
+        }
+
+        if (pageInfo.pageNo < pageInfo.maxPage) {
+            const next = document.createElement('button');
+            next.textContent = '다음';
+            next.onclick = () => initReview(pageInfo.pageNo + 1);
+            pagination.appendChild(next);
+        }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
         loadPlaceDetail();
 
-        document.querySelectorAll('.tab-btn').forEach(btn => {
+        const buttons = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+
+        buttons.forEach(btn => {
             btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                buttons.forEach(b => b.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
 
                 btn.classList.add('active');
                 document.getElementById(btn.dataset.target).classList.add('active');
@@ -385,20 +384,27 @@
 
             const placeNo = btn.getAttribute('data-id');
             if (!placeNo) return;
-
             const formData = new FormData();
             formData.append('placeNo', placeNo);
 
-            if (confirm('즐겨찾기를 등록하시겠습니까?')) {
+            if (confirm('정말 등록하시겠습니까?')) {
                 try {
-                    const response = await fetch(`/api/v1/favorites/favorite`, { method: 'POST', body: formData });
-                    if (response.ok) alert('등록되었습니다.');
-                    else alert('등록 실패: ' + response.status);
+                    const response = await fetch(`/api/v1/favorites/favorite`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    if (response.ok) {
+                        alert('등록되었습니다.');
+
+                    } else {
+                        alert('등록 실패: ' + response.status);
+                    }
                 } catch (error) {
                     alert('서버 통신 오류가 발생했습니다.');
                 }
             }
         });
+
     });
 </script>
 </body>
