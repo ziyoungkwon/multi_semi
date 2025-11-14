@@ -29,7 +29,7 @@ public class FrontMemberController {
         String email = customUser.getEmail();
         MemberDto memberDto = memberService.findMemberByEmail(email).get();
         model.addAttribute("member", memberDto);
-        return "member/edit-pwd";
+        return "members/edit-pwd";
     }
 
 

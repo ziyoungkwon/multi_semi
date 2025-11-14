@@ -5,6 +5,9 @@
     <title>마이페이지</title>
     <link rel="stylesheet" th:href="@{/css/styles1.css}">
 
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
         :root {
             --kakao-yellow: #FEE500; /* 카카오 테마 색상 */
@@ -154,8 +157,7 @@
             color: #d32f2f;
         }
 
-        /* ★★★ [my-reviews.html] 조각용 스타일 추가 ★★★
-         */
+        /* [my-reviews.html] 조각용 스타일 */
         .mypage-content-header {
             display: flex;
             justify-content: space-between;
@@ -251,6 +253,94 @@
             background-color: #fafafa;
             border: 1px dashed #ddd;
             margin-top: 16px;
+        }
+
+        /* [my-favorites.html] 조각용 스타일 */
+        .favorite-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .favorite-card {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 12px;
+            transition: box-shadow 0.2s;
+        }
+        .favorite-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        .favorite-img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 10px;
+            flex-shrink: 0; /* 크기 고정 */
+            background-color: #f3f3f3;
+        }
+        .favorite-info {
+            flex-grow: 1; /* 남은 공간 모두 차지 */
+        }
+        .favorite-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            text-decoration: none;
+        }
+        .favorite-title:hover {
+            text-decoration: underline;
+        }
+        .favorite-info p {
+            font-size: 13px;
+            color: #666;
+            margin: 4px 0 0;
+        }
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 50%;
+            transition: color 0.2s, background-color 0.2s;
+        }
+        .delete-btn:hover {
+            color: #d32f2f; /* 빨간색 */
+            background-color: #fbebeb;
+        }
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .pagination button {
+            padding: 5px 10px;
+            margin: 0 2px;
+            border: 1px solid #ddd;
+            background: #fff;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 13px;
+            transition: background-color 0.2s;
+        }
+        .pagination button.active {
+            background: var(--kakao-yellow);
+            font-weight: bold;
+            border-color: var(--kakao-yellow);
+        }
+        .pagination button:hover:not(.active) {
+            background: #f0f0f0;
+        }
+        .empty-message.error-message {
+            color: #d32f2f;
+            background-color: #fbebeb;
+            border-color: #d32f2f;
         }
     </style>
 </head>
