@@ -34,13 +34,6 @@ public class ReviewService {
         return reviewList;
     }
 
-    public int selectReviewTotal() {
-
-        int result = reviewMapper.selectReviewTotal();
-
-        return result;
-    }
-
     public ReviewResDto findReviewByNo(String reviewNo) {
 
         ReviewResDto review = reviewMapper.findReviewByNo(Integer.parseInt(reviewNo));

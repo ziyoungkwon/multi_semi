@@ -1,32 +1,39 @@
 <div th:fragment="header">
 
+    <!--<a href="#" id="test-refresh-accessToken">요청 실패 시 여기를 클릭하세요!</a>-->
 
-   <!-- <a href="#" id="test-refresh-accessToken">요청 실패 시 여기를 클릭하세요!</a> -->
+    <!--    <script>-->
+    <!--        document.getElementById('test-refresh-accessToken').addEventListener('click', async (e) => {-->
+    <!--            e.preventDefault();-->
 
-    <script>
-        document.getElementById('test-refresh-accessToken').addEventListener('click', async (e) => {
-            e.preventDefault();
-            const response = await fetch('/refresh/test', {method: 'GET'});
-            const result = await response.json();
-            console.log('응답 결과:', result);
-        });
-    </script>
+    <!--            const response = await fetch('/refresh/test', {method: 'GET'});-->
 
-    <!-- 헤더 상단 -->
+    <!--            const result = await response.json();-->
+    <!--            console.log('응답 결과:', result);-->
+    <!--        });-->
+    <!--    </script>-->
+
+
     <div class="vt-header-top">
 
         <a th:href="@{/}" class="logo">
             <h1>Virtual Trip</h1>
         </a>
 
-        <!-- 검색창 -->
         <div class="search-wrapper">
-            <button class="category-btn" disabled style="cursor: default;">관광지명</button>
+            <div class="category-wrapper">
+                <button class="category-btn" aria-label="카테고리 선택">전체</button>
+                <div id="category-dropdown" style="display: none;">
+                    <button type="button" class="category-item" data-value="전체">전체</button>
+                    <button type="button" class="category-item" data-value="관광지명">관광지명</button>
+                    <button type="button" class="category-item" data-value="지역명">지역명</button>
+                    <button type="button" class="category-item" data-value="평점별">평점별</button>
+                </div>
+            </div>
             <input type="text" class="search-input" placeholder="여행지를 검색해 보세요">
             <button class="search-icon-btn" aria-label="검색">🔍</button>
         </div>
 
-        <!-- 로그인 영역 -->
         <div class="header-auth-area">
             <span id="user-email-display" style="display: none;"></span>
             <a th:href="@{/auth/login}" id="global-login-link">로그인</a>
@@ -34,16 +41,400 @@
         </div>
     </div>
 
-    <!-- 네비게이션 -->
     <nav class="vt-nav">
         <a th:href="@{/}" class="nav-item">홈</a>
         <a th:href="@{/places/list}" class="nav-item">관광지 목록</a>
         <a th:href="@{/reviews/list}" class="nav-item">리뷰 게시판</a>
         <a th:href="@{/api/v1/generate-request}" class="nav-item">이미지 만들기</a>
-        <a th:href="@{/api/v1/mypage}" class="nav-item">마이페이지</a>
-        <a th:href="@{/favorites/list}" class="nav-item">즐겨찾기 목록</a>
+        <a th:href="@{/mypage}" class="nav-item">마이페이지</a>
         <a th:href="@{/api/v1/admin/page}" class="nav-item" id="admin-page-link" style="display: none;">관리자 페이지</a>
     </nav>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const categoryBtn = document.querySelector('.category-btn');
+            const categoryDropdown = document.getElementById('category-dropdown');
+            const categoryItems = document.querySelectorAll('.category-item');
+            const searchInput = document.querySelector('.search-input');
+            const searchBtn = document.querySelector('.search-icon-btn');
+
+            if (!categoryBtn || !categoryDropdown || !categoryItems.length || !searchInput || !searchBtn) {
+                console.error("검색 UI 요소를 모두 찾을 수 없습니다.");
+                return;
+            }
+
+            // --- 1. 카테고리 버튼 클릭: 드롭다운 토글 ---
+            categoryBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const isHidden = categoryDropdown.style.display === 'none';
+                categoryDropdown.style.display = isHidden ? 'block' : 'none';
+            });
+
+            // --- 2. 드롭다운 항목 클릭: 카테고리 선택 ---
+            categoryItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    const selectedValue = e.currentTarget.getAttribute('data-value');
+                    categoryBtn.textContent = selectedValue;
+                    categoryDropdown.style.display = 'none';
+                });
+            });
+
+            // --- 3. 검색 버튼(돋보기) 클릭: API 요청 ---
+            searchBtn.addEventListener('click', async (e) => {
+                e.preventDefault();
+
+                const category = categoryBtn.textContent.trim();
+                const query = searchInput.value;
+                const encodedQuery = encodeURIComponent(query);
+
+                let targetUrl = '';
+
+                switch (category) {
+                    case '전체':
+                        targetUrl = '/api/v1/places';
+                        break;
+                    case '관광지명':
+                        targetUrl = `/api/v1/places/search?title=${encodedQuery}`;
+                        break;
+                    case '지역명':
+                        targetUrl = `/api/v1/places/district?dist=${encodedQuery}`;
+                        break;
+                    case '평점별':
+                        targetUrl = `/api/v1/places/rate?rating=${encodedQuery}`;
+                        break;
+                    default:
+                        console.error('알 수 없는 카테고리:', category);
+                        return;
+                }
+
+                console.log(`[검색 요청]
+                - 카테고리: ${category}
+                - 검색어: ${query}
+                - 요청 URL: ${targetUrl}`);
+
+                try {
+                    const response = await fetch(targetUrl, {
+                        method: 'GET'
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        console.log('검색 성공:', result.data);
+                        alert('검색 요청 성공! (콘솔 로그를 확인하세요)');
+                    } else {
+                        const errorResult = await response.json();
+                        console.error('검색 실패:', errorResult.message);
+                        alert(`검색 실패: ${errorResult.message}`);
+                    }
+
+                } catch (error) {
+                    if (error.name === "TokenRefreshedError") {
+                        console.error("토큰 갱신 후 재시도했으나 최종 실패:", error);
+                    } else {
+                        console.error('검색 요청 중 네트워크 오류 발생:', error);
+                        alert('검색 중 오류가 발생했습니다.');
+                    }
+                }
+            });
+
+            // [선택] 페이지 바깥 클릭 시 드롭다운 닫기
+            document.addEventListener('click', (e) => {
+                if (!categoryBtn.contains(e.target) && !categoryDropdown.contains(e.target)) {
+                    categoryDropdown.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+
+    <script>
+        // 1. 기존의 window.fetch 함수를 백업해둡니다.
+        const originalFetch = window.fetch;
+
+        // 강제 로그아웃 헬퍼 함수
+        function forceLogout(message) {
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('redirectUrl');
+            alert(message || '세션이 만료되었습니다. 다시 로그인해 주세요.');
+            window.location.href = '/auth/login';
+        }
+
+        // '자발적/강제' 로그인을 위한 헬퍼 함수
+        function redirectToLogin() {
+            if (window.location.pathname !== '/auth/login') {
+                const fullRedirectUrl = window.location.pathname + window.location.search;
+                console.log('401 감지! 리디렉션 URL 저장:', fullRedirectUrl);
+                localStorage.setItem('redirectUrl', fullRedirectUrl);
+            }
+            alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
+            window.location.href = '/auth/login';
+        }
+
+        /**
+         * 자동 토큰 갱신(Silent Refresh) 헬퍼 함수
+         * (HttpOnly 쿠키 방식)
+         */
+        async function handleTokenRefresh() {
+            const accessToken = localStorage.getItem('accessToken');
+
+            if (!accessToken) {
+                console.log('Access Token이 없어 갱신 불가.');
+                return false;
+            }
+
+            try {
+                // /auth/refresh 요청
+                const refreshResponse = await originalFetch('/auth/refresh', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}` // 만료된 AT
+                    },
+                    // ★★★ [수정 1] credentials 추가 (버그 수정) ★★★
+                    credentials: 'include'
+                });
+
+                if (refreshResponse.ok) {
+                    const result = await refreshResponse.json();
+                    const newAccessToken = result.data.accessToken;
+                    localStorage.setItem('accessToken', newAccessToken);
+
+                    console.log('토큰 갱신 성공 (새 AT 발급)');
+                    return true; // 갱신 성공
+                } else {
+                    const errorBody = await refreshResponse.json();
+                    console.error('Refresh Token 갱신 실패 (쿠키 만료 또는 무효):', errorBody.message);
+                    return false; // 갱신 실패
+                }
+
+            } catch (error) {
+                console.error('토큰 갱신 중 네트워크 오류:', error);
+                return false; // 갱신 실패
+            }
+        }
+
+
+        // 2. window.fetch 함수 덮어쓰기
+        window.fetch = async (...args) => {
+
+            let options = args[1] || {};
+            const url = args[0];
+
+            // 모든 fetch 요청에 credentials: 'include'를 기본값으로 설정
+            options.credentials = options.credentials || 'include';
+
+            // 3. [역할 1] 토큰 자동 주입
+            if (url !== '/auth/login' && url !== '/auth/signup' && !url.startsWith('/auth/refresh')) {
+                const accessToken = localStorage.getItem('accessToken');
+                if (accessToken) {
+                    options.headers = options.headers || {};
+                    options.headers['Authorization'] = `Bearer ${accessToken}`;
+                }
+            }
+
+            // 4. 원본 fetch 함수로 실제 요청을 보냄
+            const response = await originalFetch(url, options);
+
+            // 5. [역할 2] 401 에러 감지
+            if (response.status === 401) {
+
+                if (url.startsWith('/auth/refresh')) {
+                    console.warn('/auth/refresh 요청 실패 (RT 쿠키 만료). 강제 로그아웃.');
+                    forceLogout('세션이 만료되었습니다. 다시 로그인해 주세요.');
+                    return new Promise(() => {
+                    });
+                }
+
+                const clonedResponse = response.clone();
+
+                try {
+                    const errorBody = await clonedResponse.json();
+
+                    if (errorBody.message === "만료된 JWT 토큰입니다.") {
+                        console.log("Access Token 만료. 자동 갱신 시도...");
+
+                        const refreshSuccess = await handleTokenRefresh();
+
+                        if (refreshSuccess) {
+
+                            // ★★★ [수정 2] FormData(Stream)인지 확인 ★★★
+                            const isStream = options.body && (options.body instanceof FormData || options.body instanceof ReadableStream);
+
+                            if (isStream) {
+                                // FormData/Stream은 래퍼가 재시도(X), 커스텀 에러 발생(O)
+                                console.log("토큰 갱신 성공. [Stream Body] 재시도는 호출자가 직접 해야 함.");
+                                const error = new Error("TOKEN_REFRESHED_RETRY_MANUALLY");
+                                error.name = "TokenRefreshedError";
+                                throw error; // ai-image.html의 catch문으로 전달
+                            } else {
+                                // GET 요청이나 JSON Body는 래퍼가 직접 재시도(O)
+                                console.log("토큰 갱신 성공. 원래 요청(GET 등) 재시도.");
+                                options.headers['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`;
+                                return await originalFetch(url, options); // ★ 자동 재시도
+                            }
+
+                        } else {
+                            forceLogout('세션이 만료되었습니다. 다시 로그인해 주세요.');
+                            return new Promise(() => {
+                            });
+                        }
+                    } else {
+                        console.warn(`기타 401 에러 (${errorBody.message}). 로그인 페이지로.`);
+                        redirectToLogin();
+                        return new Promise(() => {
+                        });
+                    }
+
+                } catch (e) {
+                    // [수정] TokenRefreshedError는 다시 던져서 ai-image.html로 보냄
+                    if (e.name === "TokenRefreshedError") {
+                        throw e;
+                    }
+
+                    console.error("401 응답이 예상된 JSON 형식이 아님.", e);
+                    redirectToLogin();
+                    return new Promise(() => {
+                    });
+                }
+            }
+
+            // 10. 401이 아니면, 원래 응답을 그대로 반환
+            return response;
+        };
+    </script>
+
+
+    <script>
+        const logoutButton = document.getElementById('logout-btn');
+        if (logoutButton) {
+            logoutButton.addEventListener('click', async () => {
+
+                // "정말 로그아웃하시겠습니까?" 확인창
+                if (window.confirm("정말 로그아웃하시겠습니까?")) {
+
+                    const accessToken = localStorage.getItem('accessToken');
+                    if (!accessToken) {
+                        alert('이미 로그아웃 상태입니다.');
+                        return;
+                    }
+                    try {
+                        // 서버는 이 요청을 받고 RT 쿠키를 삭제하는 응답을 보냄
+                        const response = await originalFetch('/auth/logout', {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Bearer ${accessToken}`
+                            },
+
+                            credentials: 'include'
+                        });
+                        if (response.ok) {
+                            console.log('서버 Refresh Token 삭제 완료 (쿠키 포함)');
+                        } else {
+                            console.error('서버 로그아웃 처리 실패');
+                        }
+                    } catch (error) {
+                        console.error('서버 로그아웃 요청 중 오류 발생:', error);
+                    } finally {
+                        localStorage.removeItem('accessToken');
+                        localStorage.removeItem('redirectUrl');
+                        alert('로그아웃되었습니다.');
+                        window.location.href = '/';
+                    }
+
+                } // if (window.confirm...) 닫는 괄호
+            });
+        }
+    </script>
+
+
+    <script>
+        // (사용자 원본 스크립트 4 - JWT 파싱 및 UI 제어 - 수정 X)
+
+        /**
+         * [ ★★★ 신규 헬퍼 함수 ★★★ ]
+         * Access Token(JWT)의 페이로드를 디코딩하여 JSON 객체로 반환합니다.
+         * (서버의 TokenProvider.parseClaims와 동일한 역할)
+         */
+        function parseJwtPayload(token) {
+            try {
+                const base64Url = token.split('.')[1]; // 페이로드 부분
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Base64Url -> Base64
+
+                // Base64 디코딩 (UTF-8 문자열을 안전하게 디코딩)
+                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+
+                return JSON.parse(jsonPayload);
+            } catch (e) {
+                console.error("JWT 페이로드 디코딩 실패", e);
+                return null;
+            }
+        }
+
+
+        // DOM이 모두 로드된 후에 실행
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- [스크립트 4] UI 제어 로직 (★이메일 표시 기능 추가★) ---
+            const accessToken = localStorage.getItem('accessToken');
+            const loginLink = document.getElementById('global-login-link');
+            const logoutButton = document.getElementById('logout-btn');
+            const emailDisplay = document.getElementById('user-email-display');
+
+            // ★★★ [신규] 1. 관리자 링크를 선택합니다. ★★★
+            const adminLink = document.getElementById('admin-page-link');
+
+            if (loginLink && logoutButton && emailDisplay) { // adminLink는 null일 수 있으므로 여기서 체크 안 함
+                if (accessToken) {
+                    // === 로그인한 상태 ===
+                    loginLink.style.display = 'none';
+                    logoutButton.style.display = 'inline-block';
+
+                    // 1. AT를 디코딩해서 페이로드를 가져옵니다.
+                    const payload = parseJwtPayload(accessToken);
+
+                    if (payload) {
+                        // 2. 'sub' 클레임(이메일)을 <span>에 표시합니다.
+                        emailDisplay.textContent = payload.sub + " 님 환영합니다!";
+                        emailDisplay.style.display = 'inline-block';
+
+                        // ★★★ [신규] 3. 역할(Role) 확인 로직 ★★★
+                        // ※참고: JWT의 역할 클레임 이름을 'auth'로 가정합니다.
+                        //       (서버에서 'role', 'roles' 등으로 설정했다면 그걸로 바꿔주세요)
+                        //       (예: 'ROLE_ADMIN', 'ADMIN' 등 서버에서 보낸 값 그대로 비교)
+                        if (adminLink && payload.auth === 'ROLE_ADMIN') {
+                            adminLink.style.display = 'inline-block'; // 관리자일 경우 링크 표시
+                        }
+                    }
+
+                } else {
+                    // === 로그아웃한 상태 ===
+                    loginLink.style.display = 'inline-block';
+                    logoutButton.style.display = 'none';
+                    emailDisplay.style.display = 'none';
+
+                    // ★★★ [신규] 4. 로그아웃 상태면 관리자 링크도 숨김 ★★★
+                    if (adminLink) {
+                        adminLink.style.display = 'none';
+                    }
+                }
+            }
+
+            // --- [스크립트 3] 자발적 로그인 링크 클릭 로직 (기존과 동일) ---
+            if (loginLink) {
+                loginLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const currentUrl = window.location.pathname + window.location.search;
+                    if (window.location.pathname !== '/auth/login') {
+                        console.log('로그인 링크 클릭! 리디렉션 URL 저장:', currentUrl);
+                        localStorage.setItem('redirectUrl', currentUrl);
+                    }
+                    window.location.href = loginLink.href;
+                });
+            }
+        });
+    </script>
 
     <!-- 검색 버튼 클릭 시 페이지 이동 -->
     <script>
@@ -111,441 +502,4 @@
         });
     </script>
 
-    <!-- (이하 공통: 토큰, 인증, UI 제어 등 생략 없이 유지) -->
-    <!-- ... 중략: 위에 주셨던 토큰 관리, 로그인 상태 관리 스크립트들 그대로 사용 ... -->
-
 </div>
-
-<!--<div th:fragment="header">-->
-
-<!--    <a href="#" id="test-refresh-accessToken">요청 실패 시 여기를 클릭하세요!</a>-->
-
-<!--    <script>-->
-<!--        document.getElementById('test-refresh-accessToken').addEventListener('click', async (e) => {-->
-<!--            e.preventDefault();-->
-
-<!--            const response = await fetch('/refresh/test', {method: 'GET'});-->
-
-<!--            const result = await response.json();-->
-<!--            console.log('응답 결과:', result);-->
-<!--        });-->
-<!--    </script>-->
-
-
-<!--    <div class="vt-header-top">-->
-
-<!--        <a th:href="@{/}" class="logo">-->
-<!--            <h1>Virtual Trip</h1>-->
-<!--        </a>-->
-
-<!--        <div class="search-wrapper">-->
-<!--            <button class="category-btn" disabled style="cursor: default;">관광지명</button>-->
-<!--            <input type="text" class="search-input" placeholder="여행지를 검색해 보세요">-->
-<!--            <button class="search-icon-btn" aria-label="검색" onclick="location.href='/places/search'">🔍</button>-->
-
-<!--            &lt;!&ndash;            <button class="search-icon-btn" aria-label="검색">🔍</button>&ndash;&gt;-->
-<!--        </div>-->
-
-<!--        <div class="header-auth-area">-->
-<!--            <span id="user-email-display" style="display: none;"></span>-->
-<!--            <a th:href="@{/auth/login}" id="global-login-link">로그인</a>-->
-<!--            <button type="button" id="logout-btn" style="cursor: pointer;">로그아웃</button>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--    <nav class="vt-nav">-->
-<!--        <a th:href="@{/}" class="nav-item">홈</a>-->
-<!--        <a th:href="@{/places/list}" class="nav-item">관광지 목록</a>-->
-<!--        <a th:href="@{/reviews/list}" class="nav-item">리뷰 게시판</a>-->
-<!--        <a th:href="@{/api/v1/generate-request}" class="nav-item">이미지 만들기</a>-->
-<!--        <a th:href="@{/api/v1/mypage}" class="nav-item">마이페이지</a>-->
-<!--        <a th:href="@{/api/v1/admin/page}" class="nav-item" id="admin-page-link" style="display: none;">관리자 페이지</a>-->
-<!--    </nav>-->
-
-
-<!--    <script>-->
-<!--        document.addEventListener('DOMContentLoaded', () => {-->
-<!--            const categoryBtn = document.querySelector('.category-btn');-->
-<!--            const categoryDropdown = document.getElementById('category-dropdown');-->
-<!--            const categoryItems = document.querySelectorAll('.category-item');-->
-<!--            const searchInput = document.querySelector('.search-input');-->
-<!--            const searchBtn = document.querySelector('.search-icon-btn');-->
-
-<!--            if (!categoryBtn || !categoryDropdown || !categoryItems.length || !searchInput || !searchBtn) {-->
-<!--                console.error("검색 UI 요소를 모두 찾을 수 없습니다.");-->
-<!--                return;-->
-<!--            }-->
-
-<!--            // -&#45;&#45; 1. 카테고리 버튼 클릭: 드롭다운 토글 -&#45;&#45;-->
-<!--            categoryBtn.addEventListener('click', (e) => {-->
-<!--                e.preventDefault();-->
-<!--                const isHidden = categoryDropdown.style.display === 'none';-->
-<!--                categoryDropdown.style.display = isHidden ? 'block' : 'none';-->
-<!--            });-->
-
-<!--            // -&#45;&#45; 2. 드롭다운 항목 클릭: 카테고리 선택 -&#45;&#45;-->
-<!--            categoryItems.forEach(item => {-->
-<!--                item.addEventListener('click', (e) => {-->
-<!--                    const selectedValue = e.currentTarget.getAttribute('data-value');-->
-<!--                    categoryBtn.textContent = selectedValue;-->
-<!--                    categoryDropdown.style.display = 'none';-->
-<!--                });-->
-<!--            });-->
-
-<!--            // -&#45;&#45; 3. 검색 버튼(돋보기) 클릭: API 요청 -&#45;&#45;-->
-<!--            searchBtn.addEventListener('click', async (e) => {-->
-<!--                e.preventDefault();-->
-
-<!--                const category = categoryBtn.textContent.trim();-->
-<!--                const query = searchInput.value;-->
-<!--                const encodedQuery = encodeURIComponent(query);-->
-
-<!--                let targetUrl = '';-->
-
-<!--                switch (category) {-->
-<!--                    case '전체':-->
-<!--                        targetUrl = '/api/v1/places';-->
-<!--                        break;-->
-<!--                    case '관광지명':-->
-<!--                        targetUrl = `/api/v1/places/search?title=${encodedQuery}`;-->
-<!--                        break;-->
-<!--                    case '지역명':-->
-<!--                        targetUrl = `/api/v1/places/district?dist=${encodedQuery}`;-->
-<!--                        break;-->
-<!--                    case '평점별':-->
-<!--                        targetUrl = `/api/v1/places/rate?rating=${encodedQuery}`;-->
-<!--                        break;-->
-<!--                    default:-->
-<!--                        console.error('알 수 없는 카테고리:', category);-->
-<!--                        return;-->
-<!--                }-->
-
-<!--                console.log(`[검색 요청]-->
-<!--                - 카테고리: ${category}-->
-<!--                - 검색어: ${query}-->
-<!--                - 요청 URL: ${targetUrl}`);-->
-
-<!--                try {-->
-<!--                    const response = await fetch(targetUrl, {-->
-<!--                        method: 'GET'-->
-<!--                    });-->
-
-<!--                    if (response.ok) {-->
-<!--                        const result = await response.json();-->
-<!--                        console.log('검색 성공:', result.data);-->
-<!--                        alert('검색 요청 성공! (콘솔 로그를 확인하세요)');-->
-<!--                    } else {-->
-<!--                        const errorResult = await response.json();-->
-<!--                        console.error('검색 실패:', errorResult.message);-->
-<!--                        alert(`검색 실패: ${errorResult.message}`);-->
-<!--                    }-->
-
-<!--                } catch (error) {-->
-<!--                    if (error.name === "TokenRefreshedError") {-->
-<!--                        console.error("토큰 갱신 후 재시도했으나 최종 실패:", error);-->
-<!--                    } else {-->
-<!--                        console.error('검색 요청 중 네트워크 오류 발생:', error);-->
-<!--                        alert('검색 중 오류가 발생했습니다.');-->
-<!--                    }-->
-<!--                }-->
-<!--            });-->
-
-<!--            // [선택] 페이지 바깥 클릭 시 드롭다운 닫기-->
-<!--            document.addEventListener('click', (e) => {-->
-<!--                if (!categoryBtn.contains(e.target) && !categoryDropdown.contains(e.target)) {-->
-<!--                    categoryDropdown.style.display = 'none';-->
-<!--                }-->
-<!--            });-->
-<!--        });-->
-<!--    </script>-->
-
-
-<!--    <script>-->
-<!--        // 1. 기존의 window.fetch 함수를 백업해둡니다.-->
-<!--        const originalFetch = window.fetch;-->
-
-<!--        // 강제 로그아웃 헬퍼 함수-->
-<!--        function forceLogout(message) {-->
-<!--            localStorage.removeItem('accessToken');-->
-<!--            localStorage.removeItem('redirectUrl');-->
-<!--            alert(message || '세션이 만료되었습니다. 다시 로그인해 주세요.');-->
-<!--            window.location.href = '/auth/login';-->
-<!--        }-->
-
-<!--        // '자발적/강제' 로그인을 위한 헬퍼 함수-->
-<!--        function redirectToLogin() {-->
-<!--            if (window.location.pathname !== '/auth/login') {-->
-<!--                const fullRedirectUrl = window.location.pathname + window.location.search;-->
-<!--                console.log('401 감지! 리디렉션 URL 저장:', fullRedirectUrl);-->
-<!--                localStorage.setItem('redirectUrl', fullRedirectUrl);-->
-<!--            }-->
-<!--            alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');-->
-<!--            window.location.href = '/auth/login';-->
-<!--        }-->
-
-<!--        /**-->
-<!--         * 자동 토큰 갱신(Silent Refresh) 헬퍼 함수-->
-<!--         * (HttpOnly 쿠키 방식)-->
-<!--         */-->
-<!--        async function handleTokenRefresh() {-->
-<!--            const accessToken = localStorage.getItem('accessToken');-->
-
-<!--            if (!accessToken) {-->
-<!--                console.log('Access Token이 없어 갱신 불가.');-->
-<!--                return false;-->
-<!--            }-->
-
-<!--            try {-->
-<!--                // /auth/refresh 요청-->
-<!--                const refreshResponse = await originalFetch('/auth/refresh', {-->
-<!--                    method: 'POST',-->
-<!--                    headers: {-->
-<!--                        'Authorization': `Bearer ${accessToken}` // 만료된 AT-->
-<!--                    },-->
-<!--                    // ★★★ [수정 1] credentials 추가 (버그 수정) ★★★-->
-<!--                    credentials: 'include'-->
-<!--                });-->
-
-<!--                if (refreshResponse.ok) {-->
-<!--                    const result = await refreshResponse.json();-->
-<!--                    const newAccessToken = result.data.accessToken;-->
-<!--                    localStorage.setItem('accessToken', newAccessToken);-->
-
-<!--                    console.log('토큰 갱신 성공 (새 AT 발급)');-->
-<!--                    return true; // 갱신 성공-->
-<!--                } else {-->
-<!--                    const errorBody = await refreshResponse.json();-->
-<!--                    console.error('Refresh Token 갱신 실패 (쿠키 만료 또는 무효):', errorBody.message);-->
-<!--                    return false; // 갱신 실패-->
-<!--                }-->
-
-<!--            } catch (error) {-->
-<!--                console.error('토큰 갱신 중 네트워크 오류:', error);-->
-<!--                return false; // 갱신 실패-->
-<!--            }-->
-<!--        }-->
-
-
-<!--        // 2. window.fetch 함수 덮어쓰기-->
-<!--        window.fetch = async (...args) => {-->
-
-<!--            let options = args[1] || {};-->
-<!--            const url = args[0];-->
-
-<!--            // 모든 fetch 요청에 credentials: 'include'를 기본값으로 설정-->
-<!--            options.credentials = options.credentials || 'include';-->
-
-<!--            // 3. [역할 1] 토큰 자동 주입-->
-<!--            if (url !== '/auth/login' && url !== '/auth/signup' && !url.startsWith('/auth/refresh')) {-->
-<!--                const accessToken = localStorage.getItem('accessToken');-->
-<!--                if (accessToken) {-->
-<!--                    options.headers = options.headers || {};-->
-<!--                    options.headers['Authorization'] = `Bearer ${accessToken}`;-->
-<!--                }-->
-<!--            }-->
-
-<!--            // 4. 원본 fetch 함수로 실제 요청을 보냄-->
-<!--            const response = await originalFetch(url, options);-->
-
-<!--            // 5. [역할 2] 401 에러 감지-->
-<!--            if (response.status === 401) {-->
-
-<!--                if (url.startsWith('/auth/refresh')) {-->
-<!--                    console.warn('/auth/refresh 요청 실패 (RT 쿠키 만료). 강제 로그아웃.');-->
-<!--                    forceLogout('세션이 만료되었습니다. 다시 로그인해 주세요.');-->
-<!--                    return new Promise(() => {-->
-<!--                    });-->
-<!--                }-->
-
-<!--                const clonedResponse = response.clone();-->
-
-<!--                try {-->
-<!--                    const errorBody = await clonedResponse.json();-->
-
-<!--                    if (errorBody.message === "만료된 JWT 토큰입니다.") {-->
-<!--                        console.log("Access Token 만료. 자동 갱신 시도...");-->
-
-<!--                        const refreshSuccess = await handleTokenRefresh();-->
-
-<!--                        if (refreshSuccess) {-->
-
-<!--                            // ★★★ [수정 2] FormData(Stream)인지 확인 ★★★-->
-<!--                            const isStream = options.body && (options.body instanceof FormData || options.body instanceof ReadableStream);-->
-
-<!--                            if (isStream) {-->
-<!--                                // FormData/Stream은 래퍼가 재시도(X), 커스텀 에러 발생(O)-->
-<!--                                console.log("토큰 갱신 성공. [Stream Body] 재시도는 호출자가 직접 해야 함.");-->
-<!--                                const error = new Error("TOKEN_REFRESHED_RETRY_MANUALLY");-->
-<!--                                error.name = "TokenRefreshedError";-->
-<!--                                throw error; // ai-image.html의 catch문으로 전달-->
-<!--                            } else {-->
-<!--                                // GET 요청이나 JSON Body는 래퍼가 직접 재시도(O)-->
-<!--                                console.log("토큰 갱신 성공. 원래 요청(GET 등) 재시도.");-->
-<!--                                options.headers['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`;-->
-<!--                                return await originalFetch(url, options); // ★ 자동 재시도-->
-<!--                            }-->
-
-<!--                        } else {-->
-<!--                            forceLogout('세션이 만료되었습니다. 다시 로그인해 주세요.');-->
-<!--                            return new Promise(() => {-->
-<!--                            });-->
-<!--                        }-->
-<!--                    } else {-->
-<!--                        console.warn(`기타 401 에러 (${errorBody.message}). 로그인 페이지로.`);-->
-<!--                        redirectToLogin();-->
-<!--                        return new Promise(() => {-->
-<!--                        });-->
-<!--                    }-->
-
-<!--                } catch (e) {-->
-<!--                    // [수정] TokenRefreshedError는 다시 던져서 ai-image.html로 보냄-->
-<!--                    if (e.name === "TokenRefreshedError") {-->
-<!--                        throw e;-->
-<!--                    }-->
-
-<!--                    console.error("401 응답이 예상된 JSON 형식이 아님.", e);-->
-<!--                    redirectToLogin();-->
-<!--                    return new Promise(() => {-->
-<!--                    });-->
-<!--                }-->
-<!--            }-->
-
-<!--            // 10. 401이 아니면, 원래 응답을 그대로 반환-->
-<!--            return response;-->
-<!--        };-->
-<!--    </script>-->
-
-
-<!--    <script>-->
-<!--        const logoutButton = document.getElementById('logout-btn');-->
-<!--        if (logoutButton) {-->
-<!--            logoutButton.addEventListener('click', async () => {-->
-
-<!--                // "정말 로그아웃하시겠습니까?" 확인창-->
-<!--                if (window.confirm("정말 로그아웃하시겠습니까?")) {-->
-
-<!--                    const accessToken = localStorage.getItem('accessToken');-->
-<!--                    if (!accessToken) {-->
-<!--                        alert('이미 로그아웃 상태입니다.');-->
-<!--                        return;-->
-<!--                    }-->
-<!--                    try {-->
-<!--                        // 서버는 이 요청을 받고 RT 쿠키를 삭제하는 응답을 보냄-->
-<!--                        const response = await originalFetch('/auth/logout', {-->
-<!--                            method: 'POST',-->
-<!--                            headers: {-->
-<!--                                'Authorization': `Bearer ${accessToken}`-->
-<!--                            },-->
-
-<!--                            credentials: 'include'-->
-<!--                        });-->
-<!--                        if (response.ok) {-->
-<!--                            console.log('서버 Refresh Token 삭제 완료 (쿠키 포함)');-->
-<!--                        } else {-->
-<!--                            console.error('서버 로그아웃 처리 실패');-->
-<!--                        }-->
-<!--                    } catch (error) {-->
-<!--                        console.error('서버 로그아웃 요청 중 오류 발생:', error);-->
-<!--                    } finally {-->
-<!--                        localStorage.removeItem('accessToken');-->
-<!--                        localStorage.removeItem('redirectUrl');-->
-<!--                        alert('로그아웃되었습니다.');-->
-<!--                        window.location.href = '/';-->
-<!--                    }-->
-
-<!--                } // if (window.confirm...) 닫는 괄호-->
-<!--            });-->
-<!--        }-->
-<!--    </script>-->
-
-
-<!--    <script>-->
-<!--        // (사용자 원본 스크립트 4 - JWT 파싱 및 UI 제어 - 수정 X)-->
-
-<!--        /**-->
-<!--         * [ ★★★ 신규 헬퍼 함수 ★★★ ]-->
-<!--         * Access Token(JWT)의 페이로드를 디코딩하여 JSON 객체로 반환합니다.-->
-<!--         * (서버의 TokenProvider.parseClaims와 동일한 역할)-->
-<!--         */-->
-<!--        function parseJwtPayload(token) {-->
-<!--            try {-->
-<!--                const base64Url = token.split('.')[1]; // 페이로드 부분-->
-<!--                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Base64Url -> Base64-->
-
-<!--                // Base64 디코딩 (UTF-8 문자열을 안전하게 디코딩)-->
-<!--                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {-->
-<!--                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);-->
-<!--                }).join(''));-->
-
-<!--                return JSON.parse(jsonPayload);-->
-<!--            } catch (e) {-->
-<!--                console.error("JWT 페이로드 디코딩 실패", e);-->
-<!--                return null;-->
-<!--            }-->
-<!--        }-->
-
-
-<!--        // DOM이 모두 로드된 후에 실행-->
-<!--        document.addEventListener('DOMContentLoaded', () => {-->
-
-<!--            // -&#45;&#45; [스크립트 4] UI 제어 로직 (★이메일 표시 기능 추가★) -&#45;&#45;-->
-<!--            const accessToken = localStorage.getItem('accessToken');-->
-<!--            const loginLink = document.getElementById('global-login-link');-->
-<!--            const logoutButton = document.getElementById('logout-btn');-->
-<!--            const emailDisplay = document.getElementById('user-email-display');-->
-
-<!--            // ★★★ [신규] 1. 관리자 링크를 선택합니다. ★★★-->
-<!--            const adminLink = document.getElementById('admin-page-link');-->
-
-<!--            if (loginLink && logoutButton && emailDisplay) { // adminLink는 null일 수 있으므로 여기서 체크 안 함-->
-<!--                if (accessToken) {-->
-<!--                    // === 로그인한 상태 ===-->
-<!--                    loginLink.style.display = 'none';-->
-<!--                    logoutButton.style.display = 'inline-block';-->
-
-<!--                    // 1. AT를 디코딩해서 페이로드를 가져옵니다.-->
-<!--                    const payload = parseJwtPayload(accessToken);-->
-
-<!--                    if (payload) {-->
-<!--                        // 2. 'sub' 클레임(이메일)을 <span>에 표시합니다.-->
-<!--                        emailDisplay.textContent = payload.sub + " 님 환영합니다!";-->
-<!--                        emailDisplay.style.display = 'inline-block';-->
-
-<!--                        // ★★★ [신규] 3. 역할(Role) 확인 로직 ★★★-->
-<!--                        // ※참고: JWT의 역할 클레임 이름을 'auth'로 가정합니다.-->
-<!--                        //       (서버에서 'role', 'roles' 등으로 설정했다면 그걸로 바꿔주세요)-->
-<!--                        //       (예: 'ROLE_ADMIN', 'ADMIN' 등 서버에서 보낸 값 그대로 비교)-->
-<!--                        if (adminLink && payload.auth === 'ROLE_ADMIN') {-->
-<!--                            adminLink.style.display = 'inline-block'; // 관리자일 경우 링크 표시-->
-<!--                        }-->
-<!--                    }-->
-
-<!--                } else {-->
-<!--                    // === 로그아웃한 상태 ===-->
-<!--                    loginLink.style.display = 'inline-block';-->
-<!--                    logoutButton.style.display = 'none';-->
-<!--                    emailDisplay.style.display = 'none';-->
-
-<!--                    // ★★★ [신규] 4. 로그아웃 상태면 관리자 링크도 숨김 ★★★-->
-<!--                    if (adminLink) {-->
-<!--                        adminLink.style.display = 'none';-->
-<!--                    }-->
-<!--                }-->
-<!--            }-->
-
-<!--            // -&#45;&#45; [스크립트 3] 자발적 로그인 링크 클릭 로직 (기존과 동일) -&#45;&#45;-->
-<!--            if (loginLink) {-->
-<!--                loginLink.addEventListener('click', (e) => {-->
-<!--                    e.preventDefault();-->
-<!--                    const currentUrl = window.location.pathname + window.location.search;-->
-<!--                    if (window.location.pathname !== '/auth/login') {-->
-<!--                        console.log('로그인 링크 클릭! 리디렉션 URL 저장:', currentUrl);-->
-<!--                        localStorage.setItem('redirectUrl', currentUrl);-->
-<!--                    }-->
-<!--                    window.location.href = loginLink.href;-->
-<!--                });-->
-<!--            }-->
-<!--        });-->
-<!--    </script>-->
-
-<!--</div>-->
