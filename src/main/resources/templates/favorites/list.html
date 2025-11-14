@@ -17,13 +17,11 @@
     <div id="pagination" class="pagination"></div>
 </div>
 
-<div class="footer">
-    <th:block th:replace="~{common/footer :: footer}" />
-</div>
 
 <script>
     async function loadFavorites(offset) {
         try {
+            const token = localStorage.getItem("accessToken");
             const response = await fetch(`/api/v1/favorites?offset=${offset}`);
             const result = await response.json();
 

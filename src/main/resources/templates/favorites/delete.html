@@ -12,21 +12,20 @@
 <div class="container">
 
 </div>
-<div class="footer">
-    <th:block th:replace="~{common/footer :: footer}"/>
-</div>
 
 <script>
     // 수정 화면 초기 데이터 로드
     async function loadFavoriteDelete() {
         const favoriteSeq = [[${favoriteSeq}]];
-       // const accessToken = localStorage.getItem('accessToken');
+        const token = localStorage.getItem("accessToken");
+        console.log(token);
         try {
-            const response = await fetch(`http://localhost:8090/api/v1/favorites/${favoriteSeq}`, {
-                method: 'DELETE',
+
+            const response = await fetch(`/api/v1/favorites/${favoriteSeq}`, {
+                method: "DELETE",
               //  headers: {
-              //      'Authorization': `Bearer ${accessToken}`,
-              //  },
+              //      "Authorization": `Bearer ${token}`
+              //  }
             });
 
             if (response.ok) {
