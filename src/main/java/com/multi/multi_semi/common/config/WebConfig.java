@@ -12,11 +12,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
 
     // ✅ application.yml의 경로 키에 맞게 수정
-    @Value("${image.add-resource-locations}")
+    @Value("${image.image-dir}")
     private String ADD_RESOURCE_LOCATION;
 
-    @Value("${image.add-resource-handler}")
-    private String ADD_RESOURCE_HANDLER;
+    private static final String ADD_RESOURCE_HANDLER = "/multiimgs/**";
+
 
 
     @Value("${image.image-url}")

@@ -9,10 +9,9 @@
 
         <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
         <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+        <!-- ★ Kakao SDK: services 라이브러리 추가 -->
         <script type="text/javascript"
-                src="//dapi.kakao.com/v2/maps/sdk.js?appkey=351cf74523b79c29cc49c868a9f55b3b&autoload=false"></script>
-
-
+                src="//dapi.kakao.com/v2/maps/sdk.js?appkey=351cf74523b79c29cc49c868a9f55b3b&autoload=false&libraries=services"></script>
 
         <style>
             /* === 헤더와 동일 폭의 지도 컨테이너 === */
@@ -20,6 +19,7 @@
                 width: 100%;
                 max-width: 100%; /*1400px;*/
                 margin: 0 auto;
+                position: relative; /* 툴바를 지도 위에 올리기 위해 추가 */
             }
 
             /* === 지도 크기 (높이 500px) === */
@@ -27,8 +27,45 @@
                 width: 100%;
                 height: 500px;
                 /*border-radius: 8px;*/
-                box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
                 z-index: 1;
+            }
+
+            /* === 지도 오른쪽 툴바 === */
+            .map-toolbar {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                z-index: 3;
+                background: rgba(255, 255, 255, 0.95);
+                border-radius: 8px;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                font-family: 'SUIT', sans-serif;
+            }
+
+            .map-toolbar-title {
+                font-weight: 700;
+                font-size: 14px;
+                margin-bottom: 4px;
+                text-align: center;
+            }
+
+            .map-toolbar button {
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                padding: 6px 10px;
+                font-size: 13px;
+                cursor: pointer;
+                background: #f5f5f5;
+                white-space: nowrap;
+            }
+
+            .map-toolbar button:hover {
+                background: #e0e0e0;
             }
 
             /* === 인포윈도우 카드 레이아웃 (자동 폭 + 20px 여백) === */
@@ -38,9 +75,9 @@
                 background: #fff;
                 border-radius: 8px;
                 border: 1px solid #ccc;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-                padding: 20px;               /* ← 내용과 카드 테두리 간 여유공간 */
-                max-width: 500px;            /* 너무 커지지 않도록 제한 */
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+                padding: 20px; /* ← 내용과 카드 테두리 간 여유공간 */
+                max-width: 500px; /* 너무 커지지 않도록 제한 */
             }
 
             .place-overlay-inner {
@@ -51,15 +88,15 @@
 
             .po-text {
                 flex: 1;
-                font-size: 15px;             /* +2pt 정도 키움 */
-                line-height: 1.9;            /* 줄 간격 더 넓힘 */
+                font-size: 15px; /* +2pt 정도 키움 */
+                line-height: 1.9; /* 줄 간격 더 넓힘 */
             }
 
             .po-row {
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                margin-bottom: 10px;         /* 항목 간 여백 넓힘 */
+                margin-bottom: 10px; /* 항목 간 여백 넓힘 */
             }
 
             .po-label {
@@ -79,7 +116,7 @@
             }
 
             .po-right img {
-                width: 80px;                 /* 요청: 80x80 이미지 */
+                width: 80px; /* 요청: 80x80 이미지 */
                 height: 80px;
                 object-fit: cover;
                 border: 1px solid #333;
@@ -115,50 +152,180 @@
             .po-btn:hover {
                 background: #e0e0e0;
             }
+
+            .weather-emoji {
+                font-size: 18px;
+                margin-left: 4px;
+                vertical-align: middle;
+            }
+
+            /* === 평점 TOP 5 영역 === */
+            .top-rated-container {
+                width: 100%;
+                margin: 20px auto 40px;
+                font-family: 'SUIT', sans-serif;
+            }
+
+            .top-rated-title {
+                font-size: 20px;
+                font-weight: 700;
+                margin-bottom: 12px;
+            }
+
+            .top-rated-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+
+            .top-rated-item {
+                flex: 0 0 180px;
+                background: #ffffff;
+                border-radius: 10px;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                cursor: pointer;
+                transition: transform 0.15s ease, box-shadow 0.15s ease;
+            }
+
+            .top-rated-item:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .top-rated-img {
+                width: 140px;
+                height: 100px;
+                border-radius: 6px;
+                object-fit: cover;
+                margin-bottom: 8px;
+                border: 1px solid #ddd;
+            }
+
+            .top-rated-img-placeholder {
+                width: 140px;
+                height: 100px;
+                border-radius: 6px;
+                border: 1px dashed #bbb;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 13px;
+                color: #777;
+                margin-bottom: 8px;
+                box-sizing: border-box;
+            }
+
+            .top-rated-name {
+                font-size: 14px;
+                font-weight: 600;
+                margin-bottom: 4px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 100%;
+            }
+
+            .top-rated-score {
+                font-size: 13px;
+                color: #555;
+            }
+
         </style>
     </head>
     <body>
 
-
     <div class="header">
-        <th:block th:replace="~{common/header :: header}" />
+        <th:block th:replace="~{common/header :: header}"/>
     </div>
 
-
-    <!-- 지도 -->
     <div class="map-container">
         <div id="map"></div>
+
+        <!-- ★ 지도 오른쪽 툴바 -->
+        <div class="map-toolbar">
+            <button type="button" onClick="showWeather()">날씨 보기</button>
+            <div class="map-toolbar-title">주변 장소</div>
+            <button type="button" onclick="searchPoiCategory('FD6')">식당</button>
+            <button type="button" onclick="searchPoiCategory('CE7')">카페</button>
+            <button type="button" onclick="searchPoiCategory('AD5')">숙소</button>
+            <button type="button" onclick="clearPoiMarkers()">마커 지우기</button>
+        </div>
     </div>
 
-
-
-
-
-
-    <!--<div class="footer">
-        <th:block th:replace="~{common/footer :: footer}" />
-    </div> -->
+    <div class="top-rated-container">
+        <div class="top-rated-title">평점 TOP 5 관광지</div>
+        <div id="top-rated-list" class="top-rated-list"></div>
+    </div>
+    <div class="top-rated-container">
+        <div class="top-rated-title">즐겨찾기 TOP 5 관광지</div>
+        <div id="top-favorite-list" class="top-rated-list"></div>
+    </div>
 
 
     <script>
         var map;
-        var markers = [];
+        var markers = []; // 기존 관광지 마커들
+        var placesService; // Kakao Places 서비스 객체
+        var poiMarkers = []; // 식당/카페/숙소 등 Kakao POI 마커들
 
-        // ===== 팝업 내용 템플릿 =====
+        window.selectedPlaceDetail = null;   // /api/v1/places/{id} 결과
+        window.selectedMarker = null;        // 클릭된 관광지 마커
+        window.selectedInfowindow = null;    // 관광지용 infowindow
+
+        // ===== 팝업 내용 템플릿 (관광지용) =====
         function buildInfoContent(place) {
-            const rating = (place.rate !== undefined && place.rate !== null) ? place.rate : '-';
+
+            // 평균 평점 & 리뷰 수 계산
+            let avgText = '-';
+            let reviewCount = place.reviewCount || place.rateCount || 0;
+
+            if (place.avgRate !== undefined && place.avgRate !== null && place.avgRate > 0) {
+                avgText = place.avgRate.toFixed(1);          // 예: 4.3
+            } else if (place.rate !== undefined && place.rate !== null) {
+                // 백엔드가 아직 avgRate 안 주는 경우를 대비한 fallback
+                avgText = place.rate.toFixed ? place.rate.toFixed(1) : place.rate;
+            }
+
+            let ratingDisplay = avgText;
+            if (reviewCount > 0) {
+                ratingDisplay += ` (${reviewCount}개)`;
+            }
+
             const imagePart = place.imageUrl
                 ? `<img src="${place.imageUrl}" alt="이미지">`
                 : `<div class="po-image-placeholder">이미지</div>`;
-            const detailUrl = `/place/detail?placeNo=${place.no}`;
+            const detailUrl = `/places/${place.no}`;
+
+            // 날씨 아이콘 (있을 때만 표시)
+            const weatherPart = place.weatherEmoji
+                ? `<span class="weather-emoji" title="${place.weatherText || ' '}">
+           ${place.weatherEmoji}
+       </span>`
+                : '';
 
             return `
         <div class="place-overlay">
           <div class="place-overlay-inner">
             <div class="po-text">
-              <div class="po-row"><span class="po-label">이름</span><span class="po-value">${place.title || ''}</span></div>
-              <div class="po-row"><span class="po-label">주소</span><span class="po-value">${place.address || ''}</span></div>
-              <div class="po-row"><span class="po-label">평점</span><span class="po-value">${rating}</span></div>
+              <div class="po-row">
+                <span class="po-label">이름</span>
+                <span class="po-value">
+                  ${place.title || ''}${weatherPart}
+                </span>
+              </div>
+              <div class="po-row">
+                <span class="po-label">주소</span>
+                <span class="po-value">${place.address || ''}</span>
+              </div>
+              <div class="po-row">
+                <span class="po-label">평점</span>
+                <span class="po-value">${ratingDisplay}</span>
+              </div>
             </div>
             <div class="po-right">
               ${imagePart}
@@ -169,7 +336,30 @@
         </div>`;
         }
 
-        // ===== 상세정보 로딩 =====
+        // ===== 거리용 인포윈도우 내용 =====
+        function buildPoiContent(place) {
+            const roadAddr = place.road_address_name || '';
+            const addr = place.address_name || '';
+            const phone = place.phone || '-';
+
+            return `
+        <div class="place-overlay">
+          <div class="place-overlay-inner">
+            <div class="po-text">
+              <div class="po-row"><span class="po-label">이름</span><span class="po-value">${place.place_name}</span></div>
+              <div class="po-row"><span class="po-label">전화</span><span class="po-value">${phone}</span></div>
+              <div class="po-row">
+                <span class="po-label">링크</span>
+                <span class="po-value">
+                  <a href="${place.place_url}" target="_blank" style="color:blue; text-decoration:underline;">카카오맵에서 보기</a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>`;
+        }
+
+        // ===== 상세정보 로딩 (관광지용) =====
         function loadPlaceDetail(placeId, marker, infowindow) {
             fetch(`/api/v1/places/${placeId}`)
                 .then(response => response.json())
@@ -180,6 +370,47 @@
                     }
 
                     const place = result.data;
+
+                    // lat/lng 없으면 마커에서 보정
+                    if (!place.lat || !place.lng) {
+                        const pos = marker.getPosition();
+                        place.lat = pos.getLat();
+                        place.lng = pos.getLng();
+                    }
+
+                    // 2) 평균 평점 조회 (/api/v1/reviews/rating/{placeId})
+                    return fetch(`/api/v1/reviews/rating/${placeId}`)
+                        .then(res => res.json())
+                        .then(rateResult => {
+                            // rateResult가 ResponseDto({status, message, data})라고 가정
+                            let avg = null;
+
+                            if (rateResult && typeof rateResult === 'object') {
+                                // ResponseDto 형태일 때
+                                if ('data' in rateResult && rateResult.data != null) {
+                                    avg = rateResult.data;
+                                }
+                            } else if (typeof rateResult === 'number') {
+                                // 혹시 그냥 숫자만 내려줄 때
+                                avg = rateResult;
+                            }
+
+                            if (avg != null && !isNaN(avg)) {
+                                place.avgRate = avg;
+                            }
+
+                            return place;   // 다음 then으로 넘겨줌
+                        })
+                        .catch(err => {
+                            console.error('평점 조회 실패:', err);
+                            return place;
+                        });
+                })
+                .then(place => {
+                    if (!place) return;
+
+                    window.selectedPlaceDetail = place;
+
                     const content = buildInfoContent(place);
                     infowindow.setContent(content);
                     infowindow.open(map, marker);
@@ -190,7 +421,7 @@
                 });
         }
 
-        // ===== 마커 표시 =====
+        // ===== 관광지 마커 표시 =====
         function displayMarkers(data, infowindow) {
             for (var i = 0; i < data.length; i++) {
                 var latlng = new kakao.maps.LatLng(data[i].lat, data[i].lng);
@@ -202,15 +433,116 @@
                     title: data[i].title
                 });
 
-                (function(marker, placeId) {
+                (function (marker, placeId) {
                     kakao.maps.event.addListener(marker, 'click', function () {
-                        map.panTo(marker.getPosition());
+                        map.setCenter(marker.getPosition());      // 정확하게 중심 이동
+                        map.setLevel(3, {animate: true});         // 확대 유지
+
+                        // 현재 선택된 마커/인포윈도우 기억
+                        window.selectedMarker = marker;
+                        window.selectedInfowindow = infowindow;
+
                         loadPlaceDetail(placeId, marker, infowindow);
                     });
                 })(marker, placeId);
 
+
                 markers.push(marker);
             }
+        }
+
+        // ===== Kakao POI 마커 지우기 =====
+        function clearPoiMarkers() {
+            for (var i = 0; i < poiMarkers.length; i++) {
+                poiMarkers[i].setMap(null);
+            }
+            poiMarkers = [];
+        }
+
+        // ===== Kakao POI 검색 (식당/카페/숙소) =====
+        function searchPoiCategory(categoryCode) {
+            if (!placesService || !map) return;
+
+            clearPoiMarkers(); // 기존 POI 마커 삭제
+
+            var center = map.getCenter();  // 현재 지도 중심 좌표
+            var callback = function (data, status) {
+                if (status === kakao.maps.services.Status.OK && data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        (function (place) {
+                            var position = new kakao.maps.LatLng(place.y, place.x);
+                            var marker = new kakao.maps.Marker({
+                                map: map,
+                                position: position,
+                                title: place.place_name
+                            });
+
+                            kakao.maps.event.addListener(marker, 'click', function () {
+                                var content = buildPoiContent(place);
+                                poiInfowindow.setContent(content);
+                                poiInfowindow.open(map, marker);
+                            });
+
+                            poiMarkers.push(marker);
+                        })(data[i]);
+                    }
+                } else {
+                    alert('해당 장소의 주변에 해당 카테고리의 장소가 없습니다.');
+                }
+            };
+
+            placesService.categorySearch(categoryCode, callback, {
+                location: center,
+                radius: 500
+            });
+        }
+
+        function showWeather() {
+            // 1) 관광지가 선택되지 않은 경우
+            if (!window.selectedPlaceDetail) {
+                alert('먼저 지도의 관광지 마커를 클릭해서 상세정보를 띄워 주세요.');
+                return;
+            }
+
+            var place = window.selectedPlaceDetail;
+            if (!place.lat || !place.lng) {
+                alert('선택된 관광지의 좌표를 알 수 없습니다.');
+                return;
+            }
+
+            // 2) 백엔드 날씨 API 호출 (lat/lng을 넘김)
+            $.ajax({
+                url: '/api/v1/weather',
+                method: 'GET',
+                data: {
+                    lat: place.lat,
+                    lng: place.lng
+                },
+                dataType: 'json'
+            }).done(function (res) {
+                if (res.status !== 200 || !res.data) {
+                    alert('날씨 정보를 불러오지 못했습니다.');
+                    return;
+                }
+
+                var weather = res.data;
+
+                // 3) 기존 place에 날씨 정보 덧입혀서 다시 인포윈도우 내용 생성
+                var placeWithWeather = Object.assign({}, place, {
+                    weatherEmoji: weather.emoji,
+                    weatherText: weather.korean
+                });
+
+                var content = buildInfoContent(placeWithWeather);
+
+                if (window.selectedInfowindow && window.selectedMarker) {
+                    window.selectedInfowindow.setContent(content);
+                    window.selectedInfowindow.open(map, window.selectedMarker);
+                }
+            }).fail(function (xhr, status, error) {
+                console.error('날씨 조회 실패:', status, error);
+                alert('날씨 정보를 불러오는 중 오류가 발생했습니다.');
+            });
         }
 
         // ===== 지도 초기화 =====
@@ -222,10 +554,19 @@
                 };
             map = new kakao.maps.Map(mapContainer, mapOption);
 
+            // 관광지용 인포윈도우
             var infowindow = new kakao.maps.InfoWindow({
                 removable: true
             });
 
+            // Kakao POI용 인포윈도우
+            window.poiInfowindow = new kakao.maps.InfoWindow({
+                removable: true
+            });
+
+            placesService = new kakao.maps.services.Places();
+
+            // 기존 관광지 JSON 로딩
             $.getJSON('/json/no_descr.json', function (data) {
                 displayMarkers(data, infowindow);
                 map.relayout();
@@ -234,8 +575,100 @@
             });
         }
 
+        function loadTopRatedPlaces() {
+            $.ajax({
+                url: '/api/v1/main/rating',
+                method: 'GET',
+                dataType: 'json'
+            }).done(function (res) {
+                var $list = $('#top-rated-list');
+                $list.empty();
+
+                // 응답이 ResponseDto 형태라고 가정: { status, message, data }
+                var list = res.data || res;   // 혹시 그냥 배열로 줄 때도 대비
+
+                if (!Array.isArray(list) || list.length === 0) {
+                    $list.append('<span>등록된 리뷰가 없습니다.</span>');
+                    return;
+                }
+
+                list.forEach(function (item) {
+                    var imgHtml;
+                    if (item.imgUrl) {
+                        imgHtml = '<img class="top-rated-img" src="' + item.imgUrl + '" alt="이미지">';
+                    } else {
+                        imgHtml = '<div class="top-rated-img-placeholder">이미지 없음</div>';
+                    }
+
+                    var avg = (item.avgRate != null) ? item.avgRate.toFixed(1) : '-';
+
+                    var html =
+                        '<div class="top-rated-item" onclick="moveToPlaceDetail(' + item.placeNo + ')">' +
+                        imgHtml +
+                        '<div class="top-rated-name" title="' + (item.placeTitle || '') + '">' +
+                        (item.placeTitle || '') +
+                        '</div>' +
+                        '<div class="top-rated-score"> ' + avg + '/5.0 (' + item.rateCount + ')</div>' +
+                        '</div>';
+
+                    $list.append(html);
+                });
+            }).fail(function (xhr, status, error) {
+                console.error('TOP 5 로딩 실패:', status, error);
+            });
+        }
+
+        // ===== 즐겨찾기 TOP 5 리스트 로딩 =====
+        function loadTopFavoritePlaces() {
+            $.ajax({
+                url: '/api/v1/main/favorites',
+                method: 'GET',
+                dataType: 'json'
+            }).done(function (res) {
+                var $list = $('#top-favorite-list');
+                $list.empty();
+
+                var list = res.data || res;  // ResponseDto.data 또는 그냥 배열
+
+                if (!Array.isArray(list) || list.length === 0) {
+                    $list.append('<span>즐겨찾기한 장소가 없습니다.</span>');
+                    return;
+                }
+
+                list.forEach(function (item) {
+                    var imgHtml;
+                    if (item.imgUrl) {
+                        imgHtml = '<img class="top-rated-img" src="' + item.imgUrl + '" alt="이미지">';
+                    } else {
+                        imgHtml = '<div class="top-rated-img-placeholder">이미지 없음</div>';
+                    }
+
+                    var html =
+                        '<div class="top-rated-item" onclick="moveToPlaceDetail(' + item.placeNo + ')">' +
+                        imgHtml +
+                        '<div class="top-rated-name" title="' + (item.placeTitle || '') + '">' +
+                        (item.placeTitle || '') +
+                        '</div>' +
+                        '<div class="top-rated-score"> ' + item.favoriteCount + '회</div>' +
+                        '</div>';
+
+                    $list.append(html);
+                });
+            }).fail(function (xhr, status, error) {
+                console.error('즐겨찾기 TOP 5 로딩 실패:', status, error);
+            });
+        }
+
+        // ===== 리스트 클릭 시 장소 상세 페이지로 이동 =====
+        function moveToPlaceDetail(placeNo) {
+            if (!placeNo) return;
+            window.location.href = '/places/' + placeNo;
+        }
+
         $(function () {
             kakao.maps.load(initMap);
+            loadTopRatedPlaces();
+            loadTopFavoritePlaces();
         });
     </script>
     </body>

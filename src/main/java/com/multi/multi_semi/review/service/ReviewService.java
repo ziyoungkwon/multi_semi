@@ -1,6 +1,7 @@
 package com.multi.multi_semi.review.service;
 
 import com.multi.multi_semi.common.paging.SelectCriteria;
+import com.multi.multi_semi.common.util.FileUploadUtils;
 import com.multi.multi_semi.favorite.dto.FavoriteResDto;
 import com.multi.multi_semi.review.dao.ReviewMapper;
 import com.multi.multi_semi.review.dto.ReviewReqDto;
@@ -11,7 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +23,9 @@ import java.util.List;
 public class ReviewService {
 
     private final ReviewMapper reviewMapper;
+
+    @Value("${image.image-dir}")
+    private String IMAGE_DIR;
 
 
     @Value("${image.image-url}")
@@ -36,7 +42,7 @@ public class ReviewService {
 
     public ReviewResDto findReviewByNo(String reviewNo) {
 
-        ReviewResDto review = reviewMapper.findReviewByNo(Integer.parseInt(reviewNo));
+        ReviewResDto review = reviewMapper.findReviewByNo(Long.parseLong(reviewNo));
         if (review.getImgUrl() != null && !review.getImgUrl().isEmpty()) {
             review.setImgUrl(IMAGE_URL + review.getImgUrl());
         }
@@ -47,14 +53,66 @@ public class ReviewService {
 
     public int insertReview(ReviewReqDto reviewReqDto) {
 
-        int result = reviewMapper.insertReview(reviewReqDto);
+        String imageName = UUID.randomUUID().toString().replace("-", "");
+        String replaceFileName = null;
+        int result = 0;
+
+        try {
+            replaceFileName = FileUploadUtils.saveFile(IMAGE_DIR, imageName, reviewReqDto.getImgFile());
+            log.info("[ProductService] replaceFileName : " + replaceFileName);
+
+            reviewReqDto.setImgUrl(replaceFileName);
+
+            log.info("[ProductService] insert Image Name : "+ replaceFileName);
+
+            result = reviewMapper.insertReview(reviewReqDto);
+
+        } catch (IOException e) {
+            log.info("[ProductService] IOException IMAGE_DIR : "+ IMAGE_DIR);
+
+            log.info("[ProductService] IOException deleteFile : "+ replaceFileName);
+
+            // FileUploadUtils.deleteFile(IMAGE_DIR, replaceFileName);
+            throw new RuntimeException(e);
+        }
 
         return result;
     }
 
     public int updateReview(ReviewReqDto reviewReqDto) {
 
-        int result = reviewMapper.updateReview(reviewReqDto);
+        String replaceFileName = null;
+        int result = 0;
+
+        try {
+            String oriImage = reviewMapper.findReviewByNo(reviewReqDto.getNo()).getImgUrl();
+            log.info("[updateProduct] oriImage : " + oriImage);
+
+            if(reviewReqDto.getImgFile() != null && !reviewReqDto.getImgFile().isEmpty()) {
+                // 이미지 변경 진행
+                String imageName = UUID.randomUUID().toString().replace("-", "");
+                replaceFileName = FileUploadUtils.saveFile(IMAGE_DIR, imageName, reviewReqDto.getImgFile());
+
+                log.info("[updateProduct] IMAGE_DIR!!"+ IMAGE_DIR);
+                log.info("[updateProduct] imageName!!"+ imageName);
+
+                log.info("[updateProduct] InsertFileName : " + replaceFileName);
+                reviewReqDto.setImgUrl(replaceFileName);
+
+                log.info("[updateProduct] deleteImage : " + oriImage);
+                boolean isDelete = FileUploadUtils.deleteFile(IMAGE_DIR, oriImage);
+                log.info("[update] isDelete : " + isDelete);
+            } else {
+                reviewReqDto.setImgUrl(oriImage);
+            }
+
+            result = reviewMapper.updateReview(reviewReqDto);
+
+        } catch (IOException e) {
+            log.info("[updateProduct] Exception!!");
+            // FileUploadUtils.deleteFile(IMAGE_DIR, replaceFileName);
+            throw new RuntimeException(e);
+        }
 
         return result;
     }

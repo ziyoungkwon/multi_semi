@@ -85,6 +85,7 @@ public class SecurityConfigJwt {
                         .requestMatchers(HttpMethod.POST, "/api/v1/generate-request/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.POST, "/api/v1/generate-status/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/api/v1/download-image/**").permitAll()
+                        .requestMatchers("/multiimgs/**").permitAll()
                         .anyRequest().authenticated())
 
                 // [ ★★★ 수정 ★★★ ]

@@ -17,7 +17,7 @@ public interface ReviewMapper {
 
     int selectReviewTotal();
 
-    ReviewResDto findReviewByNo(@Param("no")int reviewNo);
+    ReviewResDto findReviewByNo(@Param("no")Long reviewNo);
 
     int insertReview(ReviewReqDto reviewReqDto);
 
