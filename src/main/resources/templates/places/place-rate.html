@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>평점별 관광지</title>
+    <link rel="stylesheet" th:href="@{/css/styles1.css}">
+    <style>
+        body {
+            background: #ffffff;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .layout {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 30px;
+        }
+
+        .side-menu {
+            width: 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: sticky;
+            top: 120px;
+            height: fit-content;
+        }
+
+        .menu-btn {
+            padding: 15px 20px;
+            background: #fff;
+            border: 3px solid #FEE500;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .menu-btn:hover {
+            background: #fff6a8;
+        }
+
+        .menu-btn.active {
+            background: #FEE500;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        .rating-grid {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .rating-btn {
+            padding: 10px 14px;
+            border: 2px solid #FEE500;
+            border-radius: 10px;
+            background: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .rating-btn:hover {
+            background: #fff6a8;
+        }
+
+        .rating-btn.active {
+            background: #FEE500;
+        }
+
+        .place-card {
+            border: 3px solid #FEE500;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 18px;
+            background: #fff;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+            display: flex;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .place-card:hover {
+            background: #fff9cc;
+            transition: 0.2s;
+        }
+
+        .place-img {
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 10px;
+            background: #eee;
+        }
+
+        .place-info {
+            flex: 1;
+        }
+
+        .place-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .place-desc {
+            color: #555;
+            margin-top: 6px;
+            font-size: 14px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+
+<div th:replace="~{common/header :: header}"></div>
+
+<div class="layout">
+    <!-- 좌측 메뉴 -->
+    <div class="side-menu">
+        <div class="menu-btn" onclick="location.href='/places/list'">전체 관광지</div>
+        <div class="menu-btn" onclick="location.href='/places/district'">권역별 관광지</div>
+        <div class="menu-btn" onclick="location.href='/places/search'">관광지명 검색</div>
+        <div class="menu-btn active" onclick="location.href='/places/rate'">평점별 관광지</div>
+    </div>
+
+    <!-- 우측 컨텐츠 -->
+    <div class="content">
+        <h2>평점별 관광지</h2>
+
+        <div class="rating-grid">
+            <div class="rating-btn" onclick="loadByRating(0, this)">0점대</div>
+            <div class="rating-btn" onclick="loadByRating(1, this)">1점대</div>
+            <div class="rating-btn" onclick="loadByRating(2, this)">2점대</div>
+            <div class="rating-btn" onclick="loadByRating(3, this)">3점대</div>
+            <div class="rating-btn" onclick="loadByRating(4, this)">4점대</div>
+            <div class="rating-btn" onclick="loadByRating(5, this)">5점</div>
+        </div>
+
+        <div id="placeList"></div>
+    </div>
+</div>
+
+<script>
+    function loadByRating(rating, btn) {
+        // 버튼 활성화 처리
+        document.querySelectorAll(".rating-btn").forEach(el => el.classList.remove("active"));
+        btn.classList.add("active");
+
+        fetch(`/api/v1/places/rate?rating=${rating}`)
+            .then(res => res.json())
+            .then(data => {
+                renderPlaces(data.data); // 응답 구조: { data: [...] }
+            })
+            .catch(err => {
+                console.error("불러오기 실패:", err);
+                alert("관광지 목록을 불러오는데 실패했습니다.");
+            });
+    }
+
+    function renderPlaces(placeList) {
+        const container = document.getElementById("placeList");
+        container.innerHTML = "";
+
+        if (!placeList || placeList.length === 0) {
+            container.innerHTML = "<p>해당 평점대의 관광지가 없습니다.</p>";
+            return;
+        }
+
+        placeList.forEach(place => {
+            const imageUrl = place.imageUrl ? place.imageUrl : "/images/default.png";
+            const html = `
+                <div class="place-card" onclick="goDetail(${place.no})">
+                    <img src="${imageUrl}" class="place-img">
+                    <div class="place-info">
+                        <div class="place-title">${place.title}</div>
+                        <div class="place-desc">${place.description || ""}</div>
+                        <div style="margin-top: 8px;">
+                            지역: ${place.district}<br>
+                            ⭐ 평점: ${place.avgRate || 0}
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML("beforeend", html);
+        });
+    }
+
+    function goDetail(no) {
+        window.location.href = `/places/${no}`;
+    }
+
+    // 기본으로 0점대 로드
+    window.onload = () => {
+        const firstBtn = document.querySelector(".rating-btn");
+        loadByRating(0, firstBtn);
+    };
+</script>
+
+</body>
+</html>
