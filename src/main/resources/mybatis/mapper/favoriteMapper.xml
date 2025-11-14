@@ -55,8 +55,8 @@
         place_no)
         VALUES
         (
-        #{ userId }
-        , #{ no }
+        #{ memEmail }
+        , #{ placeNo }
         )
     </insert>
 
