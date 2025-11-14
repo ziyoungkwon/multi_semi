@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관광지 검색</title>
+    <link rel="stylesheet" th:href="@{/css/styles1.css}">
+    <style>
+        body {
+            background: #ffffff;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .layout {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 30px;
+        }
+
+        .side-menu {
+            width: 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: sticky;
+            top: 120px;
+            height: fit-content;
+        }
+
+        .menu-btn {
+            padding: 15px 20px;
+            background: #fff;
+            border: 3px solid #FEE500;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .menu-btn:hover {
+            background: #fff6a8;
+        }
+
+        .menu-btn.active {
+            background: #FEE500;
+        }
+
+        .content {
+            flex: 1;
+        }
+
+        .search-box {
+            display: flex;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .search-btn {
+            padding: 10px 18px;
+            background-color: #FEE500;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .place-card {
+            border: 3px solid #FEE500;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 18px;
+            background: #fff;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+            display: flex;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .place-card:hover {
+            background: #fff9cc;
+            transition: 0.2s;
+        }
+
+        .place-img {
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 10px;
+            background: #eee;
+        }
+
+        .place-info {
+            flex: 1;
+        }
+
+        .place-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .place-desc {
+            color: #555;
+            margin-top: 6px;
+            font-size: 14px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="~{common/header :: header}"></div>
+
+<div class="layout">
+    <!-- 좌측 메뉴 -->
+    <div class="side-menu">
+        <div class="menu-btn" onclick="location.href='/places/list'">전체 관광지</div>
+        <div class="menu-btn" onclick="location.href='/places/district'">권역별 관광지</div>
+        <div class="menu-btn active" onclick="location.href='/places/search'">관광지명 검색</div>
+        <div class="menu-btn" onclick="location.href='/places/rate'">평점별 관광지</div>
+    </div>
+
+    <!-- 우측 컨텐츠 -->
+    <div class="content">
+        <h2>관광지 검색</h2>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" class="search-input" placeholder="관광지명을 입력하세요">
+            <button class="search-btn" onclick="searchPlaces()">검색</button>
+        </div>
+
+        <div id="placeList"></div>
+    </div>
+</div>
+
+<script>
+    function searchPlaces() {
+        const keyword = document.getElementById("searchInput").value.trim();
+        if (!keyword) {
+            alert("검색어를 입력하세요.");
+            return;
+        }
+
+        fetch(`/api/v1/search/places?keyword=${encodeURIComponent(keyword)}`)
+            .then(res => res.json())
+            .then(data => {
+                renderPlaces(data.data); // data 구조는 { data: [...] }
+            })
+            .catch(err => {
+                console.error("검색 실패:", err);
+                alert("검색 중 오류가 발생했습니다.");
+            });
+    }
+
+    function renderPlaces(placeList) {
+        const container = document.getElementById("placeList");
+        container.innerHTML = "";
+
+        if (!placeList || placeList.length === 0) {
+            container.innerHTML = "<p>검색 결과가 없습니다.</p>";
+            return;
+        }
+
+        placeList.forEach(place => {
+            const imageUrl = place.imageUrl ? place.imageUrl : "/images/default.png";
+            const html = `
+                <div class="place-card" onclick="goDetail(${place.no})">
+                    <img src="${imageUrl}" class="place-img">
+                    <div class="place-info">
+                        <div class="place-title">${place.title}</div>
+                        <div class="place-desc">${place.description || ""}</div>
+                        <div style="margin-top: 8px;">
+                            지역: ${place.district}<br>
+                            ⭐ 평점: ${place.avgRate || 0}
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML("beforeend", html);
+        });
+    }
+
+    function goDetail(no) {
+        window.location.href = `/places/${no}`;
+    }
+</script>
+
+</body>
+</html>

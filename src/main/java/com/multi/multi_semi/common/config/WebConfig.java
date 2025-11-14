@@ -11,16 +11,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    // --- 1. 기존 설정 값 (productimgs) ---
-    // [수정] 변수명을 좀 더 명확하게 변경 (선택 사항)
-    @Value("${image.add-resource-locations}")
-    private String productResourceLocation;
+    // ✅ application.yml의 경로 키에 맞게 수정
+    @Value("${image.image-dir}")
+    private String ADD_RESOURCE_LOCATION;
+
 
     @Value("${image.add-resource-handler}")
-    private String productResourceHandler;
+    private String ADD_RESOURCE_HANDLER;
+
+
 
     @Value("${image.image-url}")
-    private String IMAGE_URL;
+    private String IMAGE_URL; // ← 필요 시 다른 클래스에서도 이 값 사용 가능
+
 
     // --- 2. [추가] 새 설정 값 (ai_img) ---
     @Value("${file.resource-locations}")
@@ -40,32 +43,26 @@ public class WebConfig implements WebMvcConfigurer {
     // --- 3. [수정] addResourceHandlers 메서드 ---
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // 경로 자동 처리
+        String resourcePath = ADD_RESOURCE_LOCATION.startsWith("file:")
+                ? ADD_RESOURCE_LOCATION
+                : "file:" + ADD_RESOURCE_LOCATION;
 
-        // --- (A) 기존 Product 이미지 핸들러 등록 (기존 로직) ---
-        String productPath = productResourceLocation.startsWith("file:")
-                ? productResourceLocation
-                : "file:" + productResourceLocation;
+        // --- 1) 리뷰 이미지(일반 이미지) 매핑 추가 ---
+        registry.addResourceHandler(ADD_RESOURCE_HANDLER)
+                .addResourceLocations(resourcePath);
 
-        registry.addResourceHandler(productResourceHandler)
-                .addResourceLocations(productPath);
-
-
-        // --- (B) [추가] 새 AI 이미지 핸들러 등록 ---
-        // 'file.resource-locations'는 yml에서 이미 'file:' 접두사를 포함하므로
-        // 별도 검사 없이 바로 사용합니다.
+        // --- 2) ai 이미지 매핑 ---
         registry.addResourceHandler(aiResourceHandler)
                 .addResourceLocations(aiResourceLocation);
 
-
-        // --- (C) [수정] 로그 출력 (두 핸들러 모두 표시) ---
-        System.out.println("[STATIC RESOURCE MAPPING 1: Products]");
-        System.out.println("  Handler  : " + productResourceHandler);
-        System.out.println("  Location : " + productPath);
-        System.out.println("  Image URL: " + IMAGE_URL);
+        System.out.println("[STATIC RESOURCE MAPPING]");
+        System.out.println("Handler  : " + ADD_RESOURCE_HANDLER);
+        System.out.println("Location : " + resourcePath);
 
         System.out.println("[STATIC RESOURCE MAPPING 2: AI Images]");
-        System.out.println("  Handler  : " + aiResourceHandler);
-        System.out.println("  Location : " + aiResourceLocation);
+        System.out.println("Handler  : " + aiResourceHandler);
+        System.out.println("Location : " + aiResourceLocation);
     }
 
     @PostConstruct

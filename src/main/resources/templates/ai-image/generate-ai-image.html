@@ -455,12 +455,17 @@
     errorDiv.style.display = 'none';
   }
 
+  // ★★★ [수정] ★★★
   function uiShowError(message) {
     generateBtn.disabled = false;
     generateBtn.innerText = '이미지 생성';
     loadingDiv.style.display = 'none';
     resultDiv.style.display = 'none';
+
+    // (이 함수는 이제 `Failed to fetch`가 포함된
+    //  친절한 안내 메시지를 직접 받습니다.)
     errorText.innerText = message;
+
     errorDiv.style.display = 'block';
   }
 
