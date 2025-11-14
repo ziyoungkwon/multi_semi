@@ -299,7 +299,7 @@
             const imagePart = place.imageUrl
                 ? `<img src="${place.imageUrl}" alt="이미지">`
                 : `<div class="po-image-placeholder">이미지</div>`;
-            const detailUrl = `/place/detail?placeNo=${place.no}`;
+            const detailUrl = `/places/${place.no}`;
 
             // 날씨 아이콘 (있을 때만 표시)
             const weatherPart = place.weatherEmoji
@@ -662,7 +662,7 @@
         // ===== 리스트 클릭 시 장소 상세 페이지로 이동 =====
         function moveToPlaceDetail(placeNo) {
             if (!placeNo) return;
-            window.location.href = '/place/detail?placeNo=' + placeNo;
+            window.location.href = '/places/' + placeNo;
         }
 
         $(function () {
