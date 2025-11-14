@@ -17,7 +17,7 @@ public class FrontAuthController {
 
     @GetMapping("/auth/signup")
     public String signup() {
-        return "member/signup";
+        return "members/signup";
     }
 
     @GetMapping("/auth/login")

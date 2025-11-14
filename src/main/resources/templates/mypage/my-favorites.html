@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="fragment">
+
+    <div class="container favorite-container">
+        <h2>⭐ 내 즐겨찾기 목록</h2>
+        <ul id="favoriteList" class="favorite-list">
+        </ul>
+        <div id="pagination" class="pagination">
+        </div>
+    </div>
+
+    <script>
+        async function loadFavorites(offset) {
+            try {
+                // const token = localStorage.getItem("accessToken"); // 토큰 필요시 주석 해제
+
+                // [수정] API 응답 구조 확인: result.data.data
+                // 서버 응답이 { "status": 200, "data": { "data": [...], "pageInfo": {...} } } 형태인 것을 전제
+
+                const response = await fetch(`/api/v1/favorites?offset=${offset}`);
+                const result = await response.json();
+
+                if (result.status === 200 && result.data && result.data.data) {
+                    const favorites = result.data.data;
+                    const pageInfo = result.data.pageInfo;
+                    const favoriteList = document.getElementById('favoriteList');
+                    favoriteList.innerHTML = '';
+
+                    if (favorites.length === 0) {
+                        favoriteList.innerHTML = '<li class="empty-message">즐겨찾기가 없습니다.</li>';
+                        // 페이지네이션도 비웁니다.
+                        const pagination = document.getElementById('pagination');
+                        if(pagination) pagination.innerHTML = '';
+                        return;
+                    }
+
+                    favorites.forEach(favorite => {
+                        const li = document.createElement('li');
+                        li.classList.add('favorite-card');
+
+                        li.innerHTML = `
+                            <img src="${favorite.imageUrl}" alt="즐겨찾기사진" class="favorite-img">
+                            <div class="favorite-info">
+                                <a href="/places/${favorite.placeNo}" class="favorite-title">${favorite.title}</a>
+                                <p>지역 : ${favorite.district}</p>
+                                <p>주소 : ${favorite.address}</p>
+                            </div>
+                            <button class="delete-btn" data-id="${favorite.favoriteSeq}" title="삭제">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        `;
+                        favoriteList.appendChild(li);
+                    });
+
+                    renderPagination(pageInfo);
+                } else {
+                    document.getElementById('favoriteList').innerHTML = '<li class="empty-message error-message">즐겨찾기 데이터를 불러오는 데 실패했습니다.</li>';
+                }
+            } catch (error) {
+                console.error("Error loading favorites:", error);
+                document.getElementById('favoriteList').innerHTML = '<li class="empty-message error-message">즐겨찾기 데이터를 불러오는 중 오류가 발생했습니다.</li>';
+            }
+        }
+
+        function renderPagination(pageInfo) {
+            if (!pageInfo) return;
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+
+            if (pageInfo.pageNo > 1) {
+                const prev = document.createElement('button');
+                prev.textContent = '이전';
+                prev.onclick = () => loadFavorites(pageInfo.pageNo - 1);
+                pagination.appendChild(prev);
+            }
+
+            for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                button.classList.toggle('active', i === pageInfo.pageNo);
+                button.onclick = () => loadFavorites(i);
+                pagination.appendChild(button);
+            }
+
+            if (pageInfo.pageNo < pageInfo.maxPage) {
+                const next = document.createElement('button');
+                next.textContent = '다음';
+                next.onclick = () => loadFavorites(pageInfo.pageNo + 1);
+                pagination.appendChild(next);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFavorites(1);
+
+            document.getElementById('favoriteList').addEventListener('click', async (event) => {
+                const btn = event.target.closest('.delete-btn');
+                if (!btn) return;
+
+                const itemId = btn.getAttribute('data-id');
+                if (!itemId) return;
+
+                if (confirm('정말 삭제하시겠습니까?')) {
+                    try {
+                        const response = await fetch(`/api/v1/favorites/${itemId}`, {
+                            method: 'DELETE',
+                            // headers: { "Authorization": "Bearer " + localStorage.getItem("accessToken") } // 토큰 필요시
+                        });
+
+                        // [수정] 삭제 성공 시, 현재 페이지를 다시 로드하여 페이지네이션을 반영
+                        if (response.ok) {
+                            alert('삭제되었습니다.');
+                            // 현재 활성화된 페이지 번호를 찾아 다시 로드
+                            const activePageBtn = document.querySelector('.pagination button.active');
+                            const currentPage = activePageBtn ? parseInt(activePageBtn.textContent) : 1;
+                            loadFavorites(currentPage);
+                        } else {
+                            alert('삭제 실패: ' + response.status);
+                        }
+                    } catch (error) {
+                        console.error("Error deleting favorite:", error);
+                        alert('서버 통신 오류가 발생했습니다.');
+                    }
+                }
+            });
+        });
+    </script>
+
+</th:block>
+</html>

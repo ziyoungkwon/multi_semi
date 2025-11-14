@@ -8,10 +8,8 @@
         </a>
 
         <div class="search-wrapper">
-            <div class="category-wrapper">
-                관광지명
-            </div>
-            <input type="text" class="search-input" placeholder="여행지를 검색해 보세요">
+
+            <input type="text" class="search-input" placeholder="관광지명을 입력하세요">
             <button class="search-icon-btn" aria-label="검색">🔍</button>
         </div>
 
@@ -26,108 +24,11 @@
         <a th:href="@{/}" class="nav-item">홈</a>
         <a th:href="@{/places/list}" class="nav-item">관광지 목록</a>
         <a th:href="@{/reviews/list}" class="nav-item">리뷰 게시판</a>
-        <a th:href="@{/favorites/list}" class="nav-item">내 즐겨 찾기</a>
+<!--        <a th:href="@{/favorites/list}" class="nav-item">내 즐겨 찾기</a>-->
         <a th:href="@{/generate-request}" class="nav-item">이미지 만들기</a>
         <a th:href="@{/mypage}" class="nav-item">마이페이지</a>
 <!--        <a th:href="@{/api/v1/admin/page}" class="nav-item" id="admin-page-link" style="display: none;">관리자 페이지</a>-->
     </nav>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const categoryBtn = document.querySelector('.category-btn');
-            const categoryDropdown = document.getElementById('category-dropdown');
-            const categoryItems = document.querySelectorAll('.category-item');
-            const searchInput = document.querySelector('.search-input');
-            const searchBtn = document.querySelector('.search-icon-btn');
-
-            if (!categoryBtn || !categoryDropdown || !categoryItems.length || !searchInput || !searchBtn) {
-                console.error("검색 UI 요소를 모두 찾을 수 없습니다.");
-                return;
-            }
-
-            // --- 1. 카테고리 버튼 클릭: 드롭다운 토글 ---
-            categoryBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const isHidden = categoryDropdown.style.display === 'none';
-                categoryDropdown.style.display = isHidden ? 'block' : 'none';
-            });
-
-            // --- 2. 드롭다운 항목 클릭: 카테고리 선택 ---
-            categoryItems.forEach(item => {
-                item.addEventListener('click', (e) => {
-                    const selectedValue = e.currentTarget.getAttribute('data-value');
-                    categoryBtn.textContent = selectedValue;
-                    categoryDropdown.style.display = 'none';
-                });
-            });
-
-            // --- 3. 검색 버튼(돋보기) 클릭: API 요청 ---
-            searchBtn.addEventListener('click', async (e) => {
-                e.preventDefault();
-
-                const category = categoryBtn.textContent.trim();
-                const query = searchInput.value;
-                const encodedQuery = encodeURIComponent(query);
-
-                let targetUrl = '';
-
-                switch (category) {
-                    case '전체':
-                        targetUrl = '/api/v1/places';
-                        break;
-                    case '관광지명':
-                        targetUrl = `/api/v1/places/search?title=${encodedQuery}`;
-                        break;
-                    case '지역명':
-                        targetUrl = `/api/v1/places/district?dist=${encodedQuery}`;
-                        break;
-                    case '평점별':
-                        targetUrl = `/api/v1/places/rate?rating=${encodedQuery}`;
-                        break;
-                    default:
-                        console.error('알 수 없는 카테고리:', category);
-                        return;
-                }
-
-                console.log(`[검색 요청]
-                - 카테고리: ${category}
-                - 검색어: ${query}
-                - 요청 URL: ${targetUrl}`);
-
-                try {
-                    const response = await fetch(targetUrl, {
-                        method: 'GET'
-                    });
-
-                    if (response.ok) {
-                        const result = await response.json();
-                        console.log('검색 성공:', result.data);
-                        alert('검색 요청 성공! (콘솔 로그를 확인하세요)');
-                    } else {
-                        const errorResult = await response.json();
-                        console.error('검색 실패:', errorResult.message);
-                        alert(`검색 실패: ${errorResult.message}`);
-                    }
-
-                } catch (error) {
-                    if (error.name === "TokenRefreshedError") {
-                        console.error("토큰 갱신 후 재시도했으나 최종 실패:", error);
-                    } else {
-                        console.error('검색 요청 중 네트워크 오류 발생:', error);
-                        alert('검색 중 오류가 발생했습니다.');
-                    }
-                }
-            });
-
-            // [선택] 페이지 바깥 클릭 시 드롭다운 닫기
-            document.addEventListener('click', (e) => {
-                if (!categoryBtn.contains(e.target) && !categoryDropdown.contains(e.target)) {
-                    categoryDropdown.style.display = 'none';
-                }
-            });
-        });
-    </script>
 
 
     <script>
