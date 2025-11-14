@@ -5,7 +5,6 @@
     <title>회원 정보 수정</title>
     <link rel="stylesheet" th:href="@{/css/styles1.css}">
     <style>
-        /* ... V5와 동일한 스타일 ... */
         body, h1, form, label, input, textarea, button {
             margin: 0;
             padding: 0;
@@ -19,14 +18,14 @@
             --text-color: #333;
             --error-color: #d9534f;
         }
+
+        /* [수정] body에서 flex 관련 속성 제거 */
         body {
             background-color: #FFFFFF;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             min-height: 100vh;
-            padding: 20px;
         }
+
+        /* [수정] form-container가 헤더 아래에, 중앙 정렬되도록 margin 추가 */
         .form-container {
             width: 100%;
             max-width: 600px;
@@ -36,6 +35,7 @@
             border-radius: 12px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
             position: relative;
+            margin: 40px auto; /* ★★★ 헤더 아래 중앙 정렬을 위한 수정 ★★★ */
         }
         .back-button {
             position: absolute;
@@ -79,26 +79,26 @@
             border-color: var(--kakao-yellow);
             box-shadow: 0 0 5px rgba(254, 229, 0, 0.5);
         }
+        .form-control[readonly] {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+        }
         .error-message {
             color: var(--error-color);
             font-size: 14px;
             margin-top: 5px;
             display: none;
         }
-
         textarea.form-control {
             height: 120px;
             resize: none;
         }
-
-        /* [V6 추가] 글자 수 카운터 스타일 */
         .char-counter {
             text-align: right;
             font-size: 14px;
             color: #888;
             margin-top: 5px;
         }
-
         .submit-btn {
             width: 100%;
             padding: 15px;
@@ -114,7 +114,6 @@
         .submit-btn:hover {
             background-color: var(--kakao-yellow-hover);
         }
-
         .cancel-btn {
             width: 100%;
             padding: 15px;
@@ -136,23 +135,26 @@
 </head>
 <body>
 
+<div class="header">
+    <th:block th:replace="~{common/header :: header}" />
+</div>
+
+
 <div class="form-container">
 
     <a id="back-button" class="back-button" title="뒤로가기">&larr;</a>
 
     <h1>회원 정보 수정</h1>
 
-    <form id="update-form"
-          th:object="${member}"
-          th:data-email="${currentEmail}">
+    <form id="update-form">
 
         <div class="form-group">
-            <label for="id">아이디</label>
-            <input type="text" id="id" class="form-control" th:field="*{id}">
+            <label for="id">닉네임</label>
+            <input type="text" id="id" name="id" class="form-control" placeholder="닉네임 중복 불가. 수정 실패 시 다른 닉네임으로 시도하세요">
         </div>
         <div class="form-group">
             <label for="pwd">새 비밀번호</label>
-            <input type="password" id="pwd" class="form-control" th:field="*{pwd}" placeholder="변경할 경우에만 입력하세요">
+            <input type="password" id="pwd" name="pwd" class="form-control" placeholder="변경할 경우에만 입력하세요">
             <div id="pwd-error" class="error-message"></div>
         </div>
         <div class="form-group">
@@ -162,73 +164,49 @@
         </div>
         <div class="form-group">
             <label for="name">이름</label>
-            <input type="text" id="name" class="form-control" th:field="*{name}">
+            <input type="text" id="name" name="name" class="form-control">
         </div>
         <div class="form-group">
             <label for="addr">주소</label>
-            <input type="text" id="addr" class="form-control" th:field="*{addr}">
+            <input type="text" id="addr" name="addr" class="form-control">
         </div>
         <div class="form-group">
             <label for="phone">전화번호</label>
-            <input type="text" id="phone" class="form-control" th:field="*{phone}">
+            <input type="text" id="phone" name="phone" class="form-control">
         </div>
 
         <div class="form-group">
             <label for="intro">소개</label>
-            <textarea id="intro" class="form-control" th:field="*{intro}" maxlength="300"></textarea>
+            <textarea id="intro" name="intro" class="form-control" maxlength="300"></textarea>
             <div id="char-counter" class="char-counter">0 / 300</div>
         </div>
 
         <button type="submit" class="submit-btn">정보 수정 완료</button>
-
         <button type="button" id="cancel-button" class="cancel-btn">취소</button>
     </form>
 </div>
 
 <script>
-    // --- [V4] 뒤로가기/취소 버튼 로직 ---
+    // --- [V4] 뒤로가기/취소 버튼 로직 (동일) ---
     const backButton = document.getElementById('back-button');
     const cancelButton = document.getElementById('cancel-button');
+    function goBack() { history.back(); }
+    backButton.addEventListener('click', function(event) { event.preventDefault(); goBack(); });
+    cancelButton.addEventListener('click', function() { goBack(); });
 
-    function goBack() {
-        history.back();
-    }
-
-    backButton.addEventListener('click', function(event) {
-        event.preventDefault();
-        goBack();
-    });
-
-    cancelButton.addEventListener('click', function() {
-        goBack();
-    });
-    // --- [V4] 로직 끝 ---
-
-
-    // --- [V6 추가] '소개' 글자 수 카운터 로직 ---
+    // --- [V6] '소개' 글자 수 카운터 로직 (동일) ---
     const introTextarea = document.getElementById('intro');
     const charCounter = document.getElementById('char-counter');
-    const maxLength = 300; // 최대 글자 수
-
-    // 글자 수를 업데이트하는 함수
+    const maxLength = 300;
     function updateCharCount() {
         const currentLength = introTextarea.value.length;
         charCounter.textContent = `${currentLength} / ${maxLength}`;
     }
-
-    // '소개' 필드에 입력할 때마다 함수 실행
     introTextarea.addEventListener('input', updateCharCount);
 
-    // 페이지 로드 시(Thymeleaf 값이 채워진 후) 초기 카운트 실행
-    // 스크립트가 body 하단에 있으므로 DOM 로드 완료 후 즉시 실행
-    updateCharCount();
-    // --- [V6 추가] 로직 끝 ---
-
-
-    // --- [V3] 기존 실시간 유효성 검사 로직 (수정 없음) ---
+    // --- [V3] 비밀번호 유효성 검사 로직 (동일) ---
     const form = document.getElementById('update-form');
     const pwdInput = document.getElementById('pwd');
-    // ... (이하 V3/V4/V5와 동일) ...
     const pwdConfirmInput = document.getElementById('pwd_confirm');
     const pwdError = document.getElementById('pwd-error');
     const pwdConfirmError = document.getElementById('pwd-confirm-error');
@@ -245,7 +223,6 @@
             return true;
         }
     }
-
     function validateMatch() {
         const pwd = pwdInput.value;
         const pwdConfirm = pwdConfirmInput.value;
@@ -264,24 +241,62 @@
         validateLength();
         validateMatch();
     });
-
     pwdConfirmInput.addEventListener('input', () => {
         validateMatch();
     });
 
-    form.addEventListener('submit', function(event) {
+
+    // [수정] 폼 제출 및 데이터 로드 로직
+    // -------------------------------------------------
+
+    /**
+     * '내' 회원 정보를 받아와 폼에 채우는 함수
+     */
+    async function loadMemberData() {
+        try {
+            const response = await fetch('/api/v1/members', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const result = await response.json();
+            const member = result.data;
+
+            if (!member) {
+                alert('회원 정보를 불러오지 못했습니다.');
+                return;
+            }
+
+            // mypage.html 방식 그대로 form에 채우기
+            document.getElementById('id').value = member.id || '';
+            document.getElementById('name').value = member.name || '';
+            document.getElementById('addr').value = member.addr || '';
+            document.getElementById('phone').value = member.phone || '';
+            document.getElementById('intro').value = member.intro || '';
+
+            updateCharCount();
+
+        } catch (error) {
+            console.error('회원 정보 조회 중 오류:', error);
+            alert('회원 정보를 가져오는데 실패했습니다.');
+        }
+    }
+
+    // --- 폼 제출(Submit) 핸들러 ---
+    form.addEventListener('submit', async function(event) {
         event.preventDefault();
+
+        // (비밀번호 유효성 검사는 동일)
         const isLengthValid = validateLength();
         const isMatchValid = validateMatch();
-
         let isSubmitValid = true;
         const pwd = pwdInput.value;
         const pwdConfirm = pwdConfirmInput.value;
 
         if (pwd.length > 0 || pwdConfirm.length > 0) {
-            if (!isLengthValid) {
-                isSubmitValid = false;
-            }
+            if (!isLengthValid) isSubmitValid = false;
             if (pwd !== pwdConfirm) {
                 validateMatch();
                 isSubmitValid = false;
@@ -302,269 +317,33 @@
                 delete formDataObject.pwd;
             }
 
-            const email = form.dataset.email;
-
-            fetch(`/api/v1/members/edit-info`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formDataObject)
-            })
-                .then(response => {
-                    if (response.ok) return response.json();
-                    throw new Error('회원정보 수정에 실패했습니다.');
-                })
-                .then(data => {
-                    alert(data.message);
-                    // location.href = '/mypage';
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert(error.message);
-                });
-        }
-    });
-</script>
-
-<script>
-    // 1. 기존의 window.fetch 함수를 백업해둡니다.
-    const originalFetch = window.fetch;
-
-    // 강제 로그아웃 헬퍼 함수
-    function forceLogout(message) {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('redirectUrl');
-        alert(message || '세션이 만료되었습니다. 다시 로그인해 주세요.');
-        window.location.href = '/auth/login';
-    }
-
-    // '자발적/강제' 로그인을 위한 헬퍼 함수
-    function redirectToLogin() {
-        if (window.location.pathname !== '/auth/login') {
-            const fullRedirectUrl = window.location.pathname + window.location.search;
-            console.log('401 감지! 리디렉션 URL 저장:', fullRedirectUrl);
-            localStorage.setItem('redirectUrl', fullRedirectUrl);
-        }
-        alert('로그인이 필요합니다. 로그인 페이지로 이동합니다.');
-        window.location.href = '/auth/login';
-    }
-
-    /**
-     * 자동 토큰 갱신(Silent Refresh) 헬퍼 함수
-     * (HttpOnly 쿠키 방식)
-     */
-    async function handleTokenRefresh() {
-        const accessToken = localStorage.getItem('accessToken');
-
-        if (!accessToken) {
-            console.log('Access Token이 없어 갱신 불가.');
-            return false;
-        }
-
-        try {
-            // /auth/refresh 요청
-            const refreshResponse = await originalFetch('/auth/refresh', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${accessToken}` // 만료된 AT
-                },
-                // ★★★ [수정 1] credentials 추가 (버그 수정) ★★★
-                credentials: 'include'
-            });
-
-            if (refreshResponse.ok) {
-                const result = await refreshResponse.json();
-                const newAccessToken = result.data.accessToken;
-                localStorage.setItem('accessToken', newAccessToken);
-
-                console.log('토큰 갱신 성공 (새 AT 발급)');
-                return true; // 갱신 성공
-            } else {
-                const errorBody = await refreshResponse.json();
-                console.error('Refresh Token 갱신 실패 (쿠키 만료 또는 무효):', errorBody.message);
-                return false; // 갱신 실패
-            }
-
-        } catch (error) {
-            console.error('토큰 갱신 중 네트워크 오류:', error);
-            return false; // 갱신 실패
-        }
-    }
-
-
-    // 2. window.fetch 함수 덮어쓰기
-    window.fetch = async (...args) => {
-
-        let options = args[1] || {};
-        const url = args[0];
-
-        // 모든 fetch 요청에 credentials: 'include'를 기본값으로 설정
-        options.credentials = options.credentials || 'include';
-
-        // 3. [역할 1] 토큰 자동 주입
-        if (url !== '/auth/login' && url !== '/auth/signup' && !url.startsWith('/auth/refresh')) {
-            const accessToken = localStorage.getItem('accessToken');
-            if (accessToken) {
-                options.headers = options.headers || {};
-                options.headers['Authorization'] = `Bearer ${accessToken}`;
-            }
-        }
-
-        // 4. 원본 fetch 함수로 실제 요청을 보냄
-        const response = await originalFetch(url, options);
-
-        // 5. [역할 2] 401 에러 감지
-        if (response.status === 401) {
-
-            if (url.startsWith('/auth/refresh')) {
-                console.warn('/auth/refresh 요청 실패 (RT 쿠키 만료). 강제 로그아웃.');
-                forceLogout('세션이 만료되었습니다. 다시 로그인해 주세요.');
-                return new Promise(() => {});
-            }
-
-            const clonedResponse = response.clone();
-
             try {
-                const errorBody = await clonedResponse.json();
+                const response = await fetch(`/api/v1/members/edit-info`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formDataObject)
+                });
 
-                if (errorBody.message === "만료된 JWT 토큰입니다.") {
-                    console.log("Access Token 만료. 자동 갱신 시도...");
-
-                    const refreshSuccess = await handleTokenRefresh();
-
-                    if (refreshSuccess) {
-
-                        // ★★★ [수정 2] FormData(Stream)인지 확인 ★★★
-                        const isStream = options.body && (options.body instanceof FormData || options.body instanceof ReadableStream);
-
-                        if (isStream) {
-                            // FormData/Stream은 래퍼가 재시도(X), 커스텀 에러 발생(O)
-                            console.log("토큰 갱신 성공. [Stream Body] 재시도는 호출자가 직접 해야 함.");
-                            const error = new Error("TOKEN_REFRESHED_RETRY_MANUALLY");
-                            error.name = "TokenRefreshedError";
-                            throw error; // ai-image.html의 catch문으로 전달
-                        } else {
-                            // GET 요청이나 JSON Body는 래퍼가 직접 재시도(O)
-                            console.log("토큰 갱신 성공. 원래 요청(GET 등) 재시도.");
-                            options.headers['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`;
-                            return await originalFetch(url, options); // ★ 자동 재시도
-                        }
-
-                    } else {
-                        forceLogout('세션이 만료되었습니다. 다시 로그인해 주세요.');
-                        return new Promise(() => {});
-                    }
-                }
-                else {
-                    console.warn(`기타 401 에러 (${errorBody.message}). 로그인 페이지로.`);
-                    redirectToLogin();
-                    return new Promise(() => {});
+                if (!response.ok) {
+                    throw new Error('회원정보 수정에 실패했습니다.');
                 }
 
-            } catch (e) {
-                // [수정] TokenRefreshedError는 다시 던져서 ai-image.html로 보냄
-                if (e.name === "TokenRefreshedError") {
-                    throw e;
-                }
+                const data = await response.json();
+                alert(data.message);
+                location.href = '/mypage';
 
-                console.error("401 응답이 예상된 JSON 형식이 아님.", e);
-                redirectToLogin();
-                return new Promise(() => {});
+            } catch (error) {
+                console.error('Error:', error);
+                alert(error.message);
             }
-        }
-
-        // 10. 401이 아니면, 원래 응답을 그대로 반환
-        return response;
-    };
-</script>
-
-
-<script>
-    // (사용자 원본 스크립트 4 - JWT 파싱 및 UI 제어 - 수정 X)
-
-    /**
-     * [ ★★★ 신규 헬퍼 함수 ★★★ ]
-     * Access Token(JWT)의 페이로드를 디코딩하여 JSON 객체로 반환합니다.
-     * (서버의 TokenProvider.parseClaims와 동일한 역할)
-     */
-    function parseJwtPayload(token) {
-        try {
-            const base64Url = token.split('.')[1]; // 페이로드 부분
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Base64Url -> Base64
-
-            // Base64 디코딩 (UTF-8 문자열을 안전하게 디코딩)
-            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-
-            return JSON.parse(jsonPayload);
-        } catch (e) {
-            console.error("JWT 페이로드 디코딩 실패", e);
-            return null;
-        }
-    }
-
-
-    // DOM이 모두 로드된 후에 실행
-    document.addEventListener('DOMContentLoaded', () => {
-
-        // --- [스크립트 4] UI 제어 로직 (★이메일 표시 기능 추가★) ---
-        const accessToken = localStorage.getItem('accessToken');
-        const loginLink = document.getElementById('global-login-link');
-        const logoutButton = document.getElementById('logout-btn');
-        const emailDisplay = document.getElementById('user-email-display');
-
-        // ★★★ [신규] 1. 관리자 링크를 선택합니다. ★★★
-        const adminLink = document.getElementById('admin-page-link');
-
-        if (loginLink && logoutButton && emailDisplay) { // adminLink는 null일 수 있으므로 여기서 체크 안 함
-            if (accessToken) {
-                // === 로그인한 상태 ===
-                loginLink.style.display = 'none';
-                logoutButton.style.display = 'inline-block';
-
-                // 1. AT를 디코딩해서 페이로드를 가져옵니다.
-                const payload = parseJwtPayload(accessToken);
-
-                if (payload) {
-                    // 2. 'sub' 클레임(이메일)을 <span>에 표시합니다.
-                    emailDisplay.textContent = payload.sub + " 님 환영합니다!";
-                    emailDisplay.style.display = 'inline-block';
-
-                    // ★★★ [신규] 3. 역할(Role) 확인 로직 ★★★
-                    // ※참고: JWT의 역할 클레임 이름을 'auth'로 가정합니다.
-                    //       (서버에서 'role', 'roles' 등으로 설정했다면 그걸로 바꿔주세요)
-                    //       (예: 'ROLE_ADMIN', 'ADMIN' 등 서버에서 보낸 값 그대로 비교)
-                    if (adminLink && payload.auth === 'ROLE_ADMIN') {
-                        adminLink.style.display = 'inline-block'; // 관리자일 경우 링크 표시
-                    }
-                }
-
-            } else {
-                // === 로그아웃한 상태 ===
-                loginLink.style.display = 'inline-block';
-                logoutButton.style.display = 'none';
-                emailDisplay.style.display = 'none';
-
-                // ★★★ [신규] 4. 로그아웃 상태면 관리자 링크도 숨김 ★★★
-                if (adminLink) {
-                    adminLink.style.display = 'none';
-                }
-            }
-        }
-
-        // --- [스크립트 3] 자발적 로그인 링크 클릭 로직 (기존과 동일) ---
-        if (loginLink) {
-            loginLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                const currentUrl = window.location.pathname + window.location.search;
-                if (window.location.pathname !== '/auth/login') {
-                    console.log('로그인 링크 클릭! 리디렉션 URL 저장:', currentUrl);
-                    localStorage.setItem('redirectUrl', currentUrl);
-                }
-                window.location.href = loginLink.href;
-            });
         }
     });
+
+    // --- 페이지 로드 시 데이터 조회 실행 ---
+    document.addEventListener('DOMContentLoaded', () => {
+        loadMemberData();
+    });
+
 </script>
 
 </body>

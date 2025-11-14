@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>마이페이지</title>
+    <link rel="stylesheet" th:href="@{/css/styles1.css}">
+
+    <style>
+        :root {
+            --kakao-yellow: #FEE500; /* 카카오 테마 색상 */
+            --kakao-brown: #3C1E1E; /* 카카오 텍스트/강조 색상 */
+            --border-color: #eee;
+            --background-color: #ffffff;
+            --sidebar-width: 240px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", helvetica, "Apple SD Gothic Neo", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: #333;
+        }
+
+        .header {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .page-wrapper {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .main-container {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            min-width: var(--sidebar-width);
+            background-color: #f9f9f9;
+            border-right: 1px solid var(--border-color);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav li a {
+            display: block;
+            padding: 12px 15px;
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .sidebar-nav li a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* .active 클래스가 동적으로 적용됨 */
+        .sidebar-nav li a.active {
+            background-color: var(--kakao-yellow);
+            color: var(--kakao-brown);
+            font-weight: 700;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        /* [info.html] 조각용 스타일 */
+        .content h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--kakao-yellow);
+            margin-bottom: 30px; /* 카드와의 간격 조절 */
+        }
+
+        .user-info-card {
+            margin-top: 0;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background-color: #fafafa;
+            max-width: none;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .user-info-card p {
+            font-size: 16px;
+            margin: 15px 0;
+            color: #333;
+        }
+
+        .user-info-card p strong {
+            display: inline-block;
+            width: 120px;
+            color: #000;
+            font-weight: 600;
+        }
+
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--kakao-yellow);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+
+        .withdrawal-section {
+            margin-top: 40px;
+            width: 100%;
+            max-width: none;
+            text-align: right;
+            box-sizing: border-box;
+        }
+
+        .withdraw-button {
+            font-size: 13px;
+            font-weight: 500;
+            color: #888;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+
+        .withdraw-button:hover {
+            color: #d32f2f;
+        }
+
+        /* ★★★ [my-reviews.html] 조각용 스타일 추가 ★★★
+         */
+        .mypage-content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .mypage-content-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #222;
+        }
+        .mypage-content-sub {
+            font-size: 13px;
+            color: #888;
+        }
+        .review-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        .review-card {
+            display: flex;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid #eee;
+            background-color: #ffffff;
+            transition: box-shadow 0.15s ease-in-out, transform 0.1s ease-in-out;
+        }
+        .review-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transform: translateY(-1px);
+        }
+        .review-thumbnail {
+            flex: 0 0 90px;
+            height: 90px;
+            border-radius: 10px;
+            background-color: #f3f3f3;
+            overflow: hidden;
+        }
+        .review-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .review-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .review-place {
+            font-size: 13px;
+            font-weight: 600;
+            color: #a67c00;
+        }
+        .review-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+        .review-content {
+            font-size: 13px;
+            color: #666;
+            max-height: 40px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .review-meta {
+            margin-top: 4px;
+            font-size: 12px;
+            color: #999;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .badge-rate {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 6px;
+            border-radius: 999px;
+            background-color: #fff7b8;
+            font-size: 12px;
+            font-weight: 600;
+            color: #3C1E1E;
+        }
+        .empty-message {
+            padding: 24px;
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+            border-radius: 12px;
+            background-color: #fafafa;
+            border: 1px dashed #ddd;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <th:block th:replace="~{common/header :: header}" />
+</div>
+
+<div class="page-wrapper">
+    <div class="main-container">
+
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a th:href="@{/mypage}"
+                           th:classappend="${activePage == 'info'} ? 'active' : ''">회원 정보</a></li>
+                    <li><a th:href="@{/members/edit-info}"
+                           th:classappend="${activePage == 'edit-info'} ? 'active' : ''">회원정보 수정</a></li>
+                    <li><a th:href="@{/reviews/my}"
+                           th:classappend="${activePage == 'my-reviews'} ? 'active' : ''">내 리뷰</a></li>
+                    <li><a th:href="@{/favorites/my}"
+                           th:classappend="${activePage == 'my-favorites'} ? 'active' : ''">내 즐겨찾기</a></li>
+                    <li><a th:href="@{/ai-images/my}"
+                           th:classappend="${activePage == 'my-ai-images'} ? 'active' : ''">내가 생성한 이미지</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <th:block th:replace="~{${contentFragment} :: fragment}" />
+        </main>
+
+    </div>
+</div>
+
+</body>
+</html>

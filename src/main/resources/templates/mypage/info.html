@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="fragment">
+
+    <h2>회원 정보</h2>
+
+    <div id="user-info-card" class="user-info-card">
+        <div id="loading-spinner" class="loader"></div>
+
+        <p><strong>이메일</strong>: <span id="user-email"></span></p>
+        <p><strong>닉네임</strong>: <span id="user-nickname"></span></p>
+        <p><strong>이름</strong>: <span id="user-name"></span></p>
+        <p><strong>전화번호</strong>: <span id="user-phone"></span></p>
+        <p><strong>주소</strong>: <span id="user-addr"></span></p>
+        <p><strong>자기소개</strong>: <span id="user-intro"></span></p>
+    </div>
+
+    <div class="withdrawal-section">
+        <button id="withdraw-btn" class="withdraw-button">회원 탈퇴</button>
+    </div>
+
+    <script>
+        // DOMContentLoaded는 이 조각이 삽입될 때 유효합니다.
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserInfo();
+
+            const withdrawButton = document.getElementById('withdraw-btn');
+            if (withdrawButton) {
+                withdrawButton.addEventListener('click', handleWithdrawal);
+            }
+        });
+
+        async function loadUserInfo() {
+            const userInfoCard = document.getElementById('user-info-card');
+            const spinner = document.getElementById('loading-spinner');
+
+            try {
+                const response = await fetch('/api/v1/members', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('사용자 정보를 가져오는데 실패했습니다. (상태: ' + response.status + ')');
+                }
+
+                const responseDto = await response.json();
+                const memberData = responseDto.data;
+
+                if(spinner) spinner.style.display = 'none';
+
+                if (!memberData) {
+                    throw new Error(responseDto.message || '회원 정보를 찾을 수 없습니다.');
+                }
+
+                document.getElementById('user-email').textContent = memberData.email || '정보 없음';
+                document.getElementById('user-nickname').textContent = memberData.id || '정보 없음';
+                document.getElementById('user-name').textContent = memberData.name || '정보 없음';
+                document.getElementById('user-phone').textContent = memberData.phone || '정보 없음';
+                document.getElementById('user-addr').textContent = memberData.addr || '정보 없음';
+                document.getElementById('user-intro').textContent = memberData.intro || '정보 없음';
+
+            } catch (error) {
+                console.error('Error fetching user info:', error);
+                if(spinner) spinner.style.display = 'none';
+                userInfoCard.innerHTML = `<p style="color: red;">${error.message}</p>`;
+            }
+        }
+
+        async function handleWithdrawal() {
+            const isConfirmed = confirm('정말 탈퇴하시겠습니까?\n이 작업은 되돌릴 수 없습니다.');
+
+            if (isConfirmed) {
+                try {
+                    const response = await fetch('/api/v1/members', {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
+
+                    const responseText = await response.text();
+
+                    if (response.ok) {
+                        alert(responseText || '회원 탈퇴가 완료되었습니다.');
+                        localStorage.removeItem('accessToken');
+                        window.location.href = '/';
+
+                    } else {
+                        alert('회원 탈퇴에 실패했습니다: ' + (responseText || '알 수 없는 오류'));
+                    }
+
+                } catch (error) {
+                    console.error('Error during withdrawal:', error);
+                    alert('회원 탈퇴 중 오류가 발생했습니다.');
+                }
+            }
+        }
+    </script>
+
+</th:block>
+</html>
