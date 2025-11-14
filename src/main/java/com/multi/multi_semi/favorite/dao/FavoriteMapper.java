@@ -5,11 +5,9 @@ import com.multi.multi_semi.common.paging.SelectCriteria;
 import com.multi.multi_semi.favorite.dto.FavoriteAllDto;
 import com.multi.multi_semi.favorite.dto.FavoriteReqDto;
 import com.multi.multi_semi.favorite.dto.FavoriteResDto;
-import com.multi.multi_semi.member.dto.MemberDto;
+import com.multi.multi_semi.main_list.favorites.dto.TopFavoritePlaceDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import com.multi.multi_semi.main_list.favorites.dto.*;
-import org.apache.ibatis.annotations.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,4 +26,7 @@ public interface FavoriteMapper {
     int deleteFavorite(int favoriteId);
 
     List<TopFavoritePlaceDto> findTopFavoritePlaces(@Param("limit") int limit);
+
+    int existsFavorite(@Param("email") String email,
+                       @Param("placeNo") Long placeNo);
 }
