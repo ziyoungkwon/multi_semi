@@ -3,6 +3,7 @@
 env.txt
 
 
+/logs/**
 HELP.md
 .gradle
 build/
