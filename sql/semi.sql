@@ -8,6 +8,25 @@ use multi_semi_project;
 drop table place;
 drop table rev;
 drop table fav;
+<<<<<<< HEAD
+drop table ref_token;
+drop table ai_img;
+drop table mem;
+
+create table if not exists mem(
+                                  no bigint primary key auto_increment,
+                                  id varchar(320) unique not null,
+                                  email varchar(320) unique not null,
+                                  pwd varchar(500),
+                                  name varchar(50) not null,
+                                  phone varchar(100),
+                                  addr varchar(255),
+                                  intro text,
+                                  role varchar(100) default 'ROLE_USER',
+                                  uuid varchar(500)
+);
+=======
+>>>>>>> dev
 
 create table if not exists place(
                                     no bigint primary key auto_increment,
@@ -70,6 +89,8 @@ create table if not exists place_img(
 
 select * from place_img;
 
+<<<<<<< HEAD
+=======
 #---------------------  멤버 테이블
 
 create table if not exists mem(
@@ -83,6 +104,7 @@ create table if not exists mem(
                                   intro text,
                                   role varchar(100) default 'ROLE_USER'
 );
+>>>>>>> dev
 
 
 # --------------------- 리뷰 테이블
@@ -92,15 +114,26 @@ create table if not exists rev(
                                   title varchar(100) not null,
                                   content text not null,
                                   rate int default 0 check (rate >= 0 and rate <= 5),
+<<<<<<< HEAD
+                                  writer_email varchar(320) not null,
+=======
                                   writer_no bigint not null,
+>>>>>>> dev
                                   place_no bigint not null,
                                   img_url varchar(500),
                                   created_at datetime default current_timestamp not null,
                                   modified_at datetime default current_timestamp on update current_timestamp not null, -- 수정일 자동 갱신 설정 추가
+<<<<<<< HEAD
+                                  modified_by varchar(320) not null,
+                                  foreign key (writer_email) references mem(email) on delete cascade,
+                                  foreign key (place_no) references place(no) on delete cascade,
+                                  foreign key (modified_by) references mem(email) on delete cascade
+=======
                                   modified_by bigint not null,
                                   foreign key (writer_no) references mem(no) on delete cascade,
                                   foreign key (place_no) references place(no) on delete cascade,
                                   foreign key (modified_by) references mem(no) on delete cascade
+>>>>>>> dev
 
 );
 
@@ -112,12 +145,20 @@ select * from rev;
 create table if not exists ai_img(
                                      no bigint primary key auto_increment,
                                      place_img_no bigint not null,
+<<<<<<< HEAD
+                                     mem_email varchar(320) not null,
+=======
                                      mem_no bigint not null,
+>>>>>>> dev
                                      org_url varchar(500) not null,
                                      thum_url varchar(500) not null,
                                      created_at datetime default current_timestamp not null,
                                      foreign key (place_img_no) references place_img(no) on delete cascade,
+<<<<<<< HEAD
+                                     foreign key (mem_email) references mem(email) on delete cascade
+=======
                                      foreign key (mem_no) references mem(no) on delete cascade
+>>>>>>> dev
 );
 
 
@@ -128,9 +169,15 @@ select * from ai_img;
 
 create table if not exists fav(
                                   no bigint primary key auto_increment,
+<<<<<<< HEAD
+                                  mem_email varchar(320) not null,
+                                  place_no bigint not null,
+                                  foreign key (mem_email) references mem(email) on delete cascade,
+=======
                                   mem_no bigint not null,
                                   place_no bigint not null,
                                   foreign key (mem_no) references mem(no) on delete cascade,
+>>>>>>> dev
                                   foreign key (place_no) references place(no) on delete cascade
 );
 
@@ -157,6 +204,18 @@ insert into mem (id, email, pwd, name, phone, addr, intro) values ('test3', '333
 insert into mem (id, email, pwd, name, phone, addr, intro) values ('test4', '444@gmail.com', '$2a$12$lu6975A9H8wsgRhZL.uk..sOfcfwRAh1PM4Y2A6nbWlhvNuE/u6B.', 1234, 1234, 1234, 1234);
 insert into mem (id, email, pwd, name, phone, addr, intro) values ('test5', '555@gmail.com', '$2a$12$lu6975A9H8wsgRhZL.uk..sOfcfwRAh1PM4Y2A6nbWlhvNuE/u6B.', 1234, 1234, 1234, 1234);
 
+<<<<<<< HEAD
+INSERT INTO rev (title, content, rate, writer_email, place_no, img_url, modified_by)
+VALUES
+    ('맛집 인정', '음식이 정말 맛있었어요! 재방문 의사 100%', 5, '333@gmail.com', 1, 'https://example.com/img/review1.jpg', '333@gmail.com'),
+    ('조용한 분위기', '카페 분위기가 너무 조용해서 공부하기 좋았어요.', 4, '444@gmail.com', 1, 'https://example.com/img/review2.jpg', '444@gmail.com'),
+    ('가격 대비 아쉬움', '맛은 괜찮았지만 가격이 조금 비쌌어요.', 3, '444@gmail.com', 2, NULL, '444@gmail.com'),
+    ('서비스 굿', '직원분들이 친절해서 기분 좋게 식사했습니다.', 5, '555@gmail.com', 3, 'https://example.com/img/review3.jpg', '555@gmail.com'),
+    ('사진이랑 다름', '사진 보고 기대했는데 실물은 좀 달랐어요.', 2, '444@gmail.com', 4, 'https://example.com/img/review4.jpg', '444@gmail.com');
+
+
+drop table mem;
+=======
 INSERT INTO rev (title, content, rate, writer_no, place_no, img_url, modified_by)
 VALUES
     ('맛집 인정', '음식이 정말 맛있었어요! 재방문 의사 100%', 5, 4, 1, 'https://example.com/img/review1.jpg', 4),
@@ -175,3 +234,4 @@ VALUES
     ('가격 대비 아쉬움', '맛은 괜찮았지만 가격이 조금 비쌌어요.', 3, 'gy011003@gmail.com', 2, '박보검.jpeg', 'gy011003@gmail.com'),
     ('서비스 굿', '직원분들이 친절해서 기분 좋게 식사했습니다.', 5, 'gy011003@gmail.com', 3, '박보검.jpeg', 'gy011003@gmail.com'),
     ('사진이랑 다름', '사진 보고 기대했는데 실물은 좀 달랐어요.', 2, 'gy011003@gmail.com', 4, '박보검.jpeg', 'gy011003@gmail.com');
+>>>>>>> dev

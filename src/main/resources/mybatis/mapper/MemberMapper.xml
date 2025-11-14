@@ -6,6 +6,7 @@
 
     <select id="findMemberByNo" resultType="MemberDto">
         SELECT
+
             no, id, email, pwd, name, phone, addr, intro, role, uuid
         FROM mem
         WHERE no = #{no}
@@ -14,6 +15,7 @@
 
     <select id="findMemberById" resultType="MemberDto">
         SELECT
+
             no, id, email, pwd, name, phone, addr, intro, role, uuid
         FROM mem
         WHERE id = #{id}
@@ -29,14 +31,18 @@
 
     <insert id="insertMember" parameterType="MemberReqDto">
         INSERT INTO mem
+
             (id, name, pwd, email)
+
         VALUES
             (#{id}, #{name}, #{pwd}, #{email})
     </insert>
 
     <insert id="insertOAuthMember" parameterType="MemberDto">
         INSERT INTO mem
+
             (id, name, uuid, email)
+
         VALUES
             (#{id},#{name},#{uuid},#{email})
     </insert>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>검색 결과</title>
+    <link rel="stylesheet" th:href="@{/css/styles1.css}">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .layout {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .place-card {
+            border: 3px solid #FEE500;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 18px;
+            background: #fff;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+            display: flex;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .place-card:hover {
+            background: #fff9cc;
+            transition: 0.2s;
+        }
+
+        .place-img {
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 10px;
+            background: #eee;
+        }
+
+        .place-info {
+            flex: 1;
+        }
+
+        .place-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .place-desc {
+            color: #555;
+            margin-top: 6px;
+            font-size: 14px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 공통 헤더 -->
+<div th:replace="~{common/header :: header}"></div>
+
+<div class="layout">
+    <h2>검색 결과</h2>
+    <div id="searchResultContainer"></div>
+</div>
+
+<script>
+    window.onload = function () {
+        const params = new URLSearchParams(window.location.search);
+        const keyword = params.get('keyword');
+
+        if (!keyword) {
+            document.getElementById('searchResultContainer').innerHTML = "<p>검색어가 없습니다.</p>";
+            return;
+        }
+
+        fetch(`/api/v1/search/places?keyword=${encodeURIComponent(keyword)}`)
+            .then(res => res.json())
+            .then(data => {
+                const placeList = data.data;
+                renderPlaces(placeList);
+            })
+            .catch(err => {
+                console.error("검색 실패:", err);
+                document.getElementById('searchResultContainer').innerHTML = "<p>검색 중 오류가 발생했습니다.</p>";
+            });
+    }
+
+    function renderPlaces(placeList) {
+        const container = document.getElementById("searchResultContainer");
+        container.innerHTML = "";
+
+        if (!placeList || placeList.length === 0) {
+            container.innerHTML = "<p>검색 결과가 없습니다.</p>";
+            return;
+        }
+
+        placeList.forEach(place => {
+            const imageUrl = place.imageUrl ? place.imageUrl : "/images/default.png";
+            const html = `
+          <div class="place-card" onclick="goDetail(${place.no})">
+            <img src="${imageUrl}" class="place-img">
+            <div class="place-info">
+              <div class="place-title">${place.title}</div>
+              <div class="place-desc">${place.description || ""}</div>
+              <div style="margin-top: 8px;">
+                지역: ${place.district}<br>
+                ⭐ 평점: ${place.avgRate || 0}
+              </div>
+            </div>
+          </div>
+        `;
+            container.insertAdjacentHTML("beforeend", html);
+        });
+    }
+
+    function goDetail(no) {
+        window.location.href = `/places/${no}`;
+    }
+</script>
+
+</body>
+</html>
