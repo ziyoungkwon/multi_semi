@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>리뷰 게시판</title>
+
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/styles1.css">
@@ -14,9 +15,13 @@
             color: #3C1E1E;
         }
 
-        .container {
-            margin-top: 150px;
-            margin-bottom: 60px;
+        /* --------------------------------------
+           리뷰 리스트 전용 컨테이너 (충돌 제거)
+        -------------------------------------- */
+        .review-list-container {
+            max-width: 1200px;
+            margin: 40px auto 60px auto;  /* 헤더와 간격 줄임 */
+            padding: 0 20px;
         }
 
         h2 {
@@ -29,7 +34,7 @@
         .top-bar {
             display: flex;
             justify-content: flex-end;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
         }
 
         .btn-create {
@@ -119,26 +124,29 @@
 
 <body>
 
-<!-- ✅ 공용 헤더 -->
+<!-- 헤더 -->
 <div th:replace="~{common/header :: header}"></div>
 
-<div class="container">
+<!-- ⭐⭐⭐ 리뷰 리스트 전용 컨테이너 시작 ⭐⭐⭐ -->
+<div class="review-list-container">
+
     <h2>리뷰 게시판</h2>
 
     <div class="top-bar">
         <a href="/reviews/form" class="btn btn-create">리뷰 등록하기</a>
     </div>
 
-    <!-- ✅ 리뷰 목록 -->
+    <!-- 리뷰 목록 -->
     <div id="review-list" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        <!-- JavaScript가 리뷰 카드들을 여기에 생성 -->
     </div>
 
-    <!-- ✅ 리뷰 없음 메시지 -->
+    <!-- 리뷰 없음 메시지 -->
     <div id="no-review" class="no-review" style="display:none;">
         등록된 리뷰가 없습니다 😢
     </div>
+
 </div>
+<!-- ⭐⭐⭐ 컨테이너 끝 ⭐⭐⭐ -->
 
 <script>
     document.addEventListener("DOMContentLoaded", async () => {
@@ -162,23 +170,16 @@
                 const card = document.createElement("div");
                 card.className = "card review-card";
 
-
-                // ✅ 이미지가 있을 경우만 생성
                 if (review.imgUrl && review.imgUrl !== "null") {
                     const img = document.createElement("img");
-
-                    let imgUrl = review.imgUrl;
-
-                    img.src = imgUrl;
+                    img.src = review.imgUrl;
                     img.className = "review-img";
                     img.alt = "리뷰 이미지";
-
                     card.appendChild(img);
                 }
 
                 const body = document.createElement("div");
                 body.className = "review-body";
-
                 body.innerHTML = `
                     <div class="review-title">${review.title}</div>
                     <p class="review-rate">★ ${review.rate} / 5</p>
@@ -190,6 +191,7 @@
                 col.appendChild(card);
                 reviewListEl.appendChild(col);
             });
+
         } catch (err) {
             console.error("리뷰 불러오기 오류:", err);
             noReviewEl.style.display = "block";

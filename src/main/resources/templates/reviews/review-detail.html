@@ -13,9 +13,9 @@
             background-color: #ffffff;
         }
 
-        .container {
+        .review-container {
             max-width: 800px;
-            margin: 150px auto 80px auto;
+            margin: 40px auto 80px auto;
             padding: 40px 50px;
             background-color: #ffffff;
             border-radius: 16px;
@@ -36,19 +36,13 @@
             color: #555;
         }
 
-        .rating {
-            display: inline-block;
-            color: #FFD600;
-            font-size: 18px;
-        }
-
         .review-image {
             text-align: center;
             margin: 25px 0;
         }
 
         .review-image img {
-            max-width: 100%;
+            max-width: 80%;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
         }
@@ -77,8 +71,10 @@
             transform: translateY(-2px);
         }
 
-        #edit-btn, #delete-btn {
-            display: none; /* 기본은 숨김 */
+        /* 버튼은 처음에는 숨김 */
+        #edit-btn,
+        #delete-btn {
+            display: none;
         }
     </style>
 </head>
@@ -87,96 +83,97 @@
 
 <div th:replace="~{common/header :: header}"></div>
 
-<div class="container text-center">
-    <h3 id="review-title">리뷰 제목</h3>
+<div class="review-container text-center">
 
-    <div class="review-meta mb-3" id="review-meta"></div>
+    <h3 th:text="${review.title}">리뷰 제목</h3>
 
-    <div class="review-image">
-        <img id="review-img" src="" alt="리뷰 이미지">
+    <div class="review-meta mb-3">
+        <p><strong>작성자:</strong> <span th:text="${review.writer}"></span></p>
+        <p><strong>장소:</strong> <span th:text="${review.placeTitle} ?: '-'"></span></p>
+        <p>
+            <strong>평점:</strong>
+            <span th:text="${'★'.repeat(review.rate)}"></span>
+            (<span th:text="${review.rate}"></span>/5)
+        </p>
+        <p><strong>작성일:</strong> <span th:text="${review.createdAt} ?: '-'"></span></p>
     </div>
 
-    <div class="content mt-3" id="review-content"></div>
+    <div class="review-image">
+        <img th:if="${review.imgUrl}" th:src="${review.imgUrl}" alt="리뷰 이미지">
+        <img th:if="${review.imgUrl == null}" style="display:none;">
+    </div>
+
+    <div class="content mt-3" th:text="${review.content}"></div>
+
+    <!-- hidden values -->
+    <input type="hidden" id="writerEmail" th:value="${review.writerEmail}">
+    <input type="hidden" id="reviewId" th:value="${review.no}">
 
     <div class="mt-4">
-        <a href="/reviews/list" class="btn">목록으로 돌아가기</a>
-        <a id="edit-btn" href="#" class="btn ms-2">수정하기</a>
-        <button id="delete-btn" class="btn ms-2">삭제하기</button>
+        <a href="/reviews/list" class="btn">목록으로</a>
+
+        <!-- 버튼들은 JS에서 노출 판단 후 보여짐 -->
+        <a id="edit-btn" th:href="@{|/reviews/edit/${review.no}|}" class="btn ms-2">수정하기</a>
+        <button id="delete-btn" class="btn ms-2" onclick="deleteReview()">삭제하기</button>
     </div>
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", async () => {
-        const reviewId = window.location.pathname.split("/").pop(); // URL에서 reviewId 추출
+    /* JWT 디코딩 */
+    function parseJwtPayload(token) {
+        try {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(c =>
+                '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+            ).join(''));
+            return JSON.parse(jsonPayload);
+        } catch (e) {
+            return null;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const token = localStorage.getItem("accessToken");
+        if (!token) return;
+
+        const payload = parseJwtPayload(token);
+        if (!payload) return;
+
+        const loginEmail = payload.sub;
+        const writerEmail = document.getElementById("writerEmail").value;
+
+        if (loginEmail === writerEmail) {
+            document.getElementById("edit-btn").style.display = "inline-block";
+            document.getElementById("delete-btn").style.display = "inline-block";
+        }
+    });
+
+    async function deleteReview() {
+        if (!confirm("정말 삭제하시겠습니까?")) return;
+
+        const reviewId = document.getElementById("reviewId").value;
         const accessToken = localStorage.getItem("accessToken");
-        let loginEmail = null;
 
         try {
-            // ✅ 현재 로그인한 사용자 정보 가져오기
-            const meRes = await fetch("/api/v1/members/me", {
-                headers: { "Authorization": `Bearer ${accessToken}` }
-            });
-            if (meRes.ok) {
-                const meData = await meRes.json();
-                loginEmail = meData.email; // JWT로 인증된 사용자 이메일
-            }
-
-            // ✅ 리뷰 상세 정보 가져오기
-            const reviewRes = await fetch(`/api/v1/reviews/${reviewId}`);
-            const reviewJson = await reviewRes.json();
-            if (!reviewRes.ok || !reviewJson.data) {
-                alert("리뷰 정보를 불러오지 못했습니다.");
-                return;
-            }
-
-            const review = reviewJson.data;
-
-            // ✅ 화면에 데이터 표시
-            document.getElementById("review-title").textContent = review.title;
-            document.getElementById("review-meta").innerHTML = `
-            <p><strong>작성자:</strong> ${review.writerEmail}</p>
-            <p><strong>장소:</strong> ${review.placeTitle ?? '-'}</p>
-            <p><strong>평점:</strong> ${'★'.repeat(review.rate)} (${review.rate}/5)</p>
-            <p><strong>작성일:</strong> ${review.createdAt ?? '-'}</p>
-        `;
-            document.getElementById("review-content").textContent = review.content ?? '';
-
-            if (review.imgUrl) {
-                document.getElementById("review-img").src = review.imgUrl;
-            } else {
-                document.getElementById("review-img").style.display = "none";
-            }
-            console.log(">>>>>>>>>>>>>loginEmail:"+ loginEmail);
-            console.log(">>>>>>>>>>review email:" + review.writerEmail);
-
-            // ✅ 로그인한 사용자 == 작성자일 때만 수정/삭제 버튼 표시
-            if (loginEmail && loginEmail === review.writerEmail) {
-                document.getElementById("edit-btn").style.display = "inline-block";
-                document.getElementById("delete-btn").style.display = "inline-block";
-                document.getElementById("edit-btn").href = `/reviews/edit/${review.no}`;
-            }
-
-            // ✅ 삭제 버튼 클릭 이벤트
-            document.getElementById("delete-btn").addEventListener("click", async () => {
-                if (confirm("정말 삭제하시겠습니까?")) {
-                    const delRes = await fetch(`/api/v1/reviews/${reviewId}`, {
-                        method: "DELETE",
-                        headers: { "Authorization": `Bearer ${accessToken}` }
-                    });
-                    if (delRes.ok) {
-                        alert("리뷰가 삭제되었습니다.");
-                        window.location.href = "/reviews/list";
-                    } else {
-                        alert("삭제 실패했습니다.");
-                    }
+            const res = await fetch(`/api/v1/reviews/${reviewId}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`
                 }
             });
 
-        } catch (error) {
-            console.error(error);
-            alert("리뷰 데이터를 불러오는 중 오류가 발생했습니다.");
+            if (res.ok) {
+                alert("리뷰가 삭제되었습니다.");
+                window.location.href = "/reviews/list";
+            } else {
+                alert("삭제 실패했습니다.");
+            }
+        } catch (e) {
+            console.error(e);
+            alert("삭제 중 오류 발생");
         }
-    });
+    }
 </script>
 
 </body>

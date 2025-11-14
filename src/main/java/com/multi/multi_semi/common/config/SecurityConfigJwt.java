@@ -77,7 +77,7 @@ public class SecurityConfigJwt {
                         .requestMatchers("/api/v1/admin/members/**").permitAll()
                         .requestMatchers("/api/v1/main/**", "/main/**").permitAll()
                         .requestMatchers("/", "/error", "/auth/**", "/login/oauth2/**", "/oauth2/**", "/oauth-redirect").permitAll()
-                        .requestMatchers("/api/v1/products/**", "/api/v1/product/**", "/products/**", "/product/**").permitAll()
+                        .requestMatchers("/api/v1/search/**").permitAll()
                         .requestMatchers("/api/v1/reviews/**", "/ai_image/**", "/ai-images/**",  "/common/**", "/css/**", "/productimgs/**", "/favicon.ico").permitAll()
                         .requestMatchers("/api/v1/products-management/**", "/api/v1/reviews-management/**").hasAnyRole("ADMIN")
                         .requestMatchers("/json/**", "/img/**", "/images/ai/**").permitAll()
