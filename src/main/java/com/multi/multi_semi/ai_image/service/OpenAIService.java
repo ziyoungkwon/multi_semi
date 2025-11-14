@@ -138,7 +138,7 @@ public class OpenAIService {
     /** * STEP 🔁 전체 프로세스
      * [수정됨] MultipartFile 대신 byte[]를 직접 받습니다.
      */
-    public String processFusion(byte[] img1Bytes, byte[] img2Bytes, String userPrompt) throws Exception {
+    public String processFusion(byte[] img1Bytes, byte[] img2Bytes, String userPrompt, String email) throws Exception {
         String prompt = createCompositePrompt(img1Bytes, img2Bytes, userPrompt);
         return generateImageFromPrompt(prompt);
     }

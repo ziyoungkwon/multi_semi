@@ -1,13 +1,17 @@
 package com.multi.multi_semi.ai_image.controller;
 
+import com.multi.multi_semi.ai_image.dto.AiImgDto;
 import com.multi.multi_semi.ai_image.service.AsyncImageGenerationService;
+import com.multi.multi_semi.auth.dto.CustomUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,14 +26,6 @@ public class ImageController {
     // [추가] 결과 저장소를 주입받습니다.
     private final Map<String, GenerationStatus> taskResults;
 
-    /**
-     * 메인 페이지 로딩 (기존과 동일)
-     */
-    @GetMapping("/generate-request")
-    public String aiImagePage() {
-        return "/ai_image/ai_image";
-    }
-
 
     /**
      * [신규] 1. 작업 접수 API
@@ -40,7 +36,10 @@ public class ImageController {
     public ResponseEntity<?> generateRequest(
             @RequestParam("image1") MultipartFile image1,
             @RequestParam("image2") MultipartFile image2,
-            @RequestParam("prompt") String prompt) {
+            @RequestParam("prompt") String prompt,
+            @AuthenticationPrincipal CustomUser customUser) {
+
+        String email = customUser.getEmail();
 
         try {
             // [해결]
@@ -55,7 +54,7 @@ public class ImageController {
 
             // 2. @Async 서비스에는 MultipartFile이 아닌, "taskId"와 "안전한 byte[]"를 전달합니다.
             //    (이 메서드는 void를 반환하고 백그라운드에서 실행됩니다.)
-            asyncService.generateImageAsync(taskId, image1Bytes, image2Bytes, prompt);
+            asyncService.generateImageAsync(taskId, image1Bytes, image2Bytes, prompt, email);
 
             // 3. 컨트롤러는 "작업 ID"만 즉시 클라이언트에게 반환합니다.
             return ResponseEntity.ok(Map.of("taskId", taskId));
@@ -96,4 +95,27 @@ public class ImageController {
 
         return ResponseEntity.ok(status);
     }
+
+    @GetMapping("/ai-images/my")
+    @ResponseBody
+    public ResponseEntity<List<AiImgDto>> getMyAiImagesData(
+            @AuthenticationPrincipal CustomUser customUser
+    ) {
+        String email = customUser.getEmail();
+
+        List<AiImgDto> imageList;
+
+
+        imageList = asyncService.getImagesForUser(email);
+
+
+        return ResponseEntity.ok(imageList);
+    }
+
+
+
+
+
+
+
 }
