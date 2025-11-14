@@ -66,19 +66,13 @@ public class SecurityConfigJwt {
 
                 .authorizeHttpRequests(auth -> auth
                         // (기존 permitAll 경로들...)
-                        .requestMatchers(
-                                "/css/**",
-                                "/js/**",
-                                "/img/**",     // 여기!
-                                "/images/**",
-                                "/webjars/**",
-                                "/json/**"
-                        ).permitAll()
+                        .requestMatchers("/css/**","/js/**","/img/**","/images/**","/webjars/**","/json/**").permitAll()
                         .requestMatchers("/refresh/test").permitAll()
                         .requestMatchers("/api/v1/favorites/**","/favorites/**","/api/v1/favorite/**").permitAll()
                         .requestMatchers("/api/v1/places/**","/places/**").permitAll()
                         .requestMatchers("/api/v1/members/**","/member/**", "/members/**").permitAll()
                         .requestMatchers("/api/v1/admin/members/**").permitAll()
+                        .requestMatchers("/api/v1/main/**", "/main/**").permitAll()
                         .requestMatchers("/", "/error", "/auth/**", "/login/oauth2/**", "/oauth2/**", "/oauth-redirect").permitAll()
                         .requestMatchers("/api/v1/products/**", "/api/v1/product/**", "/products/**", "/product/**").permitAll()
                         .requestMatchers("/api/v1/reviews/**", "/ai_image/**",  "/common/**", "/css/**", "/productimgs/**", "/favicon.ico").permitAll()
