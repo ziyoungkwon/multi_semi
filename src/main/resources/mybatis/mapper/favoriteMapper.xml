@@ -65,4 +65,21 @@
         where no = #{ favoriteId }
     </update>
 
+    <select id="findTopFavoritePlaces"
+            parameterType="int"
+            resultType="com.multi.multi_semi.main_list.favorites.dto.TopFavoritePlaceDto">
+
+        SELECT
+        p.no        AS placeNo,
+        p.title     AS placeTitle,
+        COUNT(*)    AS favoriteCount,
+        MAX(p.first_img) AS imgUrl
+        FROM fav f
+        JOIN place p ON f.place_no = p.no
+        GROUP BY p.no, p.title
+        HAVING COUNT(*) > 0
+        ORDER BY favoriteCount DESC
+        LIMIT #{limit}
+    </select>
+
 </mapper>
