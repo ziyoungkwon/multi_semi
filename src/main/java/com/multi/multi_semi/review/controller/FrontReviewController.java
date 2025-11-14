@@ -3,33 +3,23 @@ package com.multi.multi_semi.review.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.multi.multi_semi.auth.dto.CustomUser;
 import com.multi.multi_semi.common.ResponseDto;
 import com.multi.multi_semi.place.dto.PlaceDto;
 import com.multi.multi_semi.place.service.PlaceService;
-import com.multi.multi_semi.review.dto.ReviewReqDto;
 import com.multi.multi_semi.review.dto.ReviewResDto;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.*;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -107,5 +97,12 @@ public class FrontReviewController {
         return "reviews/review-mypage";   // templates/review/review-mypage.html
     }
 
+
+    @GetMapping("/my") // (사이드바 링크와 일치하는 URL)
+    public String myReviewsPage(Model model) {
+        model.addAttribute("contentFragment", "mypage/my-reviews");
+        model.addAttribute("activePage", "my-reviews"); // (레이아웃 active 클래스용)
+        return "layout/mypage-layout"; // 공통 레이아웃 반환
+    }
 
 }
