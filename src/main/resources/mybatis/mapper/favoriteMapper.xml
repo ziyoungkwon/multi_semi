@@ -24,6 +24,16 @@
         from fav
     </select>
 
+
+    <select id="existsFavorite" resultType="int">
+        SELECT COUNT(*)
+        FROM fav
+        WHERE mem_email = #{email}
+        AND place_no = #{placeNo}
+    </select>
+
+
+
     <select id="selectFavoriteListWithPaging" resultType="FavoriteResDTO">
         select
         a.no as favoriteSeq,

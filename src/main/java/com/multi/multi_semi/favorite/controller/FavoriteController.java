@@ -5,21 +5,14 @@ import com.multi.multi_semi.common.ResponseDto;
 import com.multi.multi_semi.common.paging.Pagenation;
 import com.multi.multi_semi.common.paging.ResponseDtoWithPaging;
 import com.multi.multi_semi.common.paging.SelectCriteria;
-import com.multi.multi_semi.favorite.dto.FavoriteAllDto;
 import com.multi.multi_semi.favorite.dto.FavoriteReqDto;
 import com.multi.multi_semi.favorite.service.FavoriteService;
-import com.multi.multi_semi.member.dto.MemberDto;
-import com.multi.multi_semi.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -62,7 +55,8 @@ public class FavoriteController {
     public ResponseEntity<ResponseDto> insertFavorite(@ModelAttribute FavoriteReqDto favoriteDto, @AuthenticationPrincipal CustomUser customUser) {
         favoriteDto.setMemEmail(customUser.getEmail());
         log.info("[FavoriteController] Insert favoriteDto: {}", favoriteDto);
-        return ResponseEntity.ok().body(new ResponseDto(HttpStatus.CREATED, "favorite 등록 성공", favoriteService.insertFavorite(favoriteDto)));
+        favoriteService.insertFavorite(favoriteDto);
+        return ResponseEntity.ok().body(new ResponseDto(HttpStatus.CREATED, "favorite 등록 성공", null));
     }
 
     @DeleteMapping("/favorites/{favoriteSeq}")
