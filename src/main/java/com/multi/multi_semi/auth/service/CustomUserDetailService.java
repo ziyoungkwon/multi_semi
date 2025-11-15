@@ -22,7 +22,7 @@ public class CustomUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         MemberDto memberDto = memberMapper.findMemberByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 계정입니다. 이메일을 확인해주세요."));
+                .orElseThrow(() -> new UsernameNotFoundException("이메일과 비밀번호를 확인해주세요."));
 
         return CustomUser.builder()
                 .no(memberDto.getNo())
