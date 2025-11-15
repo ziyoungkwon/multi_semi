@@ -5,19 +5,56 @@
 
     <h2>내 리뷰</h2>
     <div class="mypage-content-header">
-<!--        <div class="mypage-content-title">내가 쓴 리뷰</div>-->
         <div class="mypage-content-sub" id="review-count-text">
             리뷰를 불러오는 중입니다…
         </div>
     </div>
 
-    <div id="review-list" class="review-list">
-    </div>
+    <div id="review-list" class="review-list"></div>
 
     <div id="empty-message" class="empty-message" style="display: none;">
         아직 작성한 리뷰가 없어요.<br>
         여행 대리만족 사진을 만들고 첫 리뷰를 남겨볼까요? 😊
     </div>
+
+    <style>
+        /* ⭐ 리뷰 카드 전체를 가로 정렬로 확장 */
+        .review-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* ⭐ 텍스트 영역도 확장 */
+        .review-info {
+            flex: 1;
+        }
+
+        /* ⭐ 버튼을 오른쪽 정렬 */
+        .detail-right {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-right: 20px;
+        }
+
+        /* ⭐ 카카오 노란색 버튼 */
+        .review-detail-btn {
+            padding: 7px 14px;
+            background-color: #FEE500; /* 카카오 노랑 */
+            color: #3c1e1e !important;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none !important;
+            border: 1px solid #e5c100;
+            transition: 0.15s ease-in-out;
+        }
+
+        .review-detail-btn:hover {
+            background-color: #FFD800;
+        }
+    </style>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -25,13 +62,11 @@
         });
 
         function loadMyReviews() {
-            // const accessToken = localStorage.getItem("accessToken");
 
             fetch("/api/v1/reviews/my", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    // "Authorization": "Bearer " + accessToken
                 }
             })
                 .then(res => {
@@ -47,7 +82,7 @@
                 .catch(err => {
                     console.error(err);
                     const countText = document.getElementById("review-count-text");
-                    if(countText) countText.textContent = "리뷰를 불러오지 못했습니다.";
+                    if (countText) countText.textContent = "리뷰를 불러오지 못했습니다.";
                 });
         }
 
@@ -88,7 +123,7 @@
 
                 const place = document.createElement("div");
                 place.className = "review-place";
-                place.textContent = review.placeName || "여행지 정보 없음";
+                place.textContent = review.placeTitle || "여행지 정보 없음";
 
                 const title = document.createElement("div");
                 title.className = "review-title";
@@ -120,12 +155,26 @@
                 info.appendChild(content);
                 info.appendChild(meta);
 
+                /* ⭐⭐⭐ 오른쪽 버튼 박스 ⭐⭐⭐ */
+                const rightBox = document.createElement("div");
+                rightBox.className = "detail-right";
+
+                const detailBtn = document.createElement("a");
+                detailBtn.href = `/reviews/${review.no}`;
+                detailBtn.textContent = "상세보기";
+                detailBtn.className = "review-detail-btn";
+
+                rightBox.appendChild(detailBtn);
+
+                /* 카드에 구성 요소 삽입 */
                 card.appendChild(thumb);
                 card.appendChild(info);
+                card.appendChild(rightBox);
 
                 listEl.appendChild(card);
             });
         }
     </script>
+
 </th:block>
 </html>

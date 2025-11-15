@@ -381,7 +381,7 @@
 
     } catch (err) {
       if (err.message === "Failed to fetch") {
-        uiShowError("요청 실패 (Failed to fetch).\n\n토큰이 만료되었을 수 있습니다.\n페이지 상단의 '엑세스 토큰 재발급 테스트' 버튼을 누른 후 다시 시도해 주세요.");
+        uiShowError("요청 실패.\n\n로그인한 회원만 사용가능합니다.");
       } else {
         uiShowError(err.message);
       }
